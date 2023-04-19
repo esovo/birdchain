@@ -49,6 +49,7 @@ export default {
   line-height: 27px;
   width: 100%;
   border-bottom: solid;
+  background-color: white;
 }
 a {
   text-decoration: none;
