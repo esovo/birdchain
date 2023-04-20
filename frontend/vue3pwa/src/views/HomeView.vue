@@ -82,34 +82,70 @@
       <div class="maintext3">
         기부하고 NFT를 받아가세요
       </div>
-      <div class="nftdonator">
-        <v-carousel hide-delimiters>
-          <v-carousel-item
-            >
-            
+        <div class="nftdonator">
+        <swiper
+          :effect="'coverflow'"
+          :navigation="true"
+          :grabCursor="true"
+          :centeredSlides="true"
+          :slidesPerView="'auto'"
+          :loop="true"
+          :coverflowEffect="{
+            rotate: 50,
+            stretch: 10,
+            depth: 100,
+            modifier: 1,
+            slideShadows: false,
+          }"
+          :modules="modules"
+          class="mySwiper"
+        >
+          <swiper-slide>
             <main-card></main-card>
-          </v-carousel-item>
-          <v-carousel-item
-            >
+          </swiper-slide>
+          <swiper-slide>
             <main-card></main-card>
-          </v-carousel-item>
-          <v-carousel-item
-            >
+          </swiper-slide>
+          <swiper-slide>
             <main-card></main-card>
-          </v-carousel-item>
-        </v-carousel>
-      </div>
+          </swiper-slide>
+          <swiper-slide>
+            <main-card></main-card>
+          </swiper-slide>
+          <swiper-slide>
+            <main-card></main-card>
+          </swiper-slide>
+          <swiper-slide>
+            <main-card></main-card>
+          </swiper-slide>
+          <swiper-slide>
+            <main-card></main-card>
+          </swiper-slide>
+        </swiper>
+    </div>
   </div>
 </template>
 
 <script>
 import MainCard from '@/components/home/MainCard.vue';
-
-
+import { EffectCoverflow, Pagination } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/vue";
+import { Navigation } from 'swiper';
+import "swiper/css";
+import "swiper/css/effect-coverflow";
+import "swiper/css/pagination";
+import 'swiper/css/navigation';
 export default {
   name: 'HomeView',
   components: {
-    MainCard
+    MainCard,
+    Swiper,
+    SwiperSlide,
+  },
+  setup() {
+    return {
+      modules: [EffectCoverflow, Pagination,Navigation],
+    };
   },
   data() {
     return {
@@ -178,7 +214,7 @@ export default {
 }
 
 .maintext3{
-  font-family: 'IBM Plex Sans';
+  font-family: 'IBM Plex Sans', sans-serif;
   font-style: normal;
   font-weight: 600;
   font-size: 3vw;
@@ -190,7 +226,7 @@ export default {
 
 .subtext{
   margin-top: 1rem;
-  font-family: 'IBM Plex Sans';
+  font-family: 'IBM Plex Sans', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 1vw;
@@ -201,7 +237,7 @@ export default {
 
 .subtext2{
   margin-top: 1rem;
-  font-family: 'IBM Plex Sans';
+  font-family: 'IBM Plex Sans', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 1vw;
@@ -293,6 +329,23 @@ export default {
   z-index: -1;
 }
 
+.swiper {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 350px;
+  height: 500px;
+}
+
+/* .swiper-slide img {
+  display: block;
+  width: 100%;
+} */
 
 @media (max-width: 600px) {  
 
