@@ -5,14 +5,18 @@
       <!-- <router-link to="/about">About</router-link> -->
   </div>
   <router-view />
+  <FooterComponent></FooterComponent>
 </template>
 
 <script>
+import FooterComponent from './components/common/FooterComponent.vue';
 import HeaderComponentVue from './components/common/HeaderComponent.vue';
+
 export default {
   name: 'App',
   components: {
-    HeaderComponentVue
+    HeaderComponentVue,
+    FooterComponent
   }
 }
 </script>
