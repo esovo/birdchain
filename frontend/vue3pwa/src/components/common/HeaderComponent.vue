@@ -74,6 +74,11 @@ a {
   flex-direction: row;
   margin-left: 4%;
   margin-top: 40px;
+  font-family: 'IBM Plex Sans KR';
+  font-style: bold;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 27px;
 }
 
 @media (max-width: 600px) {  

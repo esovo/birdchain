@@ -4,8 +4,8 @@
     <v-btn-toggle
       v-model="toggle"
       color="green"
-      variant="text"
-      rounded="xl"
+      width="100px"
+      variant="outlined"
     >
       <v-btn >위급</v-btn>
       <v-btn >위기</v-btn>
@@ -14,7 +14,12 @@
       <v-btn >최소관심</v-btn>
     </v-btn-toggle>
     </div>
-    <birds-card></birds-card>
+    <div class="cardsection">
+      <birds-card></birds-card>
+      <birds-card></birds-card>
+      <birds-card></birds-card>
+    </div>
+    <v-pagination :length="6" id="bird-pagination"></v-pagination>
   </div>
 </template>
 <script>
@@ -29,8 +34,21 @@ export default {
   data: () => ({
       toggle: null,
   }),
+
 }
 </script>
-<style lang="">
-  
+<style>
+
+.cardsection{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 100px;
+  margin-right: 10vw;
+  margin-left: 10vw;
+}
+
+#bird-pagination{
+  margin-top: 200px;
+}
 </style>
