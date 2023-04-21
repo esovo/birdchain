@@ -287,8 +287,8 @@ export default {
 
 #circle1 {
   position: absolute;
-  width: 820px;
-  height: 820px;
+  width: 55vw;
+  height: 55vw;
   background-color: #F7FBF3;
   border-radius: 50%;
   left: 50%;
@@ -298,8 +298,8 @@ export default {
 
 #circle2 {
   position: absolute;
-  width: 100px;
-  height: 100px;
+  width: 6vw;
+  height: 6vw;
   background-color: #D6E8C5;
   border-radius: 50%;
   left: 20%;
@@ -309,8 +309,8 @@ export default {
 
 #circle3 {
   position: absolute;
-  width: 400px;
-  height: 400px;
+  width: 25vw;
+  height: 25vw;
   background-color: #F8F8F8;
   border-radius: 50%;
   left: 30%;
@@ -320,8 +320,8 @@ export default {
 
 #circle4 {
   position: absolute;
-  width: 820px;
-  height: 820px;
+  width: 55vw;
+  height: 55vw;
   background-color: #F7FBF3;
   border-radius: 50%;
   left: 0%;
@@ -348,7 +348,12 @@ export default {
 } */
 
 @media (max-width: 600px) {  
-
-  
+  #home{
+  display: flex;
+  flex-direction: column;
+  margin-right: 5%;
+  margin-left: 5%;
+  margin-top: 10%;
+  }
 }
 </style>
