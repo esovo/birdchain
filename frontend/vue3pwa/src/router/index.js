@@ -3,6 +3,7 @@ import { createWebHistory, createRouter } from "vue-router";
 import HomeView from "@/views/HomeView.vue";
 import BirdsView from "@/views/BirdsView.vue";
 import MypageView from "@/views/MypageView.vue";
+import DonateView from "@/views/DonateView.vue";
 
 const routes = [
   {
@@ -19,8 +20,13 @@ const routes = [
     path: "/mypage",
     name: "mypage",
     component: MypageView,
-  }
+  },
 
+  {
+    path: "/Donate",
+    name: "DonateView",
+    component: DonateView,
+  },
 ];
 
 const router = createRouter({

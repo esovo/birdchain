@@ -13,10 +13,13 @@
     "pinia": "^2.0.34",
     "register-service-worker": "^1.7.2",
     "swiper": "^9.2.3",
+    "three": "^0.151.3",
     "v3-infinite-loading": "^1.2.2",
     "vue": "^3.2.13",
     "vue-router": "^4.1.6",
-    "vuetify": "^3.1.14"
+    "vue3-swiper": "^1.0.0",
+    "vuetify": "^3.1.14",
+    "web3": "^1.9.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
