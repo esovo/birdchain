@@ -1,0 +1,9 @@
+mysql:
+#  port: mysql-db:3306 추후 컨테이너명으로 변경
+  port: localhost:3306
+  user: birdchain
+  pwd: "notconfirmed"
+
+#cors:
+#  allowedOrigins: https://k8b104.p.ssafy.io
+

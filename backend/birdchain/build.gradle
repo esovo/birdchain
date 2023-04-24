@@ -6,27 +6,80 @@ plugins {
 
 group = 'com.ssafy'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+sourceCompatibility = '17'  // oracle openJDK 17
 
 configurations {
+    // logback 의존성 제거 => log4j2로 변경을 위함
+    all {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
+
     compileOnly {
         extendsFrom annotationProcessor
     }
 }
+
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
+    // log4j2 추가, 쿼리로그 추가
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+    implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
+
+    // MySQL
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
+    // Spring Data JPA
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // Spring Web
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    compileOnly 'org.projectlombok:lombok'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // Swagger 3
+    implementation "io.springfox:springfox-boot-starter:3.0.0"
+    implementation "io.springfox:springfox-swagger-ui:3.0.0"
+
+    // Lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    // Spring Boot Devtools
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    // QueryDsl
+    implementation "com.querydsl:querydsl-jpa:5.0.0"
+    implementation "com.querydsl:querydsl-apt:5.0.0"
+
 }
 
-tasks.named('test') {
-    useJUnitPlatform()
+//tasks.named('test') {
+//    useJUnitPlatform()
+//}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs << "-Xlint:unchecked" << "-source" << "1.8" << "-target" << "1.8"
 }
+
+
+// Qtype 생성 경로
+//def querydslDir = "$buildDir/generated/querydsl"
+//querydsl {
+//    jpa = true
+//    querydslSourcesDir = querydslDir
+//}
+//sourceSets {
+//    main.java.srcDir querydslDir
+//}
+//configurations {
+//    compileOnly {
+//        extendsFrom annotationProcessor
+//    }
+//    querydsl.extendsFrom compileClasspath
+//}
+//compileQuerydsl{
+//    options.annotationProcessorPath = configurations.querydsl
+//}

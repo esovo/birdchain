@@ -1,0 +1,27 @@
+server:
+    servlet:
+        context-path: /app
+        port: 8080
+
+logging:
+    config: classpath:log4j2.xml
+
+spring:
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://${mysql.port}/birdchain?allowPublicKeyRetrieval=true&useSSL=false&useUniCode=yes&characterEncoding=utf8&serverTimezone=Asia/Seoul
+        username: ${mysql.user}
+        password: ${mysql.pwd}
+
+    jpa:
+        database: mysql
+        show-sql: true
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                show_sql: true
+                format_sql: true
+
+
+
