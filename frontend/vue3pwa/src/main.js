@@ -9,6 +9,8 @@ import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
 import Vue3Swiper from "vue3-swiper";
 import "swiper/swiper-bundle.css";
+import "@mdi/font/css/materialdesignicons.css";
+
 const vuetify = createVuetify({
   components,
   directives,

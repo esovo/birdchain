@@ -58,6 +58,7 @@ export default {
   line-height: 27px;
   width: 100%;
   border-bottom: solid;
+  background-color: white;
 }
 a {
   text-decoration: none;
@@ -82,6 +83,11 @@ a {
   flex-direction: row;
   margin-left: 4%;
   margin-top: 40px;
+  font-family: "IBM Plex Sans KR";
+  font-style: bold;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 27px;
 }
 
 @media (max-width: 600px) {
