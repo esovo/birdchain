@@ -70,6 +70,9 @@ export default {
 <style>
 /* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
 .flip-card {
+  margin-top: 200px;
+  margin-right: 2vw;
+  margin-left: 2vw;
   background-color: transparent;
   width: 300px;
   height: 200px;
@@ -82,7 +85,7 @@ export default {
   width: 100%;
   height: 100%;
   text-align: center;
-  transition: transform 1.2s;
+  transition: transform 0.8s;
   transform-style: preserve-3d;
 }
 
