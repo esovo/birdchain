@@ -1,20 +1,20 @@
 <template>
   <div id="nav">
     <HeaderComponentVue></HeaderComponentVue>
-      <!-- <router-link to="/">Home</router-link> -->
-      <!-- <router-link to="/about">About</router-link> -->
+    <!-- <router-link to="/">Home</router-link> -->
+    <!-- <router-link to="/about">About</router-link> -->
+    <router-view />
   </div>
-  <router-view />
 </template>
 
 <script>
-import HeaderComponentVue from './components/common/HeaderComponent.vue';
+import HeaderComponentVue from "./components/common/HeaderComponent.vue";
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HeaderComponentVue
-  }
-}
+    HeaderComponentVue,
+  },
+};
 </script>
 
 <style>
