@@ -1,24 +1,25 @@
 <template>
   <div id="nav">
     <HeaderComponentVue></HeaderComponentVue>
-      <!-- <router-link to="/">Home</router-link> -->
-      <!-- <router-link to="/about">About</router-link> -->
+    <!-- <router-link to="/">Home</router-link> -->
+    <!-- <router-link to="/about">About</router-link> -->
+    <router-view />
   </div>
   <router-view />
   <FooterComponent></FooterComponent>
 </template>
 
 <script>
-import FooterComponent from './components/common/FooterComponent.vue';
-import HeaderComponentVue from './components/common/HeaderComponent.vue';
+import FooterComponent from "./components/common/FooterComponent.vue";
+import HeaderComponentVue from "./components/common/HeaderComponent.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     HeaderComponentVue,
-    FooterComponent
-  }
-}
+    FooterComponent,
+  },
+};
 </script>
 
 <style>
