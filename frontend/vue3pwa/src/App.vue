@@ -5,7 +5,6 @@
     <!-- <router-link to="/about">About</router-link> -->
     <router-view />
   </div>
-  <router-view />
   <FooterComponent></FooterComponent>
 </template>
 
