@@ -11,10 +11,13 @@
         <div class="donate-card">
           <img src="@/assets/img/Donate_dialog.png" class="v-card-img" />
           <v-card-text>
-            <h1>기부할 금액을 설정해주세요.</h1>
-            <h3>기부 최소 금액은 0.001 ETH입니다.</h3>
+            <h1 style="margin-bottom: 10px">기부할 금액을 설정해주세요.</h1>
+            <font-awesome-icon :icon="['far', 'circle-xmark']" />
+            <h3 style="margin-bottom: 20px">
+              기부 최소 금액은 0.001 ETH입니다.
+            </h3>
             <h2>현재 잔고 :</h2>
-            <v-btn> 기부하기 </v-btn>
+            <v-btn style="margin-top: 150px"> 기부하기 </v-btn>
           </v-card-text>
         </div>
         <v-card-actions>
@@ -29,6 +32,7 @@
 <script>
 import { ref } from "vue";
 import { createWeb3Instance } from "@/web3";
+
 export default {
   setup() {
     const dialog = ref(false);

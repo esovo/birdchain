@@ -4,6 +4,7 @@ import HomeView from "@/views/HomeView.vue";
 import BirdsView from "@/views/BirdsView.vue";
 import MypageView from "@/views/MypageView.vue";
 import DonateView from "@/views/DonateView.vue";
+import NftView from "@/views/NftView.vue";
 
 const routes = [
   {
@@ -26,6 +27,11 @@ const routes = [
     path: "/Donate",
     name: "DonateView",
     component: DonateView,
+  },
+  {
+    path: "/Nft",
+    name: "NftView",
+    component: NftView,
   },
 ];
 
