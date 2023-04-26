@@ -1,17 +1,17 @@
 <template lang="">
   <DonateViewSwiper></DonateViewSwiper>
-  <DonateViewPage></DonateViewPage>
+  <DonateViewDialog></DonateViewDialog>
   <router-view />
 </template>
 
 <script>
 import DonateViewSwiper from "../components/donateComponent/DonateViewSwiper.vue";
-import DonateViewPage from "../components/donateComponent/DonateViewDialog.vue";
+import DonateViewDialog from "../components/donateComponent/DonateViewDialog.vue";
 export default {
   name: "DonateView",
   components: {
     DonateViewSwiper,
-    DonateViewPage,
+    DonateViewDialog,
   },
 };
 </script>
