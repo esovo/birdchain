@@ -6,6 +6,7 @@ import MypageView from "@/views/MypageView.vue";
 import DonateView from "@/views/DonateView.vue";
 import GameView from "@/views/GameView.vue";
 import GameOverView from "@/views/GameOverView.vue";
+import NftView from "@/views/NftView.vue";
 
 const routes = [
   {
@@ -36,7 +37,12 @@ const routes = [
   {
     path: "/gameover",
     name: "gameover",
-    component: GameOverView,
+    component: GameOverView
+  },
+  {
+    path: "/Nft",
+    name: "NftView",
+    component: NftView,
   },
 ];
 
