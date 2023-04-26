@@ -16,5 +16,7 @@ COPY . .
 # Build the project
 RUN npm run build
 
+EXPOSE 3000
+
 # Set the command to run on container start
 CMD ["npm", "run", "serve"]

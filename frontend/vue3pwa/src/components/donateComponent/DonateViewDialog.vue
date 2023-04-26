@@ -11,20 +11,22 @@
         <div class="donate-card">
           <img src="@/assets/img/Donate_dialog.png" class="v-card-img" />
           <v-card-text>
-            <h1 style="margin-bottom: 10px">기부할 금액을 설정해주세요.</h1>
-            <font-awesome-icon :icon="['far', 'circle-xmark']" />
-            <h3 style="margin-bottom: 20px">
+            <div class="awesome-icon">
+              <font-awesome-icon
+                :icon="['fass', 'xmark']"
+                @click="dialog = false"
+                size="2xl"
+                style="cursor: pointer"
+              />
+            </div>
+            <h1 style="margin-bottom: 3vw">기부할 금액을 설정해주세요.</h1>
+            <h3 style="margin-bottom: 2vw">
               기부 최소 금액은 0.001 ETH입니다.
             </h3>
             <h2>현재 잔고 :</h2>
-            <v-btn style="margin-top: 150px"> 기부하기 </v-btn>
           </v-card-text>
         </div>
-        <v-card-actions>
-          <v-btn color="primary" block @click="dialog = false"
-            >Close Dialog</v-btn
-          >
-        </v-card-actions>
+        <div class="dialog-donate-btn" d><v-btn> 기부하기 </v-btn></div>
       </v-card>
     </v-dialog>
   </div>
@@ -60,16 +62,30 @@ export default {
 </script>
 <style scoped>
 .donate-button {
-  margin-top: 100px;
-  font-size: 20px;
-  padding: 60px, 100px;
+  margin-top: 10vw;
+  font-size: 1.5vw;
 }
 .donate-card {
   display: flex;
   flex-direction: row;
 }
 .v-card-img {
-  width: 300px;
-  height: 300px;
+  margin-top: 3vw;
+  margin-left: 3vw;
+  width: 20vw;
+  height: 20vw;
+}
+
+.awesome-icon {
+  display: flex;
+  margin-bottom: 2vw;
+  flex-direction: row-reverse;
+}
+
+.dialog-donate-btn {
+  display: flex;
+  margin-top: 3vw;
+  margin-bottom: 3vw;
+  justify-content: center;
 }
 </style>

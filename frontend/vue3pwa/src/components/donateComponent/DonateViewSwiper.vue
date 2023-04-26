@@ -1,15 +1,14 @@
 <template>
   <div>
-    <div style="margin-top: 50px">
+    <div style="margin-top: 3vw">
       <h1>코인을 기부하고 NFT를 받아가세요.</h1>
     </div>
-    <div style="margin-top: 50px">
+    <div style="margin-top: 3vw">
       <h3>랜덤으로 4개의 이미지를 제공하고 하나를 선택할 수 있습니다.</h3>
     </div>
-    <div style="margin-bottom: 30px">
+    <div style="margin-bottom: 3vw">
       <h3>아래는 받아갈 수 있는 NFT의 예시입니다.</h3>
     </div>
-
     <swiper ref="swiperRef" v-bind="swiperOptions" class="swiper-container">
       <swiper-slide v-for="(item, i) in items" :key="i">
         <img
@@ -76,10 +75,9 @@ export default {
   },
 };
 </script>
-
 <style>
 .swiper-slide img {
-  width: 300px;
+  width: 25vw;
   height: auto;
   border-radius: 50%;
 }
