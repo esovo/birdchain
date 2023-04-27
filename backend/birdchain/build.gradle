@@ -51,8 +51,8 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
     // QueryDsl
-    implementation "com.querydsl:querydsl-jpa:5.0.0"
-    implementation "com.querydsl:querydsl-apt:5.0.0"
+//    implementation "com.querydsl:querydsl-jpa:5.0.0"
+//    implementation "com.querydsl:querydsl-apt:5.0.0"
 
 }
 
