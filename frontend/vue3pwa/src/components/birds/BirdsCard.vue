@@ -90,8 +90,9 @@ export default {
 }
 
 /* Do an horizontal flip when you move the mouse over the flip box container */
-.flip-card:hover .flip-card-inner {
-  transform: rotateY(180deg);
+.flip-card:active .flip-card-inner {
+  
+  transform: rotate3d(1, 1, 1, 45deg);
 }
 
 /* Position the front and back side */

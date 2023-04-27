@@ -260,7 +260,11 @@ export default {
     movePipe() {
       this.pipe.Ty = this.pipe.By - this.pipe.height - this.pipe.pipeDdistance
 
-      if (this.pipe.x < this.bird.x && this.pipe.x > this.bird.x - 2) {
+      // if (this.pipe.x < this.bird.x && this.pipe.x > this.bird.x - 2) {
+      //   this.setScoreText()
+      // }
+
+      if (this.pipe.x < this.bird.x && this.pipe.x > this.bird.x - 3) {
         this.setScoreText()
       }
 
@@ -268,7 +272,7 @@ export default {
         this.pipe.x = 340
         this.pipe.By = this.randomHeight()
       }
-      this.pipe.x -= 2 
+      this.pipe.x -= 3
     },
     hitTopPipe() {
       let birdTop = this.bird.y;
