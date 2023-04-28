@@ -23,7 +23,7 @@ FROM nginx:stable-alpine
 COPY --from=build /app_front/dist /usr/share/nginx/html
 
 # Nginx 포트 설정
-EXPOSE 3000
+EXPOSE 80
 
 # Nginx 실행
 CMD ["nginx", "-g", "daemon off;"]
