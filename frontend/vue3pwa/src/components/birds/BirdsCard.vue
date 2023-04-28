@@ -1,118 +1,123 @@
-<template lang="">
-  <div class="flip-card">
-    <div class="flip-card-inner">
+<template>
+  <div class="flip-card" :class="{ 'show-overlay': showOverlay }">
+    <div class="flip-card-inner" v-on:click="flipCard">
       <div class="flip-card-front">
-        <v-card
-          class=""
-          width="300"
+        <v-card class="" width="325">
+          <v-img :src="birdData.img" height="350px" cover></v-img>
+          <v-card-title> {{ birdData.국명 }} </v-card-title>
+          <v-card-subtitle>{{ birdData.학명 }} </v-card-subtitle>
+          <v-card-subtitle v-if="birdData.국가적색목록 === 'RE'"
+            >지역절멸</v-card-subtitle
           >
-          <v-img
-            :src=birdImgUrl
-            height="200px"
-            cover
-          ></v-img>
-
-          <v-card-title>
-            새이름
-          </v-card-title>
-
-          <v-card-subtitle>
-            
-          </v-card-subtitle>
-            내용
-
-          <v-card-actions>
-            <v-btn
-              color="orange-lighten-2"
-              variant="text"
-            >
-            자세히 보기
-            </v-btn>
-
-            <v-spacer></v-spacer>
-
-          </v-card-actions>
+          <v-card-subtitle v-if="birdData.국가적색목록 === 'CR'"
+            >위급</v-card-subtitle
+          >
+          <v-card-subtitle v-if="birdData.국가적색목록 === 'EN'"
+            >위기</v-card-subtitle
+          >
+          <v-card-subtitle v-if="birdData.국가적색목록 === 'VU'"
+            >취약</v-card-subtitle
+          >
+          <v-card-subtitle v-if="birdData.국가적색목록 === 'NT'"
+            >준위협</v-card-subtitle
+          >
+          <v-card-subtitle v-if="birdData.국가적색목록 === 'LC'"
+            >관심대상</v-card-subtitle
+          >
         </v-card>
       </div>
-      <div class="flip-card-back">
-        <v-card
-          class=""
-          width="300"
-          >
-          <v-img
-            :src=birdImgUrl
-            height="200px"
-            cover
-          ></v-img>
-
-          <v-card-title>
-            새이름
-          </v-card-title>
-
-          <v-card-subtitle>
-            
-          </v-card-subtitle>
-            어쩌구 저쩌구
-        </v-card>
-    </div>
+      <div class="overlay">
+        <p>{{ birdData.text }}</p>
+      </div>
     </div>
   </div>
 </template>
+
 <script>
+import "@/assets/json/bird.json";
 export default {
   name: "BirdsCard",
-  data: () => ({
-      show: false,
-      birdImgUrl:  require("../../assets/img/owl.png"),
-  }),
-}
+  props: {
+    birdData: {
+      type: Object,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      showOverlay: false,
+    };
+  },
+  methods: {
+    flipCard() {
+      this.showOverlay = !this.showOverlay;
+      if (!this.showOverlay) {
+        // 이미지가 나오게 하려면 아래와 같이 값을 변경합니다.
+        // this.birdData.img = '새 이미지 URL';
+        // this.birdData.국명 = '새 국명';
+        // this.birdData.학명 = '새 학명';
+      }
+    },
+  },
+};
 </script>
-<style>
-/* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
+
+<style lang="scss">
+$flip-card: rgba(0, 0, 0, 0.2);
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.flip-card,
+.overlay {
+  text-align: center;
+}
+
+img,
+.overlay {
+  transition: 0.3s all;
+  border-radius: 3px;
+}
+
 .flip-card {
-  margin-top: 200px;
+  margin-top: 100px;
   margin-right: 2vw;
   margin-left: 2vw;
-  background-color: transparent;
-  width: 300px;
-  height: 200px;
-  perspective: 1000px; /* Remove this if you don't want the 3D effect */
-}
-
-/* This container is needed to position the front and back side */
-.flip-card-inner {
+  float: left;
+  max-width: 31%;
   position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  transition: transform 0.8s;
-  transform-style: preserve-3d;
-}
-
-/* Do an horizontal flip when you move the mouse over the flip box container */
-.flip-card:hover .flip-card-inner {
-  transform: rotateY(180deg);
-}
-
-/* Position the front and back side */
-.flip-card-front, .flip-card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  -webkit-backface-visibility: hidden; /* Safari */
-  backface-visibility: hidden;
-}
-
-/* Style the front side (fallback if image is missing) */
-.flip-card-front {
-  background-color: #bbb;
-  color: black;
-}
-
-/* Style the back side */
-.flip-card-back {
-  background-color: dodgerblue;
-  color: white;
-  transform: rotateY(180deg);
+  img {
+    width: 100%;
+    margin-bottom: -4px;
+  }
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: $flip-card;
+    color: #fff;
+    opacity: 0;
+    h2 {
+      padding-top: 20%;
+      font-family: "Droid Serif", serif;
+    }
+    p {
+      font-family: "Julius Sans One", sans-serif;
+    }
+  }
+  &.show-overlay .overlay {
+    opacity: 1;
+  }
+  &.show-overlay img {
+    -webkit-filter: blur(2px);
+    filter: blur(2px);
+  }
 }
 </style>
