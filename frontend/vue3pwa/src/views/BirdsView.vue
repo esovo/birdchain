@@ -28,6 +28,7 @@
 </template>
 <script>
 import BirdsCard from '@/components/birds/BirdsCard.vue';
+// import birddata from '@/assets/json/bird.json';
 
 export default {
   name: 'BirdsView',
@@ -68,6 +69,8 @@ export default {
       $state.error();
     }
   };
+
+
 </script>
 
 <style>
