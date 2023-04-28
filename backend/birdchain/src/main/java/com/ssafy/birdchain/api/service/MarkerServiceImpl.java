@@ -13,15 +13,24 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class MarkerServiceImpl implements MarkerService{
+public class MarkerServiceImpl implements MarkerService {
 
     private final MarkerRepository markerRepository;
 
+    /**
+     * 유형에 따른 마커 목록 조회
+     * @param type
+     * @return List<MarkerAllResDTO>
+     */
     @Override
     public List<MarkerAllResDTO> findAllMarker(String type) {
-        return markerRepository.findByType(type);
+        return markerRepository.findAllByType(type);
     }
 
+    /**
+     * 마커 등록
+     * @param markerAddReqDTO
+     */
     @Override
     public void addMarker(MarkerAddReqDTO markerAddReqDTO) {
         Marker marker = Marker.builder()
