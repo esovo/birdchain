@@ -35,7 +35,7 @@ pipeline {
     stage('Run Container') {
       steps {
         script {
-          docker.image("birdchain-front:${env.BUILD_NUMBER}").run("--name frontend -p 3000:3000")
+          docker.image("birdchain-front:${env.BUILD_NUMBER}").run("--name frontend -p 3000:80")
         }
       }
     }
