@@ -19,7 +19,7 @@
           다른 동물과 식물들도 영향을 받을 수 있습니다.
         </div>
         <div>
-          <v-btn> 기부하기 </v-btn>
+          <v-btn size="x-large"> 기부하기 </v-btn>
         </div>
       </div>
     </div>
