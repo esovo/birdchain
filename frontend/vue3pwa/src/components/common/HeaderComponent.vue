@@ -96,7 +96,7 @@ a {
 @media (max-width: 600px) {
   #navbar {
     flex-wrap: wrap;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     border-bottom: solid;
   }
@@ -105,16 +105,15 @@ a {
   }
 
   .headerLink {
+    display: none;
     flex-basis: 50%;
     margin-left: 4%;
     margin-top: 10px;
   }
   .walletimg img {
     display: flex;
-    align-self: center;
     justify-content: flex-end;
     width: 30px;
-    margin-right: 20px;
   }
 }
 </style>

@@ -238,4 +238,17 @@ export default {
   top: 0;
   left: 0;
 }
+
+@media (max-width: 600px) {
+
+.game-over {
+  flex-grow: 1;
+  width: 330px;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content:center;
+  margin: 5% 5% 5% 5%;
+}
+}
 </style>
