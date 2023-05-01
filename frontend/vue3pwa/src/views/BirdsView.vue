@@ -1,81 +1,59 @@
-<template lang="">
+<template>
   <div id="birds">
-    <div class="d-flex align-center flex-column  pa-6">
-    <v-btn-toggle
-      v-model="toggle"
-      color="green"
-      width="100px"
-      variant="outlined"
-    >
-      <v-btn >위급</v-btn>
-      <v-btn >위기</v-btn>
-      <v-btn >취약</v-btn>
-      <v-btn >준위협</v-btn>
-      <v-btn >최소관심</v-btn>
-    </v-btn-toggle>
+    <div class="d-flex align-center flex-column pa-6">
+      <v-btn-toggle
+        v-model="toggle"
+        color="green"
+        width="100px"
+        variant="outlined"
+      >
+        <v-btn value="ALL">전체</v-btn>
+        <v-btn value="RE">지역절멸</v-btn>
+        <v-btn value="CR">위급</v-btn>
+        <v-btn value="EN">위기</v-btn>
+        <v-btn value="VU">취약</v-btn>
+        <v-btn value="NT">준위협</v-btn>
+        <v-btn value="LC">관심대상</v-btn>
+      </v-btn-toggle>
     </div>
-    <!-- <div class="cardsection">
-    </div> -->
-    <!-- <v-pagination :length="6" id="bird-pagination"></v-pagination> -->
-  <div class="cardsection" v-for="comment in comments" :key="comment.id">
-    <birds-card></birds-card>
-    <birds-card></birds-card>
-    <birds-card></birds-card>
-  </div>
-  <InfiniteLoading @infinite="load" />
-  
+
+    <div class="cardsection">
+      <BirdsCard
+        v-for="(bird, index) in filteredBirds"
+        :key="index"
+        :birdData="{ ...bird, img: require(`@/assets/img/${bird.img}`) }"
+      ></BirdsCard>
+    </div>
+    <InfiniteLoading @infinite="load" />
   </div>
 </template>
+
 <script>
-import BirdsCard from '@/components/birds/BirdsCard.vue';
-// import birddata from '@/assets/json/bird.json';
+import BirdsCard from "@/components/birds/BirdsCard.vue";
+import birds from "../assets/json/bird.json";
 
 export default {
-  name: 'BirdsView',
-  components:{
-    BirdsCard
+  name: "BirdsView",
+  components: {
+    BirdsCard,
   },
   data: () => ({
-      toggle: null,
+    toggle: "ALL",
   }),
-
-}
-</script>
-
-
-<script setup>
-  import { ref } from "vue";
-  import InfiniteLoading from "v3-infinite-loading";
-  import "v3-infinite-loading/lib/style.css";
-  import dummy from  "../assets/dummy/birdlist.json"
-  let comments = ref([]);
-  // let page = 1;
-  const load = async $state => {
-    console.log("loading...");
-
-    try {
-      // const response = await fetch(
-      //   "https://jsonplaceholder.typicode.com/comments?_limit=10&_page=" + page
-      // );
-      const json = dummy
-      console.log(json)
-      if (json.length < 10) $state.complete();
-      else {
-        comments.value.push(...json);
-        $state.loaded();
+  computed: {
+    filteredBirds() {
+      if (this.toggle === "ALL") {
+        return birds;
+      } else {
+        return birds.filter((bird) => bird.국가적색목록 === this.toggle);
       }
-      // page++;
-    } catch (error) {
-      $state.error();
-    }
-  };
-
-
+    },
+  },
+};
 </script>
 
 <style>
-
-.cardsection{
+.cardsection {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -83,9 +61,4 @@ export default {
   margin-right: 10vw;
   margin-left: 10vw;
 }
-
-#bird-pagination{
-  margin-top: 200px;
-}
-
 </style>
