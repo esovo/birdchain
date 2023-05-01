@@ -2,12 +2,12 @@
   <div id="birds">
     <div class="d-flex align-center flex-column pa-6">
       <v-btn-toggle
-        v-model="toggle"
+        v-model="selectedToggles"
         color="green"
         width="100px"
         variant="outlined"
+        multiple=""
       >
-        <v-btn value="ALL">전체</v-btn>
         <v-btn value="RE">지역절멸</v-btn>
         <v-btn value="CR">위급</v-btn>
         <v-btn value="EN">위기</v-btn>
@@ -38,14 +38,16 @@ export default {
     BirdsCard,
   },
   data: () => ({
-    toggle: "ALL",
+    selectedToggles: "[]",
   }),
   computed: {
     filteredBirds() {
-      if (this.toggle === "ALL") {
+      if (this.selectedToggles.includes("")) {
         return birds;
       } else {
-        return birds.filter((bird) => bird.국가적색목록 === this.toggle);
+        return birds.filter((bird) =>
+          this.selectedToggles.includes(bird.국가적색목록)
+        );
       }
     },
   },
