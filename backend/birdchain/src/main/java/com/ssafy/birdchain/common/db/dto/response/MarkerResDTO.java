@@ -1,14 +1,10 @@
-package com.ssafy.birdchain.common.db.dto.request;
+package com.ssafy.birdchain.common.db.dto.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 
-@Getter
-@NoArgsConstructor
-@ToString
-public class MarkerAddReqDTO {
+import java.time.LocalDateTime;
+
+public class MarkerResDTO {
 
     @Schema(description = "마커 작성자 닉네임")
     private String nickname;
@@ -25,10 +21,12 @@ public class MarkerAddReqDTO {
     @Schema(description = "마커 위치")
     private String location;
 
+    @Schema(description = "마커 첨부 이미지")
+    private String image;
+
     @Schema(description = "마커 글 내용")
     private String content;
 
-    @Schema(description = "마커 비밀번호")
-    private String password;
-
+    @Schema(description = "마커 생성일자")
+    private LocalDateTime createdAt;
 }

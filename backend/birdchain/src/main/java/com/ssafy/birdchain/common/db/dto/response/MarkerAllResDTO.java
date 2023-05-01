@@ -15,9 +15,6 @@ public class MarkerAllResDTO {
     @Schema(description = "마커 아이디")
     private Long id;
 
-    @Schema(description = "마커 작성자 닉네임")
-    private String nickname;
-
     @Schema(description = "마커 유형")
     private String type;
 
@@ -29,8 +26,5 @@ public class MarkerAllResDTO {
 
     @Schema(description = "마커 첨부 이미지")
     private String image;
-
-    @Schema(description = "마커 글 내용")
-    private String content;
 
 }
