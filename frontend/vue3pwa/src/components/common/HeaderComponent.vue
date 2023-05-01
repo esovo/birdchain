@@ -5,10 +5,10 @@
       <router-link to="/birds">멸종 위기 조류</router-link>
     </div>
     <div class="headerLink">
-      <router-link to="/Donate">기부하기</router-link>
+      <router-link to="/donate">기부하기</router-link>
     </div>
     <div class="headerLink">
-      <router-link to="/infomation">정보 공유</router-link>
+      <router-link to="/post">정보 공유</router-link>
     </div>
     <div class="headerLink">
       <router-link to="/mypage">마이페이지</router-link>
