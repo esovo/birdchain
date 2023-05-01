@@ -1,33 +1,39 @@
 server:
-    servlet:
-        context-path: /app
-        port: 8080
+  servlet:
+    context-path: /app
+    port: 8080
 
 logging:
-    config: classpath:log4j2.xml
+  config: classpath:log4j2.xml
 
 spring:
-    datasource:
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://localhost:3306/birdchain?allowPublicKeyRetrieval=true&useSSL=false&useUniCode=yes&characterEncoding=utf8&serverTimezone=Asia/Seoul
-        username: root
-        password: 1234
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/birdchain?allowPublicKeyRetrieval=true&useSSL=false&useUniCode=yes&characterEncoding=utf8&serverTimezone=Asia/Seoul
+    username: root
+    password: 1234
 
-    jpa:
-        database: mysql
-        show-sql: true
-        hibernate:
-            ddl-auto: create
-        properties:
-            hibernate:
-                format_sql: true
+  jpa:
+    database: mysql
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+
+  servlet:
+    multipart:
+      max-file-size: 10MB # 파일 하나 당 최대 사이즈
+      max-request-size: 20MB # 요청 당 최대 사이즈
+
 cloud:
-    aws:
-        s3:
-            bucket: birdchain
-        stack.auto: false
-        region.static: ap-northeast-2
-        credentials:
-            accessKey: AKIAWDNHI63CVUB44IDA
-            secretKey: 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
+  aws:
+    s3:
+      bucket: birdchain
+    stack.auto: false
+    region.static: ap-northeast-2
+    credentials:
+      accessKey: AKIAWDNHI63CVUB44IDA
+      secretKey: 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
 
