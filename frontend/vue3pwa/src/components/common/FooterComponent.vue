@@ -41,4 +41,7 @@ export default {
   font-weight: 400;
   font-size: 15px;
 }
+
+
+
 </style>

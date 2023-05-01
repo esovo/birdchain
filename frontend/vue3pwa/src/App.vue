@@ -6,10 +6,16 @@
 
     <router-view />
   </div>
-  <FooterComponent></FooterComponent>
+  <div id="footer">
+    <FooterComponent></FooterComponent>
+  </div>
+  <div id="bottomnav">
+    <BottomNavComponent></BottomNavComponent>
+  </div>
 </template>
 
 <script>
+import BottomNavComponent from "./components/common/BottomNavComponent.vue";
 import FooterComponent from "./components/common/FooterComponent.vue";
 import HeaderComponentVue from "./components/common/HeaderComponent.vue";
 
@@ -18,6 +24,7 @@ export default {
   components: {
     HeaderComponentVue,
     FooterComponent,
+    BottomNavComponent
   },
 };
 </script>
@@ -29,5 +36,18 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+#bottomnav{
+  display: none;
+}
+
+@media (max-width: 600px) {
+  #footer{
+    display: none;
+  }
+  #bottomnav{
+    display: block;
+  }
 }
 </style>
