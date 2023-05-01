@@ -9,7 +9,6 @@ import GameOverView from "@/views/GameOverView.vue";
 import NftView from "@/views/NftView.vue";
 // import testview from "@/views/testview.vue";
 
-
 const routes = [
   {
     path: "/",
@@ -27,8 +26,8 @@ const routes = [
     component: MypageView,
   },
   {
-    path: "/Donate",
-    name: "DonateView",
+    path: "/donate",
+    name: "donateView",
     component: DonateView,
   },
   {
@@ -39,11 +38,11 @@ const routes = [
   {
     path: "/gameover",
     name: "gameover",
-    component: GameOverView
+    component: GameOverView,
   },
   {
-    path: "/Nft",
-    name: "NftView",
+    path: "/nft",
+    name: "nftView",
     component: NftView,
   },
   // {
