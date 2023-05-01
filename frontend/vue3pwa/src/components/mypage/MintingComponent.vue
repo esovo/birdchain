@@ -1,5 +1,8 @@
 <template lang="">
   <div class="mintingbox">
+    <div id="mynfttext">
+        나의 NFT 정보
+    </div>
     <v-table
       fixed-header
       height="300px"

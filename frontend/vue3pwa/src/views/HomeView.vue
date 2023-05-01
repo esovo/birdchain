@@ -19,7 +19,7 @@
           다른 동물과 식물들도 영향을 받을 수 있습니다.
         </div>
         <div>
-          <v-btn size="x-large"> 기부하기 </v-btn>
+          <v-btn @click="$router.push('/donate')"> 기부하기 </v-btn>
         </div>
       </div>
     </div>
@@ -51,7 +51,7 @@
             <div class="goaldetailtitle">우리의 목표</div>
             <div class="goaldetailtext">
               멸종위기의 새들을 보호하고<br />
-              사람들의 관심을 이끄는 것입니다.
+              사람들의 관심을 얻는 것입니다.
             </div>
           </div>
           <div class="goaldetail">
@@ -151,7 +151,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #home {
   display: flex;
   flex-direction: column;
@@ -180,7 +180,9 @@ export default {
 }
 
 .mainComponent img {
-  width: 20vw;
+  width: 50vw;
+  height: auto;
+  object-fit: contain;
 }
 
 .maintext {
@@ -340,12 +342,131 @@ export default {
 } */
 
 @media (max-width: 600px) {
-  #home {
-    display: flex;
-    flex-direction: column;
-    margin-right: 5%;
-    margin-left: 5%;
-    margin-top: 10%;
-  }
+#home {
+  display: flex;
+  flex-direction: column;
+  margin-right: 5%;
+  margin-left: 5%;
+  margin-top: 10%;
+}
+.mainComponent {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 20%;
+}
+
+.textfield {
+  display: flex;
+  flex-direction: column;
+  margin-left: 5vw;
+}
+
+.textfield2 {
+  display: flex;
+  flex-direction: column;
+  margin-right: 5vw;
+}
+
+.mainComponent img {
+  width: 20vw;
+}
+
+.maintext {
+  font-family: "IBM Plex Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 5vw;
+  /* font-size: 64px; */
+  text-align: right;
+  text-transform: capitalize;
+  color: #02100d;
+}
+
+.maintext2 {
+  font-family: "IBM Plex Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 5vw;
+  /* font-size: 64px; */
+  text-align: left;
+  text-transform: capitalize;
+  color: #02100d;
+}
+
+.maintext3 {
+  font-family: "IBM Plex Sans", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 5vw;
+  /* font-size: 64px; */
+  text-align: left;
+  text-transform: capitalize;
+  color: #02100d;
+}
+
+.subtext {
+  margin-top: 1rem;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 3vw;
+  text-align: right;
+  text-transform: capitalize;
+  color: #444444;
+}
+
+.subtext2 {
+  margin-top: 1rem;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 3vw;
+  text-align: left;
+  text-transform: capitalize;
+  color: #444444;
+}
+
+.goal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.goaldetail {
+  width: 30vw;
+  height: 150px;
+  background-color: #f5f5f5;
+}
+
+.goaldetailtitle {
+  color: #204c4c;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 5vw;
+}
+
+.goaldetailtext {
+  margin-top: 1rem;
+  font-family: "IBM Plex Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 4vw;
+  text-align: center;
+  text-transform: capitalize;
+  color: #555555;
+}
+
+.nftdonator {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.backcircle{
+  display: none;
+}
 }
 </style>
