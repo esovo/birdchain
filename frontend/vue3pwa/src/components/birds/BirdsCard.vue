@@ -2,10 +2,10 @@
   <div class="flip-card" :class="{ 'show-overlay': showOverlay }">
     <div class="flip-card-inner" v-on:click="flipCard">
       <div class="flip-card-front">
-        <v-card class="" width="325">
-          <v-img :src="birdData.img" height="350px" cover></v-img>
+        <v-card class="" width="22vw" style="cursor: pointer">
+          <v-img :src="birdData.img" height="25vw" cover></v-img>
           <v-card-title> {{ birdData.국명 }} </v-card-title>
-          <v-card-subtitle>{{ birdData.학명 }} </v-card-subtitle>
+          <v-card-subtitle> 학명 : {{ birdData.학명 }} </v-card-subtitle>
           <v-card-subtitle v-if="birdData.국가적색목록 === 'RE'"
             >지역절멸</v-card-subtitle
           >
@@ -27,7 +27,7 @@
         </v-card>
       </div>
       <div class="overlay">
-        <p>{{ birdData.text }}</p>
+        <p class="text">{{ birdData.text }}</p>
       </div>
     </div>
   </div>
@@ -76,12 +76,18 @@ $flip-card: rgba(0, 0, 0, 0.2);
 .flip-card,
 .overlay {
   text-align: center;
+  cursor: pointer;
 }
 
 img,
 .overlay {
   transition: 0.3s all;
   border-radius: 3px;
+}
+.text {
+  margin-top: 2vw;
+  margin-left: 1vw;
+  margin-right: 1vw;
 }
 
 .flip-card {
