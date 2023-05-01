@@ -28,7 +28,7 @@ export default {
   padding-top: 2vw;
   padding-bottom: 5vw;
   margin: 10vw 10vw 10vw 10vw;
-  background-color: grey;
+  /* background-color: grey; */
 
 }
 #mynfttext{
@@ -44,8 +44,8 @@ export default {
 }
 #mynft{
   display: flex;
-  justify-content: space-between;;
-
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 .nfturl{
   width: 15vw;

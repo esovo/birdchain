@@ -1,5 +1,8 @@
 <template lang="">
   <div class="mintingbox">
+    <div id="mynfttext">
+        나의 NFT 정보
+    </div>
     <v-table
       fixed-header
       height="300px"
@@ -28,7 +31,7 @@
           v-for="item in desserts"
           :key="item.name"
         >
-          <td class="text-left">{{ item.nft }}</td>
+          <td class="text-left" id="nftid"><img :src="img1" id="nftimg" /> <div>{{ item.nft }}</div></td>
           <td class="text-left">{{ item.value }}</td>
           <td class="text-left">{{ item.transactionfee }}</td>
           <td class="text-left" id="txid">{{ item.txid }}</td>
@@ -61,6 +64,7 @@ export default {
             rating:3
           }
         ],
+        img1: require("../../assets/img/image 14.png")
       }
     },
 }
@@ -72,9 +76,21 @@ export default {
   padding-top: 2vw;
   padding-bottom: 5vw;
   margin: 0vw 10vw 10vw 10vw;
-  background-color: grey;
+  /* background-color: grey; */
 }
 #txid{
   width: 20%;
+}
+
+#nftid{
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+}
+#nftimg{
+  margin-right: 10px;
+ 
+  width: 50px;
+  height: 50px;
 }
 </style>

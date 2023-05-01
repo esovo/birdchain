@@ -10,10 +10,10 @@
       <router-link to="/birds">멸종 위기 조류</router-link>
     </div>
     <div class="headerLink">
-      <router-link to="/Donate">기부하기</router-link>
+      <router-link to="/donate">기부하기</router-link>
     </div>
     <div class="headerLink">
-      <router-link to="/infomation">정보 공유</router-link>
+      <router-link to="/post">정보 공유</router-link>
     </div>
     <div class="headerLink">
       <router-link to="/mypage">마이페이지</router-link>
@@ -101,7 +101,7 @@ a {
 @media (max-width: 600px) {
   #navbar {
     flex-wrap: wrap;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     border-bottom: solid;
   }
@@ -110,16 +110,15 @@ a {
   }
 
   .headerLink {
+    display: none;
     flex-basis: 50%;
     margin-left: 4%;
     margin-top: 10px;
   }
   .walletimg img {
     display: flex;
-    align-self: center;
     justify-content: flex-end;
     width: 30px;
-    margin-right: 20px;
   }
 }
 </style>
