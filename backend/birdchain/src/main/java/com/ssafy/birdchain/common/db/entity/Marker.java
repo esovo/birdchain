@@ -27,6 +27,9 @@ public class Marker extends BaseTime {
     @Column(name = "marker_lat")
     private Double lat;
 
+    @Column(name = "marker_location")
+    private String location;
+
     @Column(name = "marker_image")
     private String image;
 
