@@ -1,6 +1,11 @@
 <template>
   <div id="navbar">
-    <img :src="LogoUrl" class="Logoimg" @click="this.$router.push({ name: 'main' })" />
+    <img
+      :src="LogoUrl"
+      class="Logoimg"
+      @click="this.$router.push({ name: 'main' })"
+      style="cursor: pointer"
+    />
     <div class="headerLink">
       <router-link to="/birds">멸종 위기 조류</router-link>
     </div>
@@ -16,7 +21,7 @@
     <div class="headerLink">
       <router-link to="/game">미니게임</router-link>
     </div>
-    <div class="walletimg" @click="getAccount">
+    <div class="walletimg" @click="getAccount" style="cursor: pointer">
       <img :src="walletUrl" />
     </div>
   </div>
