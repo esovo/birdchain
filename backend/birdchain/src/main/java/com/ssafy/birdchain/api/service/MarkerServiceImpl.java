@@ -41,7 +41,17 @@ public class MarkerServiceImpl implements MarkerService {
      */
     @Override
     public MarkerResDTO findMarker(Long id) {
-        return markerRepository.findById(id);
+        Marker marker = markerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 마커입니다."));
+        return MarkerResDTO.builder()
+                .type(marker.getType())
+                .nickname(marker.getNickname())
+                .lat(marker.getLat())
+                .lan(marker.getLan())
+                .location(marker.getLocation())
+                .image(marker.getImage())
+                .content(marker.getContent())
+                .createdAt(marker.getCreatedAt())
+                .build();
     }
 
 
@@ -59,6 +69,7 @@ public class MarkerServiceImpl implements MarkerService {
                 .nickname(markerAddReqDTO.getNickname())
                 .lat(markerAddReqDTO.getLat())
                 .lan(markerAddReqDTO.getLan())
+                .location(markerAddReqDTO.getLocation())
                 .type(markerAddReqDTO.getType())
                 .content(markerAddReqDTO.getContent())
                 .password(markerAddReqDTO.getPassword())

@@ -25,11 +25,11 @@ public class MarkerController {
 
     @GetMapping
     @ApiOperation(value = "전체 마커 조회")
-    public ResponseEntity<ResponseDTO> markerAllList(@RequestBody String type) {
+    public ResponseEntity<ResponseDTO> markerAllList(@RequestParam String type) {
         return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, "조회에 성공했습니다.", markerService.findAllMarker(type)));
     }
 
-    @GetMapping
+    @GetMapping("/detail")
     @ApiOperation(value = "마커 상세 조회")
     public ResponseEntity<ResponseDTO> markerDetail(@RequestParam Long id){
         return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, "조회에 성공했습니다.", markerService.findMarker(id)));
