@@ -32,7 +32,7 @@ export default {
     initMap() {
       const container = document.getElementById("map");
       const options = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667),
+        center: new kakao.maps.LatLng(36.354946759143, 127.29980994578),
         level: 5,
       };
 
@@ -73,8 +73,15 @@ export default {
 <style scoped>
 #map {
   margin: 0 auto;
-  margin-top: 100px; /* 상단 여백 추가 */
-  width: 1292px;
-  height: 675.54px;
+  width: 85vw;
+  height: 50vw;
+}
+
+@media (max-width: 600px) {
+  #map {
+    justify-content: center;
+    width: 100vw;
+    height: 90vw;
+  }
 }
 </style>

@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import DonateViewSwiper from "../components/donateComponent/DonateViewSwiper.vue";
-import DonateViewDialog from "../components/donateComponent/DonateViewDialog.vue";
+import DonateViewSwiper from "../components/donate/DonateViewSwiper.vue";
+import DonateViewDialog from "../components/donate/DonateViewDialog.vue";
 export default {
   name: "DonateView",
   components: {
