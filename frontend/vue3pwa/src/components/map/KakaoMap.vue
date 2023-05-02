@@ -73,7 +73,7 @@ export default {
 <style scoped>
 #map {
   margin: 0 auto;
-  margin-top: 20px; /* 상단 여백 추가 */
+  margin-top: 10px; /* 상단 여백 추가 */
   width: 1292px;
   height: 675.54px;
 }

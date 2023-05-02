@@ -1,8 +1,8 @@
 ﻿<template>
   <v-col
     cols="6"
-    sm="12"
-    class="py-10 text-right"
+    sm="11"
+    class="py-10 pr-16 text-right"
   >
     <v-btn-toggle
       v-model="toggle_multiple"
