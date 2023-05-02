@@ -31,3 +31,13 @@
     }
   }
 </script>
+
+<style scoped>
+@media (max-width: 600px) {
+  #map {
+    justify-content: center;
+    width: 80vw;
+    height: 80vw;
+  }
+}
+</style>
