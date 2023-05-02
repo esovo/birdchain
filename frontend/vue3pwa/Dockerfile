@@ -4,6 +4,10 @@ FROM node:18.16.0-alpine AS build
 # 작업 디렉토리 설정
 WORKDIR /app_front
 
+# 환경변수 추가
+ARG VUE_APP_KAKAOMAP_KEY
+ENV VUE_APP_KAKAOMAP_KEY=$VUE_APP_KAKAOMAP_KEY
+
 # package.json과 package-lock.json 복사
 COPY package*.json ./
 
@@ -14,7 +18,7 @@ RUN npm install
 COPY . .
 
 # 프로젝트 빌드
-RUN npm run build
+RUN npm run buildg
 
 # 2단계: 실행용 이미지
 FROM nginx:stable-alpine
