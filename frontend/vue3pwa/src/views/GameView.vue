@@ -140,6 +140,7 @@ export default {
             this.setPositionPipe()
             this.hitTopPipe()
             this.hitBottomPipe()
+            // this.hitTop()
             this.hitGround()
             this.climbsBorders()
 
@@ -313,17 +314,27 @@ export default {
         this.finish()
       }
     },
+    // hitTop() {
+    //   let birdBottom = this.bird.y + this.bird.animatedSpray.height;
+    //   let fieldTop = this.ground.tilingSpriteGround.y
+    //   console.log(fieldTop)
+      
+    // },
     hitGround() {
       let birdBottom = this.bird.y + this.bird.animatedSpray.height;
       let groundTop = this.ground.tilingSpriteGround.y
+
       if (birdBottom > groundTop) {
+        console.log(birdBottom)
+        console.log(groundTop)
         this.finish()
       }
     },
     climbsBorders() {
-      // let birdTop = this.bird.y;
-      // if (birdTop <= 0) {
-      // }
+      let birdTop = this.bird.y;
+      if (birdTop <= 0) {
+        this.finish()
+      }
     },
 
     start() {
@@ -370,7 +381,18 @@ export default {
   display: flex;
   align-items: center;
   justify-content:center;
-  margin-top: 100px;
-  margin-left: 40%;
+}
+
+@media (max-width: 600px) {
+.wrapper {
+  flex-grow: 1;
+  width: 345px;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content:center;
+  margin: 5% 5% 5% 5%;
+}
+
 }
 </style>
