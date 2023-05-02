@@ -2,7 +2,7 @@
   <v-col
     cols="6"
     sm="12"
-    class="py-10"
+    class="py-10 text-right"
   >
     <v-btn-toggle
       v-model="toggle_multiple"
