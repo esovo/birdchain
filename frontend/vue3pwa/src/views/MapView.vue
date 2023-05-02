@@ -1,17 +1,16 @@
 ﻿<template>
+  <div>
+    <MarkerTypeButton></MarkerTypeButton>
+    
     <KakaoMap></KakaoMap>
+  </div>
 </template>
 
-<script>
-import KakaoMap from "@/components/map/KakaoMap.vue";
+<script setup>
+import KakaoMap from "@/components/map/KakaoMap.vue"
+import MarkerTypeButton from "@/components/map/MarkerTypeButton.vue";
+</script>
 
-export default {
-  components: {
-    KakaoMap
-  }
-}
-</script> 
-
-<style scoped>
+<style lang="scss" scoped>
 
 </style>

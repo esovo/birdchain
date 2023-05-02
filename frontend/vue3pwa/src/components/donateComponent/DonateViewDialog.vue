@@ -19,11 +19,11 @@
                 style="cursor: pointer"
               />
             </div>
-            <h1 style="margin-bottom: 3vw">기부할 금액을 설정해주세요.</h1>
+            <h2 style="margin-bottom: 3vw">기부할 금액을 설정해주세요.</h2>
             <h3 style="margin-bottom: 2vw">
               기부 최소 금액은 0.001 ETH입니다.
             </h3>
-            <h2>현재 잔고 :</h2>
+            <h3>현재 잔고 :</h3>
           </v-card-text>
         </div>
         <div class="dialog-donate-btn" d><v-btn> 기부하기 </v-btn></div>
