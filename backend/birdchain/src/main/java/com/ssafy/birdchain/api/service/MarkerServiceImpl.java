@@ -1,6 +1,7 @@
 package com.ssafy.birdchain.api.service;
 
 import com.ssafy.birdchain.common.db.dto.request.MarkerAddReqDTO;
+import com.ssafy.birdchain.common.db.dto.request.MarkerModifyReqDTO;
 import com.ssafy.birdchain.common.db.dto.response.MarkerAllResDTO;
 import com.ssafy.birdchain.common.db.dto.response.MarkerResDTO;
 import com.ssafy.birdchain.common.db.entity.Marker;
@@ -77,4 +78,23 @@ public class MarkerServiceImpl implements MarkerService {
                 .build();
         markerRepository.save(marker);
     }
+
+    /**
+     * 마커 수정
+     *
+     * @param markerModifyReqDTO
+     */
+    @Override
+    public void modifyMarker(MarkerModifyReqDTO markerModifyReqDTO, MultipartFile multipartFile) throws IOException{
+        Marker marker = markerRepository.findById(markerModifyReqDTO.getId()).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 마커입니다."));
+        if(!multipartFile.isEmpty()){
+            String imageUrl = imageService.upload(multipartFile, "images");
+            marker.setImage(imageUrl);
+        }
+        marker.setContent(markerModifyReqDTO.getContent());
+        markerRepository.save(marker);
+    }
+
+
+
 }

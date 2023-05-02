@@ -2,6 +2,7 @@ package com.ssafy.birdchain.api.controller;
 
 import com.ssafy.birdchain.api.service.MarkerService;
 import com.ssafy.birdchain.common.db.dto.request.MarkerAddReqDTO;
+import com.ssafy.birdchain.common.db.dto.request.MarkerModifyReqDTO;
 import com.ssafy.birdchain.common.db.dto.util.ResponseDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -40,6 +41,13 @@ public class MarkerController {
     public ResponseEntity<ResponseDTO> markerAdd(@RequestPart(value = "markerAddReqDTO") MarkerAddReqDTO markerAddReqDTO, @RequestPart(value = "file") MultipartFile multipartFile) throws IOException {
         markerService.addMarker(markerAddReqDTO, multipartFile);
         return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, "등록에 성공했습니다."));
+    }
+
+    @PutMapping
+    @ApiOperation(value = "마커 수정")
+    public ResponseEntity<ResponseDTO> markerModify(@RequestPart(value = "markerModifyReqDTO") MarkerModifyReqDTO markerModifyReqDTO, @RequestPart(value = "file") MultipartFile multipartFile) throws IOException{
+        markerService.modifyMarker(markerModifyReqDTO, multipartFile);
+        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, "수정에 성공했습니다."));
     }
 
 }
