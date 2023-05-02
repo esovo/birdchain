@@ -144,7 +144,7 @@ export default {
       this.setPositionContainer();
     },
     stageAdd() {
-      this.app.game.stage.addChild(this.recordText.text); // добавление текста
+      this.app.game.stage.addChild(this.recordText.text) 
     },
     addText() {
       this.recordText.text = new PIXI.Text(`record: ${this.isRecord}`, {

@@ -265,7 +265,7 @@ export default {
       //   this.setScoreText()
       // }
 
-      if (this.pipe.x < this.bird.x && this.pipe.x > this.bird.x - 3) {
+      if (this.pipe.x < this.bird.x && this.pipe.x > this.bird.x - 4) {
         this.setScoreText()
       }
 
@@ -346,7 +346,8 @@ export default {
       this.gameFinish = true
       // main.setScore(this.scoreText.score)
       // this.$store.dispatch('setScore', this.scoreText.score)
-      this.$router.push({ name: 'gameover' })
+      setTimeout(() => this.$router.push({ name: 'gameover' }), 2000);
+
     },
     chekGame() {
       if (!this.gameStart) {
@@ -381,6 +382,8 @@ export default {
   display: flex;
   align-items: center;
   justify-content:center;
+  margin-top: 100px;
+  margin-left: 40%;
 }
 
 @media (max-width: 600px) {
