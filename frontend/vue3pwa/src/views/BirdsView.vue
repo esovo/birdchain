@@ -1,10 +1,9 @@
 <template>
   <div id="birds">
-    <div class="d-flex align-center flex-column pa-6">
+    <div class="d-flex align-center flex-column pa-6" style="width: 100vw">
       <v-btn-toggle
         v-model="selectedToggles"
         color="green"
-        width="100px"
         variant="outlined"
         multiple=""
       >
