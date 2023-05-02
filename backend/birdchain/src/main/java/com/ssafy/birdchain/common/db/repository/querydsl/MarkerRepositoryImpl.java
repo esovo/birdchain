@@ -28,6 +28,7 @@ public class MarkerRepositoryImpl implements MarkerRepositoryCustom {
                             , marker.image
                     ))
                     .from(marker)
+                    .where(marker.status.eq(true))
                     .fetchResults();
         } else {
             results = jpaQueryFactory
@@ -39,7 +40,7 @@ public class MarkerRepositoryImpl implements MarkerRepositoryCustom {
                             , marker.image
                     ))
                     .from(marker)
-                    .where(marker.type.eq(type))
+                    .where(marker.status.eq(true), marker.type.eq(type))
                     .fetchResults();
 
         }

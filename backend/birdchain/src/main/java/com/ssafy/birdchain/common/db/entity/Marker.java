@@ -2,6 +2,7 @@ package com.ssafy.birdchain.common.db.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @Setter

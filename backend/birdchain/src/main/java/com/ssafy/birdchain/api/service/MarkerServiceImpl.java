@@ -1,6 +1,7 @@
 package com.ssafy.birdchain.api.service;
 
 import com.ssafy.birdchain.common.db.dto.request.MarkerAddReqDTO;
+import com.ssafy.birdchain.common.db.dto.request.MarkerDeleteReqDTO;
 import com.ssafy.birdchain.common.db.dto.request.MarkerModifyReqDTO;
 import com.ssafy.birdchain.common.db.dto.response.MarkerAllResDTO;
 import com.ssafy.birdchain.common.db.dto.response.MarkerResDTO;
@@ -42,7 +43,7 @@ public class MarkerServiceImpl implements MarkerService {
      */
     @Override
     public MarkerResDTO findMarker(Long id) {
-        Marker marker = markerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 마커입니다."));
+        Marker marker = markerRepository.findByIdAndStatus(id, true).orElseThrow(()-> new IllegalArgumentException("존재하지 않는 마커입니다."));
         return MarkerResDTO.builder()
                 .type(marker.getType())
                 .nickname(marker.getNickname())
@@ -75,6 +76,7 @@ public class MarkerServiceImpl implements MarkerService {
                 .content(markerAddReqDTO.getContent())
                 .password(markerAddReqDTO.getPassword())
                 .image(imageUrl)
+                .status(true)
                 .build();
         markerRepository.save(marker);
     }
@@ -95,6 +97,18 @@ public class MarkerServiceImpl implements MarkerService {
         markerRepository.save(marker);
     }
 
+    /**
+     * 마커 삭제
+     *
+     * @param markerDeleteReqDTO
+     */
+    @Override
+    public void deleteMarker(MarkerDeleteReqDTO markerDeleteReqDTO) {
+        Marker marker = markerRepository.findById(markerDeleteReqDTO.getId()).orElseThrow(()-> new IllegalArgumentException("존재하지 않는 마커입니다."));
+        if(marker.getNickname().equals(markerDeleteReqDTO.getNickname()) && marker.getPassword().equals(markerDeleteReqDTO.getPassword())){
+            marker.setStatus(false);
+        }
+    }
 
 
 }
