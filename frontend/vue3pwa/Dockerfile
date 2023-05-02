@@ -18,7 +18,7 @@ RUN npm install
 COPY . .
 
 # 프로젝트 빌드
-RUN npm run buildg
+RUN npm run build
 
 # 2단계: 실행용 이미지
 FROM nginx:stable-alpine
