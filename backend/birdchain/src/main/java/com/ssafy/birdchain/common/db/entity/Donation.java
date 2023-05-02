@@ -16,16 +16,16 @@ import java.time.LocalDateTime;
 public class Donation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "donation_id")
+    @Column(name = "donation_id", nullable = false)
     private Long id;
 
-    @Column(name = "donation_amount")
+    @Column(name = "donation_amount", nullable = false)
     private Double amount;
 
-    @Column(name = "donation_created_at")
+    @Column(name = "donation_created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "donation_transaction_hash")
+    @Column(name = "donation_transaction_hash", nullable = false)
     private String transactionHash;
 
 }

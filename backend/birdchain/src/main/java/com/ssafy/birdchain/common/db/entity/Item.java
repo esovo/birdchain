@@ -14,10 +14,10 @@ import lombok.Setter;
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "item_id")
+    @Column(name = "item_id", nullable = false)
     private Long id;
 
-    @Column(name = "item_image_url")
+    @Column(name = "item_image_url", nullable = false)
     private String imageUrl;
 
     @Column(name = "item_keyword")
@@ -26,11 +26,11 @@ public class Item {
     @Column(name = "item_owner_address")
     private String ownerAddress;
 
-    @Column(name = "item_name")
+    @Column(name = "item_name", nullable = false)
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "donation_id")
+    @JoinColumn(name = "donation_id", nullable = false)
     private Donation donation;
 
 }
