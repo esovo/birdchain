@@ -2,6 +2,7 @@ package com.ssafy.birdchain.api.controller;
 
 import com.ssafy.birdchain.api.service.CommentService;
 import com.ssafy.birdchain.common.db.dto.request.CommentAddReqDTO;
+import com.ssafy.birdchain.common.db.dto.request.CommentModifyReqDTO;
 import com.ssafy.birdchain.common.db.dto.util.ResponseDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -31,6 +32,13 @@ public class CommentController {
     public ResponseEntity<ResponseDTO> commentAdd(@RequestBody CommentAddReqDTO commentAddReqDTO) {
         commentService.addComment(commentAddReqDTO);
         return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, "등록에 성공했습니다."));
+    }
+
+    @PutMapping
+    @ApiOperation(value = "댓글 수정")
+    public ResponseEntity<ResponseDTO> commentModify(@RequestBody CommentModifyReqDTO commentModifyReqDTO) {
+        commentService.modifyComment(commentModifyReqDTO);
+        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, "수정에 성공했습니다."));
     }
 
 }
