@@ -4,70 +4,78 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "KakaoMap",
-  data() {
-    return {
-      markerPodition: [
-        [33.452278, 126.567803],
-        [33.452671, 126.574792],
-        [33.451744, 126.572441],
-      ],
-    };
-  },
-  mounted() {
-    if (window.kakao && window.kakao.maps) {
-      this.initMap();
-    } else {
-      const script = document.createElement("script");
-      /* global kakao */
-      script.onload = () => kakao.maps.load(this.initMap);
-      script.src =
-        `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${process.env.VUE_APP_KAKAOMAP_KEY}`;
-      document.head.appendChild(script);
-    }
-  },
-  methods: {
-    initMap() {
-      const container = document.getElementById("map");
-      const options = {
-        center: new kakao.maps.LatLng(36.354946759143, 127.29980994578),
-        level: 5,
-      };
+<script setup>
+import {ref, onMounted} from 'vue';
 
-      //지도 객체를 등록합니다.
-      //지도 객체는 반응형 관리 대상이 아니므로 initMap에서 선언합니다.
-      this.map = new kakao.maps.Map(container, options);
-    },
-    displayMarker(markerPositions) {
-      if (this.markers.length > 0) {
-        this.markers.forEach((marker) => marker.setMap(null));
-      }
+const { kakao } = window;
 
-      const positions = markerPositions.map(
-        (position) => new kakao.maps.LatLng(...position)
-      );
+// 지도 생성하기
+const map = ref(null);
 
-      if (positions.length > 0) {
-        this.markers = positions.map(
-          (position) =>
-            new kakao.maps.Marker({
-              map: this.map,
-              position,
-            })
-        );
+const initMap = () => {
+  const container = document.getElementById("map");
+  const options = {
+    center: new kakao.maps.LatLng(36.354946759143, 	127.29980994578),
+    level: 5,
+  };
+  
+  //지도 객체를 등록합니다.
+  //지도 객체는 반응형 관리 대상이 아니므로 initMap에서 선언합니다.
+  map.value = new kakao.maps.Map(container, options);
+};
 
-        const bounds = positions.reduce(
-          (bounds, latlng) => bounds.extend(latlng),
-          new kakao.maps.LatLngBounds()
-        );
+// 마커 표시하기
+const markerPositions = ref([ 
+  [36.3559, 127.303],
+  [36.3576, 127.3044],
+  [36.3581, 127.308],
+]);
+const markers = ref([]);
 
-        this.map.setBounds(bounds);
-      }
-    },
-  },
+const displayMarker = () => {
+  if (markers.value.length > 0) {
+    markers.value.forEach((marker) => marker.setMap(null));
+  }
+
+  const positions = markerPositions.value.map(
+    (position) => new kakao.maps.LatLng(...position)
+  );
+
+  if (positions.length > 0) {
+    markers.value = positions.map(
+      (position) =>
+        new kakao.maps.Marker({
+          map,
+          position,
+        })
+    );
+
+    // const bounds = positions.reduce(
+    //   (bounds, latlng) => bounds.extend(latlng),
+    //     new kakao.maps.LatLngBounds()
+    // );
+
+    // map.value.setBounds(bounds);
+  }
 }
+
+onMounted(() => {
+  initMap();
+  displayMarker();
+});
+// onMounted(() => {
+//   if (window.kakao && window.kakao.maps) {
+//     initMap();
+//   } else {
+//     const script = document.createElement("script");
+//     /* global kakao */
+//     script.onload = () => kakao.maps.load(initMap);
+//     script.src =
+//       `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${process.env.VUE_APP_KAKAOMAP_KEY}`;
+//     document.head.appendChild(script);
+//   }
+//   displayMarker();
+// });
 </script>
 
 <style scoped>
