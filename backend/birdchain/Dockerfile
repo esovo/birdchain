@@ -1,4 +1,4 @@
-FROM adoptopenjdk:11-jre-hotspot
+FROM openjdk:17
 
 # 환경 변수 설정을 위한 ARG 설정
 ARG MYSQL_PORT
