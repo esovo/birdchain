@@ -7,7 +7,6 @@ import lombok.ToString;
 
 @Getter
 @NoArgsConstructor
-@ToString
 public class MarkerModifyReqDTO {
 
     @Schema(description = "마커 id")

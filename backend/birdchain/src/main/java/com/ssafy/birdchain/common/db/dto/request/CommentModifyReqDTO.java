@@ -2,11 +2,12 @@ package com.ssafy.birdchain.common.db.dto.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Getter
 @NoArgsConstructor
-public class CommentAddReqDTO {
+public class CommentModifyReqDTO {
+
+    private Long id;
 
     private String nickname;
 
