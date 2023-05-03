@@ -26,9 +26,6 @@
     data: () => ({
       toggle_multiple: [],
     }),
-    mounted() {
-      console.log(this.toggle_multiple);
-    }
   }
 </script>
 
