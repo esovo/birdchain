@@ -6,7 +6,8 @@ plugins {
 
 group = 'com.ssafy'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'  // oracle openJDK 17
+sourceCompatibility = '17'
+targetCompatibility = '17'
 
 configurations {
     // logback 의존성 제거 => log4j2로 변경을 위함
