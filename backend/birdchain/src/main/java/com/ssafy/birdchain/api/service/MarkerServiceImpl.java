@@ -43,7 +43,7 @@ public class MarkerServiceImpl implements MarkerService {
      */
     @Override
     public MarkerResDTO findMarker(Long id) {
-        Marker marker = markerRepository.findByIdAndStatus(id, true).orElseThrow(()-> new IllegalArgumentException("존재하지 않는 마커입니다."));
+        Marker marker = markerRepository.findByIdAndStatus(id, true).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 마커입니다."));
         return MarkerResDTO.builder()
                 .type(marker.getType())
                 .nickname(marker.getNickname())
@@ -87,14 +87,18 @@ public class MarkerServiceImpl implements MarkerService {
      * @param markerModifyReqDTO
      */
     @Override
-    public void modifyMarker(MarkerModifyReqDTO markerModifyReqDTO, MultipartFile multipartFile) throws IOException{
+    public void modifyMarker(MarkerModifyReqDTO markerModifyReqDTO, MultipartFile multipartFile) throws IOException {
         Marker marker = markerRepository.findById(markerModifyReqDTO.getId()).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 마커입니다."));
-        if(!multipartFile.isEmpty()){
-            String imageUrl = imageService.upload(multipartFile, "images");
-            marker.setImage(imageUrl);
+        if (marker.getNickname().equals(markerModifyReqDTO.getNickname()) && marker.getPassword().equals(markerModifyReqDTO.getPassword())) {
+            if (!multipartFile.isEmpty()) {
+                String imageUrl = imageService.upload(multipartFile, "images");
+                marker.setImage(imageUrl);
+            }
+            marker.setContent(markerModifyReqDTO.getContent());
+            markerRepository.save(marker);
+        } else {
+            throw new IllegalArgumentException("닉네임 또는 비밀번호가 일치하지 않습니다.");
         }
-        marker.setContent(markerModifyReqDTO.getContent());
-        markerRepository.save(marker);
     }
 
     /**
@@ -104,8 +108,8 @@ public class MarkerServiceImpl implements MarkerService {
      */
     @Override
     public void deleteMarker(MarkerDeleteReqDTO markerDeleteReqDTO) {
-        Marker marker = markerRepository.findById(markerDeleteReqDTO.getId()).orElseThrow(()-> new IllegalArgumentException("존재하지 않는 마커입니다."));
-        if(marker.getNickname().equals(markerDeleteReqDTO.getNickname()) && marker.getPassword().equals(markerDeleteReqDTO.getPassword())){
+        Marker marker = markerRepository.findById(markerDeleteReqDTO.getId()).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 마커입니다."));
+        if (marker.getNickname().equals(markerDeleteReqDTO.getNickname()) && marker.getPassword().equals(markerDeleteReqDTO.getPassword())) {
             marker.setStatus(false);
         }
     }

@@ -7,7 +7,6 @@ import lombok.ToString;
 
 @Getter
 @NoArgsConstructor
-@ToString
 public class MarkerAddReqDTO {
 
     @Schema(description = "마커 작성자 닉네임")
