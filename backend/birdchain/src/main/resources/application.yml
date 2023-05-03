@@ -7,17 +7,19 @@ logging:
   config: classpath:log4j2.xml
 
 spring:
+  profiles:
+    include: local
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/birdchain?allowPublicKeyRetrieval=true&useSSL=false&useUniCode=yes&characterEncoding=utf8&serverTimezone=Asia/Seoul
-    username: root
-    password: 1234
+    url: jdbc:mysql://${mysql.port}/birdchain?allowPublicKeyRetrieval=true&useSSL=false&useUniCode=yes&characterEncoding=utf8&serverTimezone=Asia/Seoul
+    username: ${mysql.username}
+    password: ${mysql.password}
 
   jpa:
     database: mysql
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: ${hibernate.ddl-auto}
     properties:
       hibernate:
         format_sql: true
@@ -34,6 +36,5 @@ cloud:
     stack.auto: false
     region.static: ap-northeast-2
     credentials:
-      accessKey: AKIAWDNHI63CVUB44IDA
-      secretKey: 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
-
+      accessKey: ${aws.credentials.accessKey}
+      secretKey: ${aws.credentials.secretKey}
