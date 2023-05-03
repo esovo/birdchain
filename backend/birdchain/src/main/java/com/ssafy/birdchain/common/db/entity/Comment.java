@@ -24,6 +24,9 @@ public class Comment extends BaseTime {
     @Column(name = "comment_password", nullable = false)
     private String password;
 
+    @Column(name = "comment_status", nullable = false)
+    private Boolean status;
+
     @ManyToOne
     @JoinColumn(name = "marker_id", nullable = false)
     private Marker marker;

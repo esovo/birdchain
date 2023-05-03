@@ -1,6 +1,7 @@
 package com.ssafy.birdchain.api.service;
 
 import com.ssafy.birdchain.common.db.dto.request.CommentAddReqDTO;
+import com.ssafy.birdchain.common.db.dto.request.CommentDeleteReqDTO;
 import com.ssafy.birdchain.common.db.dto.request.CommentModifyReqDTO;
 import com.ssafy.birdchain.common.db.dto.response.CommentAllResDTO;
 import com.ssafy.birdchain.common.db.entity.Comment;
@@ -45,6 +46,7 @@ public class CommentServiceImpl implements CommentService {
                 .content(commentAddReqDTO.getContent())
                 .password(commentAddReqDTO.getPassword())
                 .marker(marker)
+                .status(true)
                 .build();
         commentRepository.save(comment);
     }
@@ -59,6 +61,22 @@ public class CommentServiceImpl implements CommentService {
         Comment comment = commentRepository.findById(commentModifyReqDTO.getId()).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 댓글입니다."));
         if (comment.getNickname().equals(commentModifyReqDTO.getNickname()) && comment.getPassword().equals(commentModifyReqDTO.getPassword())) {
             comment.setContent(commentModifyReqDTO.getContent());
+            commentRepository.save(comment);
+        } else {
+            throw new IllegalArgumentException("닉네임 또는 비밀번호가 일치하지 않습니다.");
+        }
+    }
+
+    /**
+     * 댓글 삭제
+     *
+     * @param commentDeleteReqDTO
+     */
+    @Override
+    public void deleteMarker(CommentDeleteReqDTO commentDeleteReqDTO) {
+        Comment comment = commentRepository.findById(commentDeleteReqDTO.getId()).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 댓글입니다."));
+        if (comment.getNickname().equals(commentDeleteReqDTO.getNickname()) && comment.getPassword().equals(commentDeleteReqDTO.getPassword())) {
+            comment.setStatus(false);
             commentRepository.save(comment);
         } else {
             throw new IllegalArgumentException("닉네임 또는 비밀번호가 일치하지 않습니다.");
