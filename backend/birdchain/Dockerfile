@@ -1,4 +1,4 @@
-FROM adoptopenjdk:11-jre-hotspot
+FROM openjdk:17
 
 # 환경 변수 설정
 ENV MYSQL_PORT=your_mysql_port \
