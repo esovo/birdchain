@@ -1,6 +1,6 @@
 ﻿<template>
   <div>
-    <div id="map"></div>
+    <div id="map" @click="showModal"></div>
   </div>
 </template>
 
@@ -54,6 +54,12 @@ onMounted(() => {
   initMap();
   displayMarker();
 });
+
+
+// 마커 등록창 띄우기
+const showModal = () => {
+  
+}
 </script>
 
 <style scoped>
