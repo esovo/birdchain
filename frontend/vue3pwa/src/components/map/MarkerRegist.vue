@@ -13,7 +13,7 @@
                 <v-text-field label="닉네임" v-model="form.nickname"></v-text-field>
                 <v-text-field label="비밀번호" type="password" v-model="form.password"></v-text-field>
                 <v-file-input label="이미지" v-model="form.image" @change="previewImage" @click:clear="hidePreview"></v-file-input>
-                <v-img v-if="imageUrl" :src="imageUrl" alt="이미지 미리보기" />
+                <v-img v-if="imageUrl" :src="imageUrl" alt="이미지 미리보기" class="mb-6"/>
                 <v-select :items="categories" label="유형" v-model="form.category"></v-select>
                 <v-text-field label="위치" v-model="form.location" readonly></v-text-field>
                 <v-divider></v-divider>
