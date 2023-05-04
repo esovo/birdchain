@@ -17,7 +17,7 @@
                 <v-select :items="categories" label="유형" v-model="form.category"></v-select>
                 <v-text-field label="위치" v-model="form.location" readonly></v-text-field>
                 <v-divider></v-divider>
-                <v-text-field label="글 내용" multi-line v-model="form.content"></v-text-field>
+                <v-textarea label="글 내용" v-model="form.content" rows="5"></v-textarea>
               </v-form>
             </v-card-text>
             <v-card-actions>
