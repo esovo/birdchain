@@ -25,7 +25,7 @@
               <v-btn text @click="closeModal">
                 취소
               </v-btn>
-              <v-btn color="green darken-4" text>
+              <v-btn color="success" text>
                 저장
               </v-btn>
             </v-card-actions>
@@ -39,8 +39,8 @@
 <script setup>
 import { ref } from 'vue';
 
-const categories = ['새발견', '버드스트라이크'];
 const modalVisible = ref(false);
+const categories = ['새발견', '버드스트라이크'];
 
 const form = ref({
   nickname: null,

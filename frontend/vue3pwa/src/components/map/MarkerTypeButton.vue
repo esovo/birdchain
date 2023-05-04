@@ -1,8 +1,8 @@
 ﻿<template>
-  <v-col
+   <v-col
     cols="6"
     sm="11"
-    class="py-10 pr-16 text-right"
+    class="py-10 text-right"
   >
     <v-btn-toggle
       v-model="toggle_multiple"
@@ -12,7 +12,7 @@
       divided
     >
       <v-btn value="birdstrike">
-        버드스트라이크
+        버드<br>스트라이크
       </v-btn>
 
       <v-btn value="birdappear">
@@ -31,10 +31,8 @@
 
 <style scoped>
 @media (max-width: 600px) {
-  #map {
-    justify-content: center;
-    width: 80vw;
-    height: 80vw;
+  .v-btn {
+    width: 80px;
   }
 }
 </style>
