@@ -64,6 +64,9 @@ dependencies {
     // Hibernate Validator
     implementation 'org.hibernate.validator:hibernate-validator'
 
+    // Tika
+    implementation 'org.apache.tika:tika-core:1.24'
+
 }
 
 dependencyManagement {
