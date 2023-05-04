@@ -2,7 +2,7 @@
    <v-app>
     <v-main>
       <v-container>
-        <!-- <v-btn color="light-green lighten-1" @click="modalVisible = true">마커 등록하기</v-btn> -->
+        <v-btn color="light-green lighten-1" @click="modalVisible = true">마커 등록하기</v-btn>
         <v-dialog v-model="modalVisible">
           <v-card>
             <v-card-title class="text-center">
@@ -39,10 +39,8 @@
 <script setup>
 import { ref } from 'vue';
 
-const modalVisible = ref(false);
-
 const categories = ['새발견', '버드스트라이크'];
-
+const modalVisible = ref(false);
 const form = ref({
   nickname: null,
   password: null,
