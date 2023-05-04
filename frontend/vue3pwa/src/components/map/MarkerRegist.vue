@@ -9,15 +9,15 @@
               <span class="headline">마커 등록</span>
             </v-card-title>
             <v-card-text>
-              <v-form>
+              <v-form @submit.prevent="regist">
                 <v-text-field label="닉네임" v-model="form.nickname"></v-text-field>
                 <v-text-field label="비밀번호" type="password" v-model="form.password"></v-text-field>
-                <v-file-input label="이미지" v-model="form.image" @change="previewImage" @clear="hidePreview"></v-file-input>
+                <v-file-input label="이미지" v-model="form.image" @change="previewImage" @click:clear="hidePreview"></v-file-input>
                 <v-img v-if="imageUrl" :src="imageUrl" alt="이미지 미리보기" />
                 <v-select :items="categories" label="유형" v-model="form.category"></v-select>
                 <v-text-field label="위치" v-model="form.location" readonly></v-text-field>
                 <v-divider></v-divider>
-                <v-text-field label="글 내용" multi-line v-model="form.content"></v-text-field>
+                <v-textarea label="글 내용" v-model="form.content" rows="5"></v-textarea>
               </v-form>
             </v-card-text>
             <v-card-actions>
@@ -25,7 +25,7 @@
               <v-btn text @click="closeModal">
                 취소
               </v-btn>
-              <v-btn color="primary" text>
+              <v-btn color="green darken-4" text>
                 저장
               </v-btn>
             </v-card-actions>
@@ -39,7 +39,9 @@
 <script setup>
 import { ref } from 'vue';
 
+const categories = ['새발견', '버드스트라이크'];
 const modalVisible = ref(false);
+
 const form = ref({
   nickname: null,
   password: null,
@@ -49,10 +51,9 @@ const form = ref({
 	content: null,
 });
 
-const categories = ['버드스트라이크', '새발견'];
-const imageUrl = ref(null);
 
 // 사진 미리보기
+const imageUrl = ref(null);
 const previewImage = (event) => {
   const file = event.target.files[0];
 
@@ -68,6 +69,7 @@ const previewImage = (event) => {
 };
 
 const hidePreview = () => {
+  form.value.image = null;
   imageUrl.value = null;
 };
 
@@ -81,6 +83,11 @@ const closeModal = () => {
   form.value.location = '대전광역시 유성구 덕명동 124';
 	form.value.content = null;
   imageUrl.value = null;
+}
+
+// axios 요청
+const regist = () => {
+
 }
 </script>
 
