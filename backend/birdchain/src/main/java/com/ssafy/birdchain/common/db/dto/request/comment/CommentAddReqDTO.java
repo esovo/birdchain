@@ -1,4 +1,4 @@
-package com.ssafy.birdchain.common.db.dto.request;
+package com.ssafy.birdchain.common.db.dto.request.comment;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

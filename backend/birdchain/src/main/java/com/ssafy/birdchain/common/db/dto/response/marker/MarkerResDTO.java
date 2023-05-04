@@ -1,4 +1,4 @@
-package com.ssafy.birdchain.common.db.dto.response;
+package com.ssafy.birdchain.common.db.dto.response.marker;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;

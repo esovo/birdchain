@@ -3,8 +3,7 @@ package com.ssafy.birdchain.common.db.repository.querydsl;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.ssafy.birdchain.common.db.dto.response.CommentAllResDTO;
-import com.ssafy.birdchain.common.db.entity.Marker;
+import com.ssafy.birdchain.common.db.dto.response.comment.CommentAllResDTO;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;

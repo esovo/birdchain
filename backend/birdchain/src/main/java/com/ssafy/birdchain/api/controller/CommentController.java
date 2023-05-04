@@ -1,9 +1,9 @@
 package com.ssafy.birdchain.api.controller;
 
 import com.ssafy.birdchain.api.service.CommentService;
-import com.ssafy.birdchain.common.db.dto.request.CommentAddReqDTO;
-import com.ssafy.birdchain.common.db.dto.request.CommentDeleteReqDTO;
-import com.ssafy.birdchain.common.db.dto.request.CommentModifyReqDTO;
+import com.ssafy.birdchain.common.db.dto.request.comment.CommentAddReqDTO;
+import com.ssafy.birdchain.common.db.dto.request.comment.CommentDeleteReqDTO;
+import com.ssafy.birdchain.common.db.dto.request.comment.CommentModifyReqDTO;
 import com.ssafy.birdchain.common.db.dto.util.ResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

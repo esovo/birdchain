@@ -1,13 +1,16 @@
-package com.ssafy.birdchain.api.service;
+package com.ssafy.birdchain.api.service.impl;
 
-import com.ssafy.birdchain.common.db.dto.request.CommentAddReqDTO;
-import com.ssafy.birdchain.common.db.dto.request.CommentDeleteReqDTO;
-import com.ssafy.birdchain.common.db.dto.request.CommentModifyReqDTO;
-import com.ssafy.birdchain.common.db.dto.response.CommentAllResDTO;
+import com.ssafy.birdchain.api.service.CommentService;
+import com.ssafy.birdchain.common.db.dto.request.comment.CommentAddReqDTO;
+import com.ssafy.birdchain.common.db.dto.request.comment.CommentDeleteReqDTO;
+import com.ssafy.birdchain.common.db.dto.request.comment.CommentModifyReqDTO;
+import com.ssafy.birdchain.common.db.dto.response.comment.CommentAllResDTO;
 import com.ssafy.birdchain.common.db.entity.Comment;
 import com.ssafy.birdchain.common.db.entity.Marker;
 import com.ssafy.birdchain.common.db.repository.CommentRepository;
 import com.ssafy.birdchain.common.db.repository.MarkerRepository;
+import com.ssafy.birdchain.common.exception.CommonApiException;
+import com.ssafy.birdchain.common.exception.errorcode.CommonErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,7 +43,7 @@ public class CommentServiceImpl implements CommentService {
      */
     @Override
     public void addComment(CommentAddReqDTO commentAddReqDTO) {
-        Marker marker = markerRepository.findById(commentAddReqDTO.getMarkerId()).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 마커입니다."));
+        Marker marker = markerRepository.findById(commentAddReqDTO.getMarkerId()).orElseThrow(() -> new CommonApiException(CommonErrorCode.MARKER_NOT_FOUND));
         Comment comment = Comment.builder()
                 .nickname(commentAddReqDTO.getNickname())
                 .content(commentAddReqDTO.getContent())
@@ -58,12 +61,12 @@ public class CommentServiceImpl implements CommentService {
      */
     @Override
     public void modifyComment(CommentModifyReqDTO commentModifyReqDTO) {
-        Comment comment = commentRepository.findById(commentModifyReqDTO.getId()).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 댓글입니다."));
+        Comment comment = commentRepository.findById(commentModifyReqDTO.getId()).orElseThrow(() -> new CommonApiException(CommonErrorCode.COMMENT_NOT_FOUND));
         if (comment.getNickname().equals(commentModifyReqDTO.getNickname()) && comment.getPassword().equals(commentModifyReqDTO.getPassword())) {
             comment.setContent(commentModifyReqDTO.getContent());
             commentRepository.save(comment);
         } else {
-            throw new IllegalArgumentException("닉네임 또는 비밀번호가 일치하지 않습니다.");
+            throw new CommonApiException(CommonErrorCode.COMMENT_NOT_ALLOWED);
         }
     }
 
@@ -79,7 +82,7 @@ public class CommentServiceImpl implements CommentService {
             comment.setStatus(false);
             commentRepository.save(comment);
         } else {
-            throw new IllegalArgumentException("닉네임 또는 비밀번호가 일치하지 않습니다.");
+            throw new CommonApiException(CommonErrorCode.COMMENT_NOT_ALLOWED);
         }
     }
 

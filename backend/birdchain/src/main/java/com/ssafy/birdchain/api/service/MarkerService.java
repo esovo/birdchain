@@ -1,10 +1,10 @@
 package com.ssafy.birdchain.api.service;
 
-import com.ssafy.birdchain.common.db.dto.request.MarkerAddReqDTO;
-import com.ssafy.birdchain.common.db.dto.request.MarkerDeleteReqDTO;
-import com.ssafy.birdchain.common.db.dto.request.MarkerModifyReqDTO;
-import com.ssafy.birdchain.common.db.dto.response.MarkerAllResDTO;
-import com.ssafy.birdchain.common.db.dto.response.MarkerResDTO;
+import com.ssafy.birdchain.common.db.dto.request.marker.MarkerAddReqDTO;
+import com.ssafy.birdchain.common.db.dto.request.marker.MarkerDeleteReqDTO;
+import com.ssafy.birdchain.common.db.dto.request.marker.MarkerModifyReqDTO;
+import com.ssafy.birdchain.common.db.dto.response.marker.MarkerAllResDTO;
+import com.ssafy.birdchain.common.db.dto.response.marker.MarkerResDTO;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -21,5 +21,7 @@ public interface MarkerService {
     void modifyMarker(MarkerModifyReqDTO markerModifyReqDTO, MultipartFile multipartFile) throws IOException;
 
     void deleteMarker(MarkerDeleteReqDTO markerDeleteReqDTO);
+
+    boolean validImgFile(MultipartFile multipartFile);
 
 }
