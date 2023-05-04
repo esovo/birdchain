@@ -33,7 +33,8 @@
 
 .v-btn-group--density-default.v-btn-group{
   position:relative;
-  left: 35vw;
+  left: 30%;
+
 }
 
 @media (max-width: 600px) {
