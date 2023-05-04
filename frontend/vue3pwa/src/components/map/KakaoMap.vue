@@ -1,72 +1,64 @@
 ﻿<template>
   <div>
-    <div id="map"></div>
+    <div id="map" @click="showModal"></div>
   </div>
 </template>
 
-<script>
-export default {
-  name: "KakaoMap",
-  data() {
-    return {
-      markerPodition: [
-        [33.452278, 126.567803],
-        [33.452671, 126.574792],
-        [33.451744, 126.572441],
-      ],
-    };
-  },
-  mounted() {
-    if (window.kakao && window.kakao.maps) {
-      this.initMap();
-    } else {
-      const script = document.createElement("script");
-      /* global kakao */
-      script.onload = () => kakao.maps.load(this.initMap);
-      script.src =
-        `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${process.env.VUE_APP_KAKAOMAP_KEY}`;
-      document.head.appendChild(script);
-    }
-  },
-  methods: {
-    initMap() {
-      const container = document.getElementById("map");
-      const options = {
-        center: new kakao.maps.LatLng(36.354946759143, 127.29980994578),
-        level: 5,
-      };
+<script setup>
+import {ref, onMounted} from 'vue';
 
-      //지도 객체를 등록합니다.
-      //지도 객체는 반응형 관리 대상이 아니므로 initMap에서 선언합니다.
-      this.map = new kakao.maps.Map(container, options);
-    },
-    displayMarker(markerPositions) {
-      if (this.markers.length > 0) {
-        this.markers.forEach((marker) => marker.setMap(null));
-      }
+const { kakao } = window;
 
-      const positions = markerPositions.map(
-        (position) => new kakao.maps.LatLng(...position)
-      );
+// 지도 생성하기
+var map = null;
+const initMap = () => {
+  const container = document.getElementById("map");
+  const options = {
+    center: new kakao.maps.LatLng(36.354946759143, 	127.29980994578),
+    level: 5,
+  };
+  
+  //지도 객체를 등록합니다.
+  map = new kakao.maps.Map(container, options);
+};
 
-      if (positions.length > 0) {
-        this.markers = positions.map(
-          (position) =>
-            new kakao.maps.Marker({
-              map: this.map,
-              position,
-            })
-        );
+// 마커 표시하기
+const markerPositions = ref([ 
+  [36.3559, 127.303],
+  [36.3576, 127.3044],
+  [36.3581, 127.308],
+]);
+const markers = ref([]);
+const displayMarker = () => {
+  // 기존에 있던 마커들 지우기
+  if (markers.value.length > 0) {
+    markers.value.forEach((marker) => marker.setMap(null));
+  }
+  // 마커의 위도&경도 객체 생성
+  const positions = markerPositions.value.map(
+    (position) => new kakao.maps.LatLng(...position)
+  );
+  // 전달받은 위도&경도로 마커 생성하고 지도에 표시하기 
+  if (positions.length > 0) {
+    markers.value = positions.map(
+      (position) =>
+        new kakao.maps.Marker({
+          map,
+          position,
+        })
+    );
+  }
+}
 
-        const bounds = positions.reduce(
-          (bounds, latlng) => bounds.extend(latlng),
-          new kakao.maps.LatLngBounds()
-        );
+onMounted(() => {
+  initMap();
+  displayMarker();
+});
 
-        this.map.setBounds(bounds);
-      }
-    },
-  },
+
+// 마커 등록창 띄우기
+const showModal = () => {
+  
 }
 </script>
 
