@@ -1,14 +1,5 @@
 ﻿<template>
-   <!-- <v-col
-    cols="6"
-    sm="11"
-    class="py-10 text-right"
-  > -->
   <div class="mapbutton">
-    <!-- <v-col
-      cols="6"
-      sm="11"
-    > -->
     <v-btn-toggle
       v-model="toggle_multiple"
       color="light-green lighten-2"
@@ -23,7 +14,6 @@
           새발견
         </v-btn>
       </v-btn-toggle>
-    <!-- </v-col> -->
   </div>
    
 </template>
@@ -44,8 +34,8 @@
 .v-btn-group--density-default.v-btn-group{
   position:relative;
   left: 35vw;
-
 }
+
 @media (max-width: 600px) {
   .v-btn {
     width: 80px;
