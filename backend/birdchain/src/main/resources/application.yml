@@ -38,3 +38,7 @@ cloud:
     credentials:
       accessKey: ${aws.credentials.accessKey}
       secretKey: ${aws.credentials.secretKey}
+
+
+cors:
+  allowedOrigins: ${cors.origins}
