@@ -39,7 +39,9 @@
 <script setup>
 import { ref } from 'vue';
 
+const categories = ['새발견', '버드스트라이크'];
 const modalVisible = ref(false);
+
 const form = ref({
   nickname: null,
   password: null,
@@ -49,10 +51,9 @@ const form = ref({
 	content: null,
 });
 
-const categories = ['버드스트라이크', '새발견'];
-const imageUrl = ref(null);
 
 // 사진 미리보기
+const imageUrl = ref(null);
 const previewImage = (event) => {
   const file = event.target.files[0];
 
