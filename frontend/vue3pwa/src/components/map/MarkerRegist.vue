@@ -21,7 +21,7 @@
               <span class="headline">마커 등록</span>
             </v-card-title>
             <v-card-text>
-              <v-form @submit.prevent="regist">
+              <v-form @submit.prevent>
                 <v-text-field
                   label="닉네임"
                   v-model="form.nickname"></v-text-field>
@@ -40,9 +40,9 @@
                   alt="이미지 미리보기"
                   class="mb-6" />
                 <v-select
-                  :items="categories"
+                  :items="types"
                   label="유형"
-                  v-model="form.category"></v-select>
+                  v-model="form.type"></v-select>
                 <v-text-field
                   label="위치"
                   v-model="form.location"
@@ -57,7 +57,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn text @click="closeModal"> 취소 </v-btn>
-              <v-btn color="success" text> 저장 </v-btn>
+              <v-btn color="success" text @click="submitForm"> 저장 </v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -68,6 +68,8 @@
 
 <script setup>
 import { ref, defineProps } from "vue";
+import { registMarker } from "@/api/markers";
+import Swal from "sweetalert2";
 
 // 위도 placeInfo[0]
 // 경도 placeInfo[1]
@@ -76,13 +78,13 @@ import { ref, defineProps } from "vue";
 const props = defineProps({
   placeInfo: Array,
 });
-const categories = ["새발견", "버드스트라이크"];
+const types = ["새발견", "버드스트라이크"];
 const modalVisible = ref(false);
 const form = ref({
   nickname: null,
   password: null,
   image: null,
-  category: null,
+  type: null,
   location: null,
   content: null,
 });
@@ -124,13 +126,39 @@ const closeModal = () => {
   form.value.nickname = null;
   form.value.password = null;
   form.value.image = null;
-  form.value.category = null;
+  form.value.type = null;
   form.value.content = null;
   imageUrl.value = null;
 };
 
 // axios 요청
-const regist = () => {};
+const submitForm = () => {
+  const reqForm = {
+    nickname: form.value.nickname,
+    type: form.value.type,
+    lat: props.placeInfo[0],
+    lng: props.placeInfo[1],
+    location: form.value.location,
+    content: form.value.content,
+    password: form.value.password,
+    file: form.value.image,
+  };
+  registMarker(reqForm).then(({ data }) => {
+    if (data.status === "OK") {
+      Swal.fire({
+        position: "center",
+        title: "등록되었습니다.",
+        icon: "success",
+      });
+    } else {
+      Swal.fire({
+        position: "center",
+        title: "등록에 실패했습니다.",
+        icon: "error",
+      });
+    }
+  });
+};
 </script>
 
 <style scoped>
