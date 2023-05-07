@@ -1,10 +1,10 @@
 ﻿<template>
-  <v-card max-width="400" height="600">
+  <v-card width="400" height="600">
     <div class="flex-container">
       <v-card-title class="mr-14"> 닉네임 </v-card-title>
       <div>
-        <v-btn icon="fa:fas fa-edit"> </v-btn>
-        <v-btn :icon="`mdiSvg:${mdiDelete}`"> </v-btn>
+        <v-btn icon="fa:fas fa-edit" size="40" class="mr-2"> </v-btn>
+        <v-btn :icon="`mdiSvg:${mdiDelete}`" size="40" class="mr-2"> </v-btn>
       </div>
     </div>
     <v-img
@@ -27,7 +27,7 @@
 </template>
 
 <script setup>
-// import { mdiDelete } from "@mdi/js";
+import { mdiDelete } from "@mdi/js";
 // import { getMarkerDetail } from "@/api/markers";
 </script>
 
