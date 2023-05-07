@@ -32,8 +32,6 @@
 </script>
 
 <style scoped>
-.v-card-text {
-}
 .flex-container {
   display: flex;
   justify-content: flex-end;
