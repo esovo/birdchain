@@ -8,6 +8,7 @@
 <script setup>
 import MarkerRegist from "@/components/map/MarkerRegist.vue";
 import { ref, onMounted, reactive } from "vue";
+// import { getAllMarkers } from "@/api/markers";
 const { kakao } = window;
 
 // <지도 생성하기>
@@ -40,7 +41,8 @@ const initMap = () => {
 };
 
 // <마커 표시하기>
-const markers = ref([]);
+// const markers = getAllMarkers();
+const markers = ref({});
 const markerPositions = ref([
   [36.3559, 127.303],
   [36.3576, 127.3044],
