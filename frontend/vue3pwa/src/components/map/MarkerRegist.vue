@@ -1,8 +1,10 @@
 ﻿<template>
-   <v-app>
+  <v-app>
     <v-main>
       <v-container>
-        <v-btn color="light-green lighten-1" @click="modalVisible = true">마커 등록하기</v-btn>
+        <v-btn color="light-green lighten-1" @click="modalVisible = true"
+          >마커 등록하기</v-btn
+        >
         <v-dialog v-model="modalVisible">
           <v-card>
             <v-card-title class="text-center">
@@ -10,24 +12,42 @@
             </v-card-title>
             <v-card-text>
               <v-form @submit.prevent="regist">
-                <v-text-field label="닉네임" v-model="form.nickname"></v-text-field>
-                <v-text-field label="비밀번호" type="password" v-model="form.password"></v-text-field>
-                <v-file-input label="이미지" v-model="form.image" @change="previewImage" @click:clear="hidePreview"></v-file-input>
-                <v-img v-if="imageUrl" :src="imageUrl" alt="이미지 미리보기" class="mb-6"/>
-                <v-select :items="categories" label="유형" v-model="form.category"></v-select>
-                <v-text-field label="위치" v-model="form.location" readonly></v-text-field>
+                <v-text-field
+                  label="닉네임"
+                  v-model="form.nickname"></v-text-field>
+                <v-text-field
+                  label="비밀번호"
+                  type="password"
+                  v-model="form.password"></v-text-field>
+                <v-file-input
+                  label="이미지"
+                  v-model="form.image"
+                  @change="previewImage"
+                  @click:clear="hidePreview"></v-file-input>
+                <v-img
+                  v-if="imageUrl"
+                  :src="imageUrl"
+                  alt="이미지 미리보기"
+                  class="mb-6" />
+                <v-select
+                  :items="categories"
+                  label="유형"
+                  v-model="form.category"></v-select>
+                <v-text-field
+                  label="위치"
+                  v-model="form.location"
+                  readonly></v-text-field>
                 <v-divider></v-divider>
-                <v-textarea label="글 내용" v-model="form.content" rows="5"></v-textarea>
+                <v-textarea
+                  label="글 내용"
+                  v-model="form.content"
+                  rows="5"></v-textarea>
               </v-form>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn text @click="closeModal">
-                취소
-              </v-btn>
-              <v-btn color="success" text>
-                저장
-              </v-btn>
+              <v-btn text @click="closeModal"> 취소 </v-btn>
+              <v-btn color="success" text> 저장 </v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -37,19 +57,25 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, defineProps } from "vue";
 
-const categories = ['새발견', '버드스트라이크'];
+// 위도 placeInfo[0]
+// 경도 placeInfo[1]
+// 도로명 주소 placeInfo[2]
+// 지번 주소 placeInfo[3]
+const props = defineProps({
+  placeInfo: Array,
+});
+const categories = ["새발견", "버드스트라이크"];
 const modalVisible = ref(false);
 const form = ref({
   nickname: null,
   password: null,
   image: null,
   category: null,
-  location: '대전광역시 유성구 덕명동 124',
-	content: null,
+  location: "대전광역시 유성구 덕명동 124",
+  content: null,
 });
-
 
 // 사진 미리보기
 const imageUrl = ref(null);
@@ -65,6 +91,9 @@ const previewImage = (event) => {
   reader.onload = (event) => {
     imageUrl.value = event.target.result;
   };
+
+  console.log(props.placeInfo[0], props.placeInfo[1]);
+  console.log(props.placeInfo[2], props.placeInfo[3]);
 };
 
 const hidePreview = () => {
@@ -79,15 +108,21 @@ const closeModal = () => {
   form.value.password = null;
   form.value.image = null;
   form.value.category = null;
-  form.value.location = '대전광역시 유성구 덕명동 124';
-	form.value.content = null;
+  form.value.location = "대전광역시 유성구 덕명동 124";
+  form.value.content = null;
   imageUrl.value = null;
-}
+};
+
+// 전달받은 위도, 경도로 주소 변환하기
+// const getAddress = () => {
+
+// }
 
 // axios 요청
 const regist = () => {
-
-}
+  props;
+  // console.log(props.latLng);
+};
 </script>
 
 <style scoped>
