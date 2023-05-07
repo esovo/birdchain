@@ -1,10 +1,20 @@
 ﻿<template>
   <v-app>
     <v-main>
-      <v-container>
-        <v-btn color="light-green lighten-1" @click="modalVisible = true"
-          >마커 등록하기</v-btn
-        >
+      <v-container class="pt-0">
+        <div class="flex-box">
+          <!-- 도로명 주소 -->
+          <!-- <p>{{ props.placeInfo[2] }}</p> -->
+          <!-- 지명 주소 -->
+          <p>{{ props.placeInfo[3] }}</p>
+          <v-btn
+            variant="tonal"
+            color="light-green lighten-3"
+            @click="showModal"
+            class="mt-2"
+            >마커 등록하기</v-btn
+          >
+        </div>
         <v-dialog v-model="modalVisible">
           <v-card>
             <v-card-title class="text-center">
@@ -73,9 +83,19 @@ const form = ref({
   password: null,
   image: null,
   category: null,
-  location: "대전광역시 유성구 덕명동 124",
+  location: null,
   content: null,
 });
+
+// 등록창 띄우기
+const showModal = () => {
+  modalVisible.value = true;
+  form.value.location = props.placeInfo[3];
+  // if (props.placeInfo[2] == null) {
+  //   form.value.location = props.placeInfo[3];
+  // }
+  // form.value.location = props.placeInfo[2];
+};
 
 // 사진 미리보기
 const imageUrl = ref(null);
@@ -91,9 +111,6 @@ const previewImage = (event) => {
   reader.onload = (event) => {
     imageUrl.value = event.target.result;
   };
-
-  console.log(props.placeInfo[0], props.placeInfo[1]);
-  console.log(props.placeInfo[2], props.placeInfo[3]);
 };
 
 const hidePreview = () => {
@@ -108,24 +125,20 @@ const closeModal = () => {
   form.value.password = null;
   form.value.image = null;
   form.value.category = null;
-  form.value.location = "대전광역시 유성구 덕명동 124";
   form.value.content = null;
   imageUrl.value = null;
 };
 
-// 전달받은 위도, 경도로 주소 변환하기
-// const getAddress = () => {
-
-// }
-
 // axios 요청
-const regist = () => {
-  props;
-  // console.log(props.latLng);
-};
+const regist = () => {};
 </script>
 
 <style scoped>
+.flex-box {
+  border: 1px solid gray;
+  padding: 10px;
+}
+
 @media (min-width: 600px) {
   /* 노트북 크기 이상일 때 */
   .v-dialog {
@@ -134,6 +147,10 @@ const regist = () => {
   .v-card {
     max-height: 70vh;
   }
+
+  /* .flex-box {
+    width: 100vw;
+  } */
 }
 
 @media (max-width: 300px) {
