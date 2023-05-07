@@ -17,3 +17,12 @@ export const registMarker = async (reqForm) => {
   });
   return res;
 };
+
+// 마커 상세 조회
+export const getMarkerDetail = async (marker_id) => {
+  const res = await markers({
+    method: "get",
+    url: `/detail?id=${marker_id}`,
+  });
+  return res;
+};
