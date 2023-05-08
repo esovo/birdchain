@@ -5,7 +5,7 @@
         <v-card-title> 닉네임</v-card-title>
         <v-card-subtitle>등록날짜 </v-card-subtitle>
       </v-card-item>
-      <v-card-text> 글내용글내용글내용글내용글내용글내용글내용글내용글내용글내용글내용글내용</v-card-text>
+      <v-card-text style="max-width: 300px;"> 글내용글내용글내용글내용글내용글내용글내용글내용글내용글내용글내용글내용</v-card-text>
     </div>
     <div class="icons">
       <v-btn icon="fa:fas fa-edit" size="40" class="mr-2"> </v-btn>
