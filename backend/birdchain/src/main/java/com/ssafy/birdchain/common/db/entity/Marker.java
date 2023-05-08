@@ -22,8 +22,8 @@ public class Marker extends BaseTime {
     @Column(name = "marker_type", nullable = false)
     private String type;
 
-    @Column(name = "marker_lan", nullable = false)
-    private Double lan;
+    @Column(name = "marker_lng", nullable = false)
+    private Double lng;
 
     @Column(name = "marker_lat", nullable = false)
     private Double lat;

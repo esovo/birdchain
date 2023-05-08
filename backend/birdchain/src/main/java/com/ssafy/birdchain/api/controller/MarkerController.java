@@ -42,7 +42,7 @@ public class MarkerController {
     @PostMapping
     @Operation(summary = "마커 등록")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "마커 수정 성공"),
+            @ApiResponse(responseCode = "200", description = "마커 등록 성공"),
             @ApiResponse(responseCode = "400", description = "올바르지 않은 파일")
     })
     public ResponseEntity<ResponseDTO> markerAdd(@RequestPart(value = "markerAddReqDTO") MarkerAddReqDTO markerAddReqDTO, @RequestPart(value = "file") MultipartFile multipartFile) throws IOException {

@@ -21,7 +21,7 @@ public class MarkerResDTO {
     private String type;
 
     @Schema(description = "마커 경도")
-    private Double lan;
+    private Double lng;
 
     @Schema(description = "마커 위도")
     private Double lat;

@@ -23,7 +23,7 @@ public class MarkerRepositoryImpl implements MarkerRepositoryCustom {
                     .select(Projections.constructor(MarkerAllResDTO.class
                             , marker.id
                             , marker.type
-                            , marker.lan
+                            , marker.lng
                             , marker.lat
                             , marker.image
                     ))
@@ -35,7 +35,7 @@ public class MarkerRepositoryImpl implements MarkerRepositoryCustom {
                     .select(Projections.constructor(MarkerAllResDTO.class
                             , marker.id
                             , marker.type
-                            , marker.lan
+                            , marker.lng
                             , marker.lat
                             , marker.image
                     ))
