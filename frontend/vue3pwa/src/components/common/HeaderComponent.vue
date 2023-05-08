@@ -15,7 +15,7 @@
     <div class="headerLink">
       <router-link to="/post">정보 공유</router-link>
     </div>
-    <div class="headerLink">
+    <div class="headerLink" v-if="accountStore.account">
       <router-link to="/mypage">마이페이지</router-link>
     </div>
     <div class="headerLink">
@@ -28,26 +28,28 @@
 </template>
 
 <script>
+import { defineComponent, ref } from "vue";
 import { createWeb3Instance } from "@/web3";
-export default {
-  name: "HeaderComponent",
-  data() {
-    return {
-      LogoUrl: require("../../assets/img/Logo.png"),
-      walletUrl: require("../../assets/img/wallet.png"),
-    };
-  },
+import { useAccountStore } from "@/stores/accountStore";
 
-  methods: {
-    async getAccount() {
+export default defineComponent({
+  name: "HeaderComponent",
+  setup() {
+    const LogoUrl = ref(require("../../assets/img/Logo.png"));
+    const walletUrl = ref(require("../../assets/img/wallet.png"));
+    const accountStore = useAccountStore();
+
+    const getAccount = async () => {
       const web3 = await createWeb3Instance();
       if (web3) {
-        const accounts = await web3.eth.getAccount();
-        this.account = accounts[0];
+        const accounts = await web3.eth.getAccounts();
+        accountStore.setAccount(accounts[0]);
       }
-    },
+    };
+
+    return { LogoUrl, walletUrl, accountStore, getAccount };
   },
-};
+});
 </script>
 
 <style>
