@@ -90,10 +90,21 @@
   </v-container>
 </template>
 <script>
+import axios from "axios";
 import { ref, computed } from "vue";
 export default {
   setup() {
     const hover = ref([-1, -1, -1, -1]);
+
+    const NFTNum = ref("");
+
+    const imgA = ref("");
+
+    const imgB = ref("");
+
+    const imgC = ref("");
+
+    const imgD = ref("");
 
     const elevation = computed(() =>
       hover.value.map((val, index) => (val === index ? 8 : 2))
@@ -105,8 +116,20 @@ export default {
       hover,
       elevation,
       hoverClass,
+      NFTNum,
+      imgA,
+      imgB,
+      imgC,
+      imgD,
     };
   },
+
+  mounted() {
+    axios.get(`${process.env.VUE_APP_API_URL}nft/available`).then((res) => {
+        this.NFTNum = res.data;
+      });
+  },
+
 };
 </script>
 <style scoped>
