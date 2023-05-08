@@ -10,6 +10,8 @@ import buttonStartURL from "@/assetgame/img/start.png";
 import gameOverImg from "@/assetgame/img/game-over.png";
 import gshotBird from "@/assetgame/img/ghost-bird.png";
 import pointer from "@/assetgame/img/pointer.png";
+import { useStore } from '@/stores/store'
+
 
 export default {
   name: "GameOverView",
@@ -74,13 +76,17 @@ export default {
     // ...mapState({
     //   record: (state) => state.record,
     // }),
-    isRecord() {
-      const record = localStorage.getItem("record");
-      if (!record) {
-        return 0;
-      } else {
-        return record;
-      }
+    isRecord() {  
+      const score = useStore()
+
+      // const record = localStorage.getItem("record");
+      // if (!record) {
+      //   return 0;
+      // } else {
+      //   return record;
+      // }
+      const record = score.score;
+      return record;
     },
   },
   methods: {

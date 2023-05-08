@@ -15,7 +15,7 @@
     <div class="headerLink">
       <router-link to="/post">정보 공유</router-link>
     </div>
-    <div class="headerLink">
+    <div class="headerLink" v-if="accountStore.account">
       <router-link to="/mypage">마이페이지</router-link>
     </div>
     <div class="headerLink">
@@ -28,29 +28,31 @@
 </template>
 
 <script>
+import { defineComponent, ref } from "vue";
 import { createWeb3Instance } from "@/web3";
-export default {
-  name: "HeaderComponent",
-  data() {
-    return {
-      LogoUrl: require("../../assets/img/Logo.png"),
-      walletUrl: require("../../assets/img/wallet.png"),
-    };
-  },
+import { useAccountStore } from "@/stores/accountStore";
 
-  methods: {
-    async getAccount() {
+export default defineComponent({
+  name: "HeaderComponent",
+  setup() {
+    const LogoUrl = ref(require("../../assets/img/Logo.png"));
+    const walletUrl = ref(require("../../assets/img/wallet.png"));
+    const accountStore = useAccountStore();
+
+    const getAccount = async () => {
       const web3 = await createWeb3Instance();
       if (web3) {
-        const accounts = await web3.eth.getAccount();
-        this.account = accounts[0];
+        const accounts = await web3.eth.getAccounts();
+        accountStore.setAccount(accounts[0]);
       }
-    },
+    };
+
+    return { LogoUrl, walletUrl, accountStore, getAccount };
   },
-};
+});
 </script>
 
-<style>
+<style scoped>
 #navbar {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -60,17 +62,19 @@ export default {
   flex-direction: row;
   font-size: 18;
   color: #4e4e4e;
+  /* font-family: 'Roboto'; */
   font-family: "IBM Plex Sans KR";
   font-style: normal;
   font-weight: 400;
   line-height: 27px;
   width: 100%;
   border-bottom: solid;
-  background-color: white;
+  background-color: #68B984;
 }
 a {
   text-decoration: none;
-  color: #4e4e4e;
+  color: #473C33;
+  font-weight: 700;
 }
 
 .Logoimg {
@@ -91,9 +95,8 @@ a {
   flex-direction: row;
   margin-left: 4%;
   margin-top: 40px;
-  font-family: "IBM Plex Sans KR";
-  font-style: bold;
-  font-weight: 400;
+  /* font-family: "IBM Plex Sans KR"; */
+
   font-size: 18px;
   line-height: 27px;
 }
@@ -114,6 +117,7 @@ a {
     flex-basis: 50%;
     margin-left: 4%;
     margin-top: 10px;
+    
   }
   .walletimg img {
     display: flex;

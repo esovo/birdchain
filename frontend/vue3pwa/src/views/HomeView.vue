@@ -7,7 +7,7 @@
   </div>
   <div id="home">
     <div class="mainComponent">
-      <img :src="img1" />
+      <img :src="img1" style="object-fit: cover"/>
       <div class="textfield">
         <div class="maintext">
           멸종위기에 처한<br />
@@ -18,8 +18,8 @@
           새의 멸종은 식량 연쇄 반응과 함께 <br />
           다른 동물과 식물들도 영향을 받을 수 있습니다.
         </div>
-        <div>
-          <v-btn @click="$router.push('/donate')"> 기부하기 </v-btn>
+        <div class="donatebtn"> 
+          <v-btn size="x-large" @click="$router.push('/donate')" > 기부하기 </v-btn>
         </div>
       </div>
     </div>
@@ -34,10 +34,10 @@
           새 보호는 우리의 삶과 건강에도 긍정적인 영향을 미칩니다.
         </div>
       </div>
-      <img :src="img1" />
+      <img :src="img2" />
     </div>
     <div class="mainComponent">
-      <img :src="img1" />
+      <img :src="img3" style="object-fit: cover"/>
       <div class="textfield">
         <div class="maintext">우리는 그들을 <br />소중히 보호해야 합니다.</div>
         <div class="subtext">
@@ -143,9 +143,9 @@ export default {
   },
   data() {
     return {
-      img1: require("../assets/img/image 14.png"),
-      // img2:  require("../../assets/img/wallet.png"),
-      // img3:  require("../../assets/img/wallet.png")
+      img1: require("../assets/img/bird5.jpg"),
+      img2: require("../assets/img/bird3.jpg"),
+      img3: require("../assets/img/bird4.jpg")
     };
   },
 };
@@ -164,7 +164,7 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: 20%;
+  margin-bottom: 35%;
 }
 
 .textfield {
@@ -180,8 +180,8 @@ export default {
 }
 
 .mainComponent img {
-  width: 20vw;
-
+  width: 30vw;
+  border-radius: 3%;
 }
 
 .maintext {
@@ -282,7 +282,7 @@ export default {
   position: absolute;
   width: 55vw;
   height: 55vw;
-  background-color: #f7fbf3;
+  background-color: #eafed5;
   border-radius: 50%;
   left: 50%;
   top: -10%;
@@ -315,10 +315,10 @@ export default {
   position: absolute;
   width: 55vw;
   height: 55vw;
-  background-color: #f7fbf3;
+  background-color: #eafed5;
   border-radius: 50%;
   left: 0%;
-  top: 250%;
+  top: 210%;
   z-index: -1;
 }
 
@@ -333,6 +333,11 @@ export default {
   background-size: cover;
   width: 350px;
   height: 500px;
+}
+
+.donatebtn{
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 /* .swiper-slide img {
