@@ -4,7 +4,7 @@
       <v-card-title class="mr-14"> {{ detailData.nickname }} </v-card-title>
       <div>
         <v-btn icon="fa:fas fa-edit" size="40" class="mr-2"> </v-btn>
-        <v-btn :icon="`mdiSvg:${mdiDelete}`" size="40" class="mr-2"> </v-btn>
+        <v-btn :icon="`mdiSvg:${mdiDelete}`" size="40" class="mr-2" @click="deleteMarker"> </v-btn>
       </div>
     </div>
     <v-img
@@ -14,6 +14,12 @@
       class="my-4"></v-img>
 
     <v-card-text class="d-flex align-start flex-column ml-3">
+      <div v-if="deleteFlag">
+        <form @submit.prevent>
+        <label>비밀번호</label>
+        <input type="password" />
+      </form>
+      </div>
       <div>
         <span> <strong>위치</strong></span>
         <span>{{ detailData.location }}</span>
@@ -31,6 +37,7 @@ import { ref, defineProps, watch } from "vue";
 import { mdiDelete } from "@mdi/js";
 import { getMarkerDetail } from "@/api/markers";
 
+// 마커 상세 조회
 const props = defineProps({
   marker_id: {
     type: Number,
@@ -58,6 +65,7 @@ const fetchMarker = () => {
     }
   });
 };
+fetchMarker(1);
 
 watch(
   () => props.marker_id,
@@ -68,7 +76,12 @@ watch(
   }
 );
 
-fetchMarker(1);
+// 마커 삭제
+const deleteFlag = ref(false);
+
+const deleteMarker = () => {
+  deleteFlag.value = !deleteFlag.value;
+}
 </script>
 
 <style scoped>
