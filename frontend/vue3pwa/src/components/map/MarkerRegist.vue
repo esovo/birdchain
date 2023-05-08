@@ -24,16 +24,19 @@
               <v-form @submit.prevent>
                 <v-text-field
                   label="닉네임"
-                  v-model="form.nickname"></v-text-field>
+                  v-model="form.nickname"
+                  ></v-text-field>
                 <v-text-field
                   label="비밀번호"
                   type="password"
-                  v-model="form.password"></v-text-field>
+                  v-model="form.password"
+                  ></v-text-field>
                 <v-file-input
                   label="이미지"
                   v-model="form.image"
                   @change="previewImage"
-                  @click:clear="hidePreview"></v-file-input>
+                  @click:clear="hidePreview"
+                  ></v-file-input>
                 <v-img
                   v-if="imageUrl"
                   :src="imageUrl"
@@ -42,7 +45,8 @@
                 <v-select
                   :items="types"
                   label="유형"
-                  v-model="form.type"></v-select>
+                  v-model="form.type"
+                  ></v-select>
                 <v-text-field
                   label="위치"
                   v-model="form.location"
@@ -51,7 +55,8 @@
                 <v-textarea
                   label="글 내용"
                   v-model="form.content"
-                  rows="5"></v-textarea>
+                  rows="5"
+                  ></v-textarea>
               </v-form>
             </v-card-text>
             <v-card-actions>
@@ -100,7 +105,7 @@ const showModal = () => {
 };
 
 // 사진 미리보기
-const imageUrl = ref(null);
+const imageUrl = ref('');
 const previewImage = (event) => {
   const file = event.target.files[0];
 
@@ -133,7 +138,9 @@ const closeModal = () => {
 
 // axios 요청
 const submitForm = () => {
-  const reqForm = {
+  const reqForm = new FormData();
+  // 등록 정보
+  const regMarker = {
     nickname: form.value.nickname,
     type: form.value.type,
     lat: props.placeInfo[0],
@@ -141,16 +148,25 @@ const submitForm = () => {
     location: form.value.location,
     content: form.value.content,
     password: form.value.password,
-    file: form.value.image,
   };
+  reqForm.append('markerAddReqDTO', new Blob([JSON.stringify(regMarker)], {
+    type: 'application/json'
+  }));
+
+  reqForm.append('file', form.value.image[0]);
+
+  console.log(form.value.image[0]);
+  // 이미지 파일
   registMarker(reqForm).then(({ data }) => {
-    if (data.status === "OK") {
+    if (data.status === 'OK') {
+      closeModal();
       Swal.fire({
         position: "center",
         title: "등록되었습니다.",
         icon: "success",
       });
     } else {
+      closeModal();
       Swal.fire({
         position: "center",
         title: "등록에 실패했습니다.",

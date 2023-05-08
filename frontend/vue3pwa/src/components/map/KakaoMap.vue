@@ -8,7 +8,7 @@
 <script setup>
 import MarkerRegist from "@/components/map/MarkerRegist.vue";
 import { ref, onMounted, reactive } from "vue";
-// import { getAllMarkers } from "@/api/markers";
+import { getMarkersByType } from "@/api/markers";
 const { kakao } = window;
 
 // <지도 생성하기>
@@ -41,34 +41,39 @@ const initMap = () => {
 };
 
 // <마커 표시하기>
-// const markers = getAllMarkers();
 const markers = ref([]);
-const markerPositions = ref([
-  [36.3559, 127.303],
-  [36.3576, 127.3044],
-  [36.3581, 127.308],
-]);
+const markerData = ref([]);
 
 const displayMarker = () => {
   // 기존에 있던 마커들 지우기
   if (markers.value.length > 0) {
     markers.value.forEach((marker) => marker.setMap(null));
   }
-  // 마커의 위도&경도 객체 생성
-  const positions = markerPositions.value.map(
-    (position) => new kakao.maps.LatLng(...position)
-  );
 
-  // 전달받은 위도&경도로 마커 생성하고 지도에 표시하기
-  if (positions.length > 0) {
-    markers.value = positions.map(
-      (position) =>
-        new kakao.maps.Marker({
+  // axios 요청 보내서 DB 마커 가젹오기
+  getMarkersByType("")
+  .then(({ data }) => {
+    markerData.value = data.value;
+
+    // 전달받은 위도&경도로 마커 생성하고 지도에 표시하기
+    if (markerData.value.length > 0) {
+      markerData.value.forEach((m) => {
+        // 위도, 경도로 위치 정보를 생성
+        var markerPosition = new kakao.maps.LatLng(m.lat, m.lng);
+        const marker = new kakao.maps.Marker({
           map,
-          position,
-        })
-    );
-  }
+          position: markerPosition,
+        });
+
+        // 마커에 클릭이벤트를 등록합니다
+        kakao.maps.event.addListener(marker, 'click', function() {
+              console.log(m.id);
+        });
+        // 생성한 마커를 markers 배열에 추가하기
+        markers.value.push(m);
+      });
+    }
+  })
 };
 
 onMounted(() => {
