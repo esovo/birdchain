@@ -3,7 +3,7 @@ package com.ssafy.birdchain.common.db.repository.querydsl;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.ssafy.birdchain.common.db.dto.response.MarkerAllResDTO;
+import com.ssafy.birdchain.common.db.dto.response.marker.MarkerAllResDTO;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public class MarkerRepositoryImpl implements MarkerRepositoryCustom {
                     .select(Projections.constructor(MarkerAllResDTO.class
                             , marker.id
                             , marker.type
-                            , marker.lan
+                            , marker.lng
                             , marker.lat
                             , marker.image
                     ))
@@ -35,7 +35,7 @@ public class MarkerRepositoryImpl implements MarkerRepositoryCustom {
                     .select(Projections.constructor(MarkerAllResDTO.class
                             , marker.id
                             , marker.type
-                            , marker.lan
+                            , marker.lng
                             , marker.lat
                             , marker.image
                     ))

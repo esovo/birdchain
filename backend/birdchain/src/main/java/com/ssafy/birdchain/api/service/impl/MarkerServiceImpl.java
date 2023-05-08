@@ -1,18 +1,24 @@
-package com.ssafy.birdchain.api.service;
+package com.ssafy.birdchain.api.service.impl;
 
-import com.ssafy.birdchain.common.db.dto.request.MarkerAddReqDTO;
-import com.ssafy.birdchain.common.db.dto.request.MarkerDeleteReqDTO;
-import com.ssafy.birdchain.common.db.dto.request.MarkerModifyReqDTO;
-import com.ssafy.birdchain.common.db.dto.response.MarkerAllResDTO;
-import com.ssafy.birdchain.common.db.dto.response.MarkerResDTO;
+import com.ssafy.birdchain.api.service.ImageService;
+import com.ssafy.birdchain.api.service.MarkerService;
+import com.ssafy.birdchain.common.db.dto.request.marker.MarkerAddReqDTO;
+import com.ssafy.birdchain.common.db.dto.request.marker.MarkerDeleteReqDTO;
+import com.ssafy.birdchain.common.db.dto.request.marker.MarkerModifyReqDTO;
+import com.ssafy.birdchain.common.db.dto.response.marker.MarkerAllResDTO;
+import com.ssafy.birdchain.common.db.dto.response.marker.MarkerResDTO;
 import com.ssafy.birdchain.common.db.entity.Marker;
 import com.ssafy.birdchain.common.db.repository.MarkerRepository;
+import com.ssafy.birdchain.common.exception.CommonApiException;
+import com.ssafy.birdchain.common.exception.errorcode.CommonErrorCode;
+import com.ssafy.birdchain.common.util.FileValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 @Service
@@ -43,12 +49,12 @@ public class MarkerServiceImpl implements MarkerService {
      */
     @Override
     public MarkerResDTO findMarker(Long id) {
-        Marker marker = markerRepository.findByIdAndStatus(id, true).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 마커입니다."));
+        Marker marker = markerRepository.findByIdAndStatus(id, true).orElseThrow(() -> new CommonApiException(CommonErrorCode.MARKER_NOT_FOUND));
         return MarkerResDTO.builder()
                 .type(marker.getType())
                 .nickname(marker.getNickname())
                 .lat(marker.getLat())
-                .lan(marker.getLan())
+                .lng(marker.getLng())
                 .location(marker.getLocation())
                 .image(marker.getImage())
                 .content(marker.getContent())
@@ -70,7 +76,7 @@ public class MarkerServiceImpl implements MarkerService {
         Marker marker = Marker.builder()
                 .nickname(markerAddReqDTO.getNickname())
                 .lat(markerAddReqDTO.getLat())
-                .lan(markerAddReqDTO.getLan())
+                .lng(markerAddReqDTO.getLng())
                 .location(markerAddReqDTO.getLocation())
                 .type(markerAddReqDTO.getType())
                 .content(markerAddReqDTO.getContent())
@@ -88,7 +94,7 @@ public class MarkerServiceImpl implements MarkerService {
      */
     @Override
     public void modifyMarker(MarkerModifyReqDTO markerModifyReqDTO, MultipartFile multipartFile) throws IOException {
-        Marker marker = markerRepository.findById(markerModifyReqDTO.getId()).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 마커입니다."));
+        Marker marker = markerRepository.findById(markerModifyReqDTO.getId()).orElseThrow(() -> new CommonApiException(CommonErrorCode.MARKER_NOT_FOUND));
         if (marker.getNickname().equals(markerModifyReqDTO.getNickname()) && marker.getPassword().equals(markerModifyReqDTO.getPassword())) {
             if (!multipartFile.isEmpty()) {
                 String imageUrl = imageService.upload(multipartFile, "images");
@@ -97,7 +103,7 @@ public class MarkerServiceImpl implements MarkerService {
             marker.setContent(markerModifyReqDTO.getContent());
             markerRepository.save(marker);
         } else {
-            throw new IllegalArgumentException("닉네임 또는 비밀번호가 일치하지 않습니다.");
+            throw new CommonApiException(CommonErrorCode.MARKER_NOT_ALLOWED);
         }
     }
 
@@ -108,11 +114,25 @@ public class MarkerServiceImpl implements MarkerService {
      */
     @Override
     public void deleteMarker(MarkerDeleteReqDTO markerDeleteReqDTO) {
-        Marker marker = markerRepository.findById(markerDeleteReqDTO.getId()).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 마커입니다."));
+        Marker marker = markerRepository.findById(markerDeleteReqDTO.getId()).orElseThrow(() -> new CommonApiException(CommonErrorCode.MARKER_NOT_FOUND));
         if (marker.getNickname().equals(markerDeleteReqDTO.getNickname()) && marker.getPassword().equals(markerDeleteReqDTO.getPassword())) {
             marker.setStatus(false);
         }
     }
 
+    @Override
+    public boolean validImgFile(MultipartFile multipartFile) {
+        try (InputStream inputStream = multipartFile.getInputStream()) {
+            if (!multipartFile.isEmpty()) {
+                boolean isValid = FileValidator.validImgFile(inputStream);
+                if (!isValid) {
+                    return false;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
 
 }

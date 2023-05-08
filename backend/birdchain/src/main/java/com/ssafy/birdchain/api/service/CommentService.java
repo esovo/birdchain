@@ -1,9 +1,9 @@
 package com.ssafy.birdchain.api.service;
 
-import com.ssafy.birdchain.common.db.dto.request.CommentAddReqDTO;
-import com.ssafy.birdchain.common.db.dto.request.CommentDeleteReqDTO;
-import com.ssafy.birdchain.common.db.dto.request.CommentModifyReqDTO;
-import com.ssafy.birdchain.common.db.dto.response.CommentAllResDTO;
+import com.ssafy.birdchain.common.db.dto.request.comment.CommentAddReqDTO;
+import com.ssafy.birdchain.common.db.dto.request.comment.CommentDeleteReqDTO;
+import com.ssafy.birdchain.common.db.dto.request.comment.CommentModifyReqDTO;
+import com.ssafy.birdchain.common.db.dto.response.comment.CommentAllResDTO;
 
 import java.util.List;
 

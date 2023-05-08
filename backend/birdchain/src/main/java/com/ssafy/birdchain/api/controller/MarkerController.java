@@ -1,11 +1,13 @@
 package com.ssafy.birdchain.api.controller;
 
 import com.ssafy.birdchain.api.service.MarkerService;
-import com.ssafy.birdchain.common.db.dto.request.MarkerAddReqDTO;
-import com.ssafy.birdchain.common.db.dto.request.MarkerDeleteReqDTO;
-import com.ssafy.birdchain.common.db.dto.request.MarkerModifyReqDTO;
+import com.ssafy.birdchain.common.db.dto.request.marker.MarkerAddReqDTO;
+import com.ssafy.birdchain.common.db.dto.request.marker.MarkerDeleteReqDTO;
+import com.ssafy.birdchain.common.db.dto.request.marker.MarkerModifyReqDTO;
 import com.ssafy.birdchain.common.db.dto.util.ResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -39,16 +41,31 @@ public class MarkerController {
 
     @PostMapping
     @Operation(summary = "마커 등록")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "마커 등록 성공"),
+            @ApiResponse(responseCode = "400", description = "올바르지 않은 파일")
+    })
     public ResponseEntity<ResponseDTO> markerAdd(@RequestPart(value = "markerAddReqDTO") MarkerAddReqDTO markerAddReqDTO, @RequestPart(value = "file") MultipartFile multipartFile) throws IOException {
-        markerService.addMarker(markerAddReqDTO, multipartFile);
-        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, "등록에 성공했습니다."));
+        if (markerService.validImgFile(multipartFile)) {
+            markerService.addMarker(markerAddReqDTO, multipartFile);
+            return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, "등록에 성공했습니다."));
+        }
+        return ResponseEntity.badRequest().body(ResponseDTO.of(HttpStatus.BAD_REQUEST, "올바르지 않은 이미지 형식입니다."));
     }
 
     @PutMapping
     @Operation(summary = "마커 수정")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "마커 수정 성공"),
+            @ApiResponse(responseCode = "400", description = "올바르지 않은 파일")
+    })
     public ResponseEntity<ResponseDTO> markerModify(@RequestPart(value = "markerModifyReqDTO") MarkerModifyReqDTO markerModifyReqDTO, @RequestPart(value = "file") MultipartFile multipartFile) throws IOException {
-        markerService.modifyMarker(markerModifyReqDTO, multipartFile);
-        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, "수정에 성공했습니다."));
+        if (markerService.validImgFile(multipartFile)) {
+            markerService.modifyMarker(markerModifyReqDTO, multipartFile);
+            return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, "수정에 성공했습니다."));
+        }
+        return ResponseEntity.badRequest().body(ResponseDTO.of(HttpStatus.BAD_REQUEST, "올바르지 않은 이미지 형식입니다."));
+
     }
 
     @PutMapping("/delete")
