@@ -4,7 +4,7 @@
       <v-card-title class="mr-14"> {{ detailData.nickname }} </v-card-title>
       <div>
         <v-btn icon="fa:fas fa-edit" size="40" class="mr-2"> </v-btn>
-        <v-btn :icon="`mdiSvg:${mdiDelete}`" size="40" class="mr-2" @click="deleteMarker"> </v-btn>
+        <v-btn :icon="`mdiSvg:${mdiDelete}`" size="40" class="mr-2" @click="doDeleteMarker"> </v-btn>
       </div>
     </div>
     <v-img
@@ -16,8 +16,8 @@
     <v-card-text class="d-flex align-start flex-column ml-3">
       <div v-if="deleteFlag">
         <form @submit.prevent>
-        <label>비밀번호</label>
-        <input type="password" />
+        <label> <strong>비밀번호</strong></label>
+        <input type="password" v-model="password" />
       </form>
       </div>
       <div>
@@ -35,7 +35,8 @@
 <script setup>
 import { ref, defineProps, watch } from "vue";
 import { mdiDelete } from "@mdi/js";
-import { getMarkerDetail } from "@/api/markers";
+import { getMarkerDetail, deleteMarker } from "@/api/markers";
+import Swal from "sweetalert2";
 
 // 마커 상세 조회
 const props = defineProps({
@@ -78,10 +79,44 @@ watch(
 
 // 마커 삭제
 const deleteFlag = ref(false);
+const password = ref(0);
 
-const deleteMarker = () => {
+const doDeleteMarker = () => {
   deleteFlag.value = !deleteFlag.value;
-}
+  Swal.fire({
+    title: '정말로 삭제하시겠습니까?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: '승인',
+    cancelButtonText: '취소',
+    reverseButtons: true, // 버튼 순서 거꾸로
+  }).then((result) => {
+    if (result.isConfirmed) {
+      const reqForm = {
+        id: props.marker_id,
+        password: password.value,
+      };
+      deleteMarker(reqForm).then(({ data }) => {
+        if (data.status === 'OK') {
+          Swal.fire({
+            position: "center",
+            title: "삭제되었습니다.",
+            icon: "success",
+          })
+        } else {
+          Swal.fire({
+            position: "center",
+            title: "비밀번호가 일치하지 않습니다.",
+            icon: "error",
+          });
+          password.value = "";
+        }
+      })
+    }
+  })
+};
 </script>
 
 <style scoped>
