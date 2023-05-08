@@ -1,16 +1,12 @@
 import { markers } from ".";
 
 // 모든 마커 조회
-export const getAllMarkers = async () => {
-  const res = await markers({ method: "get", url: "" });
-  return res;
-};
-
 // 타입별로 마커 조회
 export const getMarkersByType = async (marker_type) => {
   const res = await markers({
     method: "get",
-    url: `?type=${marker_type}`,
+    url: "",
+    params: {type: marker_type},
   });
   return res;
 };
@@ -19,7 +15,8 @@ export const getMarkersByType = async (marker_type) => {
 export const getMarkerDetail = async (marker_id) => {
   const res = await markers({
     method: "get",
-    url: `/detail?id=${marker_id}`,
+    url: "/detail",
+    params: {id: marker_id},
   });
   return res;
 };
