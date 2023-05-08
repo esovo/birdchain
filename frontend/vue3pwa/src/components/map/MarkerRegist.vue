@@ -164,11 +164,19 @@ const submitForm = () => {
 <style scoped>
 .flex-box {
   border: 1px solid gray;
-  padding: 10px;
+  padding: 0px;
+  width: 85vw;
+  margin: 0 auto;
 }
 
 .v-application{
   height: 90px;
+}
+
+@media (min-width: 960px){
+  .v-container {
+    max-width: 2000px;
+  }
 }
 
 @media (min-width: 600px) {
@@ -180,9 +188,9 @@ const submitForm = () => {
     max-height: 70vh;
   }
 
-  /* .flex-box {
-    width: 100vw;
-  } */
+  .flex-box {
+    width: 85vw;
+  }
 }
 
 @media (max-width: 300px) {
