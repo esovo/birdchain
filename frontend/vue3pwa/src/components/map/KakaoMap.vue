@@ -42,7 +42,7 @@ const initMap = () => {
 
 // <마커 표시하기>
 // const markers = getAllMarkers();
-const markers = ref({});
+const markers = ref([]);
 const markerPositions = ref([
   [36.3559, 127.303],
   [36.3576, 127.3044],
