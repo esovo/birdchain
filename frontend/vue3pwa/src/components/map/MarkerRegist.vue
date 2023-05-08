@@ -167,6 +167,10 @@ const submitForm = () => {
   padding: 10px;
 }
 
+.v-application{
+  height: 200px;
+}
+
 @media (min-width: 600px) {
   /* 노트북 크기 이상일 때 */
   .v-dialog {
