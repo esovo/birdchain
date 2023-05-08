@@ -7,12 +7,12 @@
         variant="outlined"
         multiple=""
       >
-        <v-btn value="RE">지역절멸</v-btn>
-        <v-btn value="CR">위급</v-btn>
-        <v-btn value="EN">위기</v-btn>
-        <v-btn value="VU">취약</v-btn>
-        <v-btn value="NT">준위협</v-btn>
-        <v-btn value="LC">관심대상</v-btn>
+        <v-btn value="RE" color="purple">지역절멸</v-btn>
+        <v-btn value="CR" color="red">위급</v-btn>
+        <v-btn value="EN" color="brown">위기</v-btn>
+        <v-btn value="VU" color="orange">취약</v-btn>
+        <v-btn value="NT" color="yellow">준위협</v-btn>
+        <v-btn value="LC" color="green">관심대상</v-btn>
       </v-btn-toggle>
     </div>
     <div>

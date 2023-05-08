@@ -5,23 +5,37 @@
         <v-card class="" width="22vw" style="cursor: pointer">
           <v-img :src="birdData.img" height="25vw" cover></v-img>
           <v-card-title> {{ birdData.국명 }} </v-card-title>
-          <v-card-subtitle> 학명 : {{ birdData.학명 }} </v-card-subtitle>
-          <v-card-subtitle v-if="birdData.국가적색목록 === 'RE'"
+          <v-card-subtitle style="font-style: italic">
+            학명 : {{ birdData.학명 }}
+          </v-card-subtitle>
+          <v-card-subtitle
+            v-if="birdData.국가적색목록 === 'RE'"
+            style="color: purple"
             >지역절멸</v-card-subtitle
           >
-          <v-card-subtitle v-if="birdData.국가적색목록 === 'CR'"
+          <v-card-subtitle
+            v-if="birdData.국가적색목록 === 'CR'"
+            style="color: red"
             >위급</v-card-subtitle
           >
-          <v-card-subtitle v-if="birdData.국가적색목록 === 'EN'"
+          <v-card-subtitle
+            v-if="birdData.국가적색목록 === 'EN'"
+            style="color: brown"
             >위기</v-card-subtitle
           >
-          <v-card-subtitle v-if="birdData.국가적색목록 === 'VU'"
+          <v-card-subtitle
+            v-if="birdData.국가적색목록 === 'VU'"
+            style="color: orange"
             >취약</v-card-subtitle
           >
-          <v-card-subtitle v-if="birdData.국가적색목록 === 'NT'"
+          <v-card-subtitle
+            v-if="birdData.국가적색목록 === 'NT'"
+            style="color: yellow"
             >준위협</v-card-subtitle
           >
-          <v-card-subtitle v-if="birdData.국가적색목록 === 'LC'"
+          <v-card-subtitle
+            v-if="birdData.국가적색목록 === 'LC'"
+            style="color: green"
             >관심대상</v-card-subtitle
           >
         </v-card>
