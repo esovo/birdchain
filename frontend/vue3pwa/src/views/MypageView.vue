@@ -1,4 +1,4 @@
-<template >
+<template>
   <div class="mypage">
     <mynft-componenet></mynft-componenet>
 

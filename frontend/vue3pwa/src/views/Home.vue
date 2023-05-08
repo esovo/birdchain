@@ -30,8 +30,6 @@ export default {
   data() {
     return {
       img1: require("../assets/img/image 14.png"),
-      // img2:  require("../../assets/img/wallet.png"),
-      // img3:  require("../../assets/img/wallet.png")
     };
   },
 };
