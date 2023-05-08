@@ -81,7 +81,9 @@ import Swal from "sweetalert2";
 // 도로명 주소 placeInfo[2]
 // 지번 주소 placeInfo[3]
 const props = defineProps({
-  placeInfo: Array,
+  placeInfo: {
+    type: Array,
+  },
 });
 const types = ["새발견", "버드스트라이크"];
 const modalVisible = ref(false);
@@ -155,7 +157,6 @@ const submitForm = () => {
 
   reqForm.append('file', form.value.image[0]);
 
-  console.log(form.value.image[0]);
   // 이미지 파일
   registMarker(reqForm).then(({ data }) => {
     if (data.status === 'OK') {

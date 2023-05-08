@@ -15,7 +15,8 @@ export const getMarkersByType = async (marker_type) => {
 export const getMarkerDetail = async (marker_id) => {
   const res = await markers({
     method: "get",
-    url: `/detail?id=${marker_id}`,
+    url: "/detail",
+    params: {id: marker_id},
   });
   return res;
 };

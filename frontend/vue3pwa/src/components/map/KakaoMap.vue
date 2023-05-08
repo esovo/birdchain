@@ -1,12 +1,18 @@
 ﻿<template>
   <div>
-    <div id="map" @click.once="doMarkerRegist"></div>
-    <MarkerRegist :placeInfo="placeInfo"></MarkerRegist>
+    <div id="map" @click.once="movePin"></div>
+    <MarkerRegist :placeInfo="placeInfo" :map="map"></MarkerRegist>
+    <div class="flex-box">
+      <MakerDetail :marker_id="marker_id"></MakerDetail>
+      <CommentCard :marker_id="marker_id"></CommentCard>
+    </div>
   </div>
 </template>
 
 <script setup>
 import MarkerRegist from "@/components/map/MarkerRegist.vue";
+import MakerDetail from "@/components/map/MarkerDetail.vue";
+import CommentCard from "@/components/map/CommentCard.vue";
 import { ref, onMounted, reactive } from "vue";
 import { getMarkersByType } from "@/api/markers";
 const { kakao } = window;
@@ -43,7 +49,7 @@ const initMap = () => {
 // <마커 표시하기>
 const markers = ref([]);
 const markerData = ref([]);
-
+const marker_id = ref(1);
 const displayMarker = () => {
   // 기존에 있던 마커들 지우기
   if (markers.value.length > 0) {
@@ -67,7 +73,7 @@ const displayMarker = () => {
 
         // 마커에 클릭이벤트를 등록합니다
         kakao.maps.event.addListener(marker, 'click', function() {
-              console.log(m.id);
+          marker_id.value = m.id;
         });
         // 생성한 마커를 markers 배열에 추가하기
         markers.value.push(m);
@@ -83,7 +89,7 @@ onMounted(() => {
 
 // <클릭한 위치 위도, 경도, 법정동 주소 가져오기>
 const placeInfo = reactive([]);
-const doMarkerRegist = () => {
+const movePin = () => {
   // 지도에 클릭 이벤트를 등록합니다
   // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
   kakao.maps.event.addListener(map, "click", function (mouseEvent) {
@@ -121,6 +127,14 @@ const searchDetailAddrFromCoords = (coords, callback) => {
   margin: 0 auto;
   width: 85vw;
   height: 40vw;
+}
+
+.flex-box {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  background-color: #f7fbf3;
+  padding: 50px 0;
 }
 
 @media (max-width: 600px) {
