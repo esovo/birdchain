@@ -18,8 +18,8 @@
           새의 멸종은 식량 연쇄 반응과 함께 <br />
           다른 동물과 식물들도 영향을 받을 수 있습니다.
         </div>
-        <div>
-          <v-btn @click="$router.push('/donate')"> 기부하기 </v-btn>
+        <div class="donatebtn"> 
+          <v-btn size="x-large" @click="$router.push('/donate')" > 기부하기 </v-btn>
         </div>
       </div>
     </div>
@@ -181,7 +181,7 @@ export default {
 
 .mainComponent img {
   width: 30vw;
-
+  border-radius: 3%;
 }
 
 .maintext {
@@ -318,7 +318,7 @@ export default {
   background-color: #eafed5;
   border-radius: 50%;
   left: 0%;
-  top: 200%;
+  top: 210%;
   z-index: -1;
 }
 
@@ -333,6 +333,11 @@ export default {
   background-size: cover;
   width: 350px;
   height: 500px;
+}
+
+.donatebtn{
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 /* .swiper-slide img {

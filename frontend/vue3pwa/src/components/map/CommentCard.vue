@@ -1,5 +1,5 @@
 <template>
-  <v-card width="400" height="600">
+  <v-card width="400" height="600" >
     <CommentCardList></CommentCardList>
     <CommentCardRegist></CommentCardRegist>
   </v-card>

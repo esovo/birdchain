@@ -95,6 +95,7 @@ export default {
 .donate-button {
   margin-top: 10vw;
   font-size: 1.5vw;
+  margin-bottom: 200px;
 }
 .donate-card {
   display: flex;
