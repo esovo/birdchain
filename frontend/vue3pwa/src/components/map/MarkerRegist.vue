@@ -168,7 +168,7 @@ const submitForm = () => {
 }
 
 .v-application{
-  height: 200px;
+  height: 90px;
 }
 
 @media (min-width: 600px) {
