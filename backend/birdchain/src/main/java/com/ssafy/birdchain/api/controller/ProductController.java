@@ -10,20 +10,27 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @Log4j2
 @RestController
-@Tag(name = "판매 가능한 NFT 번호 반환 API")
+@Tag(name = "NFT")
 @RequiredArgsConstructor
-@RequestMapping(value = "/available")
+@RequestMapping(value = "/nft")
 public class ProductController {
 
     private final AvailableProductService availableProductService;
 
-    @GetMapping
+    @GetMapping("available")
     @Operation(summary = "판매 가능한 NFT 번호 랜덤 반환")
     public ResponseEntity<ResponseDTO> giveMeNFTNumber() {
         return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, "조회에 성공했습니다.", availableProductService.giveMeNFTNumber()));
+    }
+
+    @GetMapping("/images")
+    @Operation(summary = "선택 가능한 NFT 이미지 조회")
+    public ResponseEntity<ResponseDTO> showMeNFTImgs(@RequestParam String fileName) {
+        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, "조회에 성공했습니다.", availableProductService.getFileURL(fileName)));
     }
 }

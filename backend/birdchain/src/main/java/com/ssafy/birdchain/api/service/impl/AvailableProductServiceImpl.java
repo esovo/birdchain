@@ -1,5 +1,7 @@
 package com.ssafy.birdchain.api.service.impl;
 
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import com.ssafy.birdchain.api.service.AvailableProductService;
 import com.ssafy.birdchain.common.db.entity.AvailableProduct;
 import com.ssafy.birdchain.common.db.repository.AvailableProductRepository;
@@ -7,6 +9,7 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.net.URL;
 import java.util.List;
 
 @Service
@@ -14,6 +17,8 @@ public class AvailableProductServiceImpl implements AvailableProductService {
 
     @Autowired
     private AvailableProductRepository availableProductRepository;
+    @Autowired
+    private AmazonS3 amazonS3;
 
     @PostConstruct
     public void init() {
@@ -38,5 +43,12 @@ public class AvailableProductServiceImpl implements AvailableProductService {
             int targetNumber = randomProduct.getId();
             return targetNumber;
         }
+    }
+
+    @Override
+    public URL getFileURL(String fileName) {
+        GeneratePresignedUrlRequest generatePresignedUrlRequest = new GeneratePresignedUrlRequest("birdchain", fileName);
+        URL fileUrl = amazonS3.generatePresignedUrl(generatePresignedUrlRequest);
+        return fileUrl;
     }
 }
