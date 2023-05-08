@@ -180,9 +180,8 @@ export default {
 }
 
 .mainComponent img {
-  width: 50vw;
-  height: auto;
-  object-fit: contain;
+  width: 20vw;
+
 }
 
 .maintext {
@@ -222,7 +221,7 @@ export default {
   margin-top: 1rem;
   font-family: "IBM Plex Sans", sans-serif;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 700;
   font-size: 1vw;
   text-align: right;
   text-transform: capitalize;
@@ -233,7 +232,7 @@ export default {
   margin-top: 1rem;
   font-family: "IBM Plex Sans", sans-serif;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 700;
   font-size: 1vw;
   text-align: left;
   text-transform: capitalize;
@@ -370,6 +369,8 @@ export default {
 
 .mainComponent img {
   width: 20vw;
+  height: auto;
+  object-fit: contain;
 }
 
 .maintext {

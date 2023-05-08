@@ -16,7 +16,7 @@
           <v-icon>mdi-heart</v-icon>
           기부하기
         </v-btn>
-        <v-btn style="padding: 10px;" @click="this.$router.push({ name: 'birds' })">
+        <v-btn style="padding: 10px;" @click="this.$router.push({ name: 'MapView' })">
           <v-icon>mdi-map-marker</v-icon>
           정보공유
         </v-btn>

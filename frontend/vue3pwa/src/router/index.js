@@ -8,7 +8,7 @@ import GameView from "@/views/GameView.vue";
 import GameOverView from "@/views/GameOverView.vue";
 import NftView from "@/views/NftView.vue";
 import MapView from "@/views/MapView.vue";
-// import testview from "@/views/testview.vue";
+// import testview from "@/views/TestView.vue";
 
 const routes = [
   {
@@ -35,6 +35,7 @@ const routes = [
     path: "/game",
     name: "gameView",
     component: GameView,
+    
   },
   {
     path: "/gameover",
@@ -62,5 +63,6 @@ const router = createRouter({
   history: createWebHistory(),
   routes,
 });
+
 
 export default router;

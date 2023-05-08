@@ -15,19 +15,20 @@ import "@mdi/font/css/materialdesignicons.css";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { useStore } from '@/stores/store'
 
 const vuetify = createVuetify({
   components,
   directives,
 });
+const pinia = createPinia();
 const app = createApp(App);
 
-app.use(createPinia())
-
 library.add(fas);
-// App.use(createPinia())
 
 // FontAwesome 전역 컴포넌트 등록
 app.component("font-awesome-icon", FontAwesomeIcon);
 // app.use(createPinia())
-app.use(vuetify).use(router).use(Vue3Swiper).mount("#app");
+app.use(vuetify).use(router).use(Vue3Swiper).use(pinia).mount("#app");
+/* eslint-disable */
+const userStore = useStore()

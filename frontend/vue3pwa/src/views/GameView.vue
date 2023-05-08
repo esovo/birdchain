@@ -14,10 +14,14 @@ import clueTapURL from '@/assetgame/img/clue-tap.png'
 import charBirdImg1 from '@/assetgame/img/drags/fly-bird1.png';
 import charBirdImg2 from '@/assetgame/img/drags/fly-bird2.png';
 import charBirdImg3 from '@/assetgame/img/drags/fly-bird3.png';
+import { useStore } from '@/stores/store'
+
 
 // console.log(main)
 export default {
+  
   name: 'GameView',
+  
   data() {
     return {
       gameStart: false,
@@ -75,6 +79,7 @@ export default {
     // computedTy() {
     //   return this.pipe.By - this.pipe.height - this.pipe.pipeDdistance
     // }
+
   },
   created() { },
   mounted() {
@@ -232,8 +237,8 @@ export default {
     },
     moveBird() {
       this.bird.animatedSpray.rotation = - 0.6
-      this.bird.y -= 10
-      this.jumping += 8
+      this.bird.y -= 7
+      this.jumping += 6
     },
     circulationBird() {
       this.countSin += 0.001
@@ -264,16 +269,27 @@ export default {
       // if (this.pipe.x < this.bird.x && this.pipe.x > this.bird.x - 2) {
       //   this.setScoreText()
       // }
-
-      if (this.pipe.x < this.bird.x && this.pipe.x > this.bird.x - 3) {
+      if(this.scoreText.score>3){
+        if (this.pipe.x < this.bird.x && this.pipe.x > this.bird.x -10) {
         this.setScoreText()
+        }
+      }else{
+        if (this.pipe.x < this.bird.x && this.pipe.x > this.bird.x - 4) {
+          this.setScoreText()
+        }
       }
+
+      
 
       if (this.pipe.x <= -42) {
         this.pipe.x = 340
         this.pipe.By = this.randomHeight()
       }
-      this.pipe.x -= 3
+      if(this.scoreText.score>3){
+        this.pipe.x -= 5
+      }else{
+        this.pipe.x -= 3
+      }
     },
     hitTopPipe() {
       let birdTop = this.bird.y;
@@ -342,11 +358,16 @@ export default {
       this.app.game.stage.removeChild(this.clue.spriteClue);
     },
     finish() {
+      const score = useStore()
+    
       this.gameStart = !this.gameStart
       this.gameFinish = true
+
       // main.setScore(this.scoreText.score)
       // this.$store.dispatch('setScore', this.scoreText.score)
-      this.$router.push({ name: 'gameover' })
+      score.$patch({ score: this.scoreText.score })
+      setTimeout(() => this.$router.push({ name: 'gameover'}), 2000);
+
     },
     chekGame() {
       if (!this.gameStart) {
@@ -381,6 +402,8 @@ export default {
   display: flex;
   align-items: center;
   justify-content:center;
+  margin-top: 100px;
+  margin-left: 40%;
 }
 
 @media (max-width: 600px) {
