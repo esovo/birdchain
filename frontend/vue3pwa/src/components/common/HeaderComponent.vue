@@ -50,7 +50,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #navbar {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -60,17 +60,19 @@ export default {
   flex-direction: row;
   font-size: 18;
   color: #4e4e4e;
+  /* font-family: 'Roboto'; */
   font-family: "IBM Plex Sans KR";
   font-style: normal;
   font-weight: 400;
   line-height: 27px;
   width: 100%;
   border-bottom: solid;
-  background-color: white;
+  background-color: #68B984;
 }
 a {
   text-decoration: none;
-  color: #4e4e4e;
+  color: #473C33;
+  font-weight: 700;
 }
 
 .Logoimg {
@@ -91,9 +93,8 @@ a {
   flex-direction: row;
   margin-left: 4%;
   margin-top: 40px;
-  font-family: "IBM Plex Sans KR";
-  font-style: bold;
-  font-weight: 400;
+  /* font-family: "IBM Plex Sans KR"; */
+
   font-size: 18px;
   line-height: 27px;
 }
@@ -114,6 +115,7 @@ a {
     flex-basis: 50%;
     margin-left: 4%;
     margin-top: 10px;
+    
   }
   .walletimg img {
     display: flex;
