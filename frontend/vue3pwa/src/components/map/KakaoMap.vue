@@ -4,7 +4,7 @@
     <MarkerRegist :placeInfo="placeInfo" :map="map"></MarkerRegist>
     <div class="flex-box">
       <MakerDetail :marker_id="marker_id"></MakerDetail>
-      <CommentCard :marker_id="marker_id"></CommentCard>
+      <CommentList :marker_id="marker_id"></CommentList>
     </div>
   </div>
 </template>
@@ -12,7 +12,7 @@
 <script setup>
 import MarkerRegist from "@/components/map/MarkerRegist.vue";
 import MakerDetail from "@/components/map/MarkerDetail.vue";
-import CommentCard from "@/components/map/CommentCard.vue";
+import CommentList from "@/components/map/CommentList.vue";
 import { ref, onMounted, reactive } from "vue";
 import { getMarkersByType } from "@/api/markers";
 const { kakao } = window;
@@ -49,7 +49,7 @@ const initMap = () => {
 // <마커 표시하기>
 const markers = ref([]);
 const markerData = ref([]);
-const marker_id = ref(1);
+const marker_id = ref(5);
 const displayMarker = () => {
   // 기존에 있던 마커들 지우기
   if (markers.value.length > 0) {

@@ -84,6 +84,9 @@ const props = defineProps({
   placeInfo: {
     type: Array,
   },
+  map: {
+    type: Object,
+  }
 });
 const types = ["새발견", "버드스트라이크"];
 const modalVisible = ref(false);

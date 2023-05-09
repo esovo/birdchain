@@ -14,23 +14,15 @@
   </div>
 </template>
 <script setup>
-import {defineProps} from 'vue';
+// import {defineProps} from 'vue';
 import { mdiDelete } from "@mdi/js";
 
-defineProps({
-  comment_id: {
-    type: String,
-  },
-	nickname: {
-		type: String,
-	},
-	content: {
-		type: String,
-	},
-	createdAt: {
-		type: [String, Date],
-	},
-});
+// const props = defineProps({
+//   commentList : {
+//     type: Array,
+//   }
+// });
+
 </script>
 <style scoped>
 .flex-container {
