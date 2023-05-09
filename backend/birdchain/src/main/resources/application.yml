@@ -19,7 +19,7 @@ spring:
     database: mysql
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: ${hibernate.ddl-auto}
     properties:
       hibernate:
         format_sql: true
