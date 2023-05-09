@@ -38,8 +38,8 @@ public class DonationServiceImpl implements DonationService {
     public void addDonation(DonationAddReqDTO donationAddReqDTO) {
         Donation donation = Donation.builder()
                 .amount(donationAddReqDTO.getAmount())
+                .txid(donationAddReqDTO.getTxid())
                 .address(donationAddReqDTO.getAddress())
-                .transactionHash(donationAddReqDTO.getTransactionHash())
                 .build();
         donationRepository.save(donation);
     }

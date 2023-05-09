@@ -15,7 +15,7 @@ import java.io.IOException;
 
 @Log4j2
 @RestController
-@Tag(name = "NFT 작품 API")
+@Tag(name = "NFT API")
 @RequiredArgsConstructor
 @RequestMapping(value = "/items")
 public class ItemController {
@@ -23,26 +23,38 @@ public class ItemController {
     private final ItemService itemService;
 
     /**
-     * NFT 작품 상세 조회 API
+     * 보유 NFT 조회 API
+     *
+     * @param address
+     * @return
+     */
+    @GetMapping
+    @Operation(summary = "보유 NFT 작품 조회")
+    public ResponseEntity<ResponseDTO> donationAllList(@RequestParam String address) {
+        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, "조회에 성공했습니다.", itemService.findAllItem(address)));
+    }
+
+    /**
+     * NFT 상세 조회 API
      *
      * @param id
      * @return
      */
     @GetMapping("/detail")
-    @Operation(summary = "NFT 작품 상세 조회")
+    @Operation(summary = "NFT 상세 조회")
     public ResponseEntity<ResponseDTO> itemDetail(@RequestParam Long id) {
         return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, "조회에 성공했습니다.", itemService.findItem(id)));
     }
 
     /**
-     * NFT 작품 선택 시 DB 저장 API
+     * NFT 선택 시 DB 저장 API
      *
      * @param itemAddReqDTO
      * @return
      * @throws IOException
      */
     @PostMapping
-    @Operation(summary = "NFT 작품 선택")
+    @Operation(summary = "NFT 선택")
     public ResponseEntity<ResponseDTO> itemAdd(@RequestBody ItemAddReqDTO itemAddReqDTO) throws IOException {
         itemService.addItem(itemAddReqDTO);
         return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, "등록에 성공했습니다."));

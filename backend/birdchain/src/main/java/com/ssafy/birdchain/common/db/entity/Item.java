@@ -18,8 +18,11 @@ public class Item {
     @Column(name = "item_image_url", nullable = false)
     private String imageUrl;
 
-    @Column(name = "item_keyword")
-    private String keyword;
+    @Column(name = "item_metadata_url", nullable = false)
+    private String metadataUrl;
+
+    @Column(name = "item_iucn")
+    private String iucn;
 
     @Column(name = "item_name", nullable = false)
     private String name;

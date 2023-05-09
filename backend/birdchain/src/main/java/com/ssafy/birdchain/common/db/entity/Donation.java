@@ -18,8 +18,8 @@ public class Donation extends BaseTime {
     @Column(name = "donation_amount", nullable = false)
     private Double amount;
 
-    @Column(name = "donation_transaction_hash", nullable = false)
-    private String transactionHash;
+    @Column(name = "donation_txid", nullable = false)
+    private String txid;
 
     @Column(name = "donation_address", nullable = false)
     private String address;

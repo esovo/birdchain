@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Log4j2
 @RestController
-@Tag(name = "발급 가능한 NFT 작품 API")
+@Tag(name = "발급 가능한 NFT API")
 @RequiredArgsConstructor
 @RequestMapping(value = "/nft")
 public class AvailableItemController {
