@@ -26,12 +26,14 @@
             <h3>현재 잔고 : {{ balance }} ETH</h3>
           </v-card-text>
         </div>
-        
+
         <label for="donateAmount">기부할 금액 : </label>
         <input type="number" id="donateAmount" v-model="dAmount" />
         <p>입력된 금액 : {{ dAmount }}</p>
 
-        <div class="dialog-donate-btn" d><v-btn @click="donating"> 기부하기 </v-btn></div>
+        <div class="dialog-donate-btn" d>
+          <v-btn @click="donating"> 기부하기 </v-btn>
+        </div>
       </v-card>
     </v-dialog>
   </div>
@@ -47,8 +49,8 @@ export default {
 
     const account = ref("");
 
-    const balance = ref("");   
-    
+    const balance = ref("");
+
     const dAmount = ref();
     const getAccount = async () => {
       console.log("지갑 연동 실행");
@@ -64,20 +66,28 @@ export default {
     };
 
     const donating = async () => {
-
       // const web3 = new Web3('http://localhost:7545');
       const web3 = await createWeb3Instance();
-      const Donation = new web3.eth.Contract(DonationAbi.abi, "0xadA2C5024608A5dD321b960c22CC297c31dF4422");
-      const donationAmount = web3.utils.toWei(dAmount.value.toString(), "ether");
+      const Donation = new web3.eth.Contract(
+        DonationAbi.abi,
+        "0xadA2C5024608A5dD321b960c22CC297c31dF4422"
+      );
+      const donationAmount = web3.utils.toWei(
+        dAmount.value.toString(),
+        "ether"
+      );
 
-      await Donation.methods.donate().send({
-        from: account.value,
-        value: donationAmount
-      }).then(() => {
-        console.log("기부완료");
-        // 해당 유저가 기부 완료 상태임을 기록.
-        // NFT 그림 선택 화면으로 이동.
-      });
+      await Donation.methods
+        .donate()
+        .send({
+          from: account.value,
+          value: donationAmount,
+        })
+        .then(() => {
+          console.log("기부완료");
+          // 해당 유저가 기부 완료 상태임을 기록.
+          // NFT 그림 선택 화면으로 이동.
+        });
     };
 
     return {
