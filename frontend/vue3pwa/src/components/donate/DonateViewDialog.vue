@@ -69,9 +69,20 @@ export default {
     const donating = async () => {
 
       const web3 = await createWeb3Instance();
+
+      // const bytecode = DonationAbi.bytecode;
+      // let contractAddress;
+      // const Donation = new web3.eth.Contract(DonationAbi.abi);
+      // Donation.deploy({ data: bytecode }).send({
+      //   from: "0x596a8fD501f39717b46D4540F56C2c28B5FB25d7",  // 배포하는 계정 주소
+      //   gas: 6721975
+      // }).on('receipt', (receipt) => {
+      //   contractAddress = receipt.contractAddress;
+      // })
+
       const Donation = new web3.eth.Contract(
         DonationAbi.abi,
-        "0xadA2C5024608A5dD321b960c22CC297c31dF4422"
+        "0xff1DbFA0dD7B237fAc80747d43B3E79665cdc2e3"
       );
       const donationAmount = web3.utils.toWei(
         dAmount.value.toString(),
