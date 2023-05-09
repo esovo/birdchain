@@ -6,6 +6,6 @@ public interface AvailableProductService {
 
     int giveMeNFTNumber();
 
-    URL getFileURL(String fileName);
+    URL getFileUrl(String fileName);
 
 }

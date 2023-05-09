@@ -46,8 +46,8 @@ public class AvailableProductServiceImpl implements AvailableProductService {
     }
 
     @Override
-    public URL getFileURL(String fileName) {
-        GeneratePresignedUrlRequest generatePresignedUrlRequest = new GeneratePresignedUrlRequest("birdchain", fileName);
+    public URL getFileUrl(String fileName) {
+        GeneratePresignedUrlRequest generatePresignedUrlRequest = new GeneratePresignedUrlRequest("birdchain", "NFTimages/" + fileName + ".png");
         URL fileUrl = amazonS3.generatePresignedUrl(generatePresignedUrlRequest);
         return fileUrl;
     }

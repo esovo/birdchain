@@ -31,6 +31,6 @@ public class ProductController {
     @GetMapping("/images")
     @Operation(summary = "선택 가능한 NFT 이미지 조회")
     public ResponseEntity<ResponseDTO> showMeNFTImgs(@RequestParam String fileName) {
-        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, "조회에 성공했습니다.", availableProductService.getFileURL(fileName)));
+        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, "조회에 성공했습니다.", availableProductService.getFileUrl(fileName)));
     }
 }
