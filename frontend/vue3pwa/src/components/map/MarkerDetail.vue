@@ -63,10 +63,13 @@ const fetchMarker = () => {
       detailData.value.location = data.value.location;
       detailData.value.content = data.value.content;
       detailData.value.createdAt = data.value.createdAt;
+    } else {
+      console.log(data.status);
+      console.log(data.message);
     }
   });
 };
-fetchMarker(1);
+fetchMarker(5);
 
 watch(
   () => props.marker_id,

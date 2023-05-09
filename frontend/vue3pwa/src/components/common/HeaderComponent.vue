@@ -69,7 +69,7 @@ export default defineComponent({
   line-height: 27px;
   width: 100%;
   border-bottom: solid;
-  background-color: #68B984;
+  background-color: white;
 }
 a {
   text-decoration: none;

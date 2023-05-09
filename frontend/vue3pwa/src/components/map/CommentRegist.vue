@@ -1,18 +1,6 @@
 <template>
   <div class="form-container">
-
-    <!-- <form >
-      <div class="form-group">
-        <input type="text" v-model="form.nickname" />
-      </div>
-      <div class="form-group">
-        <input type="password" v-model="form.password" />
-      </div>
-      <div class="form-group">
-        <textarea id="content" v-model="form.content"></textarea>
-      </div>
-    </form> -->
-      <form @submit.prevent class="form-input">
+      <form @submit.prevent="regist" class="form-input">
         <ul class="wrapper">
           <li class="form-row">
             <label for="name">아이디</label>
@@ -28,19 +16,58 @@
           </li>
         </ul>
         <button type="submit">등록</button>
-
       </form>
   </div>
 </template>
 <script setup>
-import { ref } from "vue";
-// const comments = ref([]);
+import { ref, defineProps } from "vue";
+import {registComment} from "@/api/comments";
+import Swal from "sweetalert2";
+
+const props = defineProps({
+  marker_id: {
+    type: Number,
+  },
+});
+
 const form = ref({
   nickname: null,
   password: null,
   content: null,
 });
+
+const regist = () => {
+  const reqForm = {
+    nickname: form.value.nickname,
+    password: form.value.password,
+    content: form.value.content,
+    marker_id: props.marker_id,
+  };
+
+  registComment(reqForm).then(({data}) =>{
+    if (data.status === 'OK') {
+      form.value.nickname = null;
+      form.value.password = null;
+      form.value.content = null;
+
+      Swal.fire({
+        position: "center",
+        title: "등록되었습니다.",
+        icon: "success",
+      });
+
+    } else {
+      Swal.fire({
+        position: "center",
+        title: "등록에 실패했습니다.",
+        icon: "error",
+      });
+    }
+  })
+
+}
 </script>
+
 <style scoped>
 
 .form-input{
