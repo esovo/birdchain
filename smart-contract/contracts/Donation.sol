@@ -37,11 +37,27 @@ contract Donation is ERC20, Ownable {
 
     //기부
     function donate() public payable onlyOwner {
-        require(msg.value > 0, "DonationToken: amount must be greater than 0");
-        require(msg.sender.balance >= msg.value, "DonationToken: insufficient balance");
-        donationReceiver.transfer(msg.value);
-        totalContribution+=msg.value / 1 ether;
-        emit DonationReceived(msg.sender, msg.value);
+        require(msg.value > 0, "Donation: amount must be greater than 0");
+        require(msg.sender.balance >= msg.value, "Donation: insufficient balance");
+
+        //가스비 추측해서 기부금에서 제외시킴
+        uint256 amount = msg.value - calculateGasFee();
+        donationReceiver.transfer(amount);
+        totalContribution+=amount / 1 ether;
+        emit DonationReceived(msg.sender, amount);
+    }
+
+    function calculateGasFee() internal view returns (uint256) {
+        // 가스비 계산 로직을 구현합니다.
+        // 예시로 고정 가스비를 0.001 ether로 설정하였습니다.
+        uint256 gasPrice = tx.gasprice;
+        uint256 gasLimit = gasleft();
+        uint256 gasFee = gasPrice * gasLimit;
+        
+        // 최소한의 가스비로 설정하기 위해 가스비를 조정합니다.
+        gasFee = gasFee < 0.001 ether ? gasFee : 0.001 ether;
+        
+        return gasFee;
     }
 
     //잔고확인
