@@ -13,8 +13,8 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://mysql-container:3306/birdchain?allowPublicKeyRetrieval=true&useSSL=false&useUniCode=yes&characterEncoding=utf8&serverTimezone=Asia/Seoul
     username: ${mysql.username}
-    password: ${mysql.password}
-
+    password: "${mysql.password}"
+    
   jpa:
     database: mysql
     show-sql: true
