@@ -19,6 +19,8 @@
         <form @submit.prevent="doDeleteMarker">
           <label> <strong>비밀번호</strong></label>
           <input type="password" v-model="password" />
+          <button type="reset" @click="deleteFlag = !deleteFlag">취소</button>
+          <span> | </span>
           <button type="submit">확인</button>
         </form>
       </div>
