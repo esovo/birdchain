@@ -40,4 +40,4 @@ cloud:
       secretKey: ${aws.credentials.secretKey}
 
 cors:
-  allowedOrigins: ${cors.origins}
+  allowedOrigins: http://localhost:3000, http://k8b104.p.ssafy.io:3000, https://k8b104.p.ssafy.io
