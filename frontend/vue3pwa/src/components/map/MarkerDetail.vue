@@ -4,14 +4,15 @@
       <v-card-title class="mr-14"> {{ detailData.nickname }} </v-card-title>
       <div>
         <v-btn icon="fa:fas fa-edit" size="40" class="mr-2"> </v-btn>
-        <v-btn :icon="`mdiSvg:${mdiDelete}`" size="40" class="mr-2" @click="deleteFlag = !deleteFlag"> </v-btn>
+        <v-btn
+          :icon="`mdiSvg:${mdiDelete}`"
+          size="40"
+          class="mr-2"
+          @click="deleteFlag = !deleteFlag">
+        </v-btn>
       </div>
     </div>
-    <v-img
-      :src="detailData.image"
-      height="300px"
-      cover
-      class="my-4"></v-img>
+    <v-img :src="detailData.image" height="300px" cover class="my-4"></v-img>
 
     <v-card-text class="d-flex align-start flex-column ml-3">
       <div v-if="deleteFlag">
@@ -56,8 +57,8 @@ const detailData = ref({
 });
 
 const fetchMarker = () => {
-	getMarkerDetail(String(props.marker_id)).then(({ data }) => {
-    if (data.status === 'OK') {
+  getMarkerDetail(String(props.marker_id)).then(({ data }) => {
+    if (data.status === "OK") {
       detailData.value.nickname = data.value.nickname;
       detailData.value.image = data.value.image;
       detailData.value.type = data.value.type;
@@ -87,13 +88,13 @@ const password = ref();
 
 const doDeleteMarker = () => {
   Swal.fire({
-    title: '정말로 삭제하시겠습니까?',
-    icon: 'warning',
+    title: "정말로 삭제하시겠습니까?",
+    icon: "warning",
     showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: '승인',
-    cancelButtonText: '취소',
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "승인",
+    cancelButtonText: "취소",
     reverseButtons: true, // 버튼 순서 거꾸로
   }).then((result) => {
     if (result.isConfirmed) {
@@ -102,12 +103,12 @@ const doDeleteMarker = () => {
         password: password.value,
       };
       deleteMarker(reqForm).then(({ data }) => {
-        if (data.status === 'OK') {
+        if (data.status === "OK") {
           Swal.fire({
             position: "center",
             title: "삭제되었습니다.",
             icon: "success",
-          })
+          });
           // 삭제 성공하고서 어디로??
         } else {
           Swal.fire({
@@ -117,9 +118,9 @@ const doDeleteMarker = () => {
           });
           password.value = "";
         }
-      })
+      });
     }
-  })
+  });
 };
 </script>
 

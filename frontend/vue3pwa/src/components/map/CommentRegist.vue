@@ -1,27 +1,27 @@
 <template>
   <div class="form-container">
-      <form @submit.prevent="regist" class="form-input">
-        <ul class="wrapper">
-          <li class="form-row">
-            <label for="name">아이디</label>
-            <input type="text" v-model="form.nickname" />
-          </li>
-          <li class="form-row">
-            <label for="townborn">비밀번호</label>
-            <input type="password" v-model="form.password" />
-          </li>
-          <li class="form-row">
-            <label for="email">내용</label>
-            <textarea id="content" v-model="form.content"></textarea>
-          </li>
-        </ul>
-        <button type="submit">등록</button>
-      </form>
+    <form @submit.prevent="regist" class="form-input">
+      <ul class="wrapper">
+        <li class="form-row">
+          <label for="name">아이디</label>
+          <input type="text" v-model="form.nickname" />
+        </li>
+        <li class="form-row">
+          <label for="townborn">비밀번호</label>
+          <input type="password" v-model="form.password" />
+        </li>
+        <li class="form-row">
+          <label for="email">내용</label>
+          <textarea id="content" v-model="form.content"></textarea>
+        </li>
+      </ul>
+      <button type="submit">등록</button>
+    </form>
   </div>
 </template>
 <script setup>
 import { ref, defineProps } from "vue";
-import {registComment} from "@/api/comments";
+import { registComment } from "@/api/comments";
 import Swal from "sweetalert2";
 
 const props = defineProps({
@@ -44,8 +44,8 @@ const regist = () => {
     markerId: props.marker_id,
   };
 
-  registComment(reqForm).then(({data}) =>{
-    if (data.status === 'OK') {
+  registComment(reqForm).then(({ data }) => {
+    if (data.status === "OK") {
       form.value.nickname = null;
       form.value.password = null;
       form.value.content = null;
@@ -64,14 +64,12 @@ const regist = () => {
         icon: "error",
       });
     }
-  })
-
-}
+  });
+};
 </script>
 
 <style scoped>
-
-.form-input{
+.form-input {
   display: flex;
   flex-direction: row;
   margin-top: 250px;
@@ -84,10 +82,10 @@ const regist = () => {
 .form-row {
   display: flex;
   justify-content: flex-end;
-  padding: .5em;
+  padding: 0.5em;
 }
 .form-row > label {
-  padding: .5em 1em .5em 0;
+  padding: 0.5em 1em 0.5em 0;
   flex: 1;
 }
 .form-row > input {
