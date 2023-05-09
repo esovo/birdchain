@@ -131,12 +131,10 @@ export default {
         const accounts = await web3.eth.getAccounts();
         account.value = accounts[0];
       }
-
       const Donation = new web3.eth.Contract(
         DonationAbi.abi,
         "0xadA2C5024608A5dD321b960c22CC297c31dF4422"
-      );
-      
+      );      
       const NFT = new web3.eth.Contract(NFTAbi.abi, "0xD8e41877c984DEe15b73a47B53D84a0FF12fac79");  // abi + 컨트랙트 주소
       await NFT.methods.createNFT(account.value, imgURI).send({
         from: await Donation.methods.donationReceiver().call()  // owner 주소.
