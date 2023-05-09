@@ -98,7 +98,6 @@ import axios from "axios";
 import { ref, computed } from "vue";
 import { createWeb3Instance } from "@/web3";
 import NFTAbi from "../../abi/BirdNFT.json";
-import DonationAbi from "../../abi/Donation.json";
 import router from "@/router";
 export default {
   setup() {
@@ -131,11 +130,6 @@ export default {
         const accounts = await web3.eth.getAccounts();
         account.value = accounts[0];
       }
-      const Donation = new web3.eth.Contract(
-        DonationAbi.abi,
-        "0xff1DbFA0dD7B237fAc80747d43B3E79665cdc2e3"
-      );
-      await Donation.method
       const NFT = new web3.eth.Contract(NFTAbi.abi, "0x96d3b6F3a95F21530c45085c8585B5c974E5bFB8");  // abi + 컨트랙트 주소
       await NFT.methods.createNFT(account.value, imgURI).send({
         from: account.value
