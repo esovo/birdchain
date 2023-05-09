@@ -1,19 +1,15 @@
 package com.ssafy.birdchain.common.db.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.time.LocalDateTime;
+import lombok.*;
 
 @Entity
 @Setter
 @Getter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Donation {
+public class Donation extends BaseTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "donation_id", nullable = false)
@@ -22,10 +18,10 @@ public class Donation {
     @Column(name = "donation_amount", nullable = false)
     private Double amount;
 
-    @Column(name = "donation_created_at", nullable = false)
-    private LocalDateTime createdAt;
-
     @Column(name = "donation_transaction_hash", nullable = false)
     private String transactionHash;
+
+    @Column(name = "donation_address", nullable = false)
+    private String address;
 
 }

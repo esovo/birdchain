@@ -29,9 +29,16 @@ public enum CommonErrorCode implements ErrorCode {
     // 마커
     MARKER_NOT_FOUND(HttpStatus.NOT_FOUND, "마커가 존재하지 않습니다."),
     MARKER_NOT_ALLOWED(HttpStatus.NOT_ACCEPTABLE, "사용자가 일치하지 않습니다."),
+
     // 댓글
     COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "댓글이 존재하지 않습니다."),
-    COMMENT_NOT_ALLOWED(HttpStatus.NOT_ACCEPTABLE, "사용자가 일치하지 않습니다.");
+    COMMENT_NOT_ALLOWED(HttpStatus.NOT_ACCEPTABLE, "사용자가 일치하지 않습니다."),
+
+    // 기부
+    DONATION_NOT_FOUND(HttpStatus.NOT_FOUND, "기부 내역이 존재하지 않습니다."),
+
+    // NFT
+    ITEM_NOT_FOUND(HttpStatus.NOT_FOUND, "NFT가 존재하지 않습니다.");
 
     private final HttpStatus httpStatus;
     private final String message;
