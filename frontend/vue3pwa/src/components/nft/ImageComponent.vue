@@ -15,7 +15,7 @@
         >
           <v-hover v-slot:default="{ hover }">
             <v-img
-              :src="require('@/assets/img/NFT_ex1.png')"
+              :src=imgA
               :class="hover ? 'blur-image' : ''"
             ></v-img>
           </v-hover>
@@ -35,7 +35,7 @@
         >
           <v-hover v-slot:default="{ hover }">
             <v-img
-              :src="require('@/assets/img/NFT_ex2.png')"
+              :src=imgB
               :class="hover ? 'blur-image' : ''"
             ></v-img>
           </v-hover>
@@ -57,7 +57,7 @@
         >
           <v-hover v-slot:default="{ hover }">
             <v-img
-              :src="require('@/assets/img/NFT_ex3.png')"
+              :src=imgC
               :class="hover ? 'blur-image' : ''"
             ></v-img>
           </v-hover>
@@ -77,7 +77,7 @@
         >
           <v-hover v-slot:default="{ hover }">
             <v-img
-              :src="require('@/assets/img/NFT_ex4.png')"
+              :src=imgD
               :class="hover ? 'blur-image' : ''"
             ></v-img>
           </v-hover>
@@ -90,10 +90,21 @@
   </v-container>
 </template>
 <script>
+import axios from "axios";
 import { ref, computed } from "vue";
 export default {
   setup() {
     const hover = ref([-1, -1, -1, -1]);
+
+    const NFTNum = ref("");
+
+    const imgA = ref("");
+
+    const imgB = ref("");
+
+    const imgC = ref("");
+
+    const imgD = ref("");
 
     const elevation = computed(() =>
       hover.value.map((val, index) => (val === index ? 8 : 2))
@@ -105,8 +116,39 @@ export default {
       hover,
       elevation,
       hoverClass,
+      NFTNum,
+      imgA,
+      imgB,
+      imgC,
+      imgD,
     };
   },
+
+  mounted() {
+    // axios.get(`http://localhost:8080/api/nft/available`)
+    axios.get(`https://k8b104.p.ssafy.io/api/nft/available`)
+      .then((res) => {
+        const NFTNum = res.data.value.toString().padStart(3, '0');
+        const imageNames = ['A', 'B', 'C', 'D'];
+        // const imageRequests = imageNames.map(name => axios.get(`http://localhost:8080/api/nft/images?fileName=${NFTNum}${name}`));
+        const imageRequests = imageNames.map(name => axios.get(`https://k8b104.p.ssafy.io/api/nft/images?fileName=${NFTNum}${name}`));
+
+        axios.all(imageRequests)
+          .then(axios.spread((...responses) => {
+            this.imgA = responses[0].data.value;
+            this.imgB = responses[1].data.value;
+            this.imgC = responses[2].data.value;
+            this.imgD = responses[3].data.value;
+          }))
+          .catch(error => {
+            console.log(error);
+          });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  },
+
 };
 </script>
 <style scoped>
