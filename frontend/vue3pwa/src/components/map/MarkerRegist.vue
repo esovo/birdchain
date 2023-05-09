@@ -73,6 +73,7 @@
 
 <script setup>
 import { ref, defineProps } from "vue";
+import { useRouter } from 'vue-router';
 import { registMarker } from "@/api/markers";
 import Swal from "sweetalert2";
 
@@ -80,6 +81,7 @@ import Swal from "sweetalert2";
 // 경도 placeInfo[1]
 // 도로명 주소 placeInfo[2]
 // 지번 주소 placeInfo[3]
+const router = useRouter();
 const props = defineProps({
   placeInfo: {
     type: Array,
@@ -158,7 +160,6 @@ const submitForm = () => {
   reqForm.append('markerAddReqDTO', new Blob([JSON.stringify(regMarker)], {
     type: 'application/json'
   }));
-
   reqForm.append('file', form.value.image[0]);
 
   // 이미지 파일
@@ -170,6 +171,7 @@ const submitForm = () => {
         title: "등록되었습니다.",
         icon: "success",
       });
+      router.push({name: 'MapView'});
     } else {
       console.log(data.status);
       closeModal();

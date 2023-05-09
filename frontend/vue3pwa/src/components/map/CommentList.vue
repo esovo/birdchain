@@ -1,6 +1,6 @@
 <template>
-  <v-card width="400" height="600" >
-    <div v-for="comment in commentList" :key="comment.id">
+  <v-card width="400" height="600">
+    <div v-for="comment in commentList" :key="comment.id" style="overflow: auto;">
       <CommentListItem
         :comment_id="comment.id"
         :nickname="comment.nickname"
@@ -8,13 +8,15 @@
         :createdAt="comment.createdAt"
       ></CommentListItem>
     </div>
-    <CommentRegist :marker_id="marker_id"></CommentRegist>
+    <div>
+      <CommentRegist :marker_id="marker_id"></CommentRegist>
+    </div>
   </v-card>
 </template>
 <script setup>
 import CommentListItem from "@/components/map/CommentListItem.vue";
 import CommentRegist from "@/components/map/CommentRegist.vue";
-import { ref, defineProps } from "vue";
+import { ref, defineProps, onMounted } from "vue";
 import {getComments} from "@/api/comments";
 
 const marker_id = ref(0);
@@ -27,11 +29,14 @@ const props = defineProps({
 });
 
 const commentList = ref([]);
-getCommentList(marker_id.value);
+onMounted(() => {
+  getCommentList();
+});
+
+
 const getCommentList = () => {
   getComments(marker_id.value).then(({data}) => {
     if(data.status === 'OK') {
-      console.log(data);
       commentList.value = data.value;
     }
   })

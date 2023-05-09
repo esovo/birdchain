@@ -41,7 +41,7 @@ const regist = () => {
     nickname: form.value.nickname,
     password: form.value.password,
     content: form.value.content,
-    marker_id: props.marker_id,
+    markerId: props.marker_id,
   };
 
   registComment(reqForm).then(({data}) =>{

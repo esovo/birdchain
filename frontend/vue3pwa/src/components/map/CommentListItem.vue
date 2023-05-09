@@ -2,8 +2,8 @@
   <div class="flex-container">
     <div>
       <v-card-item class="d-flex">
-        <v-card-title> 닉네임 {{ props.nickname }}</v-card-title>
-        <v-card-subtitle>등록날짜 {{ props.createdAt }}</v-card-subtitle>
+        <v-card-title> {{ props.nickname }}</v-card-title>
+        <v-card-subtitle>{{ props.createdAt }}</v-card-subtitle>
       </v-card-item>
       <div v-if="deleteFlag">
         <form @submit.prevent>
@@ -18,7 +18,7 @@
       <v-btn :icon="`mdiSvg:${mdiDelete}`" size="40" @click="deleteFlag = !deleteFlag"> </v-btn>
     </div>
     <div v-if="deleteFlag">
-      <button type="reset">취소</button>
+      <button type="reset" @click="deleteFlag = !deleteFlag">취소</button>
       <button type="submit" @click="doDeleteMarker">확인</button>
     </div>
   </div>
@@ -46,6 +46,7 @@ const props = defineProps({
 const deleteFlag = ref(false);
 const doDeleteMarker = () => {
   // 댓글 삭제 구현
+  
 }
 </script>
 <style scoped>

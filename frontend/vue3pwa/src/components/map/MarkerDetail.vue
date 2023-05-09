@@ -83,7 +83,7 @@ watch(
 
 // 마커 삭제
 const deleteFlag = ref(false);
-const password = ref(0);
+const password = ref();
 
 const doDeleteMarker = () => {
   Swal.fire({

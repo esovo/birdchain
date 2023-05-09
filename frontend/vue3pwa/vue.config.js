@@ -7,7 +7,7 @@ module.exports = {
   devServer: {
     proxy: {
       "/api": {
-        target: "http://k8b104.p.ssafy.io:8080/api", // 백엔드 API 서버 주소
+        target: "https://k8b104.p.ssafy.io/api", // 백엔드 API 서버 주소
         changeOrigin: true,
         pathRewrite: {
           "^/api": "",

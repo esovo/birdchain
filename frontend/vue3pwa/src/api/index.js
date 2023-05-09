@@ -5,9 +5,6 @@ const BASE_URL = "/api";
 function create(AXIOS_CALL_URL) {
   const instance = axios.create({
       baseURL: AXIOS_CALL_URL,
-      // headers: {
-      //     'Content-Type': 'application/json',
-      // },
       withCredentials: true,
     });
   return instance;
