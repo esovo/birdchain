@@ -13,7 +13,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://${mysql.port}/birdchain?allowPublicKeyRetrieval=true&useSSL=false&useUniCode=yes&characterEncoding=utf8&serverTimezone=Asia/Seoul
     username: ${mysql.username}
-    password: "!@104birdchain"
+    password: ${mysql.password}
     
   jpa:
     database: mysql
@@ -36,9 +36,8 @@ cloud:
     stack.auto: false
     region.static: ap-northeast-2
     credentials:
-      accessKey: AKIAWDNHI63CVUB44IDA
-      secretKey: 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
-
+      accessKey: ${aws.credentials.accessKey}
+      secretKey: ${aws.credentials.secretKey}
 
 cors:
-  allowedOrigins: http://localhost:3000, http://k8b104.p.ssafy.io:3000, https://k8b104.p.ssafy.io
+  allowedOrigins: ${cors.origins}
