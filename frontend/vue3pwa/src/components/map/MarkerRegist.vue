@@ -171,6 +171,7 @@ const submitForm = () => {
         icon: "success",
       });
     } else {
+      console.log(data.status);
       closeModal();
       Swal.fire({
         position: "center",

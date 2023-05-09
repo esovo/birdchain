@@ -49,7 +49,7 @@ const initMap = () => {
 // <마커 표시하기>
 const markers = ref([]);
 const markerData = ref([]);
-const marker_id = ref(5);
+const marker_id = ref(1);
 const displayMarker = () => {
   // 기존에 있던 마커들 지우기
   if (markers.value.length > 0) {
