@@ -133,11 +133,12 @@ export default {
       }
       const Donation = new web3.eth.Contract(
         DonationAbi.abi,
-        "0xadA2C5024608A5dD321b960c22CC297c31dF4422"
-      );      
-      const NFT = new web3.eth.Contract(NFTAbi.abi, "0xD8e41877c984DEe15b73a47B53D84a0FF12fac79");  // abi + 컨트랙트 주소
+        "0xff1DbFA0dD7B237fAc80747d43B3E79665cdc2e3"
+      );
+      await Donation.method
+      const NFT = new web3.eth.Contract(NFTAbi.abi, "0x96d3b6F3a95F21530c45085c8585B5c974E5bFB8");  // abi + 컨트랙트 주소
       await NFT.methods.createNFT(account.value, imgURI).send({
-        from: await Donation.methods.donationReceiver().call()  // owner 주소.
+        from: account.value
       }).then(() => {
         console.log("NFT 발급 완료");
         router.push('/mypage');
