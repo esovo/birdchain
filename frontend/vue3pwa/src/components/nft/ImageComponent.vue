@@ -12,6 +12,7 @@
           :class="hoverClass[0]"
           @mouseover="hover[0] = 0"
           @mouseleave="hover[0] = -1"
+          @click="createNFT(imgA)"
         >
           <v-hover v-slot:default="{ hover }">
             <v-img
@@ -32,6 +33,7 @@
           :class="hoverClass[1]"
           @mouseover="hover[1] = 1"
           @mouseleave="hover[1] = -1"
+          @click="createNFT(imgB)"
         >
           <v-hover v-slot:default="{ hover }">
             <v-img
@@ -54,6 +56,7 @@
           :class="hoverClass[2]"
           @mouseover="hover[2] = 2"
           @mouseleave="hover[2] = -1"
+          @click="createNFT(imgC)"
         >
           <v-hover v-slot:default="{ hover }">
             <v-img
@@ -74,6 +77,7 @@
           :class="hoverClass[3]"
           @mouseover="hover[3] = 3"
           @mouseleave="hover[3] = -1"
+          @click="createNFT(imgD)"
         >
           <v-hover v-slot:default="{ hover }">
             <v-img
@@ -92,6 +96,10 @@
 <script>
 import axios from "axios";
 import { ref, computed } from "vue";
+import { createWeb3Instance } from "@/web3";
+import NFTAbi from "../../abi/BirdNFT.json";
+import DonationAbi from "../../abi/Donation.json";
+import router from "@/router";
 export default {
   setup() {
     const hover = ref([-1, -1, -1, -1]);
@@ -106,12 +114,39 @@ export default {
 
     const imgD = ref("");
 
+    const account = ref("");
+
     const elevation = computed(() =>
       hover.value.map((val, index) => (val === index ? 8 : 2))
     );
     const hoverClass = computed(() =>
       hover.value.map((val, index) => (val === index ? "elevation-hover" : ""))
     );
+
+    const createNFT = async (imgURI) => {
+
+      const web3 = await createWeb3Instance();
+
+      if (web3) {
+        const accounts = await web3.eth.getAccounts();
+        account.value = accounts[0];
+      }
+
+      const Donation = new web3.eth.Contract(
+        DonationAbi.abi,
+        "0xadA2C5024608A5dD321b960c22CC297c31dF4422"
+      );
+      
+      const NFT = new web3.eth.Contract(NFTAbi.abi, "0xD8e41877c984DEe15b73a47B53D84a0FF12fac79");  // abi + 컨트랙트 주소
+      await NFT.methods.createNFT(account.value, imgURI).send({
+        from: await Donation.methods.donationReceiver().call()  // owner 주소.
+      }).then(() => {
+        console.log("NFT 발급 완료");
+        router.push('/mypage');
+      })
+
+    };
+
     return {
       hover,
       elevation,
@@ -121,6 +156,8 @@ export default {
       imgB,
       imgC,
       imgD,
+      account,
+      createNFT,
     };
   },
 
