@@ -42,6 +42,7 @@
 import { ref } from "vue";
 import { createWeb3Instance } from "@/web3";
 import DonationAbi from "../../abi/Donation.json";
+import router from "@/router";
 
 export default {
   setup() {
@@ -66,7 +67,7 @@ export default {
     };
 
     const donating = async () => {
-      // const web3 = new Web3('http://localhost:7545');
+
       const web3 = await createWeb3Instance();
       const Donation = new web3.eth.Contract(
         DonationAbi.abi,
@@ -77,17 +78,15 @@ export default {
         "ether"
       );
 
-      await Donation.methods
-        .donate()
-        .send({
-          from: account.value,
-          value: donationAmount,
-        })
-        .then(() => {
-          console.log("기부완료");
-          // 해당 유저가 기부 완료 상태임을 기록.
-          // NFT 그림 선택 화면으로 이동.
-        });
+      await Donation.methods.donate().send({
+        from: account.value,
+        value: donationAmount
+      }).then(() => {
+        console.log("기부완료");        
+        // 해당 유저가 기부 완료 상태임을 기록.
+        // NFT 그림 선택 화면으로 이동.
+        router.push('/nft');
+      });
     };
 
     return {

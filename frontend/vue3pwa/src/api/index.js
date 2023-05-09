@@ -1,8 +1,10 @@
 import axios from "axios";
 
-function create(BASE_URL) {
+const BASE_URL = "/api";
+
+function create(AXIOS_CALL_URL) {
   const instance = axios.create({
-      baseURL: BASE_URL,
+      baseURL: AXIOS_CALL_URL,
       // headers: {
       //     'Content-Type': 'application/json',
       // },
@@ -11,6 +13,6 @@ function create(BASE_URL) {
   return instance;
 }
 
-export const markers = create(`${process.env.VUE_APP_API_URL}api/map/markers`);
+export const markers = create(BASE_URL+'/map/markers');
+export const comments = create(BASE_URL+'/map/comments');
 
-export const comments = create(`${process.env.VUE_APP_API_URL}api/map/comments`);

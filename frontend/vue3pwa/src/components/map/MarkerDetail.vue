@@ -4,7 +4,7 @@
       <v-card-title class="mr-14"> {{ detailData.nickname }} </v-card-title>
       <div>
         <v-btn icon="fa:fas fa-edit" size="40" class="mr-2"> </v-btn>
-        <v-btn :icon="`mdiSvg:${mdiDelete}`" size="40" class="mr-2" @click="doDeleteMarker"> </v-btn>
+        <v-btn :icon="`mdiSvg:${mdiDelete}`" size="40" class="mr-2" @click="deleteFlag = !deleteFlag"> </v-btn>
       </div>
     </div>
     <v-img
@@ -15,10 +15,11 @@
 
     <v-card-text class="d-flex align-start flex-column ml-3">
       <div v-if="deleteFlag">
-        <form @submit.prevent>
-        <label> <strong>비밀번호</strong></label>
-        <input type="password" v-model="password" />
-      </form>
+        <form @submit.prevent="doDeleteMarker">
+          <label> <strong>비밀번호</strong></label>
+          <input type="password" v-model="password" />
+          <button type="submit">확인</button>
+        </form>
       </div>
       <div>
         <span> <strong>위치</strong></span>
@@ -69,8 +70,8 @@ const fetchMarker = () => {
     }
   });
 };
-fetchMarker(5);
 
+fetchMarker();
 watch(
   () => props.marker_id,
   (newValue, oldValue) => {
@@ -85,7 +86,6 @@ const deleteFlag = ref(false);
 const password = ref(0);
 
 const doDeleteMarker = () => {
-  deleteFlag.value = !deleteFlag.value;
   Swal.fire({
     title: '정말로 삭제하시겠습니까?',
     icon: 'warning',
@@ -108,6 +108,7 @@ const doDeleteMarker = () => {
             title: "삭제되었습니다.",
             icon: "success",
           })
+          // 삭제 성공하고서 어디로??
         } else {
           Swal.fire({
             position: "center",
