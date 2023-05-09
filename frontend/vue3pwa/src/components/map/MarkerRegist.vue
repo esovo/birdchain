@@ -76,7 +76,6 @@ import Swal from "sweetalert2";
 // 경도 placeInfo[1]
 // 도로명 주소 placeInfo[2]
 // 지번 주소 placeInfo[3]
-// const router = useRouter();
 const props = defineProps({
   placeInfo: {
     type: Array,

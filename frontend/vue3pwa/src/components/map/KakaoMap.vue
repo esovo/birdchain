@@ -57,7 +57,6 @@ const markers = ref([]);
 const markerData = ref([]);
 const marker_id = ref(1);
 const displayMarker = () => {
-  console.log(markers.value.length);
   // 기존에 있던 마커들 지우기
   if (markers.value.length > 0) {
     markers.value.forEach((marker) => marker.setMap(null));
