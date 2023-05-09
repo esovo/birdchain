@@ -5,15 +5,15 @@
 <script>
 
 import * as PIXI from 'pixi.js';
-import bgUrl from '@/assetgame/img/bg.png';
+import bgUrl from '@/assetgame/img/bg3.png';
 import groundURL from '@/assetgame/img/ground.png'
 import pipeBottomURL from '@/assetgame/img/pipe-bottom.png'
 import pipeTopURL from '@/assetgame/img/pipe-top.png'
 import clueTapURL from '@/assetgame/img/clue-tap.png'
 
-import charBirdImg1 from '@/assetgame/img/drags/fly-bird1.png';
-import charBirdImg2 from '@/assetgame/img/drags/fly-bird2.png';
-import charBirdImg3 from '@/assetgame/img/drags/fly-bird3.png';
+import charBirdImg1 from '@/assetgame/img/drags/flybird.png';
+import charBirdImg2 from '@/assetgame/img/drags/flybird.png';
+import charBirdImg3 from '@/assetgame/img/drags/flybird.png';
 import { useStore } from '@/stores/store'
 
 
@@ -44,7 +44,7 @@ export default {
         pipeSpriteBottom: null, 
         pipeTextureTop: null, 
         pipeSpriteTop: null, 
-        pipeDdistance: 100,
+        pipeDdistance: 80,
         x: 255,
         By: 300,
         Ty: 0,
