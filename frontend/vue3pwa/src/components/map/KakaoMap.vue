@@ -4,7 +4,7 @@
     <MarkerRegist :placeInfo="placeInfo" :map="map"></MarkerRegist>
     <div class="flex-box">
       <MakerDetail :marker_id="marker_id"></MakerDetail>
-      <CommentList :marker_id="marker_id"></CommentList>
+      <CommentList :marker_id="marker_id" class="commentList"></CommentList>
     </div>
   </div>
 </template>
@@ -57,8 +57,7 @@ const displayMarker = () => {
   }
 
   // axios 요청 보내서 DB 마커 가젹오기
-  getMarkersByType("")
-  .then(({ data }) => {
+  getMarkersByType("").then(({ data }) => {
     markerData.value = data.value;
 
     // 전달받은 위도&경도로 마커 생성하고 지도에 표시하기
@@ -72,14 +71,14 @@ const displayMarker = () => {
         });
 
         // 마커에 클릭이벤트를 등록합니다
-        kakao.maps.event.addListener(marker, 'click', function() {
+        kakao.maps.event.addListener(marker, "click", function () {
           marker_id.value = m.id;
         });
         // 생성한 마커를 markers 배열에 추가하기
         markers.value.push(m);
       });
     }
-  })
+  });
 };
 
 onMounted(() => {
@@ -142,6 +141,12 @@ const searchDetailAddrFromCoords = (coords, callback) => {
     justify-content: center;
     width: 100vw;
     height: 90vw;
+  }
+}
+
+@media (max-width: 799px) {
+  .commentList {
+    margin-top: 40px;
   }
 }
 </style>
