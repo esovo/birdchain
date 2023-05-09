@@ -3,13 +3,15 @@ package com.ssafy.birdchain.common.db.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-public class AvailableProduct {
+public class AvailableItem {
 
     @Id
     @Column(name = "p_id", nullable = false)
