@@ -1,14 +1,12 @@
 package com.ssafy.birdchain.common.db.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Setter
 @Getter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Item {
@@ -22,9 +20,6 @@ public class Item {
 
     @Column(name = "item_keyword")
     private String keyword;
-
-    @Column(name = "item_owner_address")
-    private String ownerAddress;
 
     @Column(name = "item_name", nullable = false)
     private String name;
