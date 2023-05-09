@@ -37,7 +37,7 @@
 </template>
 
 <script setup>
-import { ref, defineProps, watch } from "vue";
+import { ref, defineProps, watch, defineEmits } from "vue";
 import { mdiDelete } from "@mdi/js";
 import { getMarkerDetail, deleteMarker } from "@/api/markers";
 import Swal from "sweetalert2";
@@ -48,6 +48,8 @@ const props = defineProps({
     type: Number,
   },
 });
+
+const emit = defineEmits(["reloadMarker", "notValid"]);
 
 const detailData = ref({
   nickname: null,
@@ -102,17 +104,22 @@ const doDeleteMarker = () => {
     if (result.isConfirmed) {
       const reqForm = {
         id: props.marker_id,
+        nickname: detailData.value.nickname,
         password: password.value,
       };
       deleteMarker(reqForm).then(({ data }) => {
         if (data.status === "OK") {
+          password.value = null;
+          emit("reloadMarker");
+          emit("notValid");
+
           Swal.fire({
             position: "center",
             title: "삭제되었습니다.",
             icon: "success",
           });
-          // 삭제 성공하고서 어디로??
         } else {
+          password.value = null;
           Swal.fire({
             position: "center",
             title: "비밀번호가 일치하지 않습니다.",

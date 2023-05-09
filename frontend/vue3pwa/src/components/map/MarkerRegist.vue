@@ -24,19 +24,16 @@
               <v-form @submit.prevent>
                 <v-text-field
                   label="닉네임"
-                  v-model="form.nickname"
-                  ></v-text-field>
+                  v-model="form.nickname"></v-text-field>
                 <v-text-field
                   label="비밀번호"
                   type="password"
-                  v-model="form.password"
-                  ></v-text-field>
+                  v-model="form.password"></v-text-field>
                 <v-file-input
                   label="이미지"
                   v-model="form.image"
                   @change="previewImage"
-                  @click:clear="hidePreview"
-                  ></v-file-input>
+                  @click:clear="hidePreview"></v-file-input>
                 <v-img
                   v-if="imageUrl"
                   :src="imageUrl"
@@ -45,8 +42,7 @@
                 <v-select
                   :items="types"
                   label="유형"
-                  v-model="form.type"
-                  ></v-select>
+                  v-model="form.type"></v-select>
                 <v-text-field
                   label="위치"
                   v-model="form.location"
@@ -55,8 +51,7 @@
                 <v-textarea
                   label="글 내용"
                   v-model="form.content"
-                  rows="5"
-                  ></v-textarea>
+                  rows="5"></v-textarea>
               </v-form>
             </v-card-text>
             <v-card-actions>
@@ -72,24 +67,27 @@
 </template>
 
 <script setup>
-import { ref, defineProps } from "vue";
-import { useRouter } from 'vue-router';
+import { ref, defineProps, defineEmits } from "vue";
 import { registMarker } from "@/api/markers";
 import Swal from "sweetalert2";
+// const { kakao } = window;
 
 // 위도 placeInfo[0]
 // 경도 placeInfo[1]
 // 도로명 주소 placeInfo[2]
 // 지번 주소 placeInfo[3]
-const router = useRouter();
+// const router = useRouter();
 const props = defineProps({
   placeInfo: {
     type: Array,
   },
   map: {
     type: Object,
-  }
+  },
 });
+
+const emit = defineEmits(["reloadMarker"]);
+
 const types = ["새발견", "버드스트라이크"];
 const modalVisible = ref(false);
 const form = ref({
@@ -112,7 +110,7 @@ const showModal = () => {
 };
 
 // 사진 미리보기
-const imageUrl = ref('');
+const imageUrl = ref("");
 const previewImage = (event) => {
   const file = event.target.files[0];
 
@@ -157,21 +155,25 @@ const submitForm = () => {
     password: form.value.password,
   };
 
-  reqForm.append('markerAddReqDTO', new Blob([JSON.stringify(regMarker)], {
-    type: 'application/json'
-  }));
-  reqForm.append('file', form.value.image[0]);
+  reqForm.append(
+    "markerAddReqDTO",
+    new Blob([JSON.stringify(regMarker)], {
+      type: "application/json",
+    })
+  );
+  reqForm.append("file", form.value.image[0]);
 
   // 이미지 파일
   registMarker(reqForm).then(({ data }) => {
-    if (data.status === 'OK') {
+    if (data.status === "OK") {
       closeModal();
+      emit("reloadMarker");
+
       Swal.fire({
         position: "center",
         title: "등록되었습니다.",
         icon: "success",
       });
-      router.push({name: 'MapView'});
     } else {
       console.log(data.status);
       closeModal();
@@ -193,11 +195,11 @@ const submitForm = () => {
   margin: 0 auto;
 }
 
-.v-application{
+.v-application {
   height: 90px;
 }
 
-@media (min-width: 960px){
+@media (min-width: 960px) {
   .v-container {
     max-width: 2000px;
   }

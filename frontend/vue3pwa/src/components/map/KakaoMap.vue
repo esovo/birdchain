@@ -1,9 +1,15 @@
 ﻿<template>
   <div>
     <div id="map" @click.once="movePin"></div>
-    <MarkerRegist :placeInfo="placeInfo" :map="map"></MarkerRegist>
-    <div class="flex-box">
-      <MakerDetail :marker_id="marker_id"></MakerDetail>
+    <MarkerRegist
+      :placeInfo="placeInfo"
+      :map="map"
+      @reloadMarker="reloadMarker"></MarkerRegist>
+    <div class="flex-box" v-if="isValid">
+      <MakerDetail
+        :marker_id="marker_id"
+        @reloadMarker="reloadMarker"
+        @notValid="notValid"></MakerDetail>
       <CommentList :marker_id="marker_id" class="commentList"></CommentList>
     </div>
   </div>
@@ -51,6 +57,7 @@ const markers = ref([]);
 const markerData = ref([]);
 const marker_id = ref(1);
 const displayMarker = () => {
+  console.log(markers.value.length);
   // 기존에 있던 마커들 지우기
   if (markers.value.length > 0) {
     markers.value.forEach((marker) => marker.setMap(null));
@@ -72,10 +79,11 @@ const displayMarker = () => {
 
         // 마커에 클릭이벤트를 등록합니다
         kakao.maps.event.addListener(marker, "click", function () {
+          isValid.value = true;
           marker_id.value = m.id;
         });
         // 생성한 마커를 markers 배열에 추가하기
-        markers.value.push(m);
+        markers.value.push(marker);
       });
     }
   });
@@ -118,6 +126,15 @@ const geocoder = new kakao.maps.services.Geocoder();
 // 좌표로 법정동 상세 주소 정보를 요청합니다
 const searchDetailAddrFromCoords = (coords, callback) => {
   geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+};
+
+const reloadMarker = () => {
+  displayMarker();
+};
+
+const isValid = ref(true);
+const notValid = () => {
+  isValid.value = false;
 };
 </script>
 
