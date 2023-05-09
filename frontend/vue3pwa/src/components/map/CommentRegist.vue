@@ -56,6 +56,7 @@ const regist = () => {
         icon: "success",
       });
 
+      // 등록 후 어떻게??
     } else {
       Swal.fire({
         position: "center",

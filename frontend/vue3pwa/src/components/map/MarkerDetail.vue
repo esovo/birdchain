@@ -108,7 +108,7 @@ const doDeleteMarker = () => {
             title: "삭제되었습니다.",
             icon: "success",
           })
-
+          // 삭제 성공하고서 어디로??
         } else {
           Swal.fire({
             position: "center",
