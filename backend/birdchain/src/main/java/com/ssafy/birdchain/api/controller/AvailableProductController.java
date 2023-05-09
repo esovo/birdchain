@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "NFT")
 @RequiredArgsConstructor
 @RequestMapping(value = "/nft")
-public class ProductController {
+public class AvailableProductController {
 
     private final AvailableProductService availableProductService;
 
