@@ -154,6 +154,7 @@ const submitForm = () => {
     content: form.value.content,
     password: form.value.password,
   };
+
   reqForm.append('markerAddReqDTO', new Blob([JSON.stringify(regMarker)], {
     type: 'application/json'
   }));
