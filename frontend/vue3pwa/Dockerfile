@@ -6,7 +6,9 @@ WORKDIR /app_front
 
 # 환경변수 추가
 ARG VUE_APP_KAKAOMAP_KEY
+ARG VUE_APP_API_URL
 ENV VUE_APP_KAKAOMAP_KEY=$VUE_APP_KAKAOMAP_KEY
+ENV VUE_APP_API_URL=$VUE_APP_API_URL
 
 # package.json과 package-lock.json 복사
 COPY package*.json ./

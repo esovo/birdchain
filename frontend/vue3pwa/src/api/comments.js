@@ -4,7 +4,8 @@ import { comments } from ".";
 export const getComments = async (marker_id) => {
   const res = await comments({
     method: "get",
-    url: `?id=${marker_id}`,
+    url: "",
+    params: {id: marker_id},
   });
   return res;
 };
