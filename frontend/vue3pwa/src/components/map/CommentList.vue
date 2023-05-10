@@ -3,6 +3,8 @@
     <div class="scroll-container" v-scroll-y>
       <div class="comments" style="height: 400px">
         <CommentListItem
+          @reloadComment="reloadComment"
+          :marker_id="props.marker_id"
           v-for="comment in commentList"
           :key="comment.id"
           :comment_id="comment.id"
@@ -53,7 +55,6 @@ watch(
 const reloadComment = () => {
   getCommentList();
 }
-
 
 const onWheel = (event) => {
   event.preventDefault();

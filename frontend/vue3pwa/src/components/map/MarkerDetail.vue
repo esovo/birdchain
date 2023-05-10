@@ -126,36 +126,35 @@ const doDeleteMarker = () => {
         nickname: detailData.value.nickname,
         password: password.value,
       };
+      deleteMarker(reqForm)
+      .then(({ data }) => {
+        if(data.status === "OK"){
+          password.value = null;
+          isAcceptable.value = false;
+          emit("reloadMarker");
+          emit("notValid");
 
-        deleteMarker(reqForm)
-        .then(({ data }) => {
-          if(data.status === "OK"){
-            password.value = null;
-            isAcceptable.value = false;
-            emit("reloadMarker");
-            emit("notValid");
-
-            Swal.fire({
-              position: "center",
-              title: "삭제되었습니다.",
-              icon: "success",
-            });
-          }
-        })
-        .catch((error) => {
           Swal.fire({
             position: "center",
-            title: `"${error.response.data.message}"`,
-            icon: "error",
-          }).then(function(){
-            isAcceptable.value = true;
-            password.value = null;
-            setTimeout(function(){
-              document.querySelector(".passwordInput").focus();
-            }, 300);
+            title: "삭제되었습니다.",
+            icon: "success",
           });
-        })
-      }
+        }
+      })
+      .catch((error) => {
+        Swal.fire({
+          position: "center",
+          title: `"${error.response.data.message}"`,
+          icon: "error",
+        }).then(function(){
+          isAcceptable.value = true;
+          password.value = null;
+          setTimeout(function(){
+            document.querySelector(".passwordInput").focus();
+          }, 300);
+        });
+      })
+    }
   });
 };
 </script>
