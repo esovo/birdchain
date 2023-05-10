@@ -7,19 +7,23 @@
       </v-card-item>
       <div v-if="deleteFlag">
         <form @submit.prevent>
-          <label> <strong>비밀번호</strong></label>
-          <input type="password" v-model="password" />
+          <div class="flex-box">
+            <div>
+              <div>
+                <label> <strong>비밀번호</strong></label>
+                <input type="password" v-model="password" />
+              </div>
+              <div v-if="isAcceptable" class="warnInfo">비밀번호를 잘못 입력했습니다. 다시 입력해주세요.</div>
+            </div>
+          </div>
         </form>
       </div>
       <v-card-text style="max-width: 300px"> {{ props.content }}</v-card-text>
     </div>
     <div class="icons" v-if="!deleteFlag">
-      <v-btn icon="fa:fas fa-edit" size="40" class="mr-2"> </v-btn>
-      <v-btn
-        :icon="`mdiSvg:${mdiDelete}`"
-        size="40"
-        @click="deleteFlag = !deleteFlag">
-      </v-btn>
+      <font-awesome-icon :icon="['fas', 'pen-to-square']" @click="modifyComment"/>
+      <span> | </span>
+      <font-awesome-icon :icon="['fas', 'trash']" @click="deleteFlag = !deleteFlag"/>
     </div>
     <div v-if="deleteFlag">
       <button type="reset" @click="deleteFlag = !deleteFlag">취소</button>
@@ -30,7 +34,7 @@
 </template>
 <script setup>
 import { ref, defineProps } from "vue";
-import { mdiDelete } from "@mdi/js";
+
 
 const props = defineProps({
   id: {
@@ -51,6 +55,11 @@ const props = defineProps({
 const deleteFlag = ref(false);
 const doDeleteMarker = () => {
   // 댓글 삭제 구현
+
+};
+
+const modifyComment = () => {
+
 };
 </script>
 <style scoped>
@@ -59,6 +68,8 @@ const doDeleteMarker = () => {
   justify-content: space-around;
 }
 .icons {
-  margin-top: 1vw;
+  margin-top: 2vw;
+  cursor: pointer;
+  height: 20px;
 }
 </style>
