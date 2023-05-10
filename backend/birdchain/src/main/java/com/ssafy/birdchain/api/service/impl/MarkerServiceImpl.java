@@ -117,6 +117,8 @@ public class MarkerServiceImpl implements MarkerService {
         Marker marker = markerRepository.findById(markerDeleteReqDTO.getId()).orElseThrow(() -> new CommonApiException(CommonErrorCode.MARKER_NOT_FOUND));
         if (marker.getNickname().equals(markerDeleteReqDTO.getNickname()) && marker.getPassword().equals(markerDeleteReqDTO.getPassword())) {
             marker.setStatus(false);
+        } else {
+            throw new CommonApiException(CommonErrorCode.MARKER_NOT_ALLOWED);
         }
     }
 
