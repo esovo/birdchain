@@ -8,6 +8,7 @@ import GameView from "@/views/GameView.vue";
 import GameOverView from "@/views/GameOverView.vue";
 import NftView from "@/views/NftView.vue";
 import MapView from "@/views/MapView.vue";
+import TestView from "@/views/TestView.vue";
 
 const routes = [
   {
@@ -50,6 +51,11 @@ const routes = [
     path: "/post",
     name: "MapView",
     component: MapView,
+  },
+  {
+    path: "/testView",
+    name: "TestView",
+    component: TestView,
   },
 ];
 
