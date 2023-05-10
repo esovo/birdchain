@@ -5,9 +5,11 @@
         <v-card-title class="pa-0"> {{ detailData.nickname }} </v-card-title>
       </div>
       <div class="icons">
-        <font-awesome-icon :icon="['fas', 'pen-to-square']" @click="modifyMarker"/>
+        <font-awesome-icon
+          :icon="['fas', 'pen-to-square']"
+          @click="modifyMarker" />
         <span> | </span>
-        <font-awesome-icon :icon="['fas', 'trash']" @click="showInputForm"/>
+        <font-awesome-icon :icon="['fas', 'trash']" @click="showInputForm" />
       </div>
     </div>
     <v-img :src="detailData.image" height="300px" cover class="my-4"></v-img>
@@ -19,9 +21,16 @@
             <div>
               <div>
                 <span> <strong>비밀번호</strong></span>
-                <input type="password" placeholder="비밀번호를 입력해주세요." v-model="password" class="passwordInput" autoComplete="off" />
+                <input
+                  type="password"
+                  placeholder="비밀번호를 입력해주세요."
+                  v-model="password"
+                  class="passwordInputMarker"
+                  autoComplete="off" />
               </div>
-              <span v-if="isAcceptable" class="warnInfo">&nbsp;비밀번호를 잘못 입력했습니다. 다시 입력해주세요.</span>
+              <span v-if="isAcceptable" class="warnInfo"
+                >&nbsp;비밀번호를 잘못 입력했습니다. 다시 입력해주세요.</span
+              >
             </div>
             <div class="confirmBtn">
               <button type="reset" @click="showInputForm">취소</button>
@@ -47,7 +56,6 @@
 import { ref, defineProps, watch, defineEmits } from "vue";
 import { getMarkerDetail, deleteMarker } from "@/api/markers";
 import Swal from "sweetalert2";
-
 
 // 마커 상세 조회
 const props = defineProps({
@@ -95,14 +103,17 @@ const isAcceptable = ref(false);
 const showInputForm = () => {
   deleteFlag.value = !deleteFlag.value;
   isAcceptable.value = false;
-}
+  password.value = null;
 
+  if (deleteFlag.value) {
+    setTimeout(function () {
+      document.querySelector(".passwordInputMarker").focus();
+    }, 10);
+  }
+};
 
 // 마커 수정
-const modifyMarker = () => {
-
-}
-
+const modifyMarker = () => {};
 
 // 마커 삭제
 const password = ref();
@@ -124,33 +135,33 @@ const doDeleteMarker = () => {
         password: password.value,
       };
       deleteMarker(reqForm)
-      .then(({ data }) => {
-        if(data.status === "OK"){
-          password.value = null;
-          isAcceptable.value = false;
-          emit("reloadMarker");
-          emit("notValid");
+        .then(({ data }) => {
+          if (data.status === "OK") {
+            password.value = null;
+            isAcceptable.value = false;
+            emit("reloadMarker");
+            emit("notValid");
 
+            Swal.fire({
+              position: "center",
+              title: "삭제되었습니다.",
+              icon: "success",
+            });
+          }
+        })
+        .catch((error) => {
           Swal.fire({
             position: "center",
-            title: "삭제되었습니다.",
-            icon: "success",
+            title: `"${error.response.data.message}"`,
+            icon: "error",
+          }).then(function () {
+            isAcceptable.value = true;
+            password.value = null;
+            setTimeout(function () {
+              document.querySelector(".passwordInputMarker").focus();
+            }, 300);
           });
-        }
-      })
-      .catch((error) => {
-        Swal.fire({
-          position: "center",
-          title: `"${error.response.data.message}"`,
-          icon: "error",
-        }).then(function(){
-          isAcceptable.value = true;
-          password.value = null;
-          setTimeout(function(){
-            document.querySelector(".passwordInput").focus();
-          }, 300);
         });
-      })
     }
   });
 };
@@ -162,12 +173,12 @@ const doDeleteMarker = () => {
   margin: 10px 0;
   border: 1px solid black;
   /* flex-direction: row-reverse; */
-  justify-content :space-between;
+  justify-content: space-between;
   /* justify-content: center; */
   justify-content: flex-end;
 }
 
-.title{
+.title {
   border: 1px solid black;
   /* display: inline-block; */
   /* display: flex; */
@@ -186,7 +197,7 @@ const doDeleteMarker = () => {
   color: red;
   font-size: 5px;
   width: 240px;
-  text-align:left;
+  text-align: left;
 }
 
 .flex-box {
@@ -196,5 +207,4 @@ const doDeleteMarker = () => {
 .confirmBtn {
   padding-left: 40px;
 }
-
 </style>

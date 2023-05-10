@@ -11,9 +11,15 @@
             <div>
               <div>
                 <label> <strong>비밀번호</strong></label>
-                <input type="password" placeholder="비밀번호를 입력해주세요." v-model="password" class="passwordInput"/>
+                <input
+                  type="password"
+                  placeholder="비밀번호를 입력해주세요."
+                  v-model="password"
+                  class="passwordInputComment" />
               </div>
-              <div v-if="isAcceptable" class="warnInfo">비밀번호를 잘못 입력했습니다. 다시 입력해주세요.</div>
+              <div v-if="isAcceptable" class="warnInfo">
+                비밀번호를 잘못 입력했습니다. 다시 입력해주세요.
+              </div>
             </div>
           </div>
         </form>
@@ -21,9 +27,11 @@
       <v-card-text style="max-width: 300px"> {{ props.content }}</v-card-text>
     </div>
     <div class="icons" v-if="!deleteFlag">
-      <font-awesome-icon :icon="['fas', 'pen-to-square']" @click="modifyComment"/>
+      <font-awesome-icon
+        :icon="['fas', 'pen-to-square']"
+        @click="modifyComment" />
       <span> | </span>
-      <font-awesome-icon :icon="['fas', 'trash']" @click="showInputForm"/>
+      <font-awesome-icon :icon="['fas', 'trash']" @click="showInputForm" />
     </div>
     <div v-if="deleteFlag">
       <button type="reset" @click="showInputForm">취소</button>
@@ -36,8 +44,7 @@
 import { ref, defineProps, defineEmits, computed } from "vue";
 import { deleteComment } from "@/api/comments";
 import Swal from "sweetalert2";
-import moment from 'moment';
-
+import moment from "moment";
 
 const props = defineProps({
   comment_id: {
@@ -52,13 +59,13 @@ const props = defineProps({
   createdAt: {
     type: String,
   },
-  marker_id : {
-    type: Number
-  }
+  marker_id: {
+    type: Number,
+  },
 });
 
 const transformDate = computed(() =>
-  moment(props.createdAt).format('YYYY-MM-DD HH:mm:ss')
+  moment(props.createdAt).format("YYYY-MM-DD HH:mm:ss")
 );
 
 const emit = defineEmits(["reloadComment"]);
@@ -67,7 +74,14 @@ const deleteFlag = ref(false);
 const showInputForm = () => {
   deleteFlag.value = !deleteFlag.value;
   isAcceptable.value = false;
-}
+  password.value = null;
+
+  if (deleteFlag.value) {
+    setTimeout(function () {
+      document.querySelector(".passwordInputComment").focus();
+    }, 10);
+  }
+};
 
 // 댓글 삭제
 const password = ref();
@@ -91,7 +105,7 @@ const doDeleteMarker = () => {
       };
       deleteComment(reqForm)
         .then(({ data }) => {
-          if(data.status === "OK"){
+          if (data.status === "OK") {
             password.value = null;
             isAcceptable.value = false;
             emit("reloadComment");
@@ -108,22 +122,19 @@ const doDeleteMarker = () => {
             position: "center",
             title: `"${error.response.data.message}"`,
             icon: "error",
-          }).then(function(){
+          }).then(function () {
             isAcceptable.value = true;
             password.value = null;
-            setTimeout(function(){
-              document.querySelector(".passwordInput").focus();
+            setTimeout(function () {
+              document.querySelector(".passwordInputComment").focus();
             }, 300);
           });
-        })
-      }
+        });
+    }
   });
-
 };
 
-const modifyComment = () => {
-
-};
+const modifyComment = () => {};
 </script>
 <style scoped>
 .flex-container {
@@ -140,6 +151,6 @@ const modifyComment = () => {
   color: red;
   font-size: 5px;
   width: 240px;
-  text-align:left;
+  text-align: left;
 }
 </style>
