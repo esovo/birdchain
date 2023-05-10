@@ -44,6 +44,7 @@ import { createWeb3Instance } from "@/web3";
 import DonationAbi from "../../abi/Donation.json";
 import router from "@/router";
 import axios from "axios";
+import { useAccountStore } from "@/stores/accountStore";
 
 export default {
   setup() {
@@ -54,12 +55,15 @@ export default {
     const balance = ref("");
 
     const dAmount = ref();
+
+    const accountStore = useAccountStore();
+
     const getAccount = async () => {
       console.log("지갑 연동 실행");
       const web3 = await createWeb3Instance();
       if (web3) {
         const accounts = await web3.eth.getAccounts();
-        console.log(accounts);
+        console.log(accounts.value);
         account.value = accounts[0];
         dialog.value = true; // 올바르게 수정된 부분: dialog.value를 dialog로 수정
         const weiBalance = await web3.eth.getBalance(account.value);
@@ -68,7 +72,6 @@ export default {
     };
 
     const donating = async () => {
-
       const web3 = await createWeb3Instance();
 
       const Donation = new web3.eth.Contract(
@@ -80,23 +83,27 @@ export default {
         "ether"
       );
 
-      await Donation.methods.donate().send({
-        from: account.value,
-        value: donationAmount
-      }).then((res) => {
-        console.log("기부완료");
-        // axios.post(`http://localhost:8080/api/donations`, {
-        axios.post(`https://k8b104.p.ssafy.io/api/donations`, {          
-          amount: dAmount.value,
-          txid: res.transactionHash,
-          address: account.value,         
+      await Donation.methods
+        .donate()
+        .send({
+          from: account.value,
+          value: donationAmount,
         })
-          .then(() => {
-            // 해당 유저가 기부 완료 상태임을 기록, 관리해야 함.
-            router.push('/nft');
-          });
-        
-      });
+        .then((res) => {
+          console.log(account.value);
+          console.log("기부완료");
+          axios
+            .post(`https://k8b104.p.ssafy.io/api/donations`, {
+              amount: dAmount.value,
+              txid: res.transactionHash,
+              address: account.value,
+            })
+            .then(() => {
+              // 해당 유저가 기부 완료 상태임을 기록, 관리해야 함.
+              accountStore.donate();
+              router.push("/nft");
+            });
+        });
     };
 
     return {
