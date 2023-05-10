@@ -101,6 +101,81 @@ import NFTAbi from "../../abi/BirdNFT.json";
 import router from "@/router";
 export default {
   setup() {
+    const itemName = [
+      'Aquila chrysaetos', 
+      'Eurynorhynchus pygmeus', 
+      'Egretta eulophotes', 
+      'Grus japonensis', 
+      'Falco peregrinus', 
+      'Ciconia nigra', 
+      'Platalea minor', 
+      'Haliaeetus pelagicus', 
+      'Tringa guttifer', 
+      'Dryocopus javensis', 
+      'Mergus squamatus', 
+      'Cygnus olor', 
+      'Ciconia boyciana', 
+      'Haliaeetus albicilla', 
+      'Anser cygnoides', 
+      'Larus saundersi', 
+      'Haematopus ostralegus', 
+      'Emberiza aureola', 
+      'Grus grus', 
+      'Cygnus columbianus', 
+      'Larus relictus', 
+      'Terpsiphone atrocaudata', 
+      'Strix uralensis', 
+      'Dryocopus martius', 
+      'Platalea leucorodia', 
+      'Otis tarda', 
+      'Aegypius monachus', 
+      'Nipponia nippon -> Crested ibis',
+      'Gallicrex cinerea -> Watercock',
+      'Emberiza sulphurata -> Yellow bunting',
+      'Pandion haliaetus -> Osprey',
+      'Pernis ptilorhynchus -> Crested honey buzzard',
+      'Accipiter soloensis', 
+      'Calidris tenuirostris', 
+      'Gorsachius goisagi', 
+      'Synthliboramphus wumizusume -> Japanese murrelet',
+      'Galerida cristata', 
+      'Accipiter nisus', 
+      'Falco subbuteo', 
+      'Locustella pleskei', 
+      'Milvus migrans', 
+      'Emberiza yessoensis', 
+      'Bubo bubo', 
+      'Circus melanoleucos', 
+      'Numenius madagascariensis',
+      'Columba rupestris', 
+      'Strix aluco', 
+      'Grus vipio', 
+      'Circus cyaneus', 
+      'Accipiter gularis', 
+      'Accipiter gentilis', 
+      'Cygnus cygnus', 
+      'Anser fabalis', 
+      'Ixobrychus eurhythmus', 
+      'Buteo hemilasius', 
+      'Pitta nympha', 
+      'Aquila clanga', 
+      'Branta bernicla', 
+      'Grus monacha', 
+      'Columba janthina', 
+      'Charadrius placidus',
+      'Anser erythropus', 
+      'Aquila heliaca', 
+    ];
+
+    const level = [
+      'RE',
+      'CR',
+      'EN',
+      'VU',
+      'NT',
+      'LC',
+    ];
+
     const hover = ref([-1, -1, -1, -1]);
 
     const NFTNum = ref("");
@@ -130,7 +205,7 @@ export default {
         const accounts = await web3.eth.getAccounts();
         account.value = accounts[0];
       }
-      const NFT = new web3.eth.Contract(NFTAbi.abi, "0x96d3b6F3a95F21530c45085c8585B5c974E5bFB8");  // abi + 컨트랙트 주소
+      const NFT = new web3.eth.Contract(NFTAbi.abi, "0xDd253a06eAc4264Cc0E25AA2e3701EFDA59b2bBB");
       await NFT.methods.createNFT(account.value, imgURI).send({
         from: account.value
       }).then(() => {
@@ -150,6 +225,8 @@ export default {
       imgC,
       imgD,
       account,
+      itemName,
+      level,
       createNFT,
     };
   },
