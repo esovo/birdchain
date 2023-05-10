@@ -43,6 +43,7 @@ import { ref } from "vue";
 import { createWeb3Instance } from "@/web3";
 import DonationAbi from "../../abi/Donation.json";
 import router from "@/router";
+import axios from "axios";
 
 export default {
   setup() {
@@ -70,19 +71,9 @@ export default {
 
       const web3 = await createWeb3Instance();
 
-      // const bytecode = DonationAbi.bytecode;
-      // let contractAddress;
-      // const Donation = new web3.eth.Contract(DonationAbi.abi);
-      // Donation.deploy({ data: bytecode }).send({
-      //   from: "0x596a8fD501f39717b46D4540F56C2c28B5FB25d7",  // 배포하는 계정 주소
-      //   gas: 6721975
-      // }).on('receipt', (receipt) => {
-      //   contractAddress = receipt.contractAddress;
-      // })
-
       const Donation = new web3.eth.Contract(
         DonationAbi.abi,
-        "0xff1DbFA0dD7B237fAc80747d43B3E79665cdc2e3"
+        "0x3ce39D2533d3299523A22A3Ed4e0C82f6f45A838"
       );
       const donationAmount = web3.utils.toWei(
         dAmount.value.toString(),
@@ -92,11 +83,19 @@ export default {
       await Donation.methods.donate().send({
         from: account.value,
         value: donationAmount
-      }).then(() => {
-        console.log("기부완료");        
-        // 해당 유저가 기부 완료 상태임을 기록.
-        // NFT 그림 선택 화면으로 이동.
-        router.push('/nft');
+      }).then((res) => {
+        console.log("기부완료");
+        // axios.post(`http://localhost:8080/api/donations`, {
+        axios.post(`https://k8b104.p.ssafy.io/api/donations`, {          
+          amount: dAmount.value,
+          txid: res.transactionHash,
+          address: account.value,         
+        })
+          .then(() => {
+            // 해당 유저가 기부 완료 상태임을 기록, 관리해야 함.
+            router.push('/nft');
+          });
+        
       });
     };
 
