@@ -28,6 +28,9 @@ FROM nginx:stable-alpine
 # 빌드 결과물을 Nginx로 복사
 COPY --from=build /app_front/dist /usr/share/nginx/html
 
+# Nginx 설정 파일 복사
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 # Nginx 포트 설정
 EXPOSE 80
 
