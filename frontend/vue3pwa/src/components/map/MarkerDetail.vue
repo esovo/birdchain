@@ -1,15 +1,13 @@
 ﻿<template>
   <v-card width="400" height="600">
     <div class="flex-container">
-      <v-card-title class="mr-14"> {{ detailData.nickname }} </v-card-title>
-      <div>
-        <v-btn icon="fa:fas fa-edit" size="40" class="mr-2"> </v-btn>
-        <v-btn
-          :icon="`mdiSvg:${mdiDelete}`"
-          size="40"
-          class="mr-2"
-          @click="showInputForm">
-        </v-btn>
+      <div class="title">
+        <v-card-title class="pa-0"> {{ detailData.nickname }} </v-card-title>
+      </div>
+      <div class="icons">
+        <font-awesome-icon :icon="['fas', 'pen-to-square']" @click="modifyMarker"/>
+        <span> | </span>
+        <font-awesome-icon :icon="['fas', 'trash']" @click="showInputForm"/>
       </div>
     </div>
     <v-img :src="detailData.image" height="300px" cover class="my-4"></v-img>
@@ -47,7 +45,6 @@
 
 <script setup>
 import { ref, defineProps, watch, defineEmits } from "vue";
-import { mdiDelete } from "@mdi/js";
 import { getMarkerDetail, deleteMarker } from "@/api/markers";
 import Swal from "sweetalert2";
 
@@ -103,6 +100,13 @@ const showInputForm = () => {
 
 }
 
+
+// 마커 수정
+const modifyMarker = () => {
+
+}
+
+
 // 마커 삭제
 const password = ref();
 const doDeleteMarker = () => {
@@ -156,8 +160,27 @@ const doDeleteMarker = () => {
 <style scoped>
 .flex-container {
   display: flex;
-  justify-content: flex-end;
   margin: 10px 0;
+  border: 1px solid black;
+  /* flex-direction: row-reverse; */
+  justify-content :space-between;
+  /* justify-content: center; */
+  justify-content: flex-end;
+}
+
+.title{
+  border: 1px solid black;
+  /* display: inline-block; */
+  /* display: flex; */
+  /* justify-content: center; */
+}
+
+.icons {
+  margin: auto 0;
+  cursor: pointer;
+  border: 1px solid black;
+  height: 25px;
+  /* margin-left: auto; */
 }
 
 .warnInfo {
