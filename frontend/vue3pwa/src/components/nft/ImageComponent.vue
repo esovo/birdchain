@@ -187,16 +187,27 @@ export default {
       }
       const NFT = new web3.eth.Contract(
         NFTAbi.abi,
-        "0xDd253a06eAc4264Cc0E25AA2e3701EFDA59b2bBB"
+        "0x472e9aB2E3f85a51FD1E67Bb3F6E96eC28C5A84a"
       );
       await NFT.methods
-        .createNFT(account.value, imgURI)
+        .createNFT(account.value, imgURI, "") // metadata url 추가해야 함.
         .send({
           from: account.value,
         })
         .then(() => {
           console.log("NFT 발급 완료");
           localStorage.removeItem("images");
+
+          // IPFS로 대체 예정
+          // console.log(itemName[(NFTNum.value - 1) / 5]);
+          // console.log(imgURI);
+          // console.log(level[(NFTNum.value - 1) / 5]);
+
+          // axios.post(`http://localhost:8080/api/nft/metadata`, {
+          //   name: itemName[(NFTNum.value - 1) / 5],
+          //   image_url: imgURI,
+          //   iucn: level[(NFTNum.value - 1) / 5],
+          // })
           router.push("/mypage");
         });
     };
@@ -229,12 +240,12 @@ export default {
       axios
         .get(`https://k8b104.p.ssafy.io/api/nft/available`)
         .then((res) => {
-          const NFTNum = res.data.value.toString().padStart(3, "0");
+          const NFTNum = res.data.value;
           const imageNames = ["A", "B", "C", "D"];
           // const imageRequests = imageNames.map(name => axios.get(`http://localhost:8080/api/nft/images?fileName=${NFTNum}${name}`));
           const imageRequests = imageNames.map((name) =>
             axios.get(
-              `https://k8b104.p.ssafy.io/api/nft/images?fileName=${NFTNum}${name}`
+              `https://k8b104.p.ssafy.io/api/nft/images?fileName=${NFTNum.toString().padStart(3, "0")}${name}`
             )
           );
 
