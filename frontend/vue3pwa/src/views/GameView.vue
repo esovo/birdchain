@@ -12,7 +12,7 @@ import pipeTopURL from '@/assetgame/img/pipe-top.png'
 import clueTapURL from '@/assetgame/img/clue-tap.png'
 
 import charBirdImg1 from '@/assetgame/img/drags/flybird.png';
-import charBirdImg2 from '@/assetgame/img/drags/flybird.png';
+import charBirdImg2 from '@/assetgame/img/drags/flybird2.png';
 import charBirdImg3 from '@/assetgame/img/drags/flybird.png';
 import { useStore } from '@/stores/store'
 
