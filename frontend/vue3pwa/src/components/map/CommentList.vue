@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="comment-regist-wrapper">
-      <CommentRegist :marker_id="props.marker_id" />
+      <CommentRegist :marker_id="props.marker_id" @reloadComment="reloadComment"/>
     </div>
   </v-card>
 </template>
@@ -50,6 +50,11 @@ watch(
   }
 );
 
+const reloadComment = () => {
+  getCommentList();
+}
+
+
 const onWheel = (event) => {
   event.preventDefault();
   const container = event.currentTarget.querySelector(".comments");
@@ -80,6 +85,6 @@ const onWheel = (event) => {
   bottom: 0;
   left: 15px;
   right: 0;
-  height: 450px; /* CommentRegist 높이 */
+  height: 200px; /* CommentRegist 높이 */
 }
 </style>
