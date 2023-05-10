@@ -15,10 +15,7 @@
           @click="createNFT(imgA)"
         >
           <v-hover v-slot:default="{ hover }">
-            <v-img
-              :src=imgA
-              :class="hover ? 'blur-image' : ''"
-            ></v-img>
+            <v-img :src="imgA" :class="hover ? 'blur-image' : ''"></v-img>
           </v-hover>
           <v-card-title v-if="hover[0] === 0" class="overlay">
             첫 번째 이미지 설명
@@ -36,10 +33,7 @@
           @click="createNFT(imgB)"
         >
           <v-hover v-slot:default="{ hover }">
-            <v-img
-              :src=imgB
-              :class="hover ? 'blur-image' : ''"
-            ></v-img>
+            <v-img :src="imgB" :class="hover ? 'blur-image' : ''"></v-img>
           </v-hover>
           <v-card-title v-if="hover[1] === 1" class="overlay">
             두 번째 이미지 설명
@@ -59,10 +53,7 @@
           @click="createNFT(imgC)"
         >
           <v-hover v-slot:default="{ hover }">
-            <v-img
-              :src=imgC
-              :class="hover ? 'blur-image' : ''"
-            ></v-img>
+            <v-img :src="imgC" :class="hover ? 'blur-image' : ''"></v-img>
           </v-hover>
           <v-card-title v-if="hover[2] === 2" class="overlay">
             세 번째 이미지 설명
@@ -80,10 +71,7 @@
           @click="createNFT(imgD)"
         >
           <v-hover v-slot:default="{ hover }">
-            <v-img
-              :src=imgD
-              :class="hover ? 'blur-image' : ''"
-            ></v-img>
+            <v-img :src="imgD" :class="hover ? 'blur-image' : ''"></v-img>
           </v-hover>
           <v-card-title v-if="hover[3] === 3" class="overlay">
             네 번째 이미지 설명
@@ -102,79 +90,72 @@ import router from "@/router";
 export default {
   setup() {
     const itemName = [
-      'Aquila chrysaetos', 
-      'Eurynorhynchus pygmeus', 
-      'Egretta eulophotes', 
-      'Grus japonensis', 
-      'Falco peregrinus', 
-      'Ciconia nigra', 
-      'Platalea minor', 
-      'Haliaeetus pelagicus', 
-      'Tringa guttifer', 
-      'Dryocopus javensis', 
-      'Mergus squamatus', 
-      'Cygnus olor', 
-      'Ciconia boyciana', 
-      'Haliaeetus albicilla', 
-      'Anser cygnoides', 
-      'Larus saundersi', 
-      'Haematopus ostralegus', 
-      'Emberiza aureola', 
-      'Grus grus', 
-      'Cygnus columbianus', 
-      'Larus relictus', 
-      'Terpsiphone atrocaudata', 
-      'Strix uralensis', 
-      'Dryocopus martius', 
-      'Platalea leucorodia', 
-      'Otis tarda', 
-      'Aegypius monachus', 
-      'Nipponia nippon -> Crested ibis',
-      'Gallicrex cinerea -> Watercock',
-      'Emberiza sulphurata -> Yellow bunting',
-      'Pandion haliaetus -> Osprey',
-      'Pernis ptilorhynchus -> Crested honey buzzard',
-      'Accipiter soloensis', 
-      'Calidris tenuirostris', 
-      'Gorsachius goisagi', 
-      'Synthliboramphus wumizusume -> Japanese murrelet',
-      'Galerida cristata', 
-      'Accipiter nisus', 
-      'Falco subbuteo', 
-      'Locustella pleskei', 
-      'Milvus migrans', 
-      'Emberiza yessoensis', 
-      'Bubo bubo', 
-      'Circus melanoleucos', 
-      'Numenius madagascariensis',
-      'Columba rupestris', 
-      'Strix aluco', 
-      'Grus vipio', 
-      'Circus cyaneus', 
-      'Accipiter gularis', 
-      'Accipiter gentilis', 
-      'Cygnus cygnus', 
-      'Anser fabalis', 
-      'Ixobrychus eurhythmus', 
-      'Buteo hemilasius', 
-      'Pitta nympha', 
-      'Aquila clanga', 
-      'Branta bernicla', 
-      'Grus monacha', 
-      'Columba janthina', 
-      'Charadrius placidus',
-      'Anser erythropus', 
-      'Aquila heliaca', 
+      "Aquila chrysaetos",
+      "Eurynorhynchus pygmeus",
+      "Egretta eulophotes",
+      "Grus japonensis",
+      "Falco peregrinus",
+      "Ciconia nigra",
+      "Platalea minor",
+      "Haliaeetus pelagicus",
+      "Tringa guttifer",
+      "Dryocopus javensis",
+      "Mergus squamatus",
+      "Cygnus olor",
+      "Ciconia boyciana",
+      "Haliaeetus albicilla",
+      "Anser cygnoides",
+      "Larus saundersi",
+      "Haematopus ostralegus",
+      "Emberiza aureola",
+      "Grus grus",
+      "Cygnus columbianus",
+      "Larus relictus",
+      "Terpsiphone atrocaudata",
+      "Strix uralensis",
+      "Dryocopus martius",
+      "Platalea leucorodia",
+      "Otis tarda",
+      "Aegypius monachus",
+      "Nipponia nippon -> Crested ibis",
+      "Gallicrex cinerea -> Watercock",
+      "Emberiza sulphurata -> Yellow bunting",
+      "Pandion haliaetus -> Osprey",
+      "Pernis ptilorhynchus -> Crested honey buzzard",
+      "Accipiter soloensis",
+      "Calidris tenuirostris",
+      "Gorsachius goisagi",
+      "Synthliboramphus wumizusume -> Japanese murrelet",
+      "Galerida cristata",
+      "Accipiter nisus",
+      "Falco subbuteo",
+      "Locustella pleskei",
+      "Milvus migrans",
+      "Emberiza yessoensis",
+      "Bubo bubo",
+      "Circus melanoleucos",
+      "Numenius madagascariensis",
+      "Columba rupestris",
+      "Strix aluco",
+      "Grus vipio",
+      "Circus cyaneus",
+      "Accipiter gularis",
+      "Accipiter gentilis",
+      "Cygnus cygnus",
+      "Anser fabalis",
+      "Ixobrychus eurhythmus",
+      "Buteo hemilasius",
+      "Pitta nympha",
+      "Aquila clanga",
+      "Branta bernicla",
+      "Grus monacha",
+      "Columba janthina",
+      "Charadrius placidus",
+      "Anser erythropus",
+      "Aquila heliaca",
     ];
 
-    const level = [
-      'RE',
-      'CR',
-      'EN',
-      'VU',
-      'NT',
-      'LC',
-    ];
+    const level = ["RE", "CR", "EN", "VU", "NT", "LC"];
 
     const hover = ref([-1, -1, -1, -1]);
 
@@ -198,21 +179,26 @@ export default {
     );
 
     const createNFT = async (imgURI) => {
-
       const web3 = await createWeb3Instance();
 
       if (web3) {
         const accounts = await web3.eth.getAccounts();
         account.value = accounts[0];
       }
-      const NFT = new web3.eth.Contract(NFTAbi.abi, "0xDd253a06eAc4264Cc0E25AA2e3701EFDA59b2bBB");
-      await NFT.methods.createNFT(account.value, imgURI).send({
-        from: account.value
-      }).then(() => {
-        console.log("NFT 발급 완료");
-        router.push('/mypage');
-      })
-
+      const NFT = new web3.eth.Contract(
+        NFTAbi.abi,
+        "0xDd253a06eAc4264Cc0E25AA2e3701EFDA59b2bBB"
+      );
+      await NFT.methods
+        .createNFT(account.value, imgURI)
+        .send({
+          from: account.value,
+        })
+        .then(() => {
+          console.log("NFT 발급 완료");
+          localStorage.removeItem("images");
+          router.push("/mypage");
+        });
     };
 
     return {
@@ -232,30 +218,55 @@ export default {
   },
 
   mounted() {
-    // axios.get(`http://localhost:8080/api/nft/available`)
-    axios.get(`https://k8b104.p.ssafy.io/api/nft/available`)
-      .then((res) => {
-        const NFTNum = res.data.value.toString().padStart(3, '0');
-        const imageNames = ['A', 'B', 'C', 'D'];
-        // const imageRequests = imageNames.map(name => axios.get(`http://localhost:8080/api/nft/images?fileName=${NFTNum}${name}`));
-        const imageRequests = imageNames.map(name => axios.get(`https://k8b104.p.ssafy.io/api/nft/images?fileName=${NFTNum}${name}`));
+    if (localStorage.getItem("images")) {
+      const storedImages = JSON.parse(localStorage.getItem("images"));
+      this.imgA = storedImages[0];
+      this.imgB = storedImages[1];
+      this.imgC = storedImages[2];
+      this.imgD = storedImages[3];
+    } else {
+      // axios.get(`http://localhost:8080/api/nft/available`)
+      axios
+        .get(`https://k8b104.p.ssafy.io/api/nft/available`)
+        .then((res) => {
+          const NFTNum = res.data.value.toString().padStart(3, "0");
+          const imageNames = ["A", "B", "C", "D"];
+          // const imageRequests = imageNames.map(name => axios.get(`http://localhost:8080/api/nft/images?fileName=${NFTNum}${name}`));
+          const imageRequests = imageNames.map((name) =>
+            axios.get(
+              `https://k8b104.p.ssafy.io/api/nft/images?fileName=${NFTNum}${name}`
+            )
+          );
 
-        axios.all(imageRequests)
-          .then(axios.spread((...responses) => {
-            this.imgA = responses[0].data.value;
-            this.imgB = responses[1].data.value;
-            this.imgC = responses[2].data.value;
-            this.imgD = responses[3].data.value;
-          }))
-          .catch(error => {
-            console.log(error);
-          });
-      })
-      .catch(error => {
-        console.log(error);
-      });
+          axios
+            .all(imageRequests)
+            .then(
+              axios.spread((...responses) => {
+                // 이미지 URL을 로컬 스토리지에 저장
+                const images = [
+                  responses[0].data.value,
+                  responses[1].data.value,
+                  responses[2].data.value,
+                  responses[3].data.value,
+                ];
+                localStorage.setItem("images", JSON.stringify(images));
+
+                const storedImages = JSON.parse(localStorage.getItem("images"));
+                this.imgA = storedImages[0];
+                this.imgB = storedImages[1];
+                this.imgC = storedImages[2];
+                this.imgD = storedImages[3];
+              })
+            )
+            .catch((error) => {
+              console.log(error);
+            });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   },
-
 };
 </script>
 <style scoped>
