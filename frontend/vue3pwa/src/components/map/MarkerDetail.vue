@@ -19,7 +19,7 @@
             <div>
               <div>
                 <span> <strong>비밀번호</strong></span>
-                <input type="password" v-model="password" class="passwordInput" autoComplete="off" />
+                <input type="password" placeholder="비밀번호를 입력해주세요." v-model="password" class="passwordInput" autoComplete="off" />
               </div>
               <span v-if="isAcceptable" class="warnInfo">&nbsp;비밀번호를 잘못 입력했습니다. 다시 입력해주세요.</span>
             </div>
@@ -48,6 +48,7 @@ import { ref, defineProps, watch, defineEmits } from "vue";
 import { getMarkerDetail, deleteMarker } from "@/api/markers";
 import Swal from "sweetalert2";
 
+
 // 마커 상세 조회
 const props = defineProps({
   marker_id: {
@@ -75,9 +76,6 @@ const fetchMarker = () => {
       detailData.value.location = data.value.location;
       detailData.value.content = data.value.content;
       detailData.value.createdAt = data.value.createdAt;
-    } else {
-      console.log(data.status);
-      console.log(data.message);
     }
   });
 };
@@ -97,7 +95,6 @@ const isAcceptable = ref(false);
 const showInputForm = () => {
   deleteFlag.value = !deleteFlag.value;
   isAcceptable.value = false;
-
 }
 
 

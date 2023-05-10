@@ -34,11 +34,7 @@ const commentList = ref([]);
 
 const getCommentList = () => {
   getComments(props.marker_id).then(({ data }) => {
-    if (data.status === "OK") {
-      commentList.value = data.value;
-    } else {
-      console.log(data.status);
-    }
+    commentList.value = data.value;
   });
 };
 

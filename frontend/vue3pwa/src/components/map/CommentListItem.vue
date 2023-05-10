@@ -3,7 +3,7 @@
     <div>
       <v-card-item class="d-flex">
         <v-card-title> {{ props.nickname }}</v-card-title>
-        <v-card-subtitle>{{ props.createdAt }}</v-card-subtitle>
+        <v-card-subtitle>{{ transformDate }}</v-card-subtitle>
       </v-card-item>
       <div v-if="deleteFlag">
         <form @submit.prevent>
@@ -11,7 +11,7 @@
             <div>
               <div>
                 <label> <strong>비밀번호</strong></label>
-                <input type="password" v-model="password" class="passwordInput"/>
+                <input type="password" placeholder="비밀번호를 입력해주세요." v-model="password" class="passwordInput"/>
               </div>
               <div v-if="isAcceptable" class="warnInfo">비밀번호를 잘못 입력했습니다. 다시 입력해주세요.</div>
             </div>
@@ -33,9 +33,11 @@
   </div>
 </template>
 <script setup>
-import { ref, defineProps, defineEmits } from "vue";
+import { ref, defineProps, defineEmits, computed } from "vue";
 import { deleteComment } from "@/api/comments";
 import Swal from "sweetalert2";
+import moment from 'moment';
+
 
 const props = defineProps({
   comment_id: {
@@ -54,6 +56,10 @@ const props = defineProps({
     type: Number
   }
 });
+
+const transformDate = computed(() =>
+  moment(props.createdAt).format('YYYY-MM-DD HH:mm:ss')
+);
 
 const emit = defineEmits(["reloadComment"]);
 const isAcceptable = ref(false);
