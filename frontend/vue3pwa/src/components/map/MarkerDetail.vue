@@ -20,10 +20,10 @@
           <div class="flex-box">
             <div>
               <div>
-                <label> <strong>비밀번호</strong></label>
-                <input type="password" v-model="password" class="passwordInput" />
+                <span> <strong>비밀번호</strong></span>
+                <input type="password" v-model="password" class="passwordInput" autoComplete="off" />
               </div>
-              <div v-if="isAcceptable" class="warnInfo">비밀번호를 잘못 입력했습니다. 다시 입력해주세요.</div>
+              <span v-if="isAcceptable" class="warnInfo">&nbsp;비밀번호를 잘못 입력했습니다. 다시 입력해주세요.</span>
             </div>
             <div class="confirmBtn">
               <button type="reset" @click="showInputForm">취소</button>
@@ -143,10 +143,13 @@ const doDeleteMarker = () => {
             position: "center",
             title: `"${error.response.data.message}"`,
             icon: "error",
-          })
-          isAcceptable.value = true;
-          password.value = null;
-          document.querySelector(".passwordInput").focus();
+          }).then(function(){
+            isAcceptable.value = true;
+            password.value = null;
+            setTimeout(function(){
+              document.querySelector(".passwordInput").focus();
+            }, 300);
+          });
         })
       }
   });
