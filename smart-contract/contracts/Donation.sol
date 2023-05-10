@@ -4,7 +4,7 @@ pragma solidity >=0.4.22 <0.9.0;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract Donation is ERC20, Ownable {
+contract Donation is ERC20 {
     address payable public donationReceiver;
     uint totalContribution;
 
@@ -36,7 +36,7 @@ contract Donation is ERC20, Ownable {
     }
 
     //기부
-    function donate() public payable onlyOwner {
+    function donate() public payable {
         require(msg.value > 0, "Donation: amount must be greater than 0");
         require(msg.sender.balance >= msg.value, "Donation: insufficient balance");
 
@@ -61,7 +61,7 @@ contract Donation is ERC20, Ownable {
     }
 
     //잔고확인
-    function checkValueNow() public view onlyOwner returns(uint balance){
+    function checkValueNow() public view returns(uint balance){
         return msg.sender.balance / 1 ether;
     }
 }

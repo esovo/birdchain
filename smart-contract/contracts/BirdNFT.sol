@@ -2,10 +2,9 @@
 pragma solidity >=0.4.22 <0.9.0;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
-contract BirdNFT is ERC721URIStorage, Ownable {
+contract BirdNFT is ERC721URIStorage {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
     
@@ -16,7 +15,7 @@ contract BirdNFT is ERC721URIStorage, Ownable {
     constructor() ERC721("BirdNFT", "BNFT") {}
 
     //토큰 등록
-    function createNFT(address recipient, string memory imgURI, string memory metaData) public payable onlyOwner returns (uint256) {
+    function createNFT(address recipient, string memory imgURI, string memory metaData) public payable returns (uint256) {
         _tokenIds.increment();
         uint256 newItemId = _tokenIds.current();
         _mint(recipient, newItemId);
@@ -56,7 +55,7 @@ contract BirdNFT is ERC721URIStorage, Ownable {
     }
 
     //토큰 지우기
-    function deleteNFT(uint256 tokenId) public onlyOwner {
+    function deleteNFT(uint256 tokenId) public {
         _burn(tokenId);
     }
 
