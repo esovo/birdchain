@@ -20,7 +20,7 @@
   </div>
 </template>
 <script setup>
-import { ref, defineProps } from "vue";
+import { ref, defineProps, defineEmits } from "vue";
 import { registComment } from "@/api/comments";
 import Swal from "sweetalert2";
 
@@ -29,6 +29,8 @@ const props = defineProps({
     type: Number,
   },
 });
+
+const emit = defineEmits(["reloadComment"]);
 
 const form = ref({
   nickname: null,
@@ -56,7 +58,7 @@ const regist = () => {
         icon: "success",
       });
 
-      // 등록 후 어떻게??
+      emit("reloadComment");
     } else {
       Swal.fire({
         position: "center",
@@ -72,7 +74,7 @@ const regist = () => {
 .form-input {
   display: flex;
   flex-direction: row;
-  margin-top: 250px;
+  /* margin-top: 250px; */
 }
 .wrapper {
   list-style-type: none;

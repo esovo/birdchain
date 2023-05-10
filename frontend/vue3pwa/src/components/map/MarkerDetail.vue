@@ -8,7 +8,7 @@
           :icon="`mdiSvg:${mdiDelete}`"
           size="40"
           class="mr-2"
-          @click="deleteFlag = !deleteFlag">
+          @click="showInputForm">
         </v-btn>
       </div>
     </div>
@@ -17,11 +17,20 @@
     <v-card-text class="d-flex align-start flex-column ml-3">
       <div v-if="deleteFlag">
         <form @submit.prevent="doDeleteMarker">
-          <label> <strong>비밀번호</strong></label>
-          <input type="password" v-model="password" />
-          <button type="reset" @click="deleteFlag = !deleteFlag">취소</button>
-          <span> | </span>
-          <button type="submit">확인</button>
+          <div class="flex-box">
+            <div>
+              <div>
+                <label> <strong>비밀번호</strong></label>
+                <input type="password" v-model="password" class="passwordInput" />
+              </div>
+              <div v-if="isAcceptable" class="warnInfo">비밀번호를 잘못 입력했습니다. 다시 입력해주세요.</div>
+            </div>
+            <div class="confirmBtn">
+              <button type="reset" @click="showInputForm">취소</button>
+              <span> | </span>
+              <button type="submit">확인</button>
+            </div>
+          </div>
         </form>
       </div>
       <div>
@@ -86,10 +95,16 @@ watch(
   }
 );
 
-// 마커 삭제
 const deleteFlag = ref(false);
-const password = ref();
+const isAcceptable = ref(false);
+const showInputForm = () => {
+  deleteFlag.value = !deleteFlag.value;
+  isAcceptable.value = false;
 
+}
+
+// 마커 삭제
+const password = ref();
 const doDeleteMarker = () => {
   Swal.fire({
     title: "정말로 삭제하시겠습니까?",
@@ -107,28 +122,33 @@ const doDeleteMarker = () => {
         nickname: detailData.value.nickname,
         password: password.value,
       };
-      deleteMarker(reqForm).then(({ data }) => {
-        if (data.status === "OK") {
-          password.value = null;
-          emit("reloadMarker");
-          emit("notValid");
 
+        deleteMarker(reqForm)
+        .then(({ data }) => {
+          if(data.status === "OK"){
+            password.value = null;
+            isAcceptable.value = false;
+            emit("reloadMarker");
+            emit("notValid");
+
+            Swal.fire({
+              position: "center",
+              title: "삭제되었습니다.",
+              icon: "success",
+            });
+          }
+        })
+        .catch((error) => {
           Swal.fire({
             position: "center",
-            title: "삭제되었습니다.",
-            icon: "success",
-          });
-        } else {
-          password.value = null;
-          Swal.fire({
-            position: "center",
-            title: "비밀번호가 일치하지 않습니다.",
+            title: `"${error.response.data.message}"`,
             icon: "error",
-          });
-          password.value = "";
-        }
-      });
-    }
+          })
+          isAcceptable.value = true;
+          password.value = null;
+          document.querySelector(".passwordInput").focus();
+        })
+      }
   });
 };
 </script>
@@ -139,4 +159,20 @@ const doDeleteMarker = () => {
   justify-content: flex-end;
   margin: 10px 0;
 }
+
+.warnInfo {
+  color: red;
+  font-size: 5px;
+  width: 240px;
+  text-align:left;
+}
+
+.flex-box {
+  display: flex;
+}
+
+.confirmBtn {
+  padding-left: 40px;
+}
+
 </style>
