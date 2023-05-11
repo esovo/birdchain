@@ -1,40 +1,36 @@
 <template>
-  <div class="flex-container">
-    <div>
-      <div class="card-item">
+  <div>
+    <div class="card-top">
+      <div class="card-items" >
         <v-card-title> {{ props.nickname }}</v-card-title>
         <v-card-subtitle class="pt-4">{{ transformDate }}</v-card-subtitle>
       </div>
-      <div v-if="deleteFlag" class="password">
-        <form @submit.prevent>
-          <div class="flex-box">
-            <div>
-              <label> <strong>비밀번호</strong></label>
-              <input
-                type="password"
-                placeholder="비밀번호를 입력해주세요."
-                v-model="password"
-                class="passwordInputComment" />
-            </div>
-            <div v-if="isAcceptable" class="warn-info">
-              비밀번호를 잘못 입력했습니다. 다시 입력해주세요.
-            </div>
-          </div>
-        </form>
+      <div class="confirm-items">
+        <div class="icons" v-if="!deleteFlag">
+          <font-awesome-icon
+          :icon="['fas', 'pen-to-square']"
+          @click="modifyComment" />
+          <span> | </span>
+          <font-awesome-icon :icon="['fas', 'trash']" @click="showInputForm" />
+        </div>
+        <div v-if="deleteFlag" class="confirm-btns">
+          <button type="reset" @click="showInputForm">취소</button>
+          <span> | </span>
+          <button type="submit" @click="doDeleteMarker">확인</button>
+        </div>
       </div>
     </div>
-    <div class="confirmItems">
-      <div class="icons" v-if="!deleteFlag">
-        <font-awesome-icon
-        :icon="['fas', 'pen-to-square']"
-        @click="modifyComment" />
-        <span> | </span>
-        <font-awesome-icon :icon="['fas', 'trash']" @click="showInputForm" />
-      </div>
-      <div v-if="deleteFlag" class="confirmBtn">
-        <button type="reset" @click="showInputForm">취소</button>
-        <span> | </span>
-        <button type="submit" @click="doDeleteMarker">확인</button>
+    <div v-if="deleteFlag">
+      <form @submit.prevent class="password-items">
+          <label class="password-label"><strong>비밀번호</strong></label>
+          <input
+            type="password"
+            placeholder="비밀번호를 입력해주세요."
+            v-model="password"
+            class="password-input" />
+      </form>
+      <div v-if="isAcceptable" class="warn-info">
+        비밀번호를 잘못 입력했습니다. 다시 입력해주세요.
       </div>
     </div>
   </div>
@@ -78,7 +74,7 @@ const showInputForm = () => {
 
   if (deleteFlag.value) {
     setTimeout(function () {
-      document.querySelector(".passwordInputComment").focus();
+      document.querySelector(".password-input").focus();
     }, 10);
   }
 };
@@ -126,7 +122,7 @@ const doDeleteMarker = () => {
             isAcceptable.value = true;
             password.value = null;
             setTimeout(function () {
-              document.querySelector(".passwordInputComment").focus();
+              document.querySelector(".password-input").focus();
             }, 300);
           });
         });
@@ -137,41 +133,21 @@ const doDeleteMarker = () => {
 const modifyComment = () => {};
 </script>
 <style scoped>
-.flex-container {
+.card-top {
+  width: 380px;
   display: flex;
   justify-content: space-between;
 }
 
-.confirmItems {
-  margin-right: 20px;
-}
-.icons {
-  margin-top: 2vw;
-  cursor: pointer;
-  height: 20px; 
-}
-
-.confirmBtn {
-  margin-top: 2vw;
-  height: 20px;
-}
-
-.warn-info {
-  color: red;
-  font-size: 5px;
-  width: 240px;
-  text-align: left;
-}
-.v-card-subtitle {
-  /* border: 1px solid black; */
-  padding: 0;
-}
-.card-item {
+.card-items {
   margin: 0;
   padding: 0;
-  /* border: 1px solid black; */
   display: flex;
   justify-content: space-between;
+}
+
+.v-card-subtitle {
+  padding: 0;
 }
 
 .v-card-text {
@@ -179,8 +155,37 @@ const modifyComment = () => {};
   text-align:start; 
 }
 
-.password {
-  /* border: 1px solid black; */
-  margin-left: 15px;
+.confirm-items {
+  margin-right: 10px;
+  height: 25px; 
+  margin-top: 12px;
+}
+
+.icons {
+  cursor: pointer;
+}
+
+.confirm-btns {
+  height: 20px;
+}
+
+.password-items {
+  display: flex;
+}
+
+.password-label {
+  margin: 0px 15px;
+}
+
+.password-input {
+  margin-right: 80px;
+  font-size:small;
+}
+
+.warn-info {
+  color: red;
+  font-size: 5px;
+  padding-top: 5px;
+  padding-left: 30px;
 }
 </style>
