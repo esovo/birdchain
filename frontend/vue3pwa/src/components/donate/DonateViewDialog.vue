@@ -45,9 +45,16 @@ import DonationAbi from "../../abi/Donation.json";
 import router from "@/router";
 import axios from "axios";
 import { useAccountStore } from "@/stores/accountStore";
+import { donationStore } from "@/stores/donationStore";
 
 export default {
   setup() {
+    const dStore = donationStore();
+
+    const setDonation_id = (value) => {
+      dStore.setDoation_id(value);
+    }
+
     const dialog = ref(false);
 
     const account = ref("");
@@ -76,7 +83,7 @@ export default {
 
       const Donation = new web3.eth.Contract(
         DonationAbi.abi,
-        "0x0b4B148C6AB76335899A1294c22f48964cB04869"
+        "0x87F592f53148d387aa2f05717b424ad618585E22"
       );
       const donationAmount = web3.utils.toWei(
         dAmount.value.toString(),
@@ -98,8 +105,9 @@ export default {
               txid: res.transactionHash,
               address: account.value,
             })
-            .then(() => {
+            .then((res) => {
               // 해당 유저가 기부 완료 상태임을 기록, 관리해야 함.
+              setDonation_id(res.data.value);
               accountStore.donate();
               router.push("/nft");
             });
@@ -113,6 +121,7 @@ export default {
       dAmount,
       getAccount,
       donating,
+      setDonation_id,
     };
   },
 };

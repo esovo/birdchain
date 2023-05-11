@@ -88,10 +88,14 @@ import { createWeb3Instance } from "@/web3";
 import { Web3Storage } from 'web3.storage';
 import NFTAbi from "../../abi/BirdNFT.json";
 import router from "@/router";
+import { donationStore } from "@/stores/donationStore";
 
 
 export default {
   setup() {
+    const dStore = donationStore();
+    const donation_id = dStore.donation_id;
+
     const itemName = [
       "Aquila chrysaetos",
       "Eurynorhynchus pygmeus",
@@ -287,19 +291,38 @@ export default {
       }
       const NFT = new web3.eth.Contract(
         NFTAbi.abi,
-        "0x472e9aB2E3f85a51FD1E67Bb3F6E96eC28C5A84a"
+        "0xF669a0f33D183aDE26259E3266E6AC4304fa1905"
       );
 
       console.log(CID);
       await NFT.methods
-        .createNFT(account.value, imgURI, CID)
+        .createNFT(imgURI, CID)
         .send({
           from: account.value,
         })
-        .then(async () => {
+        .then((res) => {
+          console.log(res);
           console.log("NFT 발급 완료");
           localStorage.removeItem("images");
-          router.push("/mypage");
+
+          console.log(imgURI);
+          console.log(CID);
+          console.log(level[parseInt((NFTNum.value - 1) / 5)]);
+          console.log(itemName[parseInt((NFTNum.value - 1) / 5)]);
+          console.log(donation_id);
+          
+          
+          axios.post(`https://k8b104.p.ssafy.io/api/items`, {
+            imageUrl: imgURI,
+            metadataUrl: CID,
+            iucn: level[parseInt((NFTNum.value - 1) / 5)],
+            name: itemName[parseInt((NFTNum.value - 1) / 5)],
+            donationId: donation_id,
+          }).then((res) => {
+            console.log("item 등록 완료");
+            console.log(res);
+            router.push("/mypage");
+          })
         });
     };
 
@@ -316,18 +339,13 @@ export default {
       itemName,
       level,
       client,
+      donation_id,
       createNFT,
     };
   },
 
   mounted() {
-    if (localStorage.getItem("images")) {
-      const storedImages = JSON.parse(localStorage.getItem("images"));
-      this.imgA = storedImages[0];
-      this.imgB = storedImages[1];
-      this.imgC = storedImages[2];
-      this.imgD = storedImages[3];
-    } else {
+
       axios
         .get(`https://k8b104.p.ssafy.io/api/nft/available`)
         .then((res) => {
@@ -351,13 +369,10 @@ export default {
                   responses[2].data.value,
                   responses[3].data.value,
                 ];
-                localStorage.setItem("images", JSON.stringify(images));
-
-                const storedImages = JSON.parse(localStorage.getItem("images"));
-                this.imgA = storedImages[0];
-                this.imgB = storedImages[1];
-                this.imgC = storedImages[2];
-                this.imgD = storedImages[3];
+                this.imgA = images[0];
+                this.imgB = images[1];
+                this.imgC = images[2];
+                this.imgD = images[3];
               })
             )
             .catch((error) => {
@@ -367,7 +382,6 @@ export default {
         .catch((error) => {
           console.log(error);
         });
-    }
   },
 };
 </script>

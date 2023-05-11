@@ -1,9 +1,9 @@
 <template>
   <div class="backcircle">
     <div id="circle3"></div>
-    <img :src="img4" id="bgbird"/>
+    <!-- <img :src="img4" id="bgbird"/> -->
     <img :src="img5" id="bgbird2"/>
-
+    <Flybird></Flybird>
   </div>
   <div id="home">
     <div class="component1">
@@ -50,12 +50,14 @@
       </div>
     </div>
     <div class="component3">
+
       <div class="mainComponent"
         data-aos="fade-right" 
         data-aos-duration="1000" 
         data-aos-once="true"
       >
         <img :src="img3" style="object-fit: cover"/>
+
         <div class="textfield">
           <div class="maintext">우리는 그들을 <br />소중히 보호해야 합니다.</div>
           <div class="subtext">
@@ -117,26 +119,8 @@
         :modules="modules"
         class="mySwiper"
       >
-        <swiper-slide>
-          <main-card></main-card>
-        </swiper-slide>
-        <swiper-slide>
-          <main-card></main-card>
-        </swiper-slide>
-        <swiper-slide>
-          <main-card></main-card>
-        </swiper-slide>
-        <swiper-slide>
-          <main-card></main-card>
-        </swiper-slide>
-        <swiper-slide>
-          <main-card></main-card>
-        </swiper-slide>
-        <swiper-slide>
-          <main-card></main-card>
-        </swiper-slide>
-        <swiper-slide>
-          <main-card></main-card>
+        <swiper-slide v-for="product,i in products" :key="i" >
+          <main-card :product="product"></main-card>
         </swiper-slide>
       </swiper>
     </div>
@@ -154,6 +138,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import Flybird from "@/components/common/FlyBird.vue";
 
 export default {
   name: "HomeView",
@@ -161,6 +146,7 @@ export default {
     MainCard,
     Swiper,
     SwiperSlide,
+    Flybird
   },
   created() {
         AOS.init();
@@ -177,10 +163,15 @@ export default {
       img3: require("../assets/img/bird4.jpg"),
       img4: require("../assets/img/bgbird1.png"),
       img5: require("../assets/img/bgbird4.png"),
-      img6: require("../assets/img/bgbird5.png")
-
-
-
+      img6: require("../assets/img/bgbird5.png"),
+      products : [
+        {id : '0', img : require("@/assets/img/NFT1_carousel.png")},
+        {id : '1', img : require("@/assets/img/NFT2_carousel.png")},
+        {id : '2', img : require("@/assets/img/NFT3_carousel.png")},
+        {id : '3', img : require("@/assets/img/NFT4_carousel.png")},
+        {id : '4', img : require("@/assets/img/NFT5_carousel.png")},
+        {id : '5', img : require("@/assets/img/NFT6_carousel.png")},
+      ]
     };
   },
 };
@@ -206,7 +197,7 @@ export default {
   margin-bottom: 15%;
   margin-right: 15%;
   margin-left: 15%;
-  margin-top: 10%;
+  margin-top: 12%;
 
 }
 

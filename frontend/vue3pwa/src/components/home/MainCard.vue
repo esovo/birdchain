@@ -1,13 +1,13 @@
 <template >
   <div class="nft">
     <div class='main'>
-      <img class='tokenImage' src="https://images.unsplash.com/photo-1621075160523-b936ad96132a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="NFT" />
+      <img class='tokenImage' :src=product.img alt="NFT" />
       <h2>기분좋은 오목눈이</h2>
       <p class='description'>우리의 도전</p>
 
       <div class='creator'>
         <div class='wrapper'>
-          <img src="https://images.unsplash.com/photo-1620121692029-d088224ddc74?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80" alt="Creator" />
+          <img src="https://images.unsplash.com/photo-1621075160523-b936ad96132a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="Creator" />
         </div>
         <p><ins>Owner of</ins> 이인호</p>
       </div>
@@ -17,7 +17,12 @@
 <script>
 export default {
   name: 'MainCard',
-
+  props : {
+        product : {
+          id:String,
+          img:String
+        }
+  }
 }
 </script>
 <style lang = "scss">
