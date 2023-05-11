@@ -1,9 +1,6 @@
 <template>
   <div class="backcircle">
-    <div id="circle1"></div>
-    <div id="circle2"></div>
     <div id="circle3"></div>
-    <div id="circle4"></div>
     <img :src="img4" id="bgbird"/>
     <img :src="img5" id="bgbird2"/>
 
@@ -216,17 +213,10 @@ export default {
 .textfield {
   display: flex;
   flex-direction: column;
-  /* animation: slide 1s ease-out; */
+  margin-left: 5vw;
 }
 
 
-@keyframes slide {
-  from{
-    margin-right: -100vw;
-  }to{
-    margin-left: 5vw;
-  }
-}
 
 .textfield2 {
   display: flex;
@@ -369,16 +359,7 @@ export default {
 }
 
 
-/* #circle4 {
-  position: absolute;
-  width: 55vw;
-  height: 55vw;
-  background-color: #eafed5;
-  border-radius: 50%;
-  left: 0%;
-  top: 210%;
-  z-index: -1;
-} */
+
 
 #bgbird{
   position: absolute;
