@@ -1,16 +1,16 @@
 <template>
   <div class="backcircle">
-    <div id="circle1"></div>
-    <div id="circle2"></div>
     <div id="circle3"></div>
-    <div id="circle4"></div>
     <img :src="img4" id="bgbird"/>
     <img :src="img5" id="bgbird2"/>
 
   </div>
   <div id="home">
     <div class="component1">
-      <div class="mainComponent">
+      <div class="mainComponent" 
+        data-aos="fade-right" 
+        data-aos-duration="1000" 
+        data-aos-once="true">
         <img :src="img1" style="object-fit: cover"/>
         <div class="textfield">
           <div class="maintext">
@@ -31,7 +31,11 @@
       </div>
     </div>
     <div class="component2">
-      <div class="mainComponent">
+      <div class="mainComponent" 
+        data-aos="fade-left" 
+        data-aos-duration="1000" 
+        data-aos-once="true"
+      >
         <div class="textfield2">
           <div class="maintext2">
             새들은 자연의 아름다운<br/> 선물입니다.
@@ -46,7 +50,11 @@
       </div>
     </div>
     <div class="component3">
-      <div class="mainComponent">
+      <div class="mainComponent"
+        data-aos="fade-right" 
+        data-aos-duration="1000" 
+        data-aos-once="true"
+      >
         <img :src="img3" style="object-fit: cover"/>
         <div class="textfield">
           <div class="maintext">우리는 그들을 <br />소중히 보호해야 합니다.</div>
@@ -87,7 +95,11 @@
       </div>
     </div> 
     <div class="nftdonator">
-      <div class="maintext3">기부하고 NFT를 받아가세요</div>
+      <div class="maintext3"
+        data-aos="fade-left" 
+        data-aos-duration="1000" 
+        data-aos-once="true"
+      >기부하고 NFT를 받아가세요</div>
       <swiper
         :effect="'coverflow'"
         :navigation="true"
@@ -140,12 +152,18 @@ import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
 export default {
   name: "HomeView",
   components: {
     MainCard,
     Swiper,
     SwiperSlide,
+  },
+  created() {
+        AOS.init();
   },
   setup() {
     return {
@@ -175,11 +193,11 @@ export default {
 
 }
 .component1{
-  background-color: #FAF7F5;
+  background-color: #f7fbf3;
 }
 
 .component3{
-  background-color: #FAF7F5;
+  background-color: #f7fbf3;
 }
 .mainComponent {
   display: flex;
@@ -189,9 +207,7 @@ export default {
   margin-right: 15%;
   margin-left: 15%;
   margin-top: 10%;
-  animation: heading;
-  animation-duration: 3s;
-  animation-fill-mode: forwards;
+
 }
 
 .textfield {
@@ -199,6 +215,8 @@ export default {
   flex-direction: column;
   margin-left: 5vw;
 }
+
+
 
 .textfield2 {
   display: flex;
@@ -341,16 +359,7 @@ export default {
 }
 
 
-/* #circle4 {
-  position: absolute;
-  width: 55vw;
-  height: 55vw;
-  background-color: #eafed5;
-  border-radius: 50%;
-  left: 0%;
-  top: 210%;
-  z-index: -1;
-} */
+
 
 #bgbird{
   position: absolute;
@@ -393,10 +402,6 @@ export default {
   width: 100%;
 } */
 
-@keyframes heading{
-  0% {left: 0px;}
-  100% {left: 200px;}
-}
 
 @media (max-width: 600px) {
 #home {
