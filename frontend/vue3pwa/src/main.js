@@ -1,5 +1,5 @@
 import { createApp } from "vue";
-import { createPinia } from 'pinia'
+import { createPinia } from "pinia";
 import App from "./App.vue";
 import "./registerServiceWorker";
 import router from "./router/index.js";
@@ -15,7 +15,8 @@ import "@mdi/font/css/materialdesignicons.css";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { useStore } from '@/stores/store'
+
+import { useStore } from "@/stores/store";
 
 const vuetify = createVuetify({
   components,
@@ -31,4 +32,4 @@ app.component("font-awesome-icon", FontAwesomeIcon);
 // app.use(createPinia())
 app.use(vuetify).use(router).use(Vue3Swiper).use(pinia).mount("#app");
 /* eslint-disable */
-const userStore = useStore()
+const userStore = useStore();
