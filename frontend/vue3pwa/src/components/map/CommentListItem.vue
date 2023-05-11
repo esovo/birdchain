@@ -198,6 +198,6 @@ const modifyComment = () => {};
   color: red;
   font-size: 5px;
   padding-top: 5px;
-  padding-left: 45px;
+  padding-left: 30px;
 }
 </style>
