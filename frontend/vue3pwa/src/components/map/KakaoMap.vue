@@ -1,17 +1,18 @@
 ﻿<template>
-  <div>
-    <div id="map" @click.once="movePin"></div>
-    <MarkerRegist
-      :placeInfo="placeInfo"
-      :map="map"
-      @reloadMarker="reloadMarker"></MarkerRegist>
-    <div class="flex-box" v-if="isValid">
-      <MakerDetail
-        :marker_id="marker_id"
-        @reloadMarker="reloadMarker"
-        @notValid="notValid"></MakerDetail>
-      <CommentList :marker_id="marker_id" class="commentList"></CommentList>
+  <div class="flex-box">
+    <div>
+      <div id="map" @click.once="movePin"></div>
+      <MarkerRegist
+        :placeInfo="placeInfo"
+        :map="map"
+        @reloadMarker="reloadMarker"></MarkerRegist>
     </div>
+    <MakerDetail
+    :marker_id="marker_id"
+    @reloadMarker="reloadMarker"
+    @notValid="notValid"
+    v-if="isValid"></MakerDetail>
+    <CommentList v-if="isValid" :marker_id="marker_id" class="commentList"></CommentList>
   </div>
 </template>
 
@@ -140,8 +141,8 @@ const notValid = () => {
 <style scoped>
 #map {
   margin: 0 auto;
-  width: 85vw;
-  height: 40vw;
+  width: 43vw;
+  height: 550px;
 }
 
 .flex-box {
@@ -152,7 +153,7 @@ const notValid = () => {
   padding: 50px 0;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   #map {
     justify-content: center;
     width: 100vw;

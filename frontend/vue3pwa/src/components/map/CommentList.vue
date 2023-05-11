@@ -3,6 +3,8 @@
     <div class="scroll-container" v-scroll-y>
       <div class="comments" style="height: 400px">
         <CommentListItem
+          @reloadComment="reloadComment"
+          :marker_id="props.marker_id"
           v-for="comment in commentList"
           :key="comment.id"
           :comment_id="comment.id"
@@ -32,11 +34,7 @@ const commentList = ref([]);
 
 const getCommentList = () => {
   getComments(props.marker_id).then(({ data }) => {
-    if (data.status === "OK") {
-      commentList.value = data.value;
-    } else {
-      console.log(data.status);
-    }
+    commentList.value = data.value;
   });
 };
 
@@ -53,7 +51,6 @@ watch(
 const reloadComment = () => {
   getCommentList();
 }
-
 
 const onWheel = (event) => {
   event.preventDefault();

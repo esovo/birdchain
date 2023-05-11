@@ -1,43 +1,53 @@
 <template>
   <div class="flex-container">
     <div>
-      <v-card-item class="d-flex">
+      <div class="card-item">
         <v-card-title> {{ props.nickname }}</v-card-title>
-        <v-card-subtitle>{{ props.createdAt }}</v-card-subtitle>
-      </v-card-item>
-      <div v-if="deleteFlag">
+        <v-card-subtitle class="pt-4">{{ transformDate }}</v-card-subtitle>
+      </div>
+      <div v-if="deleteFlag" class="password">
         <form @submit.prevent>
           <div class="flex-box">
             <div>
-              <div>
-                <label> <strong>비밀번호</strong></label>
-                <input type="password" v-model="password" />
-              </div>
-              <div v-if="isAcceptable" class="warnInfo">비밀번호를 잘못 입력했습니다. 다시 입력해주세요.</div>
+              <label> <strong>비밀번호</strong></label>
+              <input
+                type="password"
+                placeholder="비밀번호를 입력해주세요."
+                v-model="password"
+                class="passwordInputComment" />
+            </div>
+            <div v-if="isAcceptable" class="warn-info">
+              비밀번호를 잘못 입력했습니다. 다시 입력해주세요.
             </div>
           </div>
         </form>
       </div>
-      <v-card-text style="max-width: 300px"> {{ props.content }}</v-card-text>
     </div>
-    <div class="icons" v-if="!deleteFlag">
-      <font-awesome-icon :icon="['fas', 'pen-to-square']" @click="modifyComment"/>
-      <span> | </span>
-      <font-awesome-icon :icon="['fas', 'trash']" @click="deleteFlag = !deleteFlag"/>
-    </div>
-    <div v-if="deleteFlag">
-      <button type="reset" @click="deleteFlag = !deleteFlag">취소</button>
-      <span> | </span>
-      <button type="submit" @click="doDeleteMarker">확인</button>
+    <div class="confirmItems">
+      <div class="icons" v-if="!deleteFlag">
+        <font-awesome-icon
+        :icon="['fas', 'pen-to-square']"
+        @click="modifyComment" />
+        <span> | </span>
+        <font-awesome-icon :icon="['fas', 'trash']" @click="showInputForm" />
+      </div>
+      <div v-if="deleteFlag" class="confirmBtn">
+        <button type="reset" @click="showInputForm">취소</button>
+        <span> | </span>
+        <button type="submit" @click="doDeleteMarker">확인</button>
+      </div>
     </div>
   </div>
+  <v-card-text> {{ props.content }}</v-card-text>
 </template>
 <script setup>
-import { ref, defineProps } from "vue";
-
+import { ref, defineProps, defineEmits, computed } from "vue";
+import { deleteComment } from "@/api/comments";
+import Swal from "sweetalert2";
+import moment from "moment";
 
 const props = defineProps({
-  id: {
+  comment_id: {
     type: Number,
   },
   nickname: {
@@ -49,27 +59,128 @@ const props = defineProps({
   createdAt: {
     type: String,
   },
+  marker_id: {
+    type: Number,
+  },
 });
 
-// 댓글 삭제
+const transformDate = computed(() =>
+  moment(props.createdAt).format("YYYY-MM-DD HH:mm:ss")
+);
+
+const emit = defineEmits(["reloadComment"]);
+const isAcceptable = ref(false);
 const deleteFlag = ref(false);
+const showInputForm = () => {
+  deleteFlag.value = !deleteFlag.value;
+  isAcceptable.value = false;
+  password.value = null;
+
+  if (deleteFlag.value) {
+    setTimeout(function () {
+      document.querySelector(".passwordInputComment").focus();
+    }, 10);
+  }
+};
+
+// 댓글 삭제
+const password = ref();
 const doDeleteMarker = () => {
-  // 댓글 삭제 구현
+  Swal.fire({
+    title: "정말로 삭제하시겠습니까?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "승인",
+    cancelButtonText: "취소",
+    reverseButtons: true, // 버튼 순서 거꾸로
+  }).then((result) => {
+    if (result.isConfirmed) {
+      const reqForm = {
+        id: props.comment_id,
+        nickname: props.nickname,
+        password: password.value,
+        markerId: props.marker_id,
+      };
+      deleteComment(reqForm)
+        .then(({ data }) => {
+          if (data.status === "OK") {
+            password.value = null;
+            isAcceptable.value = false;
+            emit("reloadComment");
 
+            Swal.fire({
+              position: "center",
+              title: "삭제되었습니다.",
+              icon: "success",
+            });
+          }
+        })
+        .catch((error) => {
+          Swal.fire({
+            position: "center",
+            title: `"${error.response.data.message}"`,
+            icon: "error",
+          }).then(function () {
+            isAcceptable.value = true;
+            password.value = null;
+            setTimeout(function () {
+              document.querySelector(".passwordInputComment").focus();
+            }, 300);
+          });
+        });
+    }
+  });
 };
 
-const modifyComment = () => {
-
-};
+const modifyComment = () => {};
 </script>
 <style scoped>
 .flex-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+}
+
+.confirmItems {
+  margin-right: 20px;
 }
 .icons {
   margin-top: 2vw;
   cursor: pointer;
+  height: 20px; 
+}
+
+.confirmBtn {
+  margin-top: 2vw;
   height: 20px;
+}
+
+.warn-info {
+  color: red;
+  font-size: 5px;
+  width: 240px;
+  text-align: left;
+}
+.v-card-subtitle {
+  /* border: 1px solid black; */
+  padding: 0;
+}
+.card-item {
+  margin: 0;
+  padding: 0;
+  /* border: 1px solid black; */
+  display: flex;
+  justify-content: space-between;
+}
+
+.v-card-text {
+  border-bottom: 1px solid rgb(195, 195, 195);
+  text-align:start; 
+}
+
+.password {
+  /* border: 1px solid black; */
+  margin-left: 15px;
 }
 </style>

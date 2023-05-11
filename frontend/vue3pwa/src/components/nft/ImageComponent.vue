@@ -85,8 +85,11 @@
 import axios from "axios";
 import { ref, computed } from "vue";
 import { createWeb3Instance } from "@/web3";
+import { Web3Storage } from 'web3.storage';
 import NFTAbi from "../../abi/BirdNFT.json";
 import router from "@/router";
+
+
 export default {
   setup() {
     const itemName = [
@@ -155,7 +158,72 @@ export default {
       "Aquila heliaca",
     ];
 
-    const level = ["RE", "CR", "EN", "VU", "NT", "LC"];
+    const level = [
+    'EN',
+    'CR',
+    'EN',
+    'EN',
+    'VU',
+    'EN',
+    'VU',
+    'EN',
+    'EN',
+    'RE',
+    'EN',
+    'EN',
+    'EN',
+    'VU',
+    'EN',
+    'EN',
+    'VU',
+    'VU',
+    'LC',
+    'VU',
+    'EN',
+    'VU',
+    'EN',
+    'VU',
+    'VU',
+    'EN',
+    'VU',
+    'RE',
+    'VU',
+    'VU',
+    'VU',
+    'VU',
+    'VU',
+    'NE',
+    'EN',
+    'EN',
+    'VU',
+    'VU',
+    'VU',
+    'VU',
+    'VU',
+    'VU',
+    'VU',
+    'LC',
+    'VU',
+    'LC',
+    'VU',
+    'EN',
+    'LC',
+    'VU',
+    'VU',
+    'VU',
+    'LC',
+    'VU',
+    'LC',
+    'RE',
+    'VU',
+    'VU',
+    'VU',
+    'VU',
+    'VU',
+    'VU',
+    'VU'
+
+    ];
 
     const hover = ref([-1, -1, -1, -1]);
 
@@ -171,6 +239,8 @@ export default {
 
     const account = ref("");
 
+    const client = new Web3Storage({ token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDlkNzc2YkFlMEQ5NjA5MzZEOTQ1Nzc0MTI4MDdiN0EwM2NGYTFFRjMiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2ODM3NjM0OTk1MjcsIm5hbWUiOiJiaXJkY2hhaW4ifQ.9ZXu8rmPVlISEhkEFW-sfrnjV9gN1wjCeiu3bDTLQ9c" });
+
     const elevation = computed(() =>
       hover.value.map((val, index) => (val === index ? 8 : 2))
     );
@@ -179,6 +249,36 @@ export default {
     );
 
     const createNFT = async (imgURI) => {
+
+      let CID;
+      // console.log(itemName[parseInt((NFTNum.value - 1) / 5)]);
+      // console.log(imgURI);
+      // console.log(level[parseInt((NFTNum.value - 1) / 5)]);
+
+      // IPFS에 metadata 저장
+      function createMetadata() {
+        const metadata = JSON.stringify({
+          name: itemName[parseInt((NFTNum.value - 1) / 5)],
+          image: imgURI,
+          iucn: level[parseInt((NFTNum.value - 1) / 5)]
+        });
+
+        const encoder = new TextEncoder();
+        const metadataArray = encoder.encode(metadata);
+
+        const metadataBlob = new Blob([metadataArray], { type: 'application/json' });
+        const metadataFile = new File([metadataBlob], 'metadata.json');
+        return metadataFile;
+      }
+
+      try {
+        const metadataFile = createMetadata();
+        CID = await client.put([metadataFile]);
+        console.log("메타데이터 저장 완료 : ", CID);
+      } catch (error) {
+        console.log("메타데이터 저장 실패 : ", error);
+      }
+
       const web3 = await createWeb3Instance();
 
       if (web3) {
@@ -187,14 +287,16 @@ export default {
       }
       const NFT = new web3.eth.Contract(
         NFTAbi.abi,
-        "0xDd253a06eAc4264Cc0E25AA2e3701EFDA59b2bBB"
+        "0x472e9aB2E3f85a51FD1E67Bb3F6E96eC28C5A84a"
       );
+
+      console.log(CID);
       await NFT.methods
-        .createNFT(account.value, imgURI)
+        .createNFT(account.value, imgURI, CID)
         .send({
           from: account.value,
         })
-        .then(() => {
+        .then(async () => {
           console.log("NFT 발급 완료");
           localStorage.removeItem("images");
           router.push("/mypage");
@@ -213,6 +315,7 @@ export default {
       account,
       itemName,
       level,
+      client,
       createNFT,
     };
   },
@@ -225,16 +328,15 @@ export default {
       this.imgC = storedImages[2];
       this.imgD = storedImages[3];
     } else {
-      // axios.get(`http://localhost:8080/api/nft/available`)
       axios
         .get(`https://k8b104.p.ssafy.io/api/nft/available`)
         .then((res) => {
-          const NFTNum = res.data.value.toString().padStart(3, "0");
+          this.NFTNum = res.data.value;
+          console.log("NFTNum : ", this.NFTNum);
           const imageNames = ["A", "B", "C", "D"];
-          // const imageRequests = imageNames.map(name => axios.get(`http://localhost:8080/api/nft/images?fileName=${NFTNum}${name}`));
           const imageRequests = imageNames.map((name) =>
             axios.get(
-              `https://k8b104.p.ssafy.io/api/nft/images?fileName=${NFTNum}${name}`
+              `https://k8b104.p.ssafy.io/api/nft/images?fileName=${this.NFTNum.toString().padStart(3, "0")}${name}`
             )
           );
 

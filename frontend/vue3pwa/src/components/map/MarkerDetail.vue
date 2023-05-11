@@ -5,9 +5,11 @@
         <v-card-title class="pa-0"> {{ detailData.nickname }} </v-card-title>
       </div>
       <div class="icons">
-        <font-awesome-icon :icon="['fas', 'pen-to-square']" @click="modifyMarker"/>
+        <font-awesome-icon
+          :icon="['fas', 'pen-to-square']"
+          @click="modifyMarker" />
         <span> | </span>
-        <font-awesome-icon :icon="['fas', 'trash']" @click="showInputForm"/>
+        <font-awesome-icon :icon="['fas', 'trash']" @click="showInputForm" />
       </div>
     </div>
     <v-img :src="detailData.image" height="300px" cover class="my-4"></v-img>
@@ -19,9 +21,16 @@
             <div>
               <div>
                 <span> <strong>비밀번호</strong></span>
-                <input type="password" v-model="password" class="passwordInput" autoComplete="off" />
+                <input
+                  type="password"
+                  placeholder="비밀번호를 입력해주세요."
+                  v-model="password"
+                  class="passwordInputMarker"
+                  autoComplete="off" />
               </div>
-              <span v-if="isAcceptable" class="warnInfo">&nbsp;비밀번호를 잘못 입력했습니다. 다시 입력해주세요.</span>
+              <span v-if="isAcceptable" class="warnInfo"
+                >&nbsp;비밀번호를 잘못 입력했습니다. 다시 입력해주세요.</span
+              >
             </div>
             <div class="confirmBtn">
               <button type="reset" @click="showInputForm">취소</button>
@@ -75,9 +84,6 @@ const fetchMarker = () => {
       detailData.value.location = data.value.location;
       detailData.value.content = data.value.content;
       detailData.value.createdAt = data.value.createdAt;
-    } else {
-      console.log(data.status);
-      console.log(data.message);
     }
   });
 };
@@ -97,15 +103,17 @@ const isAcceptable = ref(false);
 const showInputForm = () => {
   deleteFlag.value = !deleteFlag.value;
   isAcceptable.value = false;
+  password.value = null;
 
-}
-
+  if (deleteFlag.value) {
+    setTimeout(function () {
+      document.querySelector(".passwordInputMarker").focus();
+    }, 10);
+  }
+};
 
 // 마커 수정
-const modifyMarker = () => {
-
-}
-
+const modifyMarker = () => {};
 
 // 마커 삭제
 const password = ref();
@@ -126,10 +134,9 @@ const doDeleteMarker = () => {
         nickname: detailData.value.nickname,
         password: password.value,
       };
-
-        deleteMarker(reqForm)
+      deleteMarker(reqForm)
         .then(({ data }) => {
-          if(data.status === "OK"){
+          if (data.status === "OK") {
             password.value = null;
             isAcceptable.value = false;
             emit("reloadMarker");
@@ -147,15 +154,15 @@ const doDeleteMarker = () => {
             position: "center",
             title: `"${error.response.data.message}"`,
             icon: "error",
-          }).then(function(){
+          }).then(function () {
             isAcceptable.value = true;
             password.value = null;
-            setTimeout(function(){
-              document.querySelector(".passwordInput").focus();
+            setTimeout(function () {
+              document.querySelector(".passwordInputMarker").focus();
             }, 300);
           });
-        })
-      }
+        });
+    }
   });
 };
 </script>
@@ -166,12 +173,12 @@ const doDeleteMarker = () => {
   margin: 10px 0;
   border: 1px solid black;
   /* flex-direction: row-reverse; */
-  justify-content :space-between;
+  justify-content: space-between;
   /* justify-content: center; */
   justify-content: flex-end;
 }
 
-.title{
+.title {
   border: 1px solid black;
   /* display: inline-block; */
   /* display: flex; */
@@ -190,7 +197,7 @@ const doDeleteMarker = () => {
   color: red;
   font-size: 5px;
   width: 240px;
-  text-align:left;
+  text-align: left;
 }
 
 .flex-box {
@@ -200,5 +207,4 @@ const doDeleteMarker = () => {
 .confirmBtn {
   padding-left: 40px;
 }
-
 </style>
