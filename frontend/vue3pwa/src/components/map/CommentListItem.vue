@@ -137,7 +137,7 @@ const modifyComment = () => {};
   width: 380px;
   display: flex;
   justify-content: space-between;
-  padding: 10px 10px 0 10px; 
+  padding: 10px 5px 0 5px; 
 }
 
 /* .card-items {
@@ -150,13 +150,13 @@ const modifyComment = () => {};
 }
 .v-card-subtitle {
   text-align:start; 
-  padding-left: 16px;
+  padding-left: 17px;
 }
 
 .v-card-text {
-  border-bottom: 1px solid rgb(195, 195, 195);
+  /* border-bottom: 1px solid rgb(195, 195, 195); */
   text-align:start; 
-  padding: 25px 27px 25px 27px;
+  padding: 15px 20px 25px 21px;
 }
 
 .confirm-items {

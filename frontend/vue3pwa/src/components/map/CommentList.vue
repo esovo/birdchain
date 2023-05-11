@@ -1,19 +1,17 @@
 <template>
   <v-card class="my-card" @wheel.prevent="onWheel">
-    <div class="scroll-container" v-scroll-y>
-      <div class="comments" style="height: 400px">
-        <CommentListItem
-          @reloadComment="reloadComment"
-          :marker_id="props.marker_id"
-          v-for="comment in commentList"
-          :key="comment.id"
-          :comment_id="comment.id"
-          :nickname="comment.nickname"
-          :content="comment.content"
-          :createdAt="comment.createdAt" />
-      </div>
+    <div class="comment-list">
+      <CommentListItem
+        @reloadComment="reloadComment"
+        :marker_id="props.marker_id"
+        v-for="comment in commentList"
+        :key="comment.id"
+        :comment_id="comment.id"
+        :nickname="comment.nickname"
+        :content="comment.content"
+        :createdAt="comment.createdAt" />
     </div>
-    <div class="comment-regist-wrapper">
+    <div class="comment-regist">
       <CommentRegist :marker_id="props.marker_id" @reloadComment="reloadComment"/>
     </div>
   </v-card>
@@ -54,7 +52,7 @@ const reloadComment = () => {
 
 const onWheel = (event) => {
   event.preventDefault();
-  const container = event.currentTarget.querySelector(".comments");
+  const container = event.currentTarget.querySelector(".comment-list");
   container.scrollTop += event.deltaY;
 };
 </script>
@@ -64,24 +62,16 @@ const onWheel = (event) => {
   height: 600px;
   position: relative;
 }
-.scroll-container {
-  height: 100%;
-  overflow-y: auto;
-}
-.comments {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  /* bottom: 40px; CommentRegist 높이만큼 여유 높이 */
+
+.comment-list {
+  height: 400px;
   overflow-y: auto;
   border-bottom: 0.1px solid rgb(190, 190, 190);
 }
-.comment-regist-wrapper {
+
+.comment-regist {
   position: absolute;
-  bottom: 0;
-  left: 15px;
-  right: 0;
-  height: 200px; /* CommentRegist 높이 */
+  bottom: 15px;
+  left: 10px;
 }
 </style>
