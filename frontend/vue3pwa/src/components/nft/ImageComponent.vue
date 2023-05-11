@@ -291,16 +291,17 @@ export default {
       }
       const NFT = new web3.eth.Contract(
         NFTAbi.abi,
-        "0x472e9aB2E3f85a51FD1E67Bb3F6E96eC28C5A84a"
+        "0xF669a0f33D183aDE26259E3266E6AC4304fa1905"
       );
 
       console.log(CID);
       await NFT.methods
-        .createNFT(account.value, imgURI, CID)
+        .createNFT(imgURI, CID)
         .send({
           from: account.value,
         })
-        .then(() => {
+        .then((res) => {
+          console.log(res);
           console.log("NFT 발급 완료");
           localStorage.removeItem("images");
 
