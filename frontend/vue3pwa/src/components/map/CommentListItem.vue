@@ -175,7 +175,7 @@ const modifyComment = () => {};
 
 .password-items {
   margin-top: 5px;
-  padding-left: 10px; 
+  margin-left: 21px; 
 }
 
 .password-form {
@@ -183,13 +183,15 @@ const modifyComment = () => {};
 }
 
 .password-label {
-  margin: 0px 15px;
+  margin: auto 0;
 }
 
 .password-input {
-  margin-right: 80px;
+  margin-left: 10px;
+  margin-right: 70px;
   font-size:small;
-  width: 170px;
+  width: 185px;
+  padding: 5px;
 }
 
 .warn-info {
