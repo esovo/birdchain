@@ -15,6 +15,7 @@ public class Item {
     @Column(name = "item_id", nullable = false)
     private Long id;
 
+    @Lob
     @Column(name = "item_image_url", nullable = false, length = 5000)
     private String imageUrl;
 
