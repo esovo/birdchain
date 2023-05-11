@@ -1,9 +1,9 @@
 <template>
   <div class="backcircle">
     <div id="circle3"></div>
-    <img :src="img4" id="bgbird"/>
+    <!-- <img :src="img4" id="bgbird"/> -->
     <img :src="img5" id="bgbird2"/>
-
+    <Flybird></Flybird>
   </div>
   <div id="home">
     <div class="component1">
@@ -50,12 +50,14 @@
       </div>
     </div>
     <div class="component3">
+
       <div class="mainComponent"
         data-aos="fade-right" 
         data-aos-duration="1000" 
         data-aos-once="true"
       >
         <img :src="img3" style="object-fit: cover"/>
+
         <div class="textfield">
           <div class="maintext">우리는 그들을 <br />소중히 보호해야 합니다.</div>
           <div class="subtext">
@@ -154,6 +156,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import Flybird from "@/components/common/FlyBird.vue";
 
 export default {
   name: "HomeView",
@@ -161,6 +164,7 @@ export default {
     MainCard,
     Swiper,
     SwiperSlide,
+    Flybird
   },
   created() {
         AOS.init();
@@ -206,7 +210,7 @@ export default {
   margin-bottom: 15%;
   margin-right: 15%;
   margin-left: 15%;
-  margin-top: 10%;
+  margin-top: 12%;
 
 }
 

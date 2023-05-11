@@ -1,4 +1,7 @@
 <template>
+  <div class="birdanimation">
+    <Flybird></Flybird>
+  </div>
   <div id="birds">
     <div class="d-flex align-center flex-column pa-6" style="width: 100vw">
       <v-btn-toggle
@@ -46,11 +49,13 @@
 import { ref, computed } from "vue";
 import BirdsCard from "@/components/birds/BirdsCard.vue";
 import birds from "../assets/json/bird.json";
+import Flybird from "@/components/common/FlyBird.vue";
 
 export default {
   name: "BirdsView",
   components: {
     BirdsCard,
+    Flybird
   },
   setup() {
     const selectedToggles = ref([]);
@@ -86,6 +91,12 @@ export default {
 </script>
 
 <style>
+
+.birdanimation{
+  position: fixed;
+  z-index: 10;
+  
+}
 .cardsection {
   display: flex;
   flex-direction: row;
@@ -93,5 +104,6 @@ export default {
   flex-wrap: wrap;
   margin-right: 10vw;
   margin-left: 10vw;
+  z-index: 1;
 }
 </style>
