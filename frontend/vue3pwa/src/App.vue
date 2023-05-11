@@ -24,7 +24,7 @@ export default {
   components: {
     HeaderComponentVue,
     FooterComponent,
-    BottomNavComponent
+    BottomNavComponent,
   },
 };
 </script>
@@ -38,15 +38,15 @@ export default {
   color: #2c3e50;
 }
 
-#bottomnav{
+#bottomnav {
   display: none;
 }
 
 @media (max-width: 600px) {
-  #footer{
+  #footer {
     display: none;
   }
-  #bottomnav{
+  #bottomnav {
     display: block;
   }
 }

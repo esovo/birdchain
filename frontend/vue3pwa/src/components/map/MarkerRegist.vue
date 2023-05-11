@@ -2,7 +2,7 @@
   <v-app>
     <v-main>
       <v-container class="pt-0">
-        <div class="flex-box">
+        <div class="show-address">
           <!-- 도로명 주소 -->
           <!-- <p>{{ props.placeInfo[2] }}</p> -->
           <!-- 지명 주소 -->
@@ -187,15 +187,15 @@ const submitForm = () => {
 </script>
 
 <style scoped>
-.flex-box {
-  border: 1px solid gray;
+.show-address {
+  /* border: 1px solid gray; */
   padding: 0px;
-  width: 85vw;
+  width: 43vw;
   margin: 0 auto;
 }
 
 .v-application {
-  height: 90px;
+  height: 0px;
 }
 
 @media (min-width: 960px) {
@@ -214,7 +214,7 @@ const submitForm = () => {
   }
 
   .flex-box {
-    width: 85vw;
+    width: 45vw;
   }
 }
 
