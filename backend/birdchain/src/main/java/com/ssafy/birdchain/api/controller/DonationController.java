@@ -43,9 +43,8 @@ public class DonationController {
      */
     @PostMapping
     @Operation(summary = "기부 내역 등록")
-    public ResponseEntity<ResponseDTO> donationAdd(@RequestBody DonationAddReqDTO donationAddReqDTO) throws IOException {
-        donationService.addDonation(donationAddReqDTO);
-        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, "등록에 성공했습니다."));
+    public ResponseEntity<ResponseDTO> donationAdd(@RequestBody DonationAddReqDTO donationAddReqDTO) {
+        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, "등록에 성공했습니다.", donationService.addDonation(donationAddReqDTO)));
     }
 
 }

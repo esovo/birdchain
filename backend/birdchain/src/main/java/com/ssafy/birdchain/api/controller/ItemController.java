@@ -55,7 +55,7 @@ public class ItemController {
      */
     @PostMapping
     @Operation(summary = "NFT 선택")
-    public ResponseEntity<ResponseDTO> itemAdd(@RequestBody ItemAddReqDTO itemAddReqDTO) throws IOException {
+    public ResponseEntity<ResponseDTO> itemAdd(@RequestBody ItemAddReqDTO itemAddReqDTO) {
         itemService.addItem(itemAddReqDTO);
         return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, "등록에 성공했습니다."));
     }

@@ -9,6 +9,6 @@ public interface DonationService {
 
     List<DonationAllResDTO> findAllDonation(String address);
 
-    void addDonation(DonationAddReqDTO donationAddReqDTO);
+    Long addDonation(DonationAddReqDTO donationAddReqDTO);
 
 }

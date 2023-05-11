@@ -35,13 +35,14 @@ public class DonationServiceImpl implements DonationService {
      * @param donationAddReqDTO
      */
     @Override
-    public void addDonation(DonationAddReqDTO donationAddReqDTO) {
+    public Long addDonation(DonationAddReqDTO donationAddReqDTO) {
         Donation donation = Donation.builder()
                 .amount(donationAddReqDTO.getAmount())
                 .txid(donationAddReqDTO.getTxid())
                 .address(donationAddReqDTO.getAddress())
                 .build();
         donationRepository.save(donation);
+        return donation.getId();
     }
 
 }
