@@ -119,26 +119,8 @@
         :modules="modules"
         class="mySwiper"
       >
-        <swiper-slide>
-          <main-card></main-card>
-        </swiper-slide>
-        <swiper-slide>
-          <main-card></main-card>
-        </swiper-slide>
-        <swiper-slide>
-          <main-card></main-card>
-        </swiper-slide>
-        <swiper-slide>
-          <main-card></main-card>
-        </swiper-slide>
-        <swiper-slide>
-          <main-card></main-card>
-        </swiper-slide>
-        <swiper-slide>
-          <main-card></main-card>
-        </swiper-slide>
-        <swiper-slide>
-          <main-card></main-card>
+        <swiper-slide v-for="product,i in products" :key="i" >
+          <main-card :product="product"></main-card>
         </swiper-slide>
       </swiper>
     </div>
@@ -181,10 +163,15 @@ export default {
       img3: require("../assets/img/bird4.jpg"),
       img4: require("../assets/img/bgbird1.png"),
       img5: require("../assets/img/bgbird4.png"),
-      img6: require("../assets/img/bgbird5.png")
-
-
-
+      img6: require("../assets/img/bgbird5.png"),
+      products : [
+        {id : '0', img : require("@/assets/img/NFT1_carousel.png")},
+        {id : '1', img : require("@/assets/img/NFT2_carousel.png")},
+        {id : '2', img : require("@/assets/img/NFT3_carousel.png")},
+        {id : '3', img : require("@/assets/img/NFT4_carousel.png")},
+        {id : '4', img : require("@/assets/img/NFT5_carousel.png")},
+        {id : '5', img : require("@/assets/img/NFT6_carousel.png")},
+      ]
     };
   },
 };

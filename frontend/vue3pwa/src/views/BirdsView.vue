@@ -93,9 +93,7 @@ export default {
 <style>
 
 .birdanimation{
-  position: fixed;
   z-index: 10;
-  
 }
 .cardsection {
   display: flex;
