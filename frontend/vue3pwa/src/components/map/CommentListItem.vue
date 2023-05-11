@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="card-top">
-      <div class="card-items" >
+      <div class="card-items">
         <v-card-title> {{ props.nickname }}</v-card-title>
-        <v-card-subtitle class="pt-4">{{ transformDate }}</v-card-subtitle>
+        <v-card-subtitle>{{ transformDate }}</v-card-subtitle>
       </div>
       <div class="confirm-items">
         <div class="icons" v-if="!deleteFlag">
@@ -20,9 +20,9 @@
         </div>
       </div>
     </div>
-    <div v-if="deleteFlag">
-      <form @submit.prevent class="password-items">
-          <label class="password-label"><strong>비밀번호</strong></label>
+    <div v-if="deleteFlag" class="password-items">
+      <form @submit.prevent class="password-form">
+          <label class="password-label">비밀번호</label>
           <input
             type="password"
             placeholder="비밀번호를 입력해주세요."
@@ -33,8 +33,8 @@
         비밀번호를 잘못 입력했습니다. 다시 입력해주세요.
       </div>
     </div>
+    <v-card-text> {{ props.content }}</v-card-text>
   </div>
-  <v-card-text> {{ props.content }}</v-card-text>
 </template>
 <script setup>
 import { ref, defineProps, defineEmits, computed } from "vue";
@@ -137,28 +137,31 @@ const modifyComment = () => {};
   width: 380px;
   display: flex;
   justify-content: space-between;
+  padding: 10px 10px 0 10px; 
 }
 
-.card-items {
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: space-between;
-}
+/* .card-items {
+} */
 
+.v-card-title {
+  padding-bottom: 5px;
+  text-align:start; 
+  max-width: 270px;
+}
 .v-card-subtitle {
-  padding: 0;
+  text-align:start; 
 }
 
 .v-card-text {
   border-bottom: 1px solid rgb(195, 195, 195);
   text-align:start; 
+  padding: 25px;
 }
 
 .confirm-items {
   margin-right: 10px;
   height: 25px; 
-  margin-top: 12px;
+  margin-top: 10px;
 }
 
 .icons {
@@ -170,6 +173,11 @@ const modifyComment = () => {};
 }
 
 .password-items {
+  margin-top: 5px;
+  padding-left: 10px; 
+}
+
+.password-form {
   display: flex;
 }
 
@@ -180,12 +188,13 @@ const modifyComment = () => {};
 .password-input {
   margin-right: 80px;
   font-size:small;
+  width: 170px;
 }
 
 .warn-info {
   color: red;
   font-size: 5px;
   padding-top: 5px;
-  padding-left: 30px;
+  padding-left: 45px;
 }
 </style>
