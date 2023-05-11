@@ -4,79 +4,90 @@
     <div id="circle2"></div>
     <div id="circle3"></div>
     <div id="circle4"></div>
+    <img :src="img4" id="bgbird"/>
+    <img :src="img5" id="bgbird2"/>
+
   </div>
   <div id="home">
-    <div class="mainComponent">
-      <img :src="img1" style="object-fit: cover"/>
-      <div class="textfield">
-        <div class="maintext">
-          멸종위기에 처한<br />
-          새들을 위해 기부하세요.
-        </div>
-        <div class="subtext">
-          새는 매우 중요한 생태계의 일원입니다.<br />
-          새의 멸종은 식량 연쇄 반응과 함께 <br />
-          다른 동물과 식물들도 영향을 받을 수 있습니다.
-        </div>
-        <div class="donatebtn"> 
-          <v-btn size="x-large" @click="$router.push('/donate')" > 기부하기 </v-btn>
-        </div>
-      </div>
-    </div>
-    <div class="mainComponent">
-      <div class="textfield2">
-        <div class="maintext2">
-          새들은 자연의 가장 아름다운 선물 중 하나입니다.
-        </div>
-        <div class="subtext2">
-          새는 농업 및 식량 생산에 중요한 역할을 합니다.<br />
-          새는 자연의 다양성을 표현하는 동물입니다.<br />
-          새 보호는 우리의 삶과 건강에도 긍정적인 영향을 미칩니다.
-        </div>
-      </div>
-      <img :src="img2" />
-    </div>
-    <div class="mainComponent">
-      <img :src="img3" style="object-fit: cover"/>
-      <div class="textfield">
-        <div class="maintext">우리는 그들을 <br />소중히 보호해야 합니다.</div>
-        <div class="subtext">
-          우리는 새의 멸종을 막기 위해 다양한 방법으로 새를 보호할 수
-          있습니다.<br />
-          예를 들어, 새의 서식지를 보호하고, 유독 물질과 오염을 줄이고,<br />
-          새를 위한 먹이와 물을 제공하는 등의 노력을 기울일 수 있습니다.
-        </div>
-        <div class="goal">
-          <div class="goaldetail">
-            <div class="goaldetailtitle">우리의 목표</div>
-            <div class="goaldetailtext">
-              멸종위기의 새들을 보호하고<br />
-              사람들의 관심을 얻는 것입니다.
-            </div>
+    <div class="component1">
+      <div class="mainComponent">
+        <img :src="img1" style="object-fit: cover"/>
+        <div class="textfield">
+          <div class="maintext">
+            멸종위기에 처한<br />
+            새들을 위해 기부하세요.
           </div>
-          <div class="goaldetail">
-            <div class="goaldetailtitle">우리의 도전</div>
-            <div class="goaldetailtext">
-              기부한 사용자에게 NFT를 배부합니다.
-            </div>
+          <div class="subtext">
+            새는 매우 중요한 생태계의 일원입니다.<br />
+            새의 멸종은 식량 연쇄 반응과 함께 <br />
+            다른 동물과 식물들도 영향을 받을 수 있습니다.
+          </div>
+          <div class="donatebtn"> 
+            <v-btn size="x-large" @click="$router.push('/donate')" > 기부하기 </v-btn>
+            <v-btn color="blue-darken-4" size="x-large" @click="$router.push('/donate')" > 보러가기 </v-btn>
+
           </div>
         </div>
-        <div>Donations</div>
-        <v-progress-linear v-model="skill" color="blue-grey" height="25">
-          <template v-slot:default="{ value }">
-            <strong>{{ Math.ceil(value) }}%</strong>
-          </template>
-        </v-progress-linear>
-        <div>Medical Help</div>
-        <v-progress-linear v-model="skill" color="blue-grey" height="25">
-          <template v-slot:default="{ value }">
-            <strong>{{ Math.ceil(value) }}%</strong>
-          </template>
-        </v-progress-linear>
       </div>
     </div>
-    <div class="maintext3">기부하고 NFT를 받아가세요</div>
+    <div class="component2">
+      <div class="mainComponent">
+        <div class="textfield2">
+          <div class="maintext2">
+            새들은 자연의 아름다운<br/> 선물입니다.
+          </div>
+          <div class="subtext2">
+            새는 농업 및 식량 생산에 중요한 역할을 합니다.<br />
+            새는 자연의 다양성을 표현하는 동물입니다.<br />
+            새 보호는 우리의 삶과 건강에도 긍정적인 영향을 미칩니다.
+          </div>
+        </div>
+        <img :src="img2" style="object-fit: cover"/>
+      </div>
+    </div>
+    <div class="component3">
+      <div class="mainComponent">
+        <img :src="img3" style="object-fit: cover"/>
+        <div class="textfield">
+          <div class="maintext">우리는 그들을 <br />소중히 보호해야 합니다.</div>
+          <div class="subtext">
+            우리는 새의 멸종을 막기 위해 다양한 방법으로 새를 보호할 수
+            있습니다.<br />
+            예를 들어, 새의 서식지를 보호하고, 유독 물질과 오염을 줄이고,<br />
+            새를 위한 먹이와 물을 제공하는 등의 노력을 기울일 수 있습니다.
+          </div>
+          <div class="goal">
+            <div class="goaldetail">
+              <div class="goaldetailtitle">우리의 목표</div>
+              <div class="goaldetailtext">
+                멸종위기의 새들을 보호하고<br />
+                사람들의 관심을 얻는 것입니다.
+              </div>
+            </div>
+            <div class="goaldetail">
+              <div class="goaldetailtitle">우리의 도전</div>
+              <div class="goaldetailtext">
+                기부한 사용자에게 NFT를 배부합니다.
+              </div>
+            </div>
+          </div>
+          <div>Donations</div>
+          <v-progress-linear v-model="skill" color="blue-grey" height="25">
+            <template v-slot:default="{ value }">
+              <strong>{{ Math.ceil(value) }}%</strong>
+            </template>
+          </v-progress-linear>
+          <div>Medical Help</div>
+          <v-progress-linear v-model="skill" color="blue-grey" height="25">
+            <template v-slot:default="{ value }">
+              <strong>{{ Math.ceil(value) }}%</strong>
+            </template>
+          </v-progress-linear>
+        </div>
+      </div>
+    </div> 
     <div class="nftdonator">
+      <div class="maintext3">기부하고 NFT를 받아가세요</div>
       <swiper
         :effect="'coverflow'"
         :navigation="true"
@@ -145,7 +156,13 @@ export default {
     return {
       img1: require("../assets/img/bird5.jpg"),
       img2: require("../assets/img/bird3.jpg"),
-      img3: require("../assets/img/bird4.jpg")
+      img3: require("../assets/img/bird4.jpg"),
+      img4: require("../assets/img/bgbird1.png"),
+      img5: require("../assets/img/bgbird4.png"),
+      img6: require("../assets/img/bgbird5.png")
+
+
+
     };
   },
 };
@@ -155,16 +172,26 @@ export default {
 #home {
   display: flex;
   flex-direction: column;
-  margin-right: 15%;
-  margin-left: 15%;
-  margin-top: 10%;
+
+}
+.component1{
+  background-color: #FAF7F5;
 }
 
+.component3{
+  background-color: #FAF7F5;
+}
 .mainComponent {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: 35%;
+  margin-bottom: 15%;
+  margin-right: 15%;
+  margin-left: 15%;
+  margin-top: 10%;
+  animation: heading;
+  animation-duration: 3s;
+  animation-fill-mode: forwards;
 }
 
 .textfield {
@@ -185,10 +212,11 @@ export default {
 }
 
 .maintext {
-  font-family: "IBM Plex Sans";
+  font :700 3vw/1.1 Calibre-R,sans-serif;
+  /* font-family: "IBM Plex Sans";
   font-style: normal;
   font-weight: 600;
-  font-size: 3vw;
+  font-size: 3vw; */
   /* font-size: 64px; */
   text-align: right;
   text-transform: capitalize;
@@ -196,14 +224,12 @@ export default {
 }
 
 .maintext2 {
-  font-family: "IBM Plex Sans";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 3vw;
+  font :700 3vw/1.1 Calibre-R,sans-serif;
   /* font-size: 64px; */
   text-align: left;
   text-transform: capitalize;
   color: #02100d;
+  
 }
 
 .maintext3 {
@@ -219,10 +245,17 @@ export default {
 
 .subtext {
   margin-top: 1rem;
-  font-family: "IBM Plex Sans", sans-serif;
+  font:700 1.5vw/3vw Inter,sans-serif;
+  word-wrap: break-word;
+  color: rgb(var(--neutral700-rgb,102,102,102));
+  letter-spacing: -.03em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* font-family: "IBM Plex Sans", sans-serif;
   font-style: normal;
   font-weight: 700;
-  font-size: 1vw;
+  font-size: 1vw; */
+
   text-align: right;
   text-transform: capitalize;
   color: #444444;
@@ -230,10 +263,12 @@ export default {
 
 .subtext2 {
   margin-top: 1rem;
-  font-family: "IBM Plex Sans", sans-serif;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 1vw;
+  font:700 1.5vw/3vw Inter,sans-serif;
+  word-wrap: break-word;
+  color: rgb(var(--neutral700-rgb,102,102,102));
+  letter-spacing: -.03em;
+  overflow: hidden;
+  text-overflow: ellipsis;
   text-align: left;
   text-transform: capitalize;
   color: #444444;
@@ -276,6 +311,9 @@ export default {
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: space-between;
+  margin-right: 15%;
+  margin-left: 15%;
+  margin-top: 10%;
 }
 
 #circle1 {
@@ -289,29 +327,21 @@ export default {
   z-index: -1;
 }
 
-#circle2 {
+
+
+#circle3 {
   position: absolute;
-  width: 6vw;
-  height: 6vw;
-  background-color: #d6e8c5;
+  width: 20vw;
+  height: 20vw;
+  background-color: #ff5546;
   border-radius: 50%;
-  left: 20%;
+  right: 10%;
   top: 100%;
   z-index: -1;
 }
 
-#circle3 {
-  position: absolute;
-  width: 25vw;
-  height: 25vw;
-  background-color: #f8f8f8;
-  border-radius: 50%;
-  left: 30%;
-  top: 120%;
-  z-index: -1;
-}
 
-#circle4 {
+/* #circle4 {
   position: absolute;
   width: 55vw;
   height: 55vw;
@@ -320,7 +350,23 @@ export default {
   left: 0%;
   top: 210%;
   z-index: -1;
+} */
+
+#bgbird{
+  position: absolute;
+  width: 30vw;
+  right: 0px;
+  /* filter: blur(2px); */
+  opacity: 0.4;
 }
+
+#bgbird2{
+  position: absolute;
+  width: 30vw;
+  top: 108%;
+  right: 50px;
+}
+
 
 .swiper {
   width: 100%;
@@ -336,8 +382,10 @@ export default {
 }
 
 .donatebtn{
+  display: flex;
   margin-top: 50px;
   margin-bottom: 50px;
+  justify-content: space-around;
 }
 
 /* .swiper-slide img {
@@ -345,19 +393,25 @@ export default {
   width: 100%;
 } */
 
+@keyframes heading{
+  0% {left: 0px;}
+  100% {left: 200px;}
+}
+
 @media (max-width: 600px) {
 #home {
   display: flex;
   flex-direction: column;
-  margin-right: 5%;
-  margin-left: 5%;
-  margin-top: 10%;
+
 }
 .mainComponent {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: 20%;
+  margin-right: 5%;
+  margin-left: 5%;
+  margin-top: 10%;
+  margin-bottom: 5%;
 }
 
 .textfield {
@@ -379,10 +433,11 @@ export default {
 }
 
 .maintext {
-  font-family: "IBM Plex Sans";
+  font :700 5vw/1.1 Calibre-R,sans-serif;
+  /* font-family: "IBM Plex Sans";
   font-style: normal;
   font-weight: 600;
-  font-size: 5vw;
+  font-size: 3vw; */
   /* font-size: 64px; */
   text-align: right;
   text-transform: capitalize;
@@ -390,10 +445,7 @@ export default {
 }
 
 .maintext2 {
-  font-family: "IBM Plex Sans";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 5vw;
+  font :700 5vw/1.1 Calibre-R,sans-serif;
   /* font-size: 64px; */
   text-align: left;
   text-transform: capitalize;
@@ -413,10 +465,17 @@ export default {
 
 .subtext {
   margin-top: 1rem;
-  font-family: "IBM Plex Sans", sans-serif;
+  font:700 3vw/3vw Inter,sans-serif;
+  word-wrap: break-word;
+  color: rgb(var(--neutral700-rgb,102,102,102));
+  letter-spacing: -.03em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* font-family: "IBM Plex Sans", sans-serif;
   font-style: normal;
-  font-weight: 400;
-  font-size: 3vw;
+  font-weight: 700;
+  font-size: 1vw; */
+
   text-align: right;
   text-transform: capitalize;
   color: #444444;
@@ -424,10 +483,12 @@ export default {
 
 .subtext2 {
   margin-top: 1rem;
-  font-family: "IBM Plex Sans", sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 3vw;
+  font:700 3vw/3vw Inter,sans-serif;
+  word-wrap: break-word;
+  color: rgb(var(--neutral700-rgb,102,102,102));
+  letter-spacing: -.03em;
+  overflow: hidden;
+  text-overflow: ellipsis;
   text-align: left;
   text-transform: capitalize;
   color: #444444;
@@ -471,8 +532,12 @@ export default {
   flex-direction: row;
   justify-content: space-between;
 }
+
+
 .backcircle{
   display: none;
 }
 }
+
+
 </style>
