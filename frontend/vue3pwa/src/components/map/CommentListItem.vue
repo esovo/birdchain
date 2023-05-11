@@ -27,7 +27,7 @@
             type="password"
             placeholder="비밀번호를 입력해주세요."
             v-model="password"
-            class="password-input" />
+            class="password-input-comment" />
       </form>
       <div v-if="isAcceptable" class="warn-info">
         비밀번호를 잘못 입력했습니다. 다시 입력해주세요.
@@ -74,7 +74,7 @@ const showInputForm = () => {
 
   if (deleteFlag.value) {
     setTimeout(function () {
-      document.querySelector(".password-input").focus();
+      document.querySelector(".password-input-comment").focus();
     }, 10);
   }
 };
@@ -122,7 +122,7 @@ const doDeleteMarker = () => {
             isAcceptable.value = true;
             password.value = null;
             setTimeout(function () {
-              document.querySelector(".password-input").focus();
+              document.querySelector(".password-input-comment").focus();
             }, 300);
           });
         });
@@ -186,7 +186,7 @@ const modifyComment = () => {};
   margin: auto 0;
 }
 
-.password-input {
+.password-input-comment {
   margin-left: 10px;
   margin-right: 70px;
   font-size:small;
@@ -198,6 +198,6 @@ const modifyComment = () => {};
   color: red;
   font-size: 5px;
   padding-top: 5px;
-  padding-left: 30px;
+  padding-left: 10px;
 }
 </style>
