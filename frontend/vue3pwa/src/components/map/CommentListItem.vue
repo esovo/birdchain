@@ -1,44 +1,44 @@
 <template>
   <div class="flex-container">
     <div>
-      <v-card-item class="d-flex">
+      <div class="card-item">
         <v-card-title> {{ props.nickname }}</v-card-title>
-        <v-card-subtitle>{{ transformDate }}</v-card-subtitle>
-      </v-card-item>
-      <div v-if="deleteFlag">
+        <v-card-subtitle class="pt-4">{{ transformDate }}</v-card-subtitle>
+      </div>
+      <div v-if="deleteFlag" class="password">
         <form @submit.prevent>
           <div class="flex-box">
             <div>
-              <div>
-                <label> <strong>비밀번호</strong></label>
-                <input
-                  type="password"
-                  placeholder="비밀번호를 입력해주세요."
-                  v-model="password"
-                  class="passwordInputComment" />
-              </div>
-              <div v-if="isAcceptable" class="warnInfo">
-                비밀번호를 잘못 입력했습니다. 다시 입력해주세요.
-              </div>
+              <label> <strong>비밀번호</strong></label>
+              <input
+                type="password"
+                placeholder="비밀번호를 입력해주세요."
+                v-model="password"
+                class="passwordInputComment" />
+            </div>
+            <div v-if="isAcceptable" class="warn-info">
+              비밀번호를 잘못 입력했습니다. 다시 입력해주세요.
             </div>
           </div>
         </form>
       </div>
-      <v-card-text style="max-width: 300px"> {{ props.content }}</v-card-text>
     </div>
-    <div class="icons" v-if="!deleteFlag">
-      <font-awesome-icon
+    <div class="confirmItems">
+      <div class="icons" v-if="!deleteFlag">
+        <font-awesome-icon
         :icon="['fas', 'pen-to-square']"
         @click="modifyComment" />
-      <span> | </span>
-      <font-awesome-icon :icon="['fas', 'trash']" @click="showInputForm" />
-    </div>
-    <div v-if="deleteFlag">
-      <button type="reset" @click="showInputForm">취소</button>
-      <span> | </span>
-      <button type="submit" @click="doDeleteMarker">확인</button>
+        <span> | </span>
+        <font-awesome-icon :icon="['fas', 'trash']" @click="showInputForm" />
+      </div>
+      <div v-if="deleteFlag" class="confirmBtn">
+        <button type="reset" @click="showInputForm">취소</button>
+        <span> | </span>
+        <button type="submit" @click="doDeleteMarker">확인</button>
+      </div>
     </div>
   </div>
+  <v-card-text> {{ props.content }}</v-card-text>
 </template>
 <script setup>
 import { ref, defineProps, defineEmits, computed } from "vue";
@@ -139,18 +139,48 @@ const modifyComment = () => {};
 <style scoped>
 .flex-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+}
+
+.confirmItems {
+  margin-right: 20px;
 }
 .icons {
   margin-top: 2vw;
   cursor: pointer;
+  height: 20px; 
+}
+
+.confirmBtn {
+  margin-top: 2vw;
   height: 20px;
 }
 
-.warnInfo {
+.warn-info {
   color: red;
   font-size: 5px;
   width: 240px;
   text-align: left;
+}
+.v-card-subtitle {
+  /* border: 1px solid black; */
+  padding: 0;
+}
+.card-item {
+  margin: 0;
+  padding: 0;
+  /* border: 1px solid black; */
+  display: flex;
+  justify-content: space-between;
+}
+
+.v-card-text {
+  border-bottom: 1px solid rgb(195, 195, 195);
+  text-align:start; 
+}
+
+.password {
+  /* border: 1px solid black; */
+  margin-left: 15px;
 }
 </style>
