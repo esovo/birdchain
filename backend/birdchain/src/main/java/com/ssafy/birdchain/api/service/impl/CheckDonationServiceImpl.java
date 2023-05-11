@@ -2,7 +2,6 @@ package com.ssafy.birdchain.api.service.impl;
 
 import com.ssafy.birdchain.api.service.CheckDonationService;
 import com.ssafy.birdchain.common.db.dto.request.check.CheckDonationAddReqDTO;
-import com.ssafy.birdchain.common.db.dto.request.check.CheckDonationModifyReqDTO;
 import com.ssafy.birdchain.common.db.entity.CheckDonation;
 import com.ssafy.birdchain.common.db.repository.CheckDonationRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,10 +30,10 @@ public class CheckDonationServiceImpl implements CheckDonationService {
     }
 
     @Override
-    public void modifyCheckDonation(CheckDonationModifyReqDTO checkDonationModifyReqDTO) {
-        CheckDonation checkDonation = checkDonationRepository.findByWallet(checkDonationModifyReqDTO.getWallet());
-        checkDonation.setNum(checkDonationModifyReqDTO.getNum());
-        checkDonationRepository.save(checkDonation);
+    public void deleteCheckDonation(String wallet) {
+        System.out.println(wallet);
+        CheckDonation checkDonation = checkDonationRepository.findByWallet(wallet);
+        checkDonationRepository.delete(checkDonation);
     }
 
 }

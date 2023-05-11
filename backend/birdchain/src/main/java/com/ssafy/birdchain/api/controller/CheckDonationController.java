@@ -2,7 +2,6 @@ package com.ssafy.birdchain.api.controller;
 
 import com.ssafy.birdchain.api.service.CheckDonationService;
 import com.ssafy.birdchain.common.db.dto.request.check.CheckDonationAddReqDTO;
-import com.ssafy.birdchain.common.db.dto.request.check.CheckDonationModifyReqDTO;
 import com.ssafy.birdchain.common.db.dto.util.ResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -34,11 +33,11 @@ public class CheckDonationController {
         return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, "등록에 성공했습니다."));
     }
 
-    @PutMapping
-    @Operation(summary = "랜덤 이미지 번호 수정")
-    public ResponseEntity<ResponseDTO> checkDonationModify(@RequestBody CheckDonationModifyReqDTO checkDonationModifyReqDTO) {
-        checkDonationService.modifyCheckDonation(checkDonationModifyReqDTO);
-        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, "수정에 성공했습니다."));
+    @DeleteMapping
+    @Operation(summary = "랜덤 이미지 번호 삭제")
+    public ResponseEntity<ResponseDTO> checkDonationModify(@RequestParam String wallet) {
+        checkDonationService.deleteCheckDonation(wallet);
+        return ResponseEntity.ok().body(ResponseDTO.of(HttpStatus.OK, "삭제에 성공했습니다."));
     }
 
 }

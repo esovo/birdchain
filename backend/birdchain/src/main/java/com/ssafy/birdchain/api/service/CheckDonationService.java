@@ -1,7 +1,6 @@
 package com.ssafy.birdchain.api.service;
 
 import com.ssafy.birdchain.common.db.dto.request.check.CheckDonationAddReqDTO;
-import com.ssafy.birdchain.common.db.dto.request.check.CheckDonationModifyReqDTO;
 import com.ssafy.birdchain.common.db.entity.CheckDonation;
 
 public interface CheckDonationService {
@@ -9,6 +8,6 @@ public interface CheckDonationService {
 
     void addCheckDonation(CheckDonationAddReqDTO checkDonationAddReqDTO);
 
-    void modifyCheckDonation(CheckDonationModifyReqDTO checkDonationModifyReqDTO);
+    void deleteCheckDonation(String wallet);
 
 }
