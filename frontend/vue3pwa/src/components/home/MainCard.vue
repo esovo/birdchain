@@ -22,9 +22,6 @@ export default {
           id:String,
           img:String
         }
-  },
-  setup(props) {
-    console.log(props)
   }
 }
 </script>
