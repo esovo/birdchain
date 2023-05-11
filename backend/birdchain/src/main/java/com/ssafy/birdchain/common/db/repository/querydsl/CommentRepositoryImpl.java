@@ -25,6 +25,7 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom {
                 ))
                 .from(comment)
                 .where(comment.status.eq(true), comment.marker.id.eq(markerId))
+                .orderBy(comment.createdAt.desc())
                 .fetchResults();
         return results.getResults();
     }
