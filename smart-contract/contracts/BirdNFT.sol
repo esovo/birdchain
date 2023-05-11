@@ -9,30 +9,32 @@ contract BirdNFT is ERC721URIStorage {
     Counters.Counter private _tokenIds;
     
     event EtherReceived(address sender, uint256 amount);
+    event NFT(address sender, uint256 tokenId);
 
-    mapping(uint256 => string) private _metaDatas;
+    mapping(uint256 => string) private _imgURIs;
 
     constructor() ERC721("BirdNFT", "BNFT") {}
 
     //토큰 등록
-    function createNFT(address recipient, string memory imgURI, string memory metaData) public payable returns (uint256) {
+    function createNFT(string memory imgURI, string memory metaData) public payable returns (uint256) {
         _tokenIds.increment();
         uint256 newItemId = _tokenIds.current();
-        _mint(recipient, newItemId);
-        _setTokenURI(newItemId, imgURI);
-        _setMetaDatas(newItemId, metaData);
+        _mint(msg.sender, newItemId);
+        _setTokenURI(newItemId, metaData);
+        _setImgURIs(newItemId, imgURI);
         //가스비 환불
         payable(msg.sender).transfer(calculateGasFee());
+        emit NFT(msg.sender, newItemId);
         return newItemId;
     }
 
-    function _setMetaDatas(uint256 newItemId, string memory metaData) internal {
-        _metaDatas[newItemId] = metaData;
+    function _setImgURIs(uint256 newItemId, string memory metaData) internal {
+        _imgURIs[newItemId] = metaData;
     }
 
     function mataData(uint256 newItemId) public view returns (string memory) {
         require(_exists(newItemId), "BirdNFT: URI query for nonexistent token");
-        string memory uri = _metaDatas[newItemId];
+        string memory uri = _imgURIs[newItemId];
         return uri;
     }
 

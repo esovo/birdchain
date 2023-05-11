@@ -4,7 +4,7 @@ const BirdNFT = artifacts.require("./BirdNFT.sol");
 
 module.exports = function (deployer) {
   deployer.deploy(Migrations);
-  deployer.deploy(Donation, "Donation", "DNT"); 
+  deployer.deploy(Donation); 
   deployer.deploy(BirdNFT); 
 
     // deployer.deploy(Donation); 

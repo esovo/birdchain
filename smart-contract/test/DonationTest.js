@@ -49,7 +49,7 @@ contract("Donation", function (accounts) {
         donationInstance = instance;
         return donationInstance.donate({
           from: accounts[0],
-          value: web3.utils.toWei("1", "ether"),
+          value: web3.utils.toWei("0.01", "ether"),
         });
       })
       .then(function (receipt) {

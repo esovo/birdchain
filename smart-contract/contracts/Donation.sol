@@ -2,7 +2,6 @@
 pragma solidity >=0.4.22 <0.9.0;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract Donation is ERC20 {
     address payable public donationReceiver;
@@ -12,8 +11,8 @@ contract Donation is ERC20 {
     event MyCurrentValue(address _msgSender,uint256 _value);
     event EtherReceived(address sender, uint256 amount);
 
-  constructor(string memory name, string memory symbol) ERC20(name, symbol) {
-    donationReceiver = payable(0xadA2C5024608A5dD321b960c22CC297c31dF4422);
+  constructor() ERC20("Donation", "DNFT") {
+    donationReceiver = payable(0x20BB5789f444e47a88c366f0bfE41EcB3c75BD4C);
   }
 
   //Contract 자체 이더 조회
@@ -37,7 +36,7 @@ contract Donation is ERC20 {
 
     //기부
     function donate() public payable {
-        require(msg.value > 0, "Donation: amount must be greater than 0");
+        require(msg.value > 0 , "Donation: amount must be greater than 0");
         require(msg.sender.balance >= msg.value, "Donation: insufficient balance");
 
         //가스비 추측해서 기부금에서 제외시킴
