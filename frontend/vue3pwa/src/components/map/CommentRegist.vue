@@ -1,7 +1,7 @@
 <template>
-  <div class="form-container">
-    <form @submit.prevent="regist" class="form-input">
-      <ul class="wrapper">
+  <div>
+    <form @submit.prevent="regist" class="regist-form">
+      <ul class="form-list">
         <li class="form-row">
           <label for="name">아이디</label>
           <input type="text" v-model="form.nickname" />
@@ -71,28 +71,33 @@ const regist = () => {
 </script>
 
 <style scoped>
-.form-input {
+.regist-form {
   display: flex;
   flex-direction: row;
   /* margin-top: 250px; */
+  border: 1px solid black;
 }
-.wrapper {
+.form-list {
   list-style-type: none;
   padding: 0;
   border-radius: 3px;
+  border: 1px solid black;
 }
 .form-row {
   display: flex;
   justify-content: flex-end;
   padding: 0.5em;
+  border: 1px solid black;
 }
 .form-row > label {
   padding: 0.5em 1em 0.5em 0;
   flex: 1;
+  /* border: 1px solid black; */
 }
 .form-row > input {
   background: rgb(230, 230, 230);
   flex: 3;
+  /* border: 1px solid black; */
 }
 
 .form-row > textarea {
@@ -112,6 +117,7 @@ button[type="submit"] {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  /* border: 1px solid black; */
 }
 
 button[type="submit"]:hover {

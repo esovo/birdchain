@@ -150,12 +150,13 @@ const modifyComment = () => {};
 }
 .v-card-subtitle {
   text-align:start; 
+  padding-left: 16px;
 }
 
 .v-card-text {
   border-bottom: 1px solid rgb(195, 195, 195);
   text-align:start; 
-  padding: 25px;
+  padding: 25px 27px 25px 27px;
 }
 
 .confirm-items {
