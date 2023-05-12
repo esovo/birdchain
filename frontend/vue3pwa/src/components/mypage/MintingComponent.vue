@@ -16,9 +16,6 @@
             Value
           </th>
           <th class="text-left">
-            Transaction Fee
-          </th>
-          <th class="text-left">
             TXID
           </th>
           <th class="text-left">
@@ -32,8 +29,7 @@
           :key="item.name"
         >
           <td class="text-left" id="nftid"><img :src=item.imageUrl id="nftimg" /> <div>{{ item.name }}</div></td>
-          <td class="text-left"></td>
-          <td class="text-left"></td>
+          <td class="text-left">{{item.amount}}</td>
           <td class="text-left" id="txid">{{ item.txid }}</td>
           <td class="text-left">
             <!-- <v-rating
@@ -68,13 +64,13 @@ export default {
   data () {
       return {
         items: [
-          {
-            name: 'Cute Bird',
-            txid: "0xbe10d07e279ddecc33e9b48ff3c04320886604f49cc72f7a08269735cf25864e",
-            iucn: "1",
-            imageUrl:require("../../assets/img/image 14.png"),
-            metadateurl:""
-          }
+          // {
+          //   name: 'Cute Bird',
+          //   txid: "0xbe10d07e279ddecc33e9b48ff3c04320886604f49cc72f7a08269735cf25864e",
+          //   iucn: "1",
+          //   imageUrl:require("../../assets/img/image 14.png"),
+          //   metadateurl:""
+          // }
         ],
         img1: require("../../assets/img/image 14.png"),
 
@@ -83,9 +79,8 @@ export default {
   mounted() {    
     axios.get(`https://k8b104.p.ssafy.io/api/items?address=${this.address}`)
       .then((res) => {
-        console.log("pinia에 저장된 주소 : ", this.address);
         console.log(res);
-        //this.items=this.items;
+        this.items=res.data.value;
       })
   },
 }
