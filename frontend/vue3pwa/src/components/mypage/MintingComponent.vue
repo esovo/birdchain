@@ -28,21 +28,21 @@
       </thead>
       <tbody>
         <tr
-          v-for="item in desserts"
+          v-for="item in items"
           :key="item.name"
         >
-          <td class="text-left" id="nftid"><img :src="img1" id="nftimg" /> <div>{{ item.nft }}</div></td>
-          <td class="text-left">{{ item.value }}</td>
-          <td class="text-left">{{ item.transactionfee }}</td>
+          <td class="text-left" id="nftid"><img :src=item.imageUrl id="nftimg" /> <div>{{ item.name }}</div></td>
+          <td class="text-left"></td>
+          <td class="text-left"></td>
           <td class="text-left" id="txid">{{ item.txid }}</td>
           <td class="text-left">
-            <v-rating
+            <!-- <v-rating
               v-model="item.rating"
               bg-color="orange-lighten-1"
               color="#FFA800"
               size="small"
               density="compact"
-            ></v-rating>
+            ></v-rating> -->
             <!-- {{ item.rating }} -->
           </td>
         </tr>
@@ -60,13 +60,13 @@ export default {
   name: "MintingComponent",
   data () {
       return {
-        desserts: [
+        items: [
           {
-            nft: 'Cute Bird',
-            value: "0.1 ETH",
-            transactionfee: "0.005ETH",
+            name: 'Cute Bird',
             txid: "0xbe10d07e279ddecc33e9b48ff3c04320886604f49cc72f7a08269735cf25864e",
-            rating:3
+            iucn: "1",
+            imageUrl:require("../../assets/img/image 14.png"),
+            metadateurl:""
           }
         ],
         img1: require("../../assets/img/image 14.png"),
@@ -78,6 +78,7 @@ export default {
     axios.get(`https://k8b104.p.ssafy.io/api/donations?address=${web3.eth.getAccounts()[0]}`)
       .then((res) => {
         console.log(res);
+        //this.items=this.items;
       })
 
   },
