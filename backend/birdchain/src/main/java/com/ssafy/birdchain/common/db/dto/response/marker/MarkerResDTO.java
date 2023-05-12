@@ -14,6 +14,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class MarkerResDTO {
 
+    @Schema(description = "마커 아이디")
+    private Long id;
+
     @Schema(description = "마커 작성자 닉네임")
     private String nickname;
 

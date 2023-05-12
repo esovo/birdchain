@@ -51,6 +51,7 @@ public class MarkerServiceImpl implements MarkerService {
     public MarkerResDTO findMarker(Long id) {
         Marker marker = markerRepository.findByIdAndStatus(id, true).orElseThrow(() -> new CommonApiException(CommonErrorCode.MARKER_NOT_FOUND));
         return MarkerResDTO.builder()
+                .id(marker.getId())
                 .type(marker.getType())
                 .nickname(marker.getNickname())
                 .lat(marker.getLat())
