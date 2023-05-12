@@ -2,7 +2,7 @@
   <div class="text-center">
     <v-dialog v-model="dialog" width="auto">
       <template v-slot:activator="{ props }">
-        <v-btn v-bind="props" @click="getAccount" class="donate-button">
+        <v-btn  color="success" size="x-large" v-bind="props" @click="getAccount" class="donate-button">
           기부하기
         </v-btn>
       </template>

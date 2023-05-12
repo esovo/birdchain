@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <div style="margin-top: 3vw">
-      <h1>코인을 기부하고 NFT를 받아가세요.</h1>
+  <div class="donateswiper">
+    <div class="donatetitle">
+      <div>코인을 기부하고 NFT를 받아가세요.</div>
     </div>
     <div style="margin-top: 3vw">
       <h3>랜덤으로 4개의 이미지를 제공하고 하나를 선택할 수 있습니다.</h3>
@@ -76,8 +76,17 @@ export default {
 };
 </script>
 <style>
+.donateswiper{
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.donatetitle{
+  margin-top: 3vw; 
+  font :700 3vw/1.1 Calibre-R,sans-serif;
+}
 .swiper-slide img {
-  width: 25vw;
+  width: 20vw;
   height: auto;
   border-radius: 50%;
 }

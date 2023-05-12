@@ -7,9 +7,9 @@
 
       <div class='creator'>
         <div class='wrapper'>
-          <img src="https://images.unsplash.com/photo-1621075160523-b936ad96132a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="Creator" />
+          <img :src=product.img alt="Creator" />
         </div>
-        <p><ins>Owner of</ins> 이인호</p>
+        <p><ins>Owner of </ins>{{product.owner}}</p>
       </div>
     </div>
   </div>
@@ -20,7 +20,8 @@ export default {
   props : {
         product : {
           id:String,
-          img:String
+          img:String,
+          owner: String
         }
   }
 }

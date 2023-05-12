@@ -1,5 +1,9 @@
 <template>
-  <div class="wrapper"></div>
+  <div class="back">
+    <div class="title">빌딩을 피해라</div>
+    <div class="wrapper"></div>
+  </div>
+
 </template>
 
 <script>
@@ -15,6 +19,7 @@ import charBirdImg1 from '@/assetgame/img/drags/flybird.png';
 import charBirdImg2 from '@/assetgame/img/drags/flybird2.png';
 import charBirdImg3 from '@/assetgame/img/drags/flybird.png';
 import { useStore } from '@/stores/store'
+import { countStore } from '@/stores/birdCountStore'
 
 
 // console.log(main)
@@ -81,7 +86,6 @@ export default {
     // }
 
   },
-  created() { },
   mounted() {
     this.drawPixi();
     this.listener()
@@ -358,6 +362,9 @@ export default {
       this.app.game.stage.removeChild(this.clue.spriteClue);
     },
     finish() {
+      const store= countStore();
+
+      store.increment();
       const score = useStore()
     
       this.gameStart = !this.gameStart
@@ -394,7 +401,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.back{
+  background-color: #f7fbf3;
+}
+.title{
+  padding-top: 20px;
+  font-family: 'NeoDunggeunmo';
+  font-size: 3vw;
+  font-weight: 700;
+  color:black;
+}
 .wrapper {
   flex-grow: 1;
   width: 345px;
@@ -402,7 +418,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content:center;
-  margin-top: 100px;
+  margin-top: 50px;
   margin-left: 40%;
 }
 

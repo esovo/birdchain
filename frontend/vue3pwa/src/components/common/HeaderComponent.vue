@@ -19,7 +19,7 @@
       <router-link to="/mypage">마이페이지</router-link>
     </div>
     <div class="headerLink">
-      <router-link to="/game">미니게임</router-link>
+      <router-link to="/game">게임</router-link>
     </div>
     <div class="walletimg" @click="getAccount" style="cursor: pointer">
       <img :src="walletUrl" />
