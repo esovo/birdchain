@@ -126,10 +126,11 @@ const doDeleteMarker = () => {
             }, 300);
           });
         });
+    } else {
+      setTimeout(function () {
+        document.querySelector(".password-input-comment").focus();
+      }, 300);
     }
-    setTimeout(function () {
-      document.querySelector(".password-input-comment").focus();
-    }, 300);
   });
 };
 
@@ -194,6 +195,8 @@ const modifyComment = () => {};
   font-size:small;
   width: 185px;
   padding: 5px;
+  border: 1px solid gray;
+  border-radius: 5px;
 }
 
 .warn-info {

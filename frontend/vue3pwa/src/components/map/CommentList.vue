@@ -53,6 +53,8 @@ const reloadComment = () => {
 const onWheel = (event) => {
   event.preventDefault();
   const container = event.currentTarget.querySelector(".comment-list");
+  console.log(container);
+  console.log(container.scrollTop);
   container.scrollTop += event.deltaY;
 };
 </script>
