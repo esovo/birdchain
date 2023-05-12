@@ -61,10 +61,10 @@
         <div class="textfield">
           <div class="maintext">우리는 그들을 <br />소중히 보호해야 합니다.</div>
           <div class="subtext">
-            우리는 새의 멸종을 막기 위해 다양한 방법으로 새를 보호할 수
+            우리는 새의 멸종을 막기 위해 다양한 방법으로<br/> 새를 보호할 수
             있습니다.<br />
-            예를 들어, 새의 서식지를 보호하고, 유독 물질과 오염을 줄이고,<br />
-            새를 위한 먹이와 물을 제공하는 등의 노력을 기울일 수 있습니다.
+            예를 들어, 새의 서식지를 보호하고, <br/>유독 물질과 오염을 줄이고,<br />
+            새를 위한 먹이와 물을 제공하는<br/> 노력을 기울일 수 있습니다.
           </div>
           <div class="goal">
             <div class="goaldetail">
@@ -77,7 +77,7 @@
             <div class="goaldetail">
               <div class="goaldetailtitle">우리의 도전</div>
               <div class="goaldetailtext">
-                기부한 사용자에게 NFT를 배부합니다.
+                기부한 사용자에게<br/> NFT를 배부합니다.
               </div>
             </div>
           </div>
@@ -165,12 +165,12 @@ export default {
       img5: require("../assets/img/bgbird4.png"),
       img6: require("../assets/img/bgbird5.png"),
       products : [
-        {id : '0', img : require("@/assets/img/NFT1_carousel.png")},
-        {id : '1', img : require("@/assets/img/NFT2_carousel.png")},
-        {id : '2', img : require("@/assets/img/NFT3_carousel.png")},
-        {id : '3', img : require("@/assets/img/NFT4_carousel.png")},
-        {id : '4', img : require("@/assets/img/NFT5_carousel.png")},
-        {id : '5', img : require("@/assets/img/NFT6_carousel.png")},
+        {id : '0', img : require("@/assets/img/NFT1_carousel.png"), owner: "이인호", name:""},
+        {id : '1', img : require("@/assets/img/NFT2_carousel.png"), owner: "김소진", name:""},
+        {id : '2', img : require("@/assets/img/NFT3_carousel.png"), owner: "조은서", name:""},
+        {id : '3', img : require("@/assets/img/NFT4_carousel.png"), owner: "현승민", name:""},
+        {id : '4', img : require("@/assets/img/NFT5_carousel.png"), owner: "강지수", name:""},
+        {id : '5', img : require("@/assets/img/NFT6_carousel.png"), owner: "남기정", name:""},
       ]
     };
   },
@@ -218,7 +218,10 @@ export default {
 .mainComponent img {
   width: 30vw;
   border-radius: 3%;
+  box-shadow: 10px 10px #333
 }
+
+
 
 .maintext {
   font :700 3vw/1.1 Calibre-R,sans-serif;
@@ -294,6 +297,7 @@ export default {
   width: 15vw;
   height: 100px;
   background-color: #f5f5f5;
+  box-shadow: 1px 1px 1px 1px grey;
 }
 
 .goaldetailtitle {
@@ -308,8 +312,8 @@ export default {
   margin-top: 1rem;
   font-family: "IBM Plex Sans";
   font-style: normal;
-  font-weight: 400;
-  font-size: 0.5vw;
+  font-weight: 700;
+  font-size: 1vw;
   text-align: center;
   text-transform: capitalize;
   color: #555555;

@@ -11,3 +11,15 @@ export const donationStore = defineStore({
         },
     },
 });
+
+export const walletStore = defineStore({
+    id: 'wStore',
+    state: () => ({
+        wallet: '',
+    }),
+    actions: {
+        setwallet(value) {
+            this.wallet = value;
+        },
+    },
+});

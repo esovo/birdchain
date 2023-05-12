@@ -290,7 +290,7 @@ export default {
         account.value = accounts[0];
       }
       const NFT = new web3.eth.Contract(
-        NFTAbi.abi,
+        NFTAbi,
         "0xF669a0f33D183aDE26259E3266E6AC4304fa1905"
       );
 
@@ -318,9 +318,9 @@ export default {
             iucn: level[parseInt((NFTNum.value - 1) / 5)],
             name: itemName[parseInt((NFTNum.value - 1) / 5)],
             donationId: donation_id,
-          }).then((res) => {
+          }).then(() => {
             console.log("item 등록 완료");
-            console.log(res);
+            // console.log(res);
             router.push("/mypage");
           })
         });

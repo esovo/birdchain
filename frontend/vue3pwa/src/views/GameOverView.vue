@@ -1,20 +1,24 @@
 <template>
-  <div class="game-over"></div>
+    <div class="back">
+    <div class="title">매일 {{count.birdcount}}마리의 새가 유리창 충돌로 죽고 있습니다.</div>
+    <div class="game-over"></div>
+  </div>
 </template>
 
 <script>
 import * as PIXI from "pixi.js";
-
 import groundURL from "@/assetgame/img/ground.png";
 import buttonStartURL from "@/assetgame/img/start.png";
 import gameOverImg from "@/assetgame/img/game-over.png";
 import gshotBird from "@/assetgame/img/ghost-bird.png";
 import pointer from "@/assetgame/img/pointer.png";
 import { useStore } from '@/stores/store'
+import { countStore } from '@/stores/birdCountStore'
 
 
 export default {
   name: "GameOverView",
+
   data() {
     return {
       app: {
@@ -67,6 +71,15 @@ export default {
       },
       factor: 1,
     };
+  },
+  setup() {
+    const store= countStore();
+
+    const count = store;
+
+    return {
+      count
+    }
   },
   mounted() {
     this.drawPixi();
@@ -225,6 +238,18 @@ export default {
 </script>
 
 <style lang="scss">
+
+.back{
+  background-color: #f7fbf3;
+}
+.title{
+  padding-top: 20px;
+  font-family: 'NeoDunggeunmo';
+  font-size: 3vw;
+  font-weight: 700;
+  color:black;
+}
+
 .game-over {
   width: 340px;
   height: 600px;
@@ -234,7 +259,7 @@ export default {
   background-position: center center;
   background-repeat: no-repeat;
   background-size: contain;
-  margin-top: 100px;
+  margin-top: 50px;
   margin-left: 40%;
   display: flex;
   flex-direction: column;

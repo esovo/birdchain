@@ -2,7 +2,7 @@
   <div class="text-center">
     <v-dialog v-model="dialog" width="auto">
       <template v-slot:activator="{ props }">
-        <v-btn v-bind="props" @click="getAccount" class="donate-button">
+        <v-btn  color="success" size="x-large" v-bind="props" @click="getAccount" class="donate-button">
           기부하기
         </v-btn>
       </template>
@@ -46,13 +46,20 @@ import router from "@/router";
 import axios from "axios";
 import { useAccountStore } from "@/stores/accountStore";
 import { donationStore } from "@/stores/donationStore";
+import { walletStore } from "@/stores/donationStore";
+
 
 export default {
   setup() {
     const dStore = donationStore();
+    const wStore = walletStore();
 
     const setDonation_id = (value) => {
       dStore.setDoation_id(value);
+    }
+
+    const setwallet = (value) => {
+      wStore.setwallet(value);
     }
 
     const dialog = ref(false);
@@ -82,7 +89,7 @@ export default {
       const web3 = await createWeb3Instance();
 
       const Donation = new web3.eth.Contract(
-        DonationAbi.abi,
+        DonationAbi,
         "0x87F592f53148d387aa2f05717b424ad618585E22"
       );
       const donationAmount = web3.utils.toWei(
@@ -108,6 +115,7 @@ export default {
             .then((res) => {
               // 해당 유저가 기부 완료 상태임을 기록, 관리해야 함.
               setDonation_id(res.data.value);
+              setwallet(account.value);
               accountStore.donate();
               router.push("/nft");
             });
@@ -122,6 +130,7 @@ export default {
       getAccount,
       donating,
       setDonation_id,
+      setwallet,
     };
   },
 };
