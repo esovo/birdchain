@@ -1,56 +1,64 @@
 ﻿<template>
-  <v-card width="400" height="600">
-    <div class="top-container">
-      <div>
-        <v-card-title> {{ detailData.nickname }} </v-card-title>
+  <v-card class="my-card-marker" @wheel.prevent="onWheel">
+    <div class="my-card-container">
+      <div class="top-container">
+        <div>
+          <v-card-title> {{ detailData.nickname }} </v-card-title>
+          <v-card-subtitle>{{ transformDateMarker }}</v-card-subtitle>
+        </div>
+        <div v-if="!deleteFlag" class="icons">
+          <font-awesome-icon
+            :icon="['fas', 'pen-to-square']"
+            @click="modifyMarker" />
+          <span> | </span>
+          <font-awesome-icon :icon="['fas', 'trash']" @click="showInputForm" />
+        </div>
+        <div v-if="deleteFlag" class="confirm-btn">
+          <button type="reset" @click="showInputForm">취소</button>
+          <span> | </span>
+          <button type="submit" @click="doDeleteMarker">확인</button>
+        </div>
+      
+        <div v-if="deleteFlag">
+        <!-- <div v-if="true"> -->
+          <form @submit.prevent class="password-form">
+            <label class="password-label"> <strong>비밀번호</strong></label>
+            <input
+              type="password"
+              placeholder="비밀번호를 입력해주세요."
+              v-model="password"
+              class="password-input-marker"
+              autoComplete="off" />
+          </form>
+          <span v-if="isAcceptable" class="warn-info" >
+          <!-- <span v-if="true" class="warn-info" > -->
+            비밀번호를 잘못 입력했습니다. <br/> 다시 입력해주세요.
+          </span>
+        </div>
       </div>
-      <div v-if="!deleteFlag" class="icons">
-        <font-awesome-icon
-          :icon="['fas', 'pen-to-square']"
-          @click="modifyMarker" />
-        <span> | </span>
-        <font-awesome-icon :icon="['fas', 'trash']" @click="showInputForm" />
-      </div>
-      <div v-if="deleteFlag" class="confirm-btn">
-        <button type="reset" @click="showInputForm">취소</button>
-        <span> | </span>
-        <button type="submit" @click="doDeleteMarker">확인</button>
-      </div>
-    
-      <div v-if="deleteFlag">
-      <!-- <div v-if="true"> -->
-        <form @submit.prevent class="password-form">
-          <label class="password-label"> <strong>비밀번호</strong></label>
-          <input
-            type="password"
-            placeholder="비밀번호를 입력해주세요."
-            v-model="password"
-            class="password-input-marker"
-            autoComplete="off" />
-        </form>
-        <span v-if="isAcceptable" class="warn-info" >
-        <!-- <span v-if="true" class="warn-info" > -->
-          비밀번호를 잘못 입력했습니다. <br/> 다시 입력해주세요.
-        </span>
-      </div>
+      <v-img :src="detailData.image" height="300px" cover class="my-4"></v-img>
+      <v-card-text class="d-flex align-start flex-column ml-3">
+        <div class="list-item">
+          <p> <strong>위치</strong></p>
+          <p>{{ detailData.location }}</p>
+        </div>
+        <div class="list-item">
+          <p><strong>유형</strong></p>
+          <p>{{ detailData.type }}</p>
+        </div>
+        <div class="list-item">
+          <p><strong>내용</strong></p>
+          <p>{{ detailData.content }}</p>
+        </div>
+      </v-card-text>
     </div>
-    <v-img :src="detailData.image" height="300px" cover class="my-4"></v-img>
-    <v-card-text class="d-flex align-start flex-column ml-3">
-      <div>
-        <span> <strong>위치</strong></span>
-        <span>{{ detailData.location }}</span>
-      </div>
-      <div>
-        <span><strong>내용</strong></span>
-        <span>{{ detailData.content }}</span>
-      </div>
-    </v-card-text>
   </v-card>
 </template>
 
 <script setup>
-import { ref, defineProps, watch, defineEmits } from "vue";
+import { ref, defineProps, watch, defineEmits, computed } from "vue";
 import { getMarkerDetail, deleteMarker } from "@/api/markers";
+import moment from "moment";
 import Swal from "sweetalert2";
 
 // 마커 상세 조회
@@ -70,6 +78,17 @@ const detailData = ref({
   content: null,
   createdAt: null,
 });
+
+const transformDateMarker = computed(() =>
+  moment(detailData.value.createdAt).format("YYYY-MM-DD HH:mm:ss")
+);
+
+const onWheel = (event) => {
+  event.preventDefault();
+  const container = event.currentTarget.querySelector(".my-card-container");
+  console.log(container.scrollTop);
+  container.scrollTop += event.deltaY;
+};
 
 const fetchMarker = () => {
   getMarkerDetail(String(props.marker_id)).then(({ data }) => {
@@ -158,15 +177,25 @@ const doDeleteMarker = () => {
             }, 300);
           });
         });
+    } else {
+      setTimeout(function () {
+        document.querySelector(".password-input-marker").focus();
+      }, 300);
     }
-    setTimeout(function () {
-      document.querySelector(".password-input-marker").focus();
-    }, 300);
   });
 };
 </script>
 
 <style scoped>
+.my-card-marker {
+  width: 400px;
+  height: 600px;
+  position: relative;
+}
+.my-card-container {
+  height: 600px;
+  overflow-y: auto;
+}
 .top-container {
   margin: 10px 0;
 }
@@ -200,6 +229,38 @@ const doDeleteMarker = () => {
   font-size: 5px;
   margin-left: 20px;
   padding-top: 5px;
+  text-align: start;
+}
+
+.v-card-title {
+  padding-bottom: 0px;
+}
+
+.v-card-subtitle {
+  padding-bottom: 10px;
+}
+
+.v-card-text {
+  /* border: 1px solid black; */
+  padding-top: 0;
+}
+
+.list-item {
+  display: flex;
+  /* border: 1px solid black; */
+  margin-top: 10px;
+}
+
+.list-item p:nth-child(1) {
+  /* border: 1px solid red; */
+  margin-top: 5px;
+}
+.list-item p:nth-child(2) {
+  border: 1px solid rgb(227, 227, 227);
+  width: 295px;
+  padding: 5px;
+  margin-left: 10px;
+  border-radius: 5px;
   text-align: start;
 }
 </style>

@@ -126,10 +126,11 @@ const doDeleteMarker = () => {
             }, 300);
           });
         });
+    } else {
+      setTimeout(function () {
+        document.querySelector(".password-input-comment").focus();
+      }, 300);
     }
-    setTimeout(function () {
-      document.querySelector(".password-input-comment").focus();
-    }, 300);
   });
 };
 
