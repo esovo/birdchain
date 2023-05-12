@@ -27,7 +27,7 @@
             type="password"
             placeholder="비밀번호를 입력해주세요."
             v-model="password"
-            class="password-input" />
+            class="password-input-comment" />
       </form>
       <div v-if="isAcceptable" class="warn-info">
         비밀번호를 잘못 입력했습니다. 다시 입력해주세요.
@@ -74,7 +74,7 @@ const showInputForm = () => {
 
   if (deleteFlag.value) {
     setTimeout(function () {
-      document.querySelector(".password-input").focus();
+      document.querySelector(".password-input-comment").focus();
     }, 10);
   }
 };
@@ -122,11 +122,14 @@ const doDeleteMarker = () => {
             isAcceptable.value = true;
             password.value = null;
             setTimeout(function () {
-              document.querySelector(".password-input").focus();
+              document.querySelector(".password-input-comment").focus();
             }, 300);
           });
         });
     }
+    setTimeout(function () {
+      document.querySelector(".password-input-comment").focus();
+    }, 300);
   });
 };
 
@@ -137,7 +140,7 @@ const modifyComment = () => {};
   width: 380px;
   display: flex;
   justify-content: space-between;
-  padding: 10px 10px 0 10px; 
+  padding: 10px 5px 0 5px; 
 }
 
 /* .card-items {
@@ -150,12 +153,12 @@ const modifyComment = () => {};
 }
 .v-card-subtitle {
   text-align:start; 
+  padding-left: 17px;
 }
 
 .v-card-text {
-  border-bottom: 1px solid rgb(195, 195, 195);
   text-align:start; 
-  padding: 25px;
+  padding: 15px 20px 25px 21px;
 }
 
 .confirm-items {
@@ -174,7 +177,7 @@ const modifyComment = () => {};
 
 .password-items {
   margin-top: 5px;
-  padding-left: 10px; 
+  margin-left: 21px; 
 }
 
 .password-form {
@@ -182,19 +185,21 @@ const modifyComment = () => {};
 }
 
 .password-label {
-  margin: 0px 15px;
+  margin: auto 0;
 }
 
-.password-input {
-  margin-right: 80px;
+.password-input-comment {
+  margin-left: 10px;
+  margin-right: 70px;
   font-size:small;
-  width: 170px;
+  width: 185px;
+  padding: 5px;
 }
 
 .warn-info {
   color: red;
   font-size: 5px;
   padding-top: 5px;
-  padding-left: 45px;
+  padding-left: 10px;
 }
 </style>

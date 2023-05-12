@@ -1,18 +1,18 @@
 <template>
-  <div class="form-container">
-    <form @submit.prevent="regist" class="form-input">
-      <ul class="wrapper">
+  <div>
+    <form @submit.prevent="regist" class="regist-form">
+      <ul class="form-list">
         <li class="form-row">
-          <label for="name">아이디</label>
-          <input type="text" v-model="form.nickname" />
+          <label>아이디</label>
+          <input type="text" v-model="form.nickname" placeholder="아이디를 입력해주세요."/>
         </li>
         <li class="form-row">
-          <label for="townborn">비밀번호</label>
-          <input type="password" v-model="form.password" />
+          <label>비밀번호</label>
+          <input type="password" v-model="form.password" placeholder="비밀번호를 입력해주세요."/>
         </li>
         <li class="form-row">
-          <label for="email">내용</label>
-          <textarea id="content" v-model="form.content"></textarea>
+          <label>내용</label>
+          <textarea id="content" v-model="form.content" placeholder="내용을 입력해주세요."></textarea>
         </li>
       </ul>
       <button type="submit">등록</button>
@@ -71,50 +71,53 @@ const regist = () => {
 </script>
 
 <style scoped>
-.form-input {
+.regist-form {
   display: flex;
-  flex-direction: row;
-  /* margin-top: 250px; */
 }
-.wrapper {
+.form-list {
   list-style-type: none;
-  padding: 0;
   border-radius: 3px;
 }
 .form-row {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 0.5em;
 }
 .form-row > label {
-  padding: 0.5em 1em 0.5em 0;
+  padding: 0 1em 0 0;
   flex: 1;
+  width: 118px;
+  text-align:start;
+  margin: auto 0;
 }
 .form-row > input {
   background: rgb(230, 230, 230);
   flex: 3;
+  padding: 7px;
+  font-size:small;
 }
 
 .form-row > textarea {
   background: rgb(230, 230, 230);
   flex: 3;
+  padding: 7px;
+  font-size:small;
 }
 
 button[type="submit"] {
+  height: 150px;
   width: 50px;
   margin-top: 10px;
   margin-bottom: 10px;
   margin-left: 20px;
-  /* padding: 10px 20px; */
-  background-color: #4caf50;
+  background-color: #6DCD01;
   color: white;
-  font-size: 16px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
 
 button[type="submit"]:hover {
-  background-color: #3e8e41;
+  background-color: #64ba02;
 }
 </style>

@@ -1,45 +1,41 @@
 ﻿<template>
   <v-card width="400" height="600">
-    <div class="flex-container">
-      <div class="title">
-        <v-card-title class="pa-0"> {{ detailData.nickname }} </v-card-title>
+    <div class="top-container">
+      <div>
+        <v-card-title> {{ detailData.nickname }} </v-card-title>
       </div>
-      <div class="icons">
+      <div v-if="!deleteFlag" class="icons">
         <font-awesome-icon
           :icon="['fas', 'pen-to-square']"
           @click="modifyMarker" />
         <span> | </span>
         <font-awesome-icon :icon="['fas', 'trash']" @click="showInputForm" />
       </div>
+      <div v-if="deleteFlag" class="confirm-btn">
+        <button type="reset" @click="showInputForm">취소</button>
+        <span> | </span>
+        <button type="submit" @click="doDeleteMarker">확인</button>
+      </div>
+    
+      <div v-if="deleteFlag">
+      <!-- <div v-if="true"> -->
+        <form @submit.prevent class="password-form">
+          <label class="password-label"> <strong>비밀번호</strong></label>
+          <input
+            type="password"
+            placeholder="비밀번호를 입력해주세요."
+            v-model="password"
+            class="password-input-marker"
+            autoComplete="off" />
+        </form>
+        <span v-if="isAcceptable" class="warn-info" >
+        <!-- <span v-if="true" class="warn-info" > -->
+          비밀번호를 잘못 입력했습니다. 다시 입력해주세요.
+        </span>
+      </div>
     </div>
     <v-img :src="detailData.image" height="300px" cover class="my-4"></v-img>
-
     <v-card-text class="d-flex align-start flex-column ml-3">
-      <div v-if="deleteFlag">
-        <form @submit.prevent="doDeleteMarker">
-          <div class="flex-box">
-            <div>
-              <div>
-                <span> <strong>비밀번호</strong></span>
-                <input
-                  type="password"
-                  placeholder="비밀번호를 입력해주세요."
-                  v-model="password"
-                  class="passwordInputMarker"
-                  autoComplete="off" />
-              </div>
-              <span v-if="isAcceptable" class="warnInfo"
-                >&nbsp;비밀번호를 잘못 입력했습니다. 다시 입력해주세요.</span
-              >
-            </div>
-            <div class="confirmBtn">
-              <button type="reset" @click="showInputForm">취소</button>
-              <span> | </span>
-              <button type="submit">확인</button>
-            </div>
-          </div>
-        </form>
-      </div>
       <div>
         <span> <strong>위치</strong></span>
         <span>{{ detailData.location }}</span>
@@ -107,7 +103,7 @@ const showInputForm = () => {
 
   if (deleteFlag.value) {
     setTimeout(function () {
-      document.querySelector(".passwordInputMarker").focus();
+      document.querySelector(".password-input-marker").focus();
     }, 10);
   }
 };
@@ -158,53 +154,46 @@ const doDeleteMarker = () => {
             isAcceptable.value = true;
             password.value = null;
             setTimeout(function () {
-              document.querySelector(".passwordInputMarker").focus();
+              document.querySelector(".password-input-marker").focus();
             }, 300);
           });
         });
     }
+    setTimeout(function () {
+      document.querySelector(".password-input-marker").focus();
+    }, 300);
   });
 };
 </script>
 
 <style scoped>
-.flex-container {
-  display: flex;
+.top-container {
   margin: 10px 0;
-  border: 1px solid black;
-  /* flex-direction: row-reverse; */
-  justify-content: space-between;
-  /* justify-content: center; */
-  justify-content: flex-end;
-}
-
-.title {
-  border: 1px solid black;
-  /* display: inline-block; */
-  /* display: flex; */
-  /* justify-content: center; */
 }
 
 .icons {
-  margin: auto 0;
   cursor: pointer;
-  border: 1px solid black;
-  height: 25px;
-  /* margin-left: auto; */
 }
 
-.warnInfo {
+.password-form {
+  display: flex;
+  margin-top: 10px;
+}
+
+.password-label {
+  margin: auto 0;
+  margin-left: 80px;
+}
+
+.password-input-marker {
+  font-size:small;
+  padding: 5px;
+  margin-left: 10px;
+  border: 1px solid black;
+}
+
+.warn-info {
   color: red;
   font-size: 5px;
-  width: 240px;
-  text-align: left;
-}
-
-.flex-box {
-  display: flex;
-}
-
-.confirmBtn {
-  padding-left: 40px;
 }
 </style>
