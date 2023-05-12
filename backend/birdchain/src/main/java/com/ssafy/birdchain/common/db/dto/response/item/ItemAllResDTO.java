@@ -27,4 +27,7 @@ public class ItemAllResDTO {
     @Schema(description = "NFT 메타데이터 URL")
     String metadataUrl;
 
+    @Schema(description = "기부 금액")
+    Double amount;
+
 }

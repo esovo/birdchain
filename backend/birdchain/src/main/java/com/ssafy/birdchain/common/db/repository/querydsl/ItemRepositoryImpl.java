@@ -25,6 +25,7 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom {
                         , item.iucn
                         , item.imageUrl
                         , item.metadataUrl
+                        , donation.amount
                 ))
                 .from(donation)
                 .rightJoin(item)
