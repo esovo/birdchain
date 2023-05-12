@@ -127,6 +127,9 @@ const doDeleteMarker = () => {
           });
         });
     }
+    setTimeout(function () {
+      document.querySelector(".password-input-comment").focus();
+    }, 300);
   });
 };
 

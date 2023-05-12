@@ -165,6 +165,9 @@ const doDeleteMarker = () => {
           });
         });
     }
+    setTimeout(function () {
+      document.querySelector(".password-input-marker").focus();
+    }, 300);
   });
 };
 </script>
