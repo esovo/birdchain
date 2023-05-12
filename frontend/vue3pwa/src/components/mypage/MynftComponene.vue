@@ -4,24 +4,26 @@
         나의 NFT
     </div>
     <div id="mynft">
-      <img :src="nfturl" class="nfturl"/>
-      <img :src="nfturl" class="nfturl"/>
-      <img :src="nfturl" class="nfturl"/>
-      <img :src="nfturl" class="nfturl"/>
+      <div  v-for="item in items"
+          :key="item.name">
+          <img :src=item.imageUrl class="nfturl"/>
+      </div>
     </div>
   </div>
 </template>
 <script>
 import axios from "axios";
 import { walletStore } from "@/stores/donationStore";
+import { ref } from "vue";
 
 export default {
   setup() {
     const wStore = walletStore();
     const address = wStore.wallet;
-
+    const items = ref([]);
     return {
       address,
+      items
     };
   }, 
   name: "MynftComponenet",
@@ -33,8 +35,8 @@ export default {
   mounted() {    
     axios.get(`https://k8b104.p.ssafy.io/api/items?address=${this.address}`)
       .then((res) => {
-        console.log("pinia에 저장된 주소 : ", this.address);
-        console.log(res);
+        console.log(res.data.value);
+        this.items= res.data.value;
       })
   },
 }

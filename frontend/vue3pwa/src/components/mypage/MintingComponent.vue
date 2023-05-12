@@ -32,13 +32,13 @@
           <td class="text-left">{{item.amount}}</td>
           <td class="text-left" id="txid">{{ item.txid }}</td>
           <td class="text-left">
-            <!-- <v-rating
+            <v-rating
               v-model="item.rating"
               bg-color="orange-lighten-1"
               color="#FFA800"
               size="small"
               density="compact"
-            ></v-rating> -->
+            ></v-rating>
             <!-- {{ item.rating }} -->
           </td>
         </tr>
@@ -64,18 +64,10 @@ export default {
   data () {
       return {
         items: [
-          // {
-          //   name: 'Cute Bird',
-          //   txid: "0xbe10d07e279ddecc33e9b48ff3c04320886604f49cc72f7a08269735cf25864e",
-          //   iucn: "1",
-          //   imageUrl:require("../../assets/img/image 14.png"),
-          //   metadateurl:""
-          // }
         ],
         img1: require("../../assets/img/image 14.png"),
-
       }
-    },
+  },
   mounted() {    
     axios.get(`https://k8b104.p.ssafy.io/api/items?address=${this.address}`)
       .then((res) => {
