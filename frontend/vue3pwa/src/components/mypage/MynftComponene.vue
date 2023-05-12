@@ -12,13 +12,31 @@
   </div>
 </template>
 <script>
+import axios from "axios";
+import { walletStore } from "@/stores/donationStore";
+
 export default {
+  setup() {
+    const wStore = walletStore();
+    const address = wStore.wallet;
+
+    return {
+      address,
+    };
+  }, 
   name: "MynftComponenet",
   data() {
     return {
       nfturl:  require("../../assets/img/nft1.png"),
     }
-  }
+  },
+  mounted() {    
+    axios.get(`https://k8b104.p.ssafy.io/api/items?address=${this.address}`)
+      .then((res) => {
+        console.log("pinia에 저장된 주소 : ", this.address);
+        console.log(res);
+      })
+  },
 }
 </script>
 <style>

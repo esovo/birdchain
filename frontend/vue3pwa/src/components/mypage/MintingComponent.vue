@@ -52,10 +52,17 @@
 </template>
 <script>
 import axios from "axios";
-import { createWeb3Instance } from "@/web3";
-// import { ref } from "vue";
+import { walletStore } from "@/stores/donationStore";
 
 export default {
+  setup() {
+    const wStore = walletStore();
+    const address = wStore.wallet;
+
+    return {
+      address,
+    };
+  }, 
   
   name: "MintingComponent",
   data () {
@@ -73,14 +80,13 @@ export default {
 
       }
     },
-  async mounted() {
-    const web3 = await createWeb3Instance();
-    axios.get(`https://k8b104.p.ssafy.io/api/donations?address=${web3.eth.getAccounts()[0]}`)
+  mounted() {    
+    axios.get(`https://k8b104.p.ssafy.io/api/items?address=${this.address}`)
       .then((res) => {
+        console.log("pinia에 저장된 주소 : ", this.address);
         console.log(res);
         //this.items=this.items;
       })
-
   },
 }
 </script>

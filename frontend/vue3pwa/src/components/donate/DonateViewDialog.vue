@@ -46,13 +46,20 @@ import router from "@/router";
 import axios from "axios";
 import { useAccountStore } from "@/stores/accountStore";
 import { donationStore } from "@/stores/donationStore";
+import { walletStore } from "@/stores/donationStore";
+
 
 export default {
   setup() {
     const dStore = donationStore();
+    const wStore = walletStore();
 
     const setDonation_id = (value) => {
       dStore.setDoation_id(value);
+    }
+
+    const setwallet = (value) => {
+      wStore.setwallet(value);
     }
 
     const dialog = ref(false);
@@ -108,6 +115,7 @@ export default {
             .then((res) => {
               // 해당 유저가 기부 완료 상태임을 기록, 관리해야 함.
               setDonation_id(res.data.value);
+              setwallet(account.value);
               accountStore.donate();
               router.push("/nft");
             });
@@ -122,6 +130,7 @@ export default {
       getAccount,
       donating,
       setDonation_id,
+      setwallet,
     };
   },
 };
