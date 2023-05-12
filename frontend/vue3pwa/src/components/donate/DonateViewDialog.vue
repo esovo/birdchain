@@ -82,7 +82,7 @@ export default {
       const web3 = await createWeb3Instance();
 
       const Donation = new web3.eth.Contract(
-        DonationAbi.abi,
+        DonationAbi,
         "0x87F592f53148d387aa2f05717b424ad618585E22"
       );
       const donationAmount = web3.utils.toWei(
