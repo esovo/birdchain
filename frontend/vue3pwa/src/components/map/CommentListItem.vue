@@ -194,6 +194,8 @@ const modifyComment = () => {};
   font-size:small;
   width: 185px;
   padding: 5px;
+  border: 1px solid gray;
+  border-radius: 5px;
 }
 
 .warn-info {

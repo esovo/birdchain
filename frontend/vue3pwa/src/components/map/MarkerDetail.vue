@@ -30,7 +30,7 @@
         </form>
         <span v-if="isAcceptable" class="warn-info" >
         <!-- <span v-if="true" class="warn-info" > -->
-          비밀번호를 잘못 입력했습니다. 다시 입력해주세요.
+          비밀번호를 잘못 입력했습니다. <br/> 다시 입력해주세요.
         </span>
       </div>
     </div>
@@ -177,23 +177,29 @@ const doDeleteMarker = () => {
 
 .password-form {
   display: flex;
+  margin-left: 60px;
   margin-top: 10px;
 }
 
 .password-label {
   margin: auto 0;
-  margin-left: 80px;
 }
 
 .password-input-marker {
   font-size:small;
   padding: 5px;
   margin-left: 10px;
-  border: 1px solid black;
+  border: 1px solid gray;
+  border-radius: 5px;
+  width: 200px;
 }
 
 .warn-info {
+  display: inline-block;
   color: red;
   font-size: 5px;
+  margin-left: 20px;
+  padding-top: 5px;
+  text-align: start;
 }
 </style>
