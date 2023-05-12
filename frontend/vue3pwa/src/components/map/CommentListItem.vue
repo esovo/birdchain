@@ -157,7 +157,6 @@ const modifyComment = () => {};
 }
 
 .v-card-text {
-  /* border-bottom: 1px solid rgb(195, 195, 195); */
   text-align:start; 
   padding: 15px 20px 25px 21px;
 }

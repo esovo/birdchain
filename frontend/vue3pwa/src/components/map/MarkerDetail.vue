@@ -1,6 +1,6 @@
 ﻿<template>
   <v-card width="400" height="600">
-    <div class="flex-container">
+    <div class="top-container">
       <div>
         <v-card-title> {{ detailData.nickname }} </v-card-title>
       </div>
@@ -19,25 +19,19 @@
     
       <div v-if="deleteFlag">
       <!-- <div v-if="true"> -->
-        <form @submit.prevent>
-          <div>
-            <div class="password-form">
-              <div>
-                <label class="password-label"> <strong>비밀번호</strong></label>
-                <input
-                  type="password"
-                  placeholder="비밀번호를 입력해주세요."
-                  v-model="password"
-                  class="password-input-marker"
-                  autoComplete="off" />
-              </div>
-            </div>
-            <span v-if="isAcceptable" class="warnInfo" >
-            <!-- <span v-if="true" class="warn-info" > -->
-              비밀번호를 잘못 입력했습니다. 다시 입력해주세요.
-            </span>
-          </div>
+        <form @submit.prevent class="password-form">
+          <label class="password-label"> <strong>비밀번호</strong></label>
+          <input
+            type="password"
+            placeholder="비밀번호를 입력해주세요."
+            v-model="password"
+            class="password-input-marker"
+            autoComplete="off" />
         </form>
+        <span v-if="isAcceptable" class="warn-info" >
+        <!-- <span v-if="true" class="warn-info" > -->
+          비밀번호를 잘못 입력했습니다. 다시 입력해주세요.
+        </span>
       </div>
     </div>
     <v-img :src="detailData.image" height="300px" cover class="my-4"></v-img>
@@ -173,7 +167,7 @@ const doDeleteMarker = () => {
 </script>
 
 <style scoped>
-.flex-container {
+.top-container {
   margin: 10px 0;
 }
 
@@ -181,32 +175,25 @@ const doDeleteMarker = () => {
   cursor: pointer;
 }
 
-.warn-info {
-  color: red;
-  font-size: 5px;
-  /* width: 240px; */
-  text-align: left;
-}
-
 .password-form {
   display: flex;
-  border: 1px solid black;
+  margin-top: 10px;
 }
 
 .password-label {
   margin: auto 0;
+  margin-left: 80px;
 }
 
 .password-input-marker {
-  margin-left: 10px;
-  margin-right: 70px;
   font-size:small;
-  /* width: 185px; */
   padding: 5px;
+  margin-left: 10px;
+  border: 1px solid black;
 }
+
 .warn-info {
   color: red;
   font-size: 5px;
-  padding-top: 5px;
 }
 </style>
