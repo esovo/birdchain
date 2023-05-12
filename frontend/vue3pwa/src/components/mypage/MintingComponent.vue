@@ -51,7 +51,12 @@
   </div>
 </template>
 <script>
+import axios from "axios";
+import { createWeb3Instance } from "@/web3";
+// import { ref } from "vue";
+
 export default {
+  
   name: "MintingComponent",
   data () {
       return {
@@ -64,9 +69,18 @@ export default {
             rating:3
           }
         ],
-        img1: require("../../assets/img/image 14.png")
+        img1: require("../../assets/img/image 14.png"),
+
       }
     },
+  async mounted() {
+    const web3 = await createWeb3Instance();
+    axios.get(`https://k8b104.p.ssafy.io/api/donations?address=${web3.eth.getAccounts()[0]}`)
+      .then((res) => {
+        console.log(res);
+      })
+
+  },
 }
 </script>
 <style>
