@@ -264,8 +264,8 @@ const doDeleteMarker = () => {
 
 <style scoped>
 .my-card-marker {
-  width: 400px;
-  height: 600px;
+  width: 450px;
+  height: 650px;
   position: relative;
 }
 .my-card-container {

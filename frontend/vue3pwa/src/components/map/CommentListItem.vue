@@ -168,14 +168,11 @@ const doModifyComment = () => {
 </script>
 <style scoped>
 .card-top {
-  width: 380px;
+  width: 420px;
   display: flex;
   justify-content: space-between;
-  padding: 10px 5px 0 5px;
+  padding: 10px 0px 0 5px;
 }
-
-/* .card-items {
-} */
 
 .v-card-title {
   padding-bottom: 5px;
@@ -193,7 +190,8 @@ const doModifyComment = () => {
 }
 
 .confirm-items {
-  margin-right: 10px;
+  /* border: 1px solid black; */
+  /* margin-right: 10px; */
   height: 25px;
   margin-top: 10px;
 }
@@ -213,6 +211,7 @@ const doModifyComment = () => {
 
 .password-form {
   display: flex;
+  /* border: 1px solid black; */
 }
 
 .password-label {
@@ -220,25 +219,22 @@ const doModifyComment = () => {
 }
 
 .password-input-comment {
-  margin-left: 10px;
-  margin-right: 70px;
-  font-size: small;
-  width: 185px;
-  padding: 5px;
+  margin-left: 13px;
+  width: 310px;
+  padding: 5px 10px;
   border: 1px solid gray;
   border-radius: 5px;
 }
 
 .warn-info {
   color: red;
-  font-size: 5px;
+  font-size: 10px;
   padding-top: 5px;
-  padding-left: 10px;
 }
 
 .modify-input-comment {
   border: 1px solid black;
-  width: 342.2px;
+  width: 390px;
   height: 100px;
   padding: 5px;
   border-radius: 5px;

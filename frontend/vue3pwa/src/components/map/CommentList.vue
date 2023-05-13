@@ -62,20 +62,19 @@ const onWheel = (event) => {
 </script>
 <style scoped>
 .my-card {
-  width: 400px;
-  height: 600px;
+  width: 450px;
+  height: 650px;
   position: relative;
 }
 
 .comment-list {
-  height: 400px;
+  height: 440px;
   overflow-y: auto;
   border-bottom: 0.1px solid rgb(190, 190, 190);
 }
 
 .comment-regist {
   position: absolute;
-  bottom: 15px;
-  left: 10px;
+  left: 18px;
 }
 </style>

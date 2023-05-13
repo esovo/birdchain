@@ -93,32 +93,33 @@ const regist = () => {
   padding: 0.5em;
 }
 .form-row > label {
-  padding: 0 1em 0 0;
   flex: 1;
-  width: 118px;
+  width: 1px;
   text-align: start;
-  margin: auto 0;
+  margin-top: 5px;
 }
 .form-row > input {
   background: rgb(230, 230, 230);
   flex: 3;
   padding: 7px;
-  font-size: small;
+  height: 40px;
+  width: 330px;
 }
 
 .form-row > textarea {
   background: rgb(230, 230, 230);
   flex: 3;
   padding: 7px;
-  font-size: small;
+  height: 80px;
+  width: 330px;
 }
 
 button[type="submit"] {
-  height: 150px;
+  height: 185px;
   width: 50px;
   margin-top: 10px;
   margin-bottom: 10px;
-  margin-left: 20px;
+  margin-left: 10px;
   background-color: #6dcd01;
   color: white;
   border: none;
