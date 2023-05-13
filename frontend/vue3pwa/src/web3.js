@@ -19,7 +19,12 @@ export async function createWeb3Instance() {
     window.open("https://metamask.io/");
   }
 
-  setwallet(web3.eth.getAccounts()[0]);
+  try {
+    const accounts = await web3.eth.getAccounts();
+    setwallet(accounts[0]);
+  } catch (e) {
+    console.error("지갑을 찾을 수 없음", e);
+  }
 
   return web3;
 }
