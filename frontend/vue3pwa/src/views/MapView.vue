@@ -9,12 +9,15 @@
         @reloadMarker="reloadMarker"></MarkerRegist>
     </div>
     <MakerDetail
-    v-if="isValid"
-    :marker_id="marker_id"
-    @reloadMarker="reloadMarker"
-    @notValid="notValid"
-    class="markerDetail"></MakerDetail>
-    <CommentList v-if="isValid" :marker_id="marker_id" class="commentList"></CommentList>
+      v-if="isValid"
+      :marker_id="marker_id"
+      @reloadMarker="reloadMarker"
+      @notValid="notValid"
+      class="markerDetail"></MakerDetail>
+    <CommentList
+      v-if="isValid"
+      :marker_id="marker_id"
+      class="commentList"></CommentList>
   </div>
 </template>
 
@@ -143,14 +146,14 @@ const notValid = () => {
 // <타입별로 마커 검색하기>
 const searchByType = (data) => {
   console.log(data.length);
-  if(data.length == 2) {
+  if (data.length == 2) {
     displayMarker("");
   } else if (data.length == 0) {
     displayMarker("");
   } else {
     displayMarker(data[0]);
   }
-}
+};
 </script>
 
 <style scoped>

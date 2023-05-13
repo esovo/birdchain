@@ -6,40 +6,28 @@
           <v-card-title> {{ detailData.nickname }} </v-card-title>
           <v-card-subtitle>{{ transformDateMarker }}</v-card-subtitle>
         </div>
-        <div v-if="!deleteFlag" class="icons">
+        <div v-if="!deleteFlagMarker && !modifyFlagMarker" class="icons">
           <font-awesome-icon
             :icon="['fas', 'pen-to-square']"
-            @click="modifyMarker" />
+            @click="showModifyInputMarker" />
           <span> | </span>
           <font-awesome-icon :icon="['fas', 'trash']" @click="showInputForm" />
         </div>
-        <div v-if="deleteFlag" class="confirm-btn">
+        <div v-if="deleteFlagMarker" class="confirm-btn">
           <button type="reset" @click="showInputForm">취소</button>
           <span> | </span>
           <button type="submit" @click="doDeleteMarker">확인</button>
         </div>
-      
-        <div v-if="deleteFlag">
-        <!-- <div v-if="true"> -->
-          <form @submit.prevent class="password-form">
-            <label class="password-label"> <strong>비밀번호</strong></label>
-            <input
-              type="password"
-              placeholder="비밀번호를 입력해주세요."
-              v-model="password"
-              class="password-input-marker"
-              autoComplete="off" />
-          </form>
-          <span v-if="isAcceptable" class="warn-info" >
-          <!-- <span v-if="true" class="warn-info" > -->
-            비밀번호를 잘못 입력했습니다. <br/> 다시 입력해주세요.
-          </span>
+        <div v-if="modifyFlagMarker">
+          <button type="reset" @click="showModifyInputMarker">취소</button>
+          <span> | </span>
+          <button type="submit" @click="doModifyMarker">수정</button>
         </div>
       </div>
       <v-img :src="detailData.image" height="300px" cover class="my-4"></v-img>
       <v-card-text class="d-flex align-start flex-column ml-3">
         <div class="list-item">
-          <p> <strong>위치</strong></p>
+          <p><strong>위치</strong></p>
           <p>{{ detailData.location }}</p>
         </div>
         <div class="list-item">
@@ -48,7 +36,33 @@
         </div>
         <div class="list-item">
           <p><strong>내용</strong></p>
-          <p>{{ detailData.content }}</p>
+          <p v-if="!modifyFlagMarker">{{ detailData.content }}</p>
+          <form
+            @submit.prevent
+            v-if="modifyFlagMarker"
+            class="modify-form-marker">
+            <textarea
+              id="content"
+              v-model="modiContentMarker"
+              class="modify-input-marker"></textarea>
+          </form>
+        </div>
+        <div v-if="deleteFlagMarker || modifyFlagMarker">
+          <form @submit.prevent class="password-form">
+            <label class="password-label">
+              <strong>비밀<br />번호</strong></label
+            >
+            <input
+              type="password"
+              placeholder="비밀번호를 입력해주세요."
+              v-model="password"
+              class="password-input-marker"
+              autoComplete="off" />
+          </form>
+          <span v-if="isAcceptable" class="warn-info">
+            비밀번호를 잘못 입력했습니다. <br />
+            다시 입력해주세요.
+          </span>
         </div>
       </v-card-text>
     </div>
@@ -57,7 +71,7 @@
 
 <script setup>
 import { ref, defineProps, watch, defineEmits, computed } from "vue";
-import { getMarkerDetail, deleteMarker } from "@/api/markers";
+import { getMarkerDetail, deleteMarker, modifyMarker } from "@/api/markers";
 import moment from "moment";
 import Swal from "sweetalert2";
 
@@ -71,6 +85,7 @@ const props = defineProps({
 const emit = defineEmits(["reloadMarker", "notValid"]);
 
 const detailData = ref({
+  id: null,
   nickname: null,
   image: null,
   type: null,
@@ -93,6 +108,7 @@ const onWheel = (event) => {
 const fetchMarker = () => {
   getMarkerDetail(String(props.marker_id)).then(({ data }) => {
     if (data.status === "OK") {
+      detailData.value.id = data.value.id;
       detailData.value.nickname = data.value.nickname;
       detailData.value.image = data.value.image;
       detailData.value.type = data.value.type;
@@ -113,24 +129,84 @@ watch(
   }
 );
 
-const deleteFlag = ref(false);
+const deleteFlagMarker = ref(false);
 const isAcceptable = ref(false);
 const showInputForm = () => {
-  deleteFlag.value = !deleteFlag.value;
+  deleteFlagMarker.value = !deleteFlagMarker.value;
   isAcceptable.value = false;
   password.value = null;
 
-  if (deleteFlag.value) {
+  if (deleteFlagMarker.value) {
     setTimeout(function () {
       document.querySelector(".password-input-marker").focus();
     }, 10);
   }
 };
 
-// 마커 수정
-const modifyMarker = () => {};
+// <마커 수정>
+const modiContentMarker = ref("");
+const modifyFlagMarker = ref(false);
 
-// 마커 삭제
+const showModifyInputMarker = () => {
+  modifyFlagMarker.value = !modifyFlagMarker.value;
+  modiContentMarker.value = detailData.value.content;
+
+  if (modifyFlagMarker.value) {
+    setTimeout(function () {
+      document.querySelector(".modify-input-marker").focus();
+    }, 10);
+  }
+};
+
+const doModifyMarker = () => {
+  modifyFlagMarker.value = true;
+
+  const reqForm = new FormData();
+  // 수정 정보
+  const modiMarker = {
+    id: detailData.value.id,
+    nickname: detailData.value.nickname,
+    content: modiContentMarker.value,
+    password: password.value,
+  };
+
+  reqForm.append(
+    "markerModifyReqDTO",
+    new Blob([JSON.stringify(modiMarker)], {
+      type: "application/json",
+    })
+  );
+  reqForm.append("file", null);
+
+  // 이미지 파일
+  modifyMarker(reqForm)
+    .then(({ data }) => {
+      if (data.status === "OK") {
+        modifyFlagMarker.value = false;
+        detailData.value.content = modiContentMarker.value;
+
+        Swal.fire({
+          position: "center",
+          title: "수정되었습니다.",
+          icon: "success",
+        });
+      }
+    })
+    .catch((error) => {
+      Swal.fire({
+        position: "center",
+        title: `"${error.response.data.message}"`,
+        icon: "error",
+      }).then(function () {
+        password.value = null;
+        setTimeout(function () {
+          document.querySelector(".password-input-marker").focus();
+        }, 300);
+      });
+    });
+};
+
+// <마커 삭제>
 const password = ref();
 const doDeleteMarker = () => {
   Swal.fire({
@@ -206,21 +282,21 @@ const doDeleteMarker = () => {
 
 .password-form {
   display: flex;
-  margin-left: 60px;
-  margin-top: 10px;
 }
 
 .password-label {
-  margin: auto 0;
+  margin-top: 10px;
 }
 
 .password-input-marker {
-  font-size:small;
+  font-size: small;
   padding: 5px;
   margin-left: 10px;
   border: 1px solid gray;
+  background: rgb(230, 230, 230);
   border-radius: 5px;
-  width: 200px;
+  width: 295px;
+  margin-top: 10px;
 }
 
 .warn-info {
@@ -247,12 +323,10 @@ const doDeleteMarker = () => {
 
 .list-item {
   display: flex;
-  /* border: 1px solid black; */
   margin-top: 10px;
 }
 
 .list-item p:nth-child(1) {
-  /* border: 1px solid red; */
   margin-top: 5px;
 }
 .list-item p:nth-child(2) {
@@ -262,5 +336,28 @@ const doDeleteMarker = () => {
   margin-left: 10px;
   border-radius: 5px;
   text-align: start;
+}
+
+.modify-form-marker {
+  width: 305px;
+  height: 50px;
+}
+
+.modify-input-marker {
+  background: rgb(230, 230, 230);
+  width: 295px;
+  padding: 5px;
+  margin-left: 10px;
+  border-radius: 5px;
+  text-align: start;
+  margin-bottom: 0;
+}
+
+.modify-form-marker button:nth-child(2) {
+  border: 1px solid black;
+}
+
+.modify-form-marker button:nth-child(3) {
+  border: 1px solid red;
 }
 </style>

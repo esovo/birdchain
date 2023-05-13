@@ -4,15 +4,24 @@
       <ul class="form-list">
         <li class="form-row">
           <label>아이디</label>
-          <input type="text" v-model="form.nickname" placeholder="아이디를 입력해주세요."/>
+          <input
+            type="text"
+            v-model="form.nickname"
+            placeholder="아이디를 입력해주세요." />
         </li>
         <li class="form-row">
           <label>비밀번호</label>
-          <input type="password" v-model="form.password" placeholder="비밀번호를 입력해주세요."/>
+          <input
+            type="password"
+            v-model="form.password"
+            placeholder="비밀번호를 입력해주세요." />
         </li>
         <li class="form-row">
           <label>내용</label>
-          <textarea id="content" v-model="form.content" placeholder="내용을 입력해주세요."></textarea>
+          <textarea
+            id="content"
+            v-model="form.content"
+            placeholder="내용을 입력해주세요."></textarea>
         </li>
       </ul>
       <button type="submit">등록</button>
@@ -87,21 +96,21 @@ const regist = () => {
   padding: 0 1em 0 0;
   flex: 1;
   width: 118px;
-  text-align:start;
+  text-align: start;
   margin: auto 0;
 }
 .form-row > input {
   background: rgb(230, 230, 230);
   flex: 3;
   padding: 7px;
-  font-size:small;
+  font-size: small;
 }
 
 .form-row > textarea {
   background: rgb(230, 230, 230);
   flex: 3;
   padding: 7px;
-  font-size:small;
+  font-size: small;
 }
 
 button[type="submit"] {
@@ -110,7 +119,7 @@ button[type="submit"] {
   margin-top: 10px;
   margin-bottom: 10px;
   margin-left: 20px;
-  background-color: #6DCD01;
+  background-color: #6dcd01;
   color: white;
   border: none;
   border-radius: 4px;

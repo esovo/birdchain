@@ -12,7 +12,9 @@
         :createdAt="comment.createdAt" />
     </div>
     <div class="comment-regist">
-      <CommentRegist :marker_id="props.marker_id" @reloadComment="reloadComment"/>
+      <CommentRegist
+        :marker_id="props.marker_id"
+        @reloadComment="reloadComment" />
     </div>
   </v-card>
 </template>
@@ -48,7 +50,7 @@ watch(
 
 const reloadComment = () => {
   getCommentList();
-}
+};
 
 const onWheel = (event) => {
   event.preventDefault();

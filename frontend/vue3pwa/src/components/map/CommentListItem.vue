@@ -6,39 +6,50 @@
         <v-card-subtitle>{{ transformDate }}</v-card-subtitle>
       </div>
       <div class="confirm-items">
-        <div class="icons" v-if="!deleteFlag">
+        <div class="icons" v-if="!deleteFlagComment && !modifyFlagComment">
           <font-awesome-icon
-          :icon="['fas', 'pen-to-square']"
-          @click="modifyComment" />
+            :icon="['fas', 'pen-to-square']"
+            @click="showModifyInputComment" />
           <span> | </span>
           <font-awesome-icon :icon="['fas', 'trash']" @click="showInputForm" />
         </div>
-        <div v-if="deleteFlag" class="confirm-btns">
+        <div v-if="deleteFlagComment" class="confirm-btns">
           <button type="reset" @click="showInputForm">취소</button>
           <span> | </span>
           <button type="submit" @click="doDeleteMarker">확인</button>
         </div>
+        <div v-if="modifyFlagComment" class="confirm-btns">
+          <button type="reset" @click="showModifyInputComment">취소</button>
+          <span> | </span>
+          <button type="submit" @click="doModifyComment">확인</button>
+        </div>
       </div>
     </div>
-    <div v-if="deleteFlag" class="password-items">
+    <div v-if="deleteFlagComment || modifyFlagComment" class="password-items">
       <form @submit.prevent class="password-form">
-          <label class="password-label">비밀번호</label>
-          <input
-            type="password"
-            placeholder="비밀번호를 입력해주세요."
-            v-model="password"
-            class="password-input-comment" />
+        <label class="password-label">비밀번호</label>
+        <input
+          type="password"
+          placeholder="비밀번호를 입력해주세요."
+          v-model="password"
+          class="password-input-comment" />
       </form>
       <div v-if="isAcceptable" class="warn-info">
         비밀번호를 잘못 입력했습니다. 다시 입력해주세요.
       </div>
     </div>
-    <v-card-text> {{ props.content }}</v-card-text>
+    <v-card-text v-if="!modifyFlagComment"> {{ props.content }}</v-card-text>
+    <form @submit.prevent v-if="modifyFlagComment">
+      <textarea
+        id="content"
+        v-model="modiContentComment"
+        class="modify-input-comment"></textarea>
+    </form>
   </div>
 </template>
 <script setup>
 import { ref, defineProps, defineEmits, computed } from "vue";
-import { deleteComment } from "@/api/comments";
+import { modifyComment, deleteComment } from "@/api/comments";
 import Swal from "sweetalert2";
 import moment from "moment";
 
@@ -65,21 +76,38 @@ const transformDate = computed(() =>
 );
 
 const emit = defineEmits(["reloadComment"]);
-const isAcceptable = ref(false);
-const deleteFlag = ref(false);
-const showInputForm = () => {
-  deleteFlag.value = !deleteFlag.value;
+
+// <댓글 수정>
+const modifyFlagComment = ref(false);
+const modiContentComment = ref("");
+const showModifyInputComment = () => {
+  modifyFlagComment.value = !modifyFlagComment.value;
   isAcceptable.value = false;
   password.value = null;
+  modiContentComment.value = props.content;
 
-  if (deleteFlag.value) {
+  if (modifyFlagComment.value) {
     setTimeout(function () {
       document.querySelector(".password-input-comment").focus();
     }, 10);
   }
 };
 
-// 댓글 삭제
+// <댓글 삭제>
+const isAcceptable = ref(false);
+const deleteFlagComment = ref(false);
+const showInputForm = () => {
+  deleteFlagComment.value = !deleteFlagComment.value;
+  isAcceptable.value = false;
+  password.value = null;
+
+  if (deleteFlagComment.value) {
+    setTimeout(function () {
+      document.querySelector(".password-input-comment").focus();
+    }, 10);
+  }
+};
+
 const password = ref();
 const doDeleteMarker = () => {
   Swal.fire({
@@ -134,14 +162,16 @@ const doDeleteMarker = () => {
   });
 };
 
-const modifyComment = () => {};
+const doModifyComment = () => {
+  modifyComment;
+};
 </script>
 <style scoped>
 .card-top {
   width: 380px;
   display: flex;
   justify-content: space-between;
-  padding: 10px 5px 0 5px; 
+  padding: 10px 5px 0 5px;
 }
 
 /* .card-items {
@@ -149,22 +179,22 @@ const modifyComment = () => {};
 
 .v-card-title {
   padding-bottom: 5px;
-  text-align:start; 
+  text-align: start;
   max-width: 270px;
 }
 .v-card-subtitle {
-  text-align:start; 
+  text-align: start;
   padding-left: 17px;
 }
 
 .v-card-text {
-  text-align:start; 
+  text-align: start;
   padding: 15px 20px 25px 21px;
 }
 
 .confirm-items {
   margin-right: 10px;
-  height: 25px; 
+  height: 25px;
   margin-top: 10px;
 }
 
@@ -178,7 +208,7 @@ const modifyComment = () => {};
 
 .password-items {
   margin-top: 5px;
-  margin-left: 21px; 
+  margin-left: 21px;
 }
 
 .password-form {
@@ -192,7 +222,7 @@ const modifyComment = () => {};
 .password-input-comment {
   margin-left: 10px;
   margin-right: 70px;
-  font-size:small;
+  font-size: small;
   width: 185px;
   padding: 5px;
   border: 1px solid gray;
@@ -204,5 +234,14 @@ const modifyComment = () => {};
   font-size: 5px;
   padding-top: 5px;
   padding-left: 10px;
+}
+
+.modify-input-comment {
+  border: 1px solid black;
+  width: 342.2px;
+  height: 100px;
+  padding: 5px;
+  border-radius: 5px;
+  margin-top: 10px;
 }
 </style>
