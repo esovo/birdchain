@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <!-- <div>
     <div class="card-top">
       <div class="card-items">
         <v-card-title> {{ props.nickname }}</v-card-title>
@@ -45,159 +45,159 @@
         v-model="modiContentComment"
         class="modify-input-comment"></textarea>
     </form>
-  </div>
+  </div> -->
 </template>
 <script setup>
-import { ref, defineProps, defineEmits, computed } from "vue";
-import { modifyComment, deleteComment } from "@/api/comments";
-import Swal from "sweetalert2";
-import moment from "moment";
+// import { ref, defineProps, defineEmits, computed } from "vue";
+// import { modifyComment, deleteComment } from "@/api/comments";
+// import Swal from "sweetalert2";
+// import moment from "moment";
 
-const props = defineProps({
-  comment_id: {
-    type: Number,
-  },
-  nickname: {
-    type: String,
-  },
-  content: {
-    type: String,
-  },
-  createdAt: {
-    type: String,
-  },
-  marker_id: {
-    type: Number,
-  },
-});
+// const props = defineProps({
+//   comment_id: {
+//     type: Number,
+//   },
+//   nickname: {
+//     type: String,
+//   },
+//   content: {
+//     type: String,
+//   },
+//   createdAt: {
+//     type: String,
+//   },
+//   marker_id: {
+//     type: Number,
+//   },
+// });
 
-const transformDate = computed(() =>
-  moment(props.createdAt).format("YYYY-MM-DD HH:mm:ss")
-);
+// const transformDate = computed(() =>
+//   moment(props.createdAt).format("YYYY-MM-DD HH:mm:ss")
+// );
 
-const emit = defineEmits(["reloadComment"]);
+// const emit = defineEmits(["reloadComment"]);
 
-// <댓글 수정>
-const modifyFlagComment = ref(false);
-const modiContentComment = ref("");
-const showModifyInputComment = () => {
-  modifyFlagComment.value = !modifyFlagComment.value;
-  isAcceptable.value = false;
-  password.value = null;
-  modiContentComment.value = props.content;
+// // <댓글 수정>
+// const modifyFlagComment = ref(false);
+// const modiContentComment = ref("");
+// const showModifyInputComment = () => {
+//   modifyFlagComment.value = !modifyFlagComment.value;
+//   isAcceptable.value = false;
+//   password.value = null;
+//   modiContentComment.value = props.content;
 
-  if (modifyFlagComment.value) {
-    setTimeout(function () {
-      document.querySelector(".password-input-comment").focus();
-    }, 10);
-  }
-};
+//   if (modifyFlagComment.value) {
+//     setTimeout(function () {
+//       document.querySelector(".password-input-comment").focus();
+//     }, 10);
+//   }
+// };
 
-const doModifyComment = () => {
-  const reqForm = {
-    id: props.comment_id,
-    nickname: props.nickname,
-    content: modiContentComment.value,
-    password: password.value,
-    markerId: props.marker_id,
-  };
-  modifyComment(reqForm)
-    .then(({ data }) => {
-      if (data.status === "OK") {
-        emit("reloadComment");
-        // props.content = modiContentComment.value;
-        showModifyInputComment();
+// const doModifyComment = () => {
+//   const reqForm = {
+//     id: props.comment_id,
+//     nickname: props.nickname,
+//     content: modiContentComment.value,
+//     password: password.value,
+//     markerId: props.marker_id,
+//   };
+//   modifyComment(reqForm)
+//     .then(({ data }) => {
+//       if (data.status === "OK") {
+//         emit("reloadComment");
+//         // props.content = modiContentComment.value;
+//         showModifyInputComment();
 
-        Swal.fire({
-          position: "center",
-          title: "수정되었습니다.",
-          icon: "success",
-        });
-      }
-    })
-    .catch((error) => {
-      Swal.fire({
-        position: "center",
-        title: `${error.response.data.message}`,
-        icon: "error",
-      }).then(function () {
-        isAcceptable.value = true;
-        password.value = null;
-        setTimeout(function () {
-          document.querySelector(".password-input-comment").focus();
-        }, 300);
-      });
-    });
-};
+//         Swal.fire({
+//           position: "center",
+//           title: "수정되었습니다.",
+//           icon: "success",
+//         });
+//       }
+//     })
+//     .catch((error) => {
+//       Swal.fire({
+//         position: "center",
+//         title: `${error.response.data.message}`,
+//         icon: "error",
+//       }).then(function () {
+//         isAcceptable.value = true;
+//         password.value = null;
+//         setTimeout(function () {
+//           document.querySelector(".password-input-comment").focus();
+//         }, 300);
+//       });
+//     });
+// };
 
 // <댓글 삭제>
-const isAcceptable = ref(false);
-const deleteFlagComment = ref(false);
-const showInputForm = () => {
-  deleteFlagComment.value = !deleteFlagComment.value;
-  isAcceptable.value = false;
-  password.value = null;
+// const isAcceptable = ref(false);
+// const deleteFlagComment = ref(false);
+// const showInputForm = () => {
+//   deleteFlagComment.value = !deleteFlagComment.value;
+//   isAcceptable.value = false;
+//   password.value = null;
 
-  if (deleteFlagComment.value) {
-    setTimeout(function () {
-      document.querySelector(".password-input-comment").focus();
-    }, 10);
-  }
-};
+//   if (deleteFlagComment.value) {
+//     setTimeout(function () {
+//       document.querySelector(".password-input-comment").focus();
+//     }, 10);
+//   }
+// };
 
-const password = ref();
-const doDeleteMarker = () => {
-  Swal.fire({
-    title: "정말로 삭제하시겠습니까?",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "승인",
-    cancelButtonText: "취소",
-    reverseButtons: true, // 버튼 순서 거꾸로
-  }).then((result) => {
-    if (result.isConfirmed) {
-      const reqForm = {
-        id: props.comment_id,
-        nickname: props.nickname,
-        password: password.value,
-        markerId: props.marker_id,
-      };
-      deleteComment(reqForm)
-        .then(({ data }) => {
-          if (data.status === "OK") {
-            password.value = null;
-            isAcceptable.value = false;
-            emit("reloadComment");
+// const password = ref();
+// const doDeleteMarker = () => {
+//   Swal.fire({
+//     title: "정말로 삭제하시겠습니까?",
+//     icon: "warning",
+//     showCancelButton: true,
+//     confirmButtonColor: "#3085d6",
+//     cancelButtonColor: "#d33",
+//     confirmButtonText: "승인",
+//     cancelButtonText: "취소",
+//     reverseButtons: true, // 버튼 순서 거꾸로
+//   }).then((result) => {
+//     if (result.isConfirmed) {
+//       const reqForm = {
+//         id: props.comment_id,
+//         nickname: props.nickname,
+//         password: password.value,
+//         markerId: props.marker_id,
+//       };
+//       deleteComment(reqForm)
+//         .then(({ data }) => {
+//           if (data.status === "OK") {
+//             password.value = null;
+//             isAcceptable.value = false;
+//             emit("reloadComment");
 
-            Swal.fire({
-              position: "center",
-              title: "삭제되었습니다.",
-              icon: "success",
-            });
-          }
-        })
-        .catch((error) => {
-          Swal.fire({
-            position: "center",
-            title: `"${error.response.data.message}"`,
-            icon: "error",
-          }).then(function () {
-            isAcceptable.value = true;
-            password.value = null;
-            setTimeout(function () {
-              document.querySelector(".password-input-comment").focus();
-            }, 300);
-          });
-        });
-    } else {
-      setTimeout(function () {
-        document.querySelector(".password-input-comment").focus();
-      }, 300);
-    }
-  });
-};
+//             Swal.fire({
+//               position: "center",
+//               title: "삭제되었습니다.",
+//               icon: "success",
+//             });
+//           }
+//         })
+//         .catch((error) => {
+//           Swal.fire({
+//             position: "center",
+//             title: `"${error.response.data.message}"`,
+//             icon: "error",
+//           }).then(function () {
+//             isAcceptable.value = true;
+//             password.value = null;
+//             setTimeout(function () {
+//               document.querySelector(".password-input-comment").focus();
+//             }, 300);
+//           });
+//         });
+//     } else {
+//       setTimeout(function () {
+//         document.querySelector(".password-input-comment").focus();
+//       }, 300);
+//     }
+//   });
+// };
 </script>
 <style scoped>
 .card-top {

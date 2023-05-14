@@ -25,6 +25,14 @@ const vuetify = createVuetify({
 const pinia = createPinia();
 const app = createApp(App);
 
+app.directive("focus", {
+  mounted(el, binding) {
+    if (binding.value) {
+      el.focus();
+    }
+  },
+});
+
 library.add(fas);
 
 // FontAwesome 전역 컴포넌트 등록
