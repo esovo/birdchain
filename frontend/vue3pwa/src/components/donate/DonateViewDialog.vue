@@ -2,7 +2,13 @@
   <div class="text-center">
     <v-dialog v-model="dialog" width="auto">
       <template v-slot:activator="{ props }">
-        <v-btn  color="success" size="x-large" v-bind="props" @click="getAccount" class="donate-button">
+        <v-btn
+          color="success"
+          size="x-large"
+          v-bind="props"
+          @click="donateBtn"
+          class="donate-button"
+        >
           기부하기
         </v-btn>
       </template>
@@ -47,7 +53,7 @@ import axios from "axios";
 import { useAccountStore } from "@/stores/accountStore";
 import { donationStore } from "@/stores/donationStore";
 import { walletStore } from "@/stores/donationStore";
-
+import { getCheckoutAccount } from "@/api/checkAccount";
 
 export default {
   setup() {
@@ -56,11 +62,11 @@ export default {
 
     const setDonation_id = (value) => {
       dStore.setDoation_id(value);
-    }
+    };
 
     const setwallet = (value) => {
       wStore.setwallet(value);
-    }
+    };
 
     const dialog = ref(false);
 
@@ -79,12 +85,23 @@ export default {
         const accounts = await web3.eth.getAccounts();
         console.log(accounts.value);
         account.value = accounts[0];
-        dialog.value = true; // 올바르게 수정된 부분: dialog.value를 dialog로 수정
         const weiBalance = await web3.eth.getBalance(account.value);
         balance.value = web3.utils.fromWei(weiBalance, "ether");
       }
     };
+    // 계정을 확인해서 기부 한 상태인지 아닌지에 따라서 분기처리
+    const checkAccounts = async () => {
+      console.log("기부 한 계정인지 확인하기");
+      console.log(account.value);
+      console.log("가나");
+      const res = await getCheckoutAccount(account.value);
 
+      if (res.data.value === null) {
+        console.log("아직 기부 안함");
+      } else {
+        router.push("/nft");
+      }
+    };
     const donating = async () => {
       const web3 = await createWeb3Instance();
 
@@ -127,11 +144,17 @@ export default {
       account,
       balance,
       dAmount,
+      checkAccounts,
       getAccount,
       donating,
       setDonation_id,
       setwallet,
     };
+  },
+
+  async beforeCreate() {
+    await this.getAccount();
+    this.checkAccounts();
   },
 };
 </script>

@@ -85,11 +85,13 @@
 import axios from "axios";
 import { ref, computed } from "vue";
 import { createWeb3Instance } from "@/web3";
-import { Web3Storage } from 'web3.storage';
+import { Web3Storage } from "web3.storage";
 import NFTAbi from "../../abi/BirdNFT.json";
 import router from "@/router";
 import { donationStore } from "@/stores/donationStore";
-
+import { getCheckoutAccount } from "@/api/checkAccount";
+import { selectNFT } from "@/api/checkAccount";
+import { donateAccount } from "@/api/checkAccount";
 
 export default {
   setup() {
@@ -163,70 +165,69 @@ export default {
     ];
 
     const level = [
-    'EN',
-    'CR',
-    'EN',
-    'EN',
-    'VU',
-    'EN',
-    'VU',
-    'EN',
-    'EN',
-    'RE',
-    'EN',
-    'EN',
-    'EN',
-    'VU',
-    'EN',
-    'EN',
-    'VU',
-    'VU',
-    'LC',
-    'VU',
-    'EN',
-    'VU',
-    'EN',
-    'VU',
-    'VU',
-    'EN',
-    'VU',
-    'RE',
-    'VU',
-    'VU',
-    'VU',
-    'VU',
-    'VU',
-    'NE',
-    'EN',
-    'EN',
-    'VU',
-    'VU',
-    'VU',
-    'VU',
-    'VU',
-    'VU',
-    'VU',
-    'LC',
-    'VU',
-    'LC',
-    'VU',
-    'EN',
-    'LC',
-    'VU',
-    'VU',
-    'VU',
-    'LC',
-    'VU',
-    'LC',
-    'RE',
-    'VU',
-    'VU',
-    'VU',
-    'VU',
-    'VU',
-    'VU',
-    'VU'
-
+      "EN",
+      "CR",
+      "EN",
+      "EN",
+      "VU",
+      "EN",
+      "VU",
+      "EN",
+      "EN",
+      "RE",
+      "EN",
+      "EN",
+      "EN",
+      "VU",
+      "EN",
+      "EN",
+      "VU",
+      "VU",
+      "LC",
+      "VU",
+      "EN",
+      "VU",
+      "EN",
+      "VU",
+      "VU",
+      "EN",
+      "VU",
+      "RE",
+      "VU",
+      "VU",
+      "VU",
+      "VU",
+      "VU",
+      "NE",
+      "EN",
+      "EN",
+      "VU",
+      "VU",
+      "VU",
+      "VU",
+      "VU",
+      "VU",
+      "VU",
+      "LC",
+      "VU",
+      "LC",
+      "VU",
+      "EN",
+      "LC",
+      "VU",
+      "VU",
+      "VU",
+      "LC",
+      "VU",
+      "LC",
+      "RE",
+      "VU",
+      "VU",
+      "VU",
+      "VU",
+      "VU",
+      "VU",
+      "VU",
     ];
 
     const hover = ref([-1, -1, -1, -1]);
@@ -243,7 +244,11 @@ export default {
 
     const account = ref("");
 
-    const client = new Web3Storage({ token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDlkNzc2YkFlMEQ5NjA5MzZEOTQ1Nzc0MTI4MDdiN0EwM2NGYTFFRjMiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2ODM3NjM0OTk1MjcsIm5hbWUiOiJiaXJkY2hhaW4ifQ.9ZXu8rmPVlISEhkEFW-sfrnjV9gN1wjCeiu3bDTLQ9c" });
+    const client = new Web3Storage({
+      token:
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDlkNzc2YkFlMEQ5NjA5MzZEOTQ1Nzc0MTI4MDdiN0EwM2NGYTFFRjMiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2ODM3NjM0OTk1MjcsIm5hbWUiOiJiaXJkY2hhaW4ifQ.9ZXu8rmPVlISEhkEFW-sfrnjV9gN1wjCeiu3bDTLQ9c",
+    });
+    const check = ref("");
 
     const elevation = computed(() =>
       hover.value.map((val, index) => (val === index ? 8 : 2))
@@ -252,8 +257,26 @@ export default {
       hover.value.map((val, index) => (val === index ? "elevation-hover" : ""))
     );
 
-    const createNFT = async (imgURI) => {
+    // 현재 계정이 기부한 계정인지 아닌지
+    const checkAccount = async () => {
+      const web3 = await createWeb3Instance();
 
+      if (web3) {
+        const accounts = await web3.eth.getAccounts();
+        account.value = accounts[0];
+      }
+      console.log("계정 확인");
+      const res = await getCheckoutAccount(account.value);
+
+      console.log(res.data.value);
+      if (res.data.value === null) {
+        check.value = false;
+      } else {
+        check.value = true;
+      }
+    };
+
+    const createNFT = async (imgURI) => {
       let CID;
       // console.log(itemName[parseInt((NFTNum.value - 1) / 5)]);
       // console.log(imgURI);
@@ -264,14 +287,16 @@ export default {
         const metadata = JSON.stringify({
           name: itemName[parseInt((NFTNum.value - 1) / 5)],
           image: imgURI,
-          iucn: level[parseInt((NFTNum.value - 1) / 5)]
+          iucn: level[parseInt((NFTNum.value - 1) / 5)],
         });
 
         const encoder = new TextEncoder();
         const metadataArray = encoder.encode(metadata);
 
-        const metadataBlob = new Blob([metadataArray], { type: 'application/json' });
-        const metadataFile = new File([metadataBlob], 'metadata.json');
+        const metadataBlob = new Blob([metadataArray], {
+          type: "application/json",
+        });
+        const metadataFile = new File([metadataBlob], "metadata.json");
         return metadataFile;
       }
 
@@ -310,20 +335,23 @@ export default {
           console.log(level[parseInt((NFTNum.value - 1) / 5)]);
           console.log(itemName[parseInt((NFTNum.value - 1) / 5)]);
           console.log(donation_id);
-          
-          
-          axios.post(`https://k8b104.p.ssafy.io/api/items`, {
-            imageUrl: imgURI,
-            metadataUrl: CID,
-            iucn: level[parseInt((NFTNum.value - 1) / 5)],
-            name: itemName[parseInt((NFTNum.value - 1) / 5)],
-            donationId: donation_id,
-          }).then(() => {
-            console.log("item 등록 완료");
-            // console.log(res);
-            router.push("/mypage");
-          })
+
+          axios
+            .post(`https://k8b104.p.ssafy.io/api/items`, {
+              imageUrl: imgURI,
+              metadataUrl: CID,
+              iucn: level[parseInt((NFTNum.value - 1) / 5)],
+              name: itemName[parseInt((NFTNum.value - 1) / 5)],
+              donationId: donation_id,
+            })
+            .then(() => {
+              console.log("item 등록 완료");
+              // console.log(res);
+              router.push("/mypage");
+            });
         });
+
+      selectNFT(this.account);
     };
 
     return {
@@ -341,11 +369,15 @@ export default {
       client,
       donation_id,
       createNFT,
+      check,
+      checkAccount,
     };
   },
 
-  mounted() {
+  async mounted() {
+    await this.checkAccount();
 
+    if (this.check === false) {
       axios
         .get(`https://k8b104.p.ssafy.io/api/nft/available`)
         .then((res) => {
@@ -354,7 +386,10 @@ export default {
           const imageNames = ["A", "B", "C", "D"];
           const imageRequests = imageNames.map((name) =>
             axios.get(
-              `https://k8b104.p.ssafy.io/api/nft/images?fileName=${this.NFTNum.toString().padStart(3, "0")}${name}`
+              `https://k8b104.p.ssafy.io/api/nft/images?fileName=${this.NFTNum.toString().padStart(
+                3,
+                "0"
+              )}${name}`
             )
           );
 
@@ -362,7 +397,6 @@ export default {
             .all(imageRequests)
             .then(
               axios.spread((...responses) => {
-                // 이미지 URL을 로컬 스토리지에 저장
                 const images = [
                   responses[0].data.value,
                   responses[1].data.value,
@@ -378,10 +412,52 @@ export default {
             .catch((error) => {
               console.log(error);
             });
+
+          const reqForm = {
+            wallet: this.account,
+            num: this.NFTNum.toString().padStart(3, "0"),
+          };
+
+          donateAccount(reqForm);
         })
         .catch((error) => {
           console.log(error);
         });
+    } else {
+      console.log("기부 이미 했을 때");
+      console.log(this.account);
+      getCheckoutAccount(this.account).then(({ data }) => {
+        console.log("아이디 가져오기");
+        console.log(this.account);
+        const NFTnums = data.value.num;
+        console.log(NFTnums);
+        const imageNames = ["A", "B", "C", "D"];
+        const imageRequests = imageNames.map((name) =>
+          axios.get(
+            `https://k8b104.p.ssafy.io/api/nft/images?fileName=${NFTnums}${name}`
+          )
+        );
+        axios
+          .all(imageRequests)
+          .then(
+            axios.spread((...responses) => {
+              const images = [
+                responses[0].data.value,
+                responses[1].data.value,
+                responses[2].data.value,
+                responses[3].data.value,
+              ];
+              this.imgA = images[0];
+              this.imgB = images[1];
+              this.imgC = images[2];
+              this.imgD = images[3];
+            })
+          )
+          .catch((error) => {
+            console.log(error);
+          });
+      });
+    }
   },
 };
 </script>
