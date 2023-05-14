@@ -31,6 +31,7 @@
                   v-model="form.password"></v-text-field>
                 <v-file-input
                   label="이미지"
+                  prepend-icon="mdi-camera"
                   v-model="form.image"
                   @change="previewImage"
                   @click:clear="hidePreview"></v-file-input>

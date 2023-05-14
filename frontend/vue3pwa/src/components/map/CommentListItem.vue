@@ -200,7 +200,7 @@
 // };
 </script>
 <style scoped>
-.card-top {
+/* .card-top {
   width: 420px;
   display: flex;
   justify-content: space-between;
@@ -223,8 +223,6 @@
 }
 
 .confirm-items {
-  /* border: 1px solid black; */
-  /* margin-right: 10px; */
   height: 25px;
   margin-top: 10px;
 }
@@ -244,7 +242,6 @@
 
 .password-form {
   display: flex;
-  /* border: 1px solid black; */
 }
 
 .password-label {
@@ -274,5 +271,5 @@
   padding: 5px;
   border-radius: 5px;
   margin-top: 10px;
-}
+} */
 </style>
