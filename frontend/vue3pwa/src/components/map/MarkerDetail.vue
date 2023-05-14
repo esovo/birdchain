@@ -145,6 +145,7 @@ watch(
   () => props.marker_id,
   (newValue, oldValue) => {
     if (newValue !== oldValue) {
+      modiImageMarkerUrl.value = null;
       modifyFlagMarker.value = false;
       deleteFlagMarker.value = false;
       password.value = null;
