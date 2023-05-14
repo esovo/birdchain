@@ -60,8 +60,7 @@
               autoComplete="off" />
           </form>
           <span v-if="isAcceptable" class="warn-info">
-            비밀번호를 잘못 입력했습니다. <br />
-            다시 입력해주세요.
+            비밀번호를 잘못 입력했습니다. 다시 입력해주세요.
           </span>
         </div>
       </v-card-text>
@@ -302,8 +301,7 @@ const doDeleteMarker = () => {
 .warn-info {
   display: inline-block;
   color: red;
-  font-size: 5px;
-  margin-left: 20px;
+  font-size: 10px;
   padding-top: 5px;
   text-align: start;
 }

@@ -13,15 +13,15 @@
           <span> | </span>
           <font-awesome-icon :icon="['fas', 'trash']" @click="showInputForm" />
         </div>
-        <div v-if="deleteFlagComment" class="confirm-btns">
-          <button type="reset" @click="showInputForm">취소</button>
-          <span> | </span>
-          <button type="submit" @click="doDeleteMarker">확인</button>
-        </div>
         <div v-if="modifyFlagComment" class="confirm-btns">
-          <button type="reset" @click="showModifyInputComment">취소</button>
+          <button @click="showModifyInputComment">취소</button>
           <span> | </span>
           <button type="submit" @click="doModifyComment">확인</button>
+        </div>
+        <div v-if="deleteFlagComment" class="confirm-btns">
+          <button @click="showInputForm">취소</button>
+          <span> | </span>
+          <button type="submit" @click="doDeleteMarker">확인</button>
         </div>
       </div>
     </div>
@@ -93,6 +93,43 @@ const showModifyInputComment = () => {
   }
 };
 
+const doModifyComment = () => {
+  const reqForm = {
+    id: props.comment_id,
+    nickname: props.nickname,
+    content: modiContentComment.value,
+    password: password.value,
+    markerId: props.marker_id,
+  };
+  modifyComment(reqForm)
+    .then(({ data }) => {
+      if (data.status === "OK") {
+        emit("reloadComment");
+        // props.content = modiContentComment.value;
+        showModifyInputComment();
+
+        Swal.fire({
+          position: "center",
+          title: "수정되었습니다.",
+          icon: "success",
+        });
+      }
+    })
+    .catch((error) => {
+      Swal.fire({
+        position: "center",
+        title: `${error.response.data.message}`,
+        icon: "error",
+      }).then(function () {
+        isAcceptable.value = true;
+        password.value = null;
+        setTimeout(function () {
+          document.querySelector(".password-input-comment").focus();
+        }, 300);
+      });
+    });
+};
+
 // <댓글 삭제>
 const isAcceptable = ref(false);
 const deleteFlagComment = ref(false);
@@ -161,10 +198,6 @@ const doDeleteMarker = () => {
     }
   });
 };
-
-const doModifyComment = () => {
-  modifyComment;
-};
 </script>
 <style scoped>
 .card-top {
@@ -223,6 +256,7 @@ const doModifyComment = () => {
   width: 310px;
   padding: 5px 10px;
   border: 1px solid gray;
+  background: rgb(230, 230, 230);
   border-radius: 5px;
 }
 
@@ -233,7 +267,8 @@ const doModifyComment = () => {
 }
 
 .modify-input-comment {
-  border: 1px solid black;
+  border: 1px solid gray;
+  background: rgb(230, 230, 230);
   width: 390px;
   height: 100px;
   padding: 5px;
