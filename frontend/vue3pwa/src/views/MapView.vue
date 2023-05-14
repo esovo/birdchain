@@ -1,13 +1,13 @@
 ﻿<template>
   <MarkerTypeButton @searchByType="searchByType"></MarkerTypeButton>
+  <div>
+    <div id="map" @click.once="movePin"></div>
+    <MarkerRegist
+      :placeInfo="placeInfo"
+      :map="map"
+      @reloadMarker="reloadMarker"></MarkerRegist>
+  </div>
   <div class="flex-box">
-    <div>
-      <div id="map" @click.once="movePin"></div>
-      <MarkerRegist
-        :placeInfo="placeInfo"
-        :map="map"
-        @reloadMarker="reloadMarker"></MarkerRegist>
-    </div>
     <MakerDetail
       v-if="isValid"
       :marker_id="marker_id"
@@ -159,16 +159,27 @@ const searchByType = (data) => {
 <style scoped>
 #map {
   margin: 0 auto;
-  width: 43vw;
+  width: 60vw;
   height: 550px;
 }
 
 .flex-box {
+  width: auto;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   flex-wrap: wrap;
   background-color: #f7fbf3;
   padding: 50px 0;
+}
+
+.markerDetail {
+  margin-top: 40px;
+  margin-right: 70px;
+}
+
+.commentList {
+  margin-top: 40px;
+  margin-left: 70px;
 }
 
 @media (max-width: 800px) {
@@ -179,12 +190,25 @@ const searchByType = (data) => {
   }
 }
 
-@media (max-width: 799px) {
+@media (max-width: 800px) {
   .markerDetail {
-    margin-top: 80px;
+    /* margin-top: 40px; */
+    margin-right: 0;
   }
   .commentList {
-    margin-top: 40px;
+    /* margin-top: 40px; */
+    margin-left: 0px;
+  }
+}
+
+@media (max-width: 1062px) {
+  .markerDetail {
+    /* margin-top: 40px; */
+    margin-right: 0;
+  }
+  .commentList {
+    /* margin-top: 40px; */
+    margin-left: 0px;
   }
 }
 </style>
