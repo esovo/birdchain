@@ -346,7 +346,6 @@ export default {
             })
             .then(() => {
               console.log("item 등록 완료");
-              // console.log(res);
               router.push("/mypage");
             });
         });

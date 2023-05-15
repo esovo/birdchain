@@ -7,7 +7,7 @@ export async function createWeb3Instance() {
 
   const setwallet = (value) => {
     wStore.setwallet(value);
-  }
+  };
 
   if (window.ethereum) {
     web3 = new Web3(window.ethereum);
@@ -27,6 +27,22 @@ export async function createWeb3Instance() {
   }
 
   return web3;
+}
+
+export async function checkAccountConnection() {
+  const web3 = await createWeb3Instance();
+
+  if (web3) {
+    const accounts = await web3.eth.getAccounts();
+
+    if (accounts.length === 0) {
+      console.log("MetaMask 계정이 연결되어 있지 않습니다.");
+      return false;
+    } else {
+      console.log("MetaMask 계정이 연결되어 있습니다:", accounts[0]);
+      return accounts[0];
+    }
+  }
 }
 
 // export async function setupContract() {
