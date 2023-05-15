@@ -45,6 +45,7 @@
           <p><strong>유형</strong></p>
           <p>{{ detailData.type }}</p>
         </div>
+        <p v-if="modifyFlagMarker" class="required-item">선택입력사항</p>
         <div class="list-item">
           <p><strong>내용</strong></p>
           <p v-if="!modifyFlagMarker">
@@ -60,24 +61,31 @@
               class="modify-input-marker"></textarea>
           </form>
         </div>
-        <v-form v-if="modifyFlagMarker">
-          <v-file-input
-            prepend-icon="mdi-camera"
-            v-model="modiImageMarker"
-            @change="previewImage"
-            @click:clear="hidePreview"
-            bg-color="rgb(230, 230, 230)"
-            density="compact"
-            variant="none" />
-        </v-form>
+        <div v-if="modifyFlagMarker">
+          <p class="required-item">선택입력사항</p>
+          <v-form>
+            <v-file-input
+              prepend-icon="mdi-camera"
+              v-model="modiImageMarker"
+              @change="previewImage"
+              @click:clear="hidePreview"
+              bg-color="rgb(230, 230, 230)"
+              density="compact"
+              variant="none"
+              :rules="[img_rule]" />
+          </v-form>
+          <p v-if="imgValid" class="img-valid">
+            올바른 이미지 파일을 선택해주세요.
+          </p>
+        </div>
         <div v-if="deleteFlagMarker || modifyFlagMarker">
+          <p class="required-item">*필수입력사항</p>
           <form @submit.prevent class="password-form">
             <label class="password-label">
-              <strong>비밀<br />번호</strong></label
-            >
+              <strong>비밀<br />번호</strong>
+            </label>
             <input
               type="password"
-              placeholder="비밀번호를 입력해주세요."
               v-model="password"
               class="password-input-marker"
               autoComplete="off" />
@@ -151,10 +159,31 @@ watch(
       password.value = null;
       isAcceptable.value = false;
       modiContentMarker.value = null;
+      imgValid.value = false;
       fetchMarker();
     }
   }
 );
+
+// 유효성 체크
+const imgValid = ref(false);
+const img_rule = (value) => {
+  if (value.length != 0) {
+    const allowedExtensions = [".jpg", ".jpeg", ".png", ".gif"];
+    const fileExtension = value[0].name
+      .substr(value[0].name.lastIndexOf("."))
+      .toLowerCase();
+    if (allowedExtensions.includes(fileExtension)) {
+      imgValid.value = false;
+      return true;
+    } else {
+      imgValid.value = true;
+      return false;
+    }
+  }
+  imgValid.value = false;
+  return true;
+};
 
 // <마커 수정시 이미지 미리보기>
 const modiImageMarkerUrl = ref("");
@@ -171,6 +200,7 @@ const previewImage = (event) => {
 };
 
 const hidePreview = () => {
+  imgValid.value = false;
   modiImageMarkerUrl.value = null;
 };
 
@@ -181,6 +211,7 @@ const modifyFlagMarker = ref(false);
 
 const showModifyInputMarker = () => {
   modifyFlagMarker.value = !modifyFlagMarker.value;
+  imgValid.value = false;
   modiContentMarker.value = detailData.value.content;
   modiImageMarkerUrl.value = detailData.value.image;
   modiImageMarker.value = null;
@@ -222,11 +253,12 @@ const doModifyMarker = () => {
       type: "application/json",
     })
   );
-  
+
   if (modiImageMarker.value) {
     reqForm.append("file", modiImageMarker.value[0]);
-  } else {
-    const emptyFile = new File([], { type: 'image/jpeg' });
+  }
+  if (!modiImageMarker.value || modiImageMarker.value.length == 0) {
+    const emptyFile = new File([], { type: "image/jpeg" });
     reqForm.append("file", emptyFile);
   }
 
@@ -241,6 +273,7 @@ const doModifyMarker = () => {
         modiImageMarker.value = null;
         isAcceptable.value = false;
         password.value = null;
+        imgValid.value = false;
 
         Swal.fire({
           position: "center",
@@ -250,6 +283,7 @@ const doModifyMarker = () => {
       }
     })
     .catch((error) => {
+      console.log(error);
       Swal.fire({
         position: "center",
         title: `"${error.response.data.message}"`,
@@ -328,7 +362,7 @@ const doDeleteMarker = () => {
         .catch((error) => {
           Swal.fire({
             position: "center",
-            title: `"${error.response.data.message}"`,
+            title: `"${error.response.data.message.value}"`,
             icon: "error",
           }).then(function () {
             isAcceptable.value = true;
@@ -369,27 +403,21 @@ const doDeleteMarker = () => {
   display: flex;
 }
 
-.password-label {
-  margin-top: 10px;
-}
-
 .password-input-marker {
-  font-size: small;
-  padding: 5px;
+  font-size: medium;
+  padding-left: 18px;
   margin-left: 15px;
-  /* border: 1px solid gray; */
   background: rgb(230, 230, 230);
   border-radius: 5px;
   width: 298px;
-  margin-top: 10px;
+  height: 40px;
 }
 
 .warn-info {
-  display: inline-block;
+  display: block;
+  width: 335px;
   color: red;
   font-size: 10px;
-  padding-top: 5px;
-  text-align: start;
 }
 
 .v-card-title {
@@ -401,8 +429,6 @@ const doDeleteMarker = () => {
 }
 
 .v-card-text {
-  /* border: 1px solid black; */
-  /* height: 40vw; */
   padding-top: 0;
 }
 
@@ -414,6 +440,7 @@ const doDeleteMarker = () => {
 .list-item p:nth-child(1) {
   margin-top: 5px;
 }
+
 .list-item p:nth-child(2) {
   border: 1px solid rgb(227, 227, 227);
   width: 295px;
@@ -421,6 +448,10 @@ const doDeleteMarker = () => {
   margin-left: 15px;
   border-radius: 5px;
   text-align: start;
+}
+
+.v-card-text div:nth-child(4) {
+  margin-top: 0;
 }
 
 .modify-form-marker {
@@ -438,22 +469,32 @@ const doDeleteMarker = () => {
   margin-bottom: 0;
 }
 
+.img-valid {
+  text-align: left;
+  font-size: 5px;
+  margin-left: 50px;
+  color: red;
+}
 .v-form {
   display: flex;
-  /* border: 1px solid black; */
   height: 40px;
-  margin-top: 10px;
 }
 
 .v-file-input {
-  /* border: 1px solid red; */
   width: 335px;
-  margin-left: 5px;
-  height: 20px;
-  /* margin: 0; */
+  margin-left: 4px;
+  height: 40px;
+  max-height: 40px;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
-/* .v-input__details {
-  display: none;
-} */
+.required-item {
+  font-size: 5px;
+  color: black;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 10px;
+  margin-left: 50px;
+}
 </style>
