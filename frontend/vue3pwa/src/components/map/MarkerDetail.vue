@@ -222,11 +222,12 @@ const doModifyMarker = () => {
       type: "application/json",
     })
   );
-
+  
   if (modiImageMarker.value) {
     reqForm.append("file", modiImageMarker.value[0]);
   } else {
-    reqForm.append("file", null);
+    const emptyFile = new File([], { type: 'image/jpeg' });
+    reqForm.append("file", emptyFile);
   }
 
   // 이미지 파일
