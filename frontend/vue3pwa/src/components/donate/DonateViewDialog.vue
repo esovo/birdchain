@@ -87,6 +87,10 @@ export default {
 
     const accountStore = useAccountStore();
 
+    const donateBtn = async () => {
+      dialog.value = true;
+    };
+
     const getAccount = async () => {
       console.log("지갑 연동 실행");
       const web3 = await createWeb3Instance();
@@ -159,6 +163,7 @@ export default {
       donating,
       setDonation_id,
       setwallet,
+      donateBtn,
     };
   },
 
