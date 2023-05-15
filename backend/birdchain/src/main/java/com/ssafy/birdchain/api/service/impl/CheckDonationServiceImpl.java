@@ -23,6 +23,7 @@ public class CheckDonationServiceImpl implements CheckDonationService {
     @Override
     public void addCheckDonation(CheckDonationAddReqDTO checkDonationAddReqDTO) {
         CheckDonation checkDonation = CheckDonation.builder()
+                .imgNum(checkDonationAddReqDTO.getImgNum())
                 .wallet(checkDonationAddReqDTO.getWallet())
                 .num(checkDonationAddReqDTO.getNum())
                 .build();

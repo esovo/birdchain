@@ -16,6 +16,9 @@ public class CheckDonation {
     @Column(name = "check_donation_id", nullable = false)
     private Long id;
 
+    @Column(name = "check_donation_img_num", nullable = false)
+    private Long imgNum;
+
     @Column(name = "check_donation_wallet", nullable = false)
     private String wallet;
 

@@ -6,6 +6,9 @@ import lombok.Getter;
 @Getter
 public class CheckDonationAddReqDTO {
 
+    @Schema(description = "이미지 번호")
+    Long imgNum;
+
     @Schema(description = "기부자 지갑 주소")
     String wallet;
 
