@@ -2,8 +2,8 @@
   <div class="flip-card" :class="{ 'show-overlay': showOverlay }">
     <div class="flip-card-inner" v-on:click="flipCard">
       <div class="flip-card-front">
-        <v-card class="" width="22vw" style="cursor: pointer">
-          <v-img :src="birdData.img" height="25vw" cover></v-img>
+        <v-card class="" width="300px" style="cursor: pointer;">
+          <v-img :src="birdData.img" height="200px" cover></v-img>
           <v-card-title> {{ birdData.국명 }} </v-card-title>
           <v-card-subtitle style="font-style: italic">
             학명 : {{ birdData.학명 }}
@@ -110,9 +110,10 @@ img,
 
 .flip-card {
   margin-top: 100px;
-  margin-right: 2vw;
-  margin-left: 2vw;
+  margin-right: 20px;
+  margin-left: 20px;
   float: left;
+  min-width: 300px;
   max-width: 31%;
   position: relative;
   img {

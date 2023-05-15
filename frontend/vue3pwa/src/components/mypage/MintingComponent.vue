@@ -19,7 +19,7 @@
             TXID
           </th>
           <th class="text-left">
-            RATING
+            멸종 위기 등급
           </th>
         </tr>
       </thead>
@@ -32,13 +32,15 @@
           <td class="text-left">{{item.amount}}</td>
           <td class="text-left" id="txid">{{ item.txid }}</td>
           <td class="text-left">
-            <v-rating
+            {{item.icun}}
+            <!-- <v-rating
               v-model="item.rating"
               bg-color="orange-lighten-1"
               color="#FFA800"
               size="small"
               density="compact"
-            ></v-rating>
+              readonly
+            ></v-rating> -->
             <!-- {{ item.rating }} -->
           </td>
         </tr>

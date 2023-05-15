@@ -20,6 +20,10 @@ import FooterComponent from "./components/common/FooterComponent.vue";
 import HeaderComponentVue from "./components/common/HeaderComponent.vue";
 import { checkAccountConnection } from "@/web3";
 import { useAccountStore } from "@/stores/accountStore";
+import DonationAbi from "./abi/Donation.json";
+import { createWeb3Instance } from "@/web3";
+import { ref, onMounted, getCurrentInstance  } from 'vue';
+
 export default {
   name: "App",
   components: {
@@ -29,15 +33,55 @@ export default {
   },
 
   setup() {
+    const eventData = ref(null);
     const checkAccount = checkAccountConnection();
     const account = useAccountStore();
+    const instance = getCurrentInstance();
+
     if (checkAccount === false) {
       console.log("계정이 연결되어 있지 않음");
     } else {
       account.setAccount(checkAccount);
     }
+
+    const showNotification = (message) => {
+      console.log(message);
+      // Assuming $toast is available in your Vue instance
+      instance.proxy.$toast.info(message);
+      setTimeout(instance.proxy.$toast.clear, 3000);
+    };
+
+    const showLog = async () => {
+      const web3 = await createWeb3Instance();
+
+      const Donation = new web3.eth.Contract(
+        DonationAbi,
+        "0x87F592f53148d387aa2f05717b424ad618585E22"
+      );
+
+      // 이벤트 감시
+      await Donation.events
+        .DonationReceived()
+        .on("data", (event) => {
+          // 이벤트가 변경되면 알림을 표시
+          showNotification("ASGASDGWERE45667878456345234544545767000계정에서 0.01ETH를 기부하셨습니다.");
+          eventData.value = event;
+          console.log(event.value);
+        })
+        .on("error", (error) => {
+          console.error("이벤트 감시 중 오류 발생:", error);
+        });
+    };
+
+    onMounted(showLog);
+
+    return {
+      eventData,
+      showNotification
+    };
   },
 };
+
 </script>
 
 <style>

@@ -22,7 +22,7 @@
       <router-link to="/game">게임</router-link>
     </div>
     <div class="walletimg" @click="getAccount" style="cursor: pointer">
-      <img :src="walletUrl" />
+      <div class="wallettext">지갑 연동&nbsp;&nbsp;</div><img :src="walletUrl" />
     </div>
   </div>
 </template>
@@ -77,6 +77,16 @@ a {
   font-weight: 700;
 }
 
+.wallettext{
+  font-size: 18;
+  color: #4e4e4e;
+  /* font-family: 'Roboto'; */
+  font-family: "IBM Plex Sans KR";
+  font-style: normal;
+  font-weight: 700;
+  line-height: 27px;
+}
+
 .Logoimg {
   height: 100px;
 }
@@ -89,6 +99,8 @@ a {
   height: 30px;
   margin-right: 20px;
 }
+
+
 
 .headerLink {
   display: flex;
