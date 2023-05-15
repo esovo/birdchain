@@ -21,39 +21,46 @@
               <span class="headline">마커 등록</span>
             </v-card-title>
             <v-card-text>
+              <p class="required-input">*표시는 필수 입력 사항입니다.</p>
               <v-form @submit.prevent>
                 <v-text-field
-                  label="닉네임"
-                  v-model="form.nickname"></v-text-field>
+                label="*닉네임"
+                v-model="form.nickname"
+                :rules="[nickname_rule]" ></v-text-field>
                 <v-text-field
-                  label="비밀번호"
+                  label="*비밀번호"
                   type="password"
-                  v-model="form.password"></v-text-field>
-                <v-file-input
-                  label="이미지"
+                  v-model="form.password"
+                  :rules="[pw_rule]" ></v-text-field>
+                  <v-file-input
+                  label="*이미지"
                   prepend-icon="mdi-camera"
                   v-model="form.image"
                   @change="previewImage"
-                  @click:clear="hidePreview"></v-file-input>
-                <v-img
+                  @click:clear="hidePreview"
+                  :rules="[img_rule]"></v-file-input>
+                  <v-img
                   v-if="imageUrl"
                   :src="imageUrl"
                   alt="이미지 미리보기"
                   class="mb-6" />
-                <v-select
+                  <v-select
                   :items="types"
-                  label="유형"
-                  v-model="form.type"></v-select>
-                <v-text-field
-                  label="위치"
+                  label="*유형"
+                  v-model="form.type"
+                  :rules="[type_rule]"></v-select>
+                  <v-text-field
+                  label="*위치"
                   v-model="form.location"
-                  readonly></v-text-field>
-                <v-divider></v-divider>
-                <v-textarea
-                  label="글 내용"
+                  readonly
+                  :rules="[location_rule]"></v-text-field>
+                  <v-divider></v-divider>
+                  <v-textarea
+                  label="*글 내용"
                   v-model="form.content"
-                  rows="5"></v-textarea>
-              </v-form>
+                  rows="5"
+                  :rules="[content_rule]"></v-textarea>
+                </v-form>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
@@ -98,6 +105,68 @@ const form = ref({
   location: null,
   content: null,
 });
+
+// 유효성 검사
+const nickname_rule = (value) => {
+  if (!value) {
+    return '닉네임은 필수 입력사항입니다.'
+  }
+
+  if (!(value && value.length <= 15)) {
+    return '닉네임은 15자 이내로 입력할 수 있습니다.'
+  }
+
+  const special = value.match(/[\\{\\}\\[\]\\/?.,;:|\\)*~`!^\-_+<>@\\#$%&\\\\=\\(\\'\\"]/g);
+  if (special) {
+    return '특수문자는 입력할 수 없습니다.'
+  }
+  return true;
+}
+
+const pw_rule = (value) => {
+  if (!value) {
+    return '비밀번호는 필수 입력사항입니다.'
+  }
+  if (!(value && value.length <= 30)) {
+    return '비밀번호는 30자 이내로 입력할 수 있습니다.'
+  }
+  return true;
+}
+
+const img_rule = (value) => {
+  if (value) {
+    const allowedExtensions = ['.jpg', '.jpeg', '.png', '.gif'];
+    const fileExtension = value[0].name.substr(value[0].name.lastIndexOf('.')).toLowerCase();
+    console.log(fileExtension);
+    if (allowedExtensions.includes(fileExtension)) {
+      return true;
+    } else {
+      return '올바른 이미지 파일을 선택해주세요.';
+    }
+  } else {
+    return '이미지는 필수 입력사항입니다.';
+  }
+}
+
+const type_rule = (value) => {
+  if (value) return true
+  return '유형은 필수 선택사항입니다.'
+}
+
+const location_rule = (value) => {
+  if (value) return true
+  return '위치는 필수 선택사항입니다.'
+}
+
+const content_rule = (value) => {
+  if (!value) {
+    return '내용은 필수 선택사항입니다.'
+  }
+  if (!(value && value.length <= 255)) {
+    return '내용은 공백 포함 255자 이내로 입력할 수 있습니다.'
+  }
+  return true
+}
 
 // 등록창 띄우기
 const showModal = () => {
@@ -157,7 +226,7 @@ const submitForm = () => {
     setTimeout(() => {
       Swal.fire({
         position: "center",
-        title: "모든 항목은 필수 입력값입니다.",
+        title: "필수입력사항을\n모두 기재해주세요.",
         icon: "warning",
       }).then((result) => {
         if (result.isConfirmed) {
@@ -221,6 +290,14 @@ const submitForm = () => {
 
 .v-application {
   height: 0px;
+}
+
+.required-input {
+  font-size: 5px;
+  color: black;
+  margin-bottom: 10px;
+  margin-left: 5px;
+  font-weight: bold;
 }
 
 @media (min-width: 960px) {

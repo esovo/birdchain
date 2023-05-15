@@ -131,6 +131,7 @@ export default {
             })
             .then((res) => {
               // 해당 유저가 기부 완료 상태임을 기록, 관리해야 함.
+              console.log(res.data.value);
               setDonation_id(res.data.value);
               setwallet(account.value);
               accountStore.donate();
