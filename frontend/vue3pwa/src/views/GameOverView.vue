@@ -1,6 +1,8 @@
 <template>
-    <div class="back">
-    <div class="title">매일 {{count.birdcount}}마리의 새가 유리창 충돌로 죽고 있습니다.</div>
+  <div class="back">
+    <div class="title">
+      매일 {{ count.birdcount }}마리의 새가 유리창 충돌로 죽고 있습니다.
+    </div>
     <div class="game-over"></div>
   </div>
 </template>
@@ -12,9 +14,8 @@ import buttonStartURL from "@/assetgame/img/start.png";
 import gameOverImg from "@/assetgame/img/game-over.png";
 import gshotBird from "@/assetgame/img/ghost-bird.png";
 import pointer from "@/assetgame/img/pointer.png";
-import { useStore } from '@/stores/store'
-import { countStore } from '@/stores/birdCountStore'
-
+import { useStore } from "@/stores/store";
+import { countStore } from "@/stores/birdCountStore";
 
 export default {
   name: "GameOverView",
@@ -73,13 +74,13 @@ export default {
     };
   },
   setup() {
-    const store= countStore();
+    const store = countStore();
 
     const count = store;
 
     return {
-      count
-    }
+      count,
+    };
   },
   mounted() {
     this.drawPixi();
@@ -89,8 +90,8 @@ export default {
     // ...mapState({
     //   record: (state) => state.record,
     // }),
-    isRecord() {  
-      const score = useStore()
+    isRecord() {
+      const score = useStore();
 
       // const record = localStorage.getItem("record");
       // if (!record) {
@@ -163,7 +164,7 @@ export default {
       this.setPositionContainer();
     },
     stageAdd() {
-      this.app.game.stage.addChild(this.recordText.text) 
+      this.app.game.stage.addChild(this.recordText.text);
     },
     addText() {
       this.recordText.text = new PIXI.Text(`record: ${this.isRecord}`, {
@@ -238,16 +239,15 @@ export default {
 </script>
 
 <style lang="scss">
-
-.back{
+.back {
   background-color: #f7fbf3;
 }
-.title{
+.title {
   padding-top: 20px;
-  font-family: 'NeoDunggeunmo';
+  font-family: "NeoDunggeunmo";
   font-size: 3vw;
   font-weight: 700;
-  color:black;
+  color: black;
 }
 
 .game-over {

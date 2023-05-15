@@ -5,7 +5,8 @@
     <MarkerRegist
       :placeInfo="placeInfo"
       :map="map"
-      @reloadMarker="reloadMarker"></MarkerRegist>
+      @reloadMarker="reloadMarker"
+    ></MarkerRegist>
   </div>
   <div class="flex-box">
     <MakerDetail
@@ -13,11 +14,13 @@
       :marker_id="marker_id"
       @reloadMarker="reloadMarker"
       @notValid="notValid"
-      class="markerDetail"></MakerDetail>
+      class="markerDetail"
+    ></MakerDetail>
     <CommentList
       v-if="isValid"
       :marker_id="marker_id"
-      class="commentList"></CommentList>
+      class="commentList"
+    ></CommentList>
   </div>
 </template>
 

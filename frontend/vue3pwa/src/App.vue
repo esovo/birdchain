@@ -18,13 +18,24 @@
 import BottomNavComponent from "./components/common/BottomNavComponent.vue";
 import FooterComponent from "./components/common/FooterComponent.vue";
 import HeaderComponentVue from "./components/common/HeaderComponent.vue";
-
+import { checkAccountConnection } from "@/web3";
+import { useAccountStore } from "@/stores/accountStore";
 export default {
   name: "App",
   components: {
     HeaderComponentVue,
     FooterComponent,
     BottomNavComponent,
+  },
+
+  setup() {
+    const checkAccount = checkAccountConnection();
+    const account = useAccountStore();
+    if (checkAccount === false) {
+      console.log("계정이 연결되어 있지 않음");
+    } else {
+      account.setAccount(checkAccount);
+    }
   },
 };
 </script>

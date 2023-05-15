@@ -31,6 +31,7 @@
                   v-model="form.password"></v-text-field>
                 <v-file-input
                   label="이미지"
+                  prepend-icon="mdi-camera"
                   v-model="form.image"
                   @change="previewImage"
                   @click:clear="hidePreview"></v-file-input>
@@ -142,8 +143,32 @@ const closeModal = () => {
 
 // axios 요청
 const submitForm = () => {
+  if (
+    !form.value.nickname ||
+    !form.value.password ||
+    !form.value.image ||
+    !form.value.type ||
+    !form.value.location ||
+    !form.value.content
+  ) {
+    setTimeout(() => {
+      modalVisible.value = false;
+    }, 100);
+    setTimeout(() => {
+      Swal.fire({
+        position: "center",
+        title: "모든 항목은 필수 입력값입니다.",
+        icon: "warning",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          modalVisible.value = true;
+        }
+      });
+    }, 200);
+    return;
+  }
+
   const reqForm = new FormData();
-  // 등록 정보
   const regMarker = {
     nickname: form.value.nickname,
     type: form.value.type,
@@ -162,7 +187,6 @@ const submitForm = () => {
   );
   reqForm.append("file", form.value.image[0]);
 
-  // 이미지 파일
   registMarker(reqForm).then(({ data }) => {
     if (data.status === "OK") {
       closeModal();
@@ -172,6 +196,7 @@ const submitForm = () => {
         position: "center",
         title: "등록되었습니다.",
         icon: "success",
+        backdrop: false,
       });
     } else {
       console.log(data.status);

@@ -24,7 +24,18 @@
           <button type="submit" @click="doModifyMarker">수정</button>
         </div>
       </div>
-      <v-img :src="detailData.image" height="300px" cover class="my-4"></v-img>
+      <v-img
+        v-if="!modiImageMarkerUrl"
+        :src="detailData.image"
+        height="300px"
+        cover
+        class="my-4"></v-img>
+      <v-img
+        v-if="modiImageMarkerUrl"
+        :src="modiImageMarkerUrl"
+        height="300px"
+        cover
+        class="my-4" />
       <v-card-text class="d-flex align-start flex-column ml-3">
         <div class="list-item">
           <p><strong>위치</strong></p>
@@ -36,7 +47,9 @@
         </div>
         <div class="list-item">
           <p><strong>내용</strong></p>
-          <p v-if="!modifyFlagMarker">{{ detailData.content }}</p>
+          <p v-if="!modifyFlagMarker">
+            {{ detailData.content }}
+          </p>
           <form
             @submit.prevent
             v-if="modifyFlagMarker"
@@ -47,6 +60,16 @@
               class="modify-input-marker"></textarea>
           </form>
         </div>
+        <v-form v-if="modifyFlagMarker">
+          <v-file-input
+            prepend-icon="mdi-camera"
+            v-model="modiImageMarker"
+            @change="previewImage"
+            @click:clear="hidePreview"
+            bg-color="rgb(230, 230, 230)"
+            density="compact"
+            variant="none" />
+        </v-form>
         <div v-if="deleteFlagMarker || modifyFlagMarker">
           <form @submit.prevent class="password-form">
             <label class="password-label">
@@ -100,7 +123,6 @@ const transformDateMarker = computed(() =>
 const onWheel = (event) => {
   event.preventDefault();
   const container = event.currentTarget.querySelector(".my-card-container");
-  console.log(container.scrollTop);
   container.scrollTop += event.deltaY;
 };
 
@@ -123,32 +145,47 @@ watch(
   () => props.marker_id,
   (newValue, oldValue) => {
     if (newValue !== oldValue) {
+      modiImageMarkerUrl.value = null;
+      modifyFlagMarker.value = false;
+      deleteFlagMarker.value = false;
+      password.value = null;
+      isAcceptable.value = false;
+      modiContentMarker.value = null;
       fetchMarker();
     }
   }
 );
 
-const deleteFlagMarker = ref(false);
-const isAcceptable = ref(false);
-const showInputForm = () => {
-  deleteFlagMarker.value = !deleteFlagMarker.value;
-  isAcceptable.value = false;
-  password.value = null;
-
-  if (deleteFlagMarker.value) {
-    setTimeout(function () {
-      document.querySelector(".password-input-marker").focus();
-    }, 10);
+// <마커 수정시 이미지 미리보기>
+const modiImageMarkerUrl = ref("");
+const previewImage = (event) => {
+  const file = event.target.files[0];
+  if (!file) {
+    return;
   }
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = (event) => {
+    modiImageMarkerUrl.value = event.target.result;
+  };
+};
+
+const hidePreview = () => {
+  modiImageMarkerUrl.value = null;
 };
 
 // <마커 수정>
+const modiImageMarker = ref(null);
 const modiContentMarker = ref("");
 const modifyFlagMarker = ref(false);
 
 const showModifyInputMarker = () => {
   modifyFlagMarker.value = !modifyFlagMarker.value;
   modiContentMarker.value = detailData.value.content;
+  modiImageMarkerUrl.value = detailData.value.image;
+  modiImageMarker.value = null;
+  password.value = null;
+  isAcceptable.value = false;
 
   if (modifyFlagMarker.value) {
     setTimeout(function () {
@@ -158,10 +195,20 @@ const showModifyInputMarker = () => {
 };
 
 const doModifyMarker = () => {
-  modifyFlagMarker.value = true;
+  if (!password.value) {
+    Swal.fire({
+      position: "center",
+      title: "비밀번호를 입력해주세요.",
+      icon: "warning",
+    }).then(function () {
+      setTimeout(function () {
+        document.querySelector(".password-input-marker").focus();
+      }, 300);
+    });
+    return;
+  }
 
   const reqForm = new FormData();
-  // 수정 정보
   const modiMarker = {
     id: detailData.value.id,
     nickname: detailData.value.nickname,
@@ -175,14 +222,24 @@ const doModifyMarker = () => {
       type: "application/json",
     })
   );
-  reqForm.append("file", null);
+
+  if (modiImageMarker.value) {
+    reqForm.append("file", modiImageMarker.value[0]);
+  } else {
+    reqForm.append("file", null);
+  }
 
   // 이미지 파일
   modifyMarker(reqForm)
     .then(({ data }) => {
       if (data.status === "OK") {
+        fetchMarker();
         modifyFlagMarker.value = false;
-        detailData.value.content = modiContentMarker.value;
+        modiContentMarker.value = null;
+        modiImageMarkerUrl.value = null;
+        modiImageMarker.value = null;
+        isAcceptable.value = false;
+        password.value = null;
 
         Swal.fire({
           position: "center",
@@ -197,6 +254,7 @@ const doModifyMarker = () => {
         title: `"${error.response.data.message}"`,
         icon: "error",
       }).then(function () {
+        isAcceptable.value = true;
         password.value = null;
         setTimeout(function () {
           document.querySelector(".password-input-marker").focus();
@@ -206,8 +264,35 @@ const doModifyMarker = () => {
 };
 
 // <마커 삭제>
+const deleteFlagMarker = ref(false);
+const isAcceptable = ref(false);
+const showInputForm = () => {
+  deleteFlagMarker.value = !deleteFlagMarker.value;
+  isAcceptable.value = false;
+  password.value = null;
+
+  if (deleteFlagMarker.value) {
+    setTimeout(function () {
+      document.querySelector(".password-input-marker").focus();
+    }, 10);
+  }
+};
+
 const password = ref();
 const doDeleteMarker = () => {
+  if (!password.value) {
+    Swal.fire({
+      position: "center",
+      title: "비밀번호를 입력해주세요.",
+      icon: "warning",
+    }).then(function () {
+      setTimeout(function () {
+        document.querySelector(".password-input-marker").focus();
+      }, 300);
+    });
+    return;
+  }
+
   Swal.fire({
     title: "정말로 삭제하시겠습니까?",
     icon: "warning",
@@ -268,7 +353,7 @@ const doDeleteMarker = () => {
   position: relative;
 }
 .my-card-container {
-  height: 600px;
+  height: 640px;
   overflow-y: auto;
 }
 .top-container {
@@ -290,11 +375,11 @@ const doDeleteMarker = () => {
 .password-input-marker {
   font-size: small;
   padding: 5px;
-  margin-left: 10px;
-  border: 1px solid gray;
+  margin-left: 15px;
+  /* border: 1px solid gray; */
   background: rgb(230, 230, 230);
   border-radius: 5px;
-  width: 295px;
+  width: 298px;
   margin-top: 10px;
 }
 
@@ -316,6 +401,7 @@ const doDeleteMarker = () => {
 
 .v-card-text {
   /* border: 1px solid black; */
+  /* height: 40vw; */
   padding-top: 0;
 }
 
@@ -331,7 +417,7 @@ const doDeleteMarker = () => {
   border: 1px solid rgb(227, 227, 227);
   width: 295px;
   padding: 5px;
-  margin-left: 10px;
+  margin-left: 15px;
   border-radius: 5px;
   text-align: start;
 }
@@ -345,17 +431,28 @@ const doDeleteMarker = () => {
   background: rgb(230, 230, 230);
   width: 295px;
   padding: 5px;
-  margin-left: 10px;
+  margin-left: 15px;
   border-radius: 5px;
   text-align: start;
   margin-bottom: 0;
 }
 
-.modify-form-marker button:nth-child(2) {
-  border: 1px solid black;
+.v-form {
+  display: flex;
+  /* border: 1px solid black; */
+  height: 40px;
+  margin-top: 10px;
 }
 
-.modify-form-marker button:nth-child(3) {
-  border: 1px solid red;
+.v-file-input {
+  /* border: 1px solid red; */
+  width: 335px;
+  margin-left: 5px;
+  height: 20px;
+  /* margin: 0; */
 }
+
+/* .v-input__details {
+  display: none;
+} */
 </style>
