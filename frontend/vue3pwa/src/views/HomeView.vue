@@ -340,6 +340,8 @@ export default {
   height: 100px;
   background-color: #f5f5f5;
   box-shadow: 1px 1px 1px 1px grey;
+  border-radius: 5%;
+
 }
 
 .goaldetailtitle {
@@ -498,6 +500,8 @@ export default {
   }
 
   .subtext {
+    display: none;
+
     margin-top: 1rem;
     font: 700 3vw/3vw Inter, sans-serif;
     word-wrap: break-word;
@@ -516,6 +520,7 @@ export default {
   }
 
   .subtext2 {
+    display: none;
     margin-top: 1rem;
     font: 700 3vw/3vw Inter, sans-serif;
     word-wrap: break-word;
@@ -533,12 +538,16 @@ export default {
     flex-direction: row;
     justify-content: space-between;
     text-align: center;
+        border-radius: 12%;
+
   }
 
   .goaldetail {
     width: 30vw;
     height: 150px;
     background-color: #f5f5f5;
+    border-radius: 12%;
+
   }
 
   .goaldetailtitle {
@@ -550,15 +559,15 @@ export default {
   }
 
   .goaldetailtext {
-    margin-top: 1rem;
-    font-family: "IBM Plex Sans";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 4vw;
-    text-align: center;
-    text-transform: capitalize;
-    color: #555555;
-  }
+  margin-top: 1rem;
+  font-family: "IBM Plex Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1vw;
+  text-align: center;
+  text-transform: capitalize;
+  color: #555555;
+}
 
   .nftdonator {
     display: flex;

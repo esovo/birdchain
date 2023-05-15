@@ -420,6 +420,7 @@ export default {
             num: this.NFTNum.toString().padStart(3, "0"),
             imgNum: img_num,
           };
+          console.log(reqForm);
 
           donateAccount(reqForm);
         })

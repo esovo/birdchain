@@ -69,5 +69,6 @@ export default {
 }
 .nfturl{
   width: 15vw;
+  
 }
 </style>
