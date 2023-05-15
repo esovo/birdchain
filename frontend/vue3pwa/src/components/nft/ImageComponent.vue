@@ -17,9 +17,7 @@
           <v-hover v-slot:default="{ hover }">
             <v-img :src="imgA" :class="hover ? 'blur-image' : ''"></v-img>
           </v-hover>
-          <v-card-title v-if="hover[0] === 0" class="overlay">
-            첫 번째 이미지 설명
-          </v-card-title>
+          <v-card-title v-if="hover[0] === 0" class="overlay"> </v-card-title>
         </v-card>
       </v-col>
 
@@ -35,9 +33,7 @@
           <v-hover v-slot:default="{ hover }">
             <v-img :src="imgB" :class="hover ? 'blur-image' : ''"></v-img>
           </v-hover>
-          <v-card-title v-if="hover[1] === 1" class="overlay">
-            두 번째 이미지 설명
-          </v-card-title>
+          <v-card-title v-if="hover[1] === 1" class="overlay"> </v-card-title>
         </v-card>
       </v-col>
     </v-row>
@@ -55,9 +51,7 @@
           <v-hover v-slot:default="{ hover }">
             <v-img :src="imgC" :class="hover ? 'blur-image' : ''"></v-img>
           </v-hover>
-          <v-card-title v-if="hover[2] === 2" class="overlay">
-            세 번째 이미지 설명
-          </v-card-title>
+          <v-card-title v-if="hover[2] === 2" class="overlay"> </v-card-title>
         </v-card>
       </v-col>
 
@@ -73,9 +67,7 @@
           <v-hover v-slot:default="{ hover }">
             <v-img :src="imgD" :class="hover ? 'blur-image' : ''"></v-img>
           </v-hover>
-          <v-card-title v-if="hover[3] === 3" class="overlay">
-            네 번째 이미지 설명
-          </v-card-title>
+          <v-card-title v-if="hover[3] === 3" class="overlay"> </v-card-title>
         </v-card>
       </v-col>
     </v-row>

@@ -25,19 +25,28 @@
                 style="cursor: pointer"
               />
             </div>
-            <h2 style="margin-bottom: 3vw">기부할 금액을 설정해주세요.</h2>
-            <h3 style="margin-bottom: 2vw">
+            <h2 style="margin-bottom: 3vw; margin-right: 3vw">
+              기부할 금액을 설정해주세요.
+            </h2>
+            <h3 style="margin-bottom: 2vw; margin-right: 3vw">
               기부 최소 금액은 0.001 ETH입니다.
             </h3>
             <h3>현재 잔고 : {{ balance }} ETH</h3>
           </v-card-text>
         </div>
 
-        <label for="donateAmount">기부할 금액 : </label>
-        <input type="number" id="donateAmount" v-model="dAmount" />
-        <p>입력된 금액 : {{ dAmount }}</p>
+        <label for="donateAmount" style="margin-left: 3vw" ;
+          >기부할 금액 :
+        </label>
+        <v-text-field
+          type="number"
+          id="donateAmount"
+          v-model="dAmount"
+          style="margin-left: 6vw; margin-right: 6vw"
+        />
+        <p style="margin-left: 3vw">입력된 금액 : {{ dAmount }}</p>
 
-        <div class="dialog-donate-btn" d>
+        <div class="dialog-donate-btn">
           <v-btn @click="donating"> 기부하기 </v-btn>
         </div>
       </v-card>
@@ -161,7 +170,7 @@ export default {
 </script>
 <style scoped>
 .donate-button {
-  margin-top: 10vw;
+  margin-top: 3vw;
   font-size: 1.5vw;
   margin-bottom: 200px;
 }

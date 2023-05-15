@@ -6,7 +6,7 @@
     <div style="margin-top: 3vw">
       <h3>랜덤으로 4개의 이미지를 제공하고 하나를 선택할 수 있습니다.</h3>
     </div>
-    <div style="margin-bottom: 3vw">
+    <div style="margin-bottom: 2vw">
       <h3>아래는 받아갈 수 있는 NFT의 예시입니다.</h3>
     </div>
     <swiper ref="swiperRef" v-bind="swiperOptions" class="swiper-container">
@@ -76,14 +76,14 @@ export default {
 };
 </script>
 <style>
-.donateswiper{
+.donateswiper {
   margin-left: 5%;
   margin-right: 5%;
 }
 
-.donatetitle{
-  margin-top: 3vw; 
-  font :700 3vw/1.1 Calibre-R,sans-serif;
+.donatetitle {
+  margin-top: 3vw;
+  font: 700 3vw/1.1 Calibre-R, sans-serif;
 }
 .swiper-slide img {
   width: 20vw;
