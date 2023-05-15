@@ -95,9 +95,8 @@ import { donateAccount } from "@/api/checkAccount";
 
 export default {
   setup() {
-    const dStore = donationStore();
-    const donation_id = dStore.donation_id;
-
+    const Dstore = donationStore();
+    const donation_id = Dstore.donation_id;
     const itemName = [
       "Aquila chrysaetos",
       "Eurynorhynchus pygmeus",
@@ -244,6 +243,8 @@ export default {
 
     const account = ref("");
 
+    const accountDonation = ref("");
+
     const client = new Web3Storage({
       token:
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDlkNzc2YkFlMEQ5NjA5MzZEOTQ1Nzc0MTI4MDdiN0EwM2NGYTFFRjMiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2ODM3NjM0OTk1MjcsIm5hbWUiOiJiaXJkY2hhaW4ifQ.9ZXu8rmPVlISEhkEFW-sfrnjV9gN1wjCeiu3bDTLQ9c",
@@ -265,6 +266,7 @@ export default {
         const accounts = await web3.eth.getAccounts();
         account.value = accounts[0];
       }
+      console.log(account.value);
       console.log("계정 확인");
       const res = await getCheckoutAccount(account.value);
 
@@ -328,29 +330,27 @@ export default {
         .then((res) => {
           console.log(res);
           console.log("NFT 발급 완료");
-          localStorage.removeItem("images");
 
           console.log(imgURI);
           console.log(CID);
           console.log(level[parseInt((NFTNum.value - 1) / 5)]);
           console.log(itemName[parseInt((NFTNum.value - 1) / 5)]);
           console.log(donation_id);
-
+          console.log(accountDonation.value);
           axios
             .post(`https://k8b104.p.ssafy.io/api/items`, {
               imageUrl: imgURI,
               metadataUrl: CID,
               iucn: level[parseInt((NFTNum.value - 1) / 5)],
               name: itemName[parseInt((NFTNum.value - 1) / 5)],
-              donationId: donation_id,
+              donationId: accountDonation.value,
             })
             .then(() => {
               console.log("item 등록 완료");
+              selectNFT(account.value);
               router.push("/mypage");
             });
         });
-
-      selectNFT(this.account);
     };
 
     return {
@@ -366,17 +366,20 @@ export default {
       itemName,
       level,
       client,
-      donation_id,
       createNFT,
       check,
       checkAccount,
+      accountDonation,
     };
   },
 
   async mounted() {
     await this.checkAccount();
+    console.log(this.account);
 
     if (this.check === false) {
+      const img_num = donationStore().donation_id;
+      this.accountDonation = img_num;
       axios
         .get(`https://k8b104.p.ssafy.io/api/nft/available`)
         .then((res) => {
@@ -415,6 +418,7 @@ export default {
           const reqForm = {
             wallet: this.account,
             num: this.NFTNum.toString().padStart(3, "0"),
+            imgNum: img_num,
           };
 
           donateAccount(reqForm);
@@ -424,13 +428,13 @@ export default {
         });
     } else {
       console.log("기부 이미 했을 때");
-      console.log(this.account);
+
       getCheckoutAccount(this.account).then(({ data }) => {
-        console.log("아이디 가져오기");
-        console.log(this.account);
         const NFTnums = data.value.num;
-        console.log(NFTnums);
         const imageNames = ["A", "B", "C", "D"];
+        const accountDonationId = data.value.imgNum;
+        console.log(accountDonationId);
+        this.accountDonation = accountDonationId;
         const imageRequests = imageNames.map((name) =>
           axios.get(
             `https://k8b104.p.ssafy.io/api/nft/images?fileName=${NFTnums}${name}`
