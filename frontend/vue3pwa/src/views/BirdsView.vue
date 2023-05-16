@@ -100,8 +100,8 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
-  margin-right: 10px;
-  margin-left: 10px;
+  margin-right: 10vw;
+  margin-left: 10vw;
   z-index: 1;
 }
 </style>
