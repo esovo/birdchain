@@ -64,9 +64,9 @@ export default {
         .DonationReceived()
         .on("data", (event) => {
           // 이벤트가 변경되면 알림을 표시
-          showNotification("ASGASDGWERE45667878456345234544545767000계정에서 0.01ETH를 기부하셨습니다.");
+          showNotification( event.returnValues[0] + "계정에서" + event.returnValues[1] +"ETH를 기부하셨습니다.");
           eventData.value = event;
-          console.log(event.value);
+          console.log(event);
         })
         .on("error", (error) => {
           console.error("이벤트 감시 중 오류 발생:", error);
