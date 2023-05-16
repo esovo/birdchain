@@ -1,5 +1,6 @@
 ﻿<template>
-  <MarkerTypeButton @searchByType="searchByType"></MarkerTypeButton>
+  <MarkerTypeButton @searchByType="searchByType" class="type-btn"></MarkerTypeButton>
+  <MapSearchBar @searchByAddress="searchByAddress" class="search-bar"></MapSearchBar>
   <div>
     <div id="map" @click.once="movePin"></div>
     <MarkerRegist
@@ -29,22 +30,25 @@ import MarkerTypeButton from "@/components/map/MarkerTypeButton.vue";
 import MarkerRegist from "@/components/map/MarkerRegist.vue";
 import MakerDetail from "@/components/map/MarkerDetail.vue";
 import CommentList from "@/components/map/CommentList.vue";
+import MapSearchBar from "@/components/map/MapSearchBar.vue"
 import { ref, onMounted, reactive } from "vue";
 import { getMarkersByType } from "@/api/markers";
 const { kakao } = window;
 
-// <지도 생성하기>
+// <지도 & 핀 생성하기>
 var map = null;
-var curMarker = null;
 const initMap = () => {
   const container = document.getElementById("map");
   const options = {
     center: new kakao.maps.LatLng(36.354946759143, 127.29980994578),
     level: 5,
   };
-
   //지도 객체를 등록합니다.
   map = new kakao.maps.Map(container, options);
+};
+
+var curMarker = null;
+const makePin = () => {
   //마커 이미지의 이미지 주소입니다
   var imageSrc = "img/icons/pin.png";
   // 마커 이미지의 이미지 크기 입니다
@@ -57,10 +61,9 @@ const initMap = () => {
     position: map.getCenter(),
     image: markerImage,
   });
-
   // 지도에 마커를 표시합니다
   curMarker.setMap(map);
-};
+}
 
 // <마커 표시하기>
 const markers = ref([]);
@@ -100,6 +103,7 @@ const displayMarker = (marker_type) => {
 
 onMounted(() => {
   initMap();
+  makePin();
   displayMarker("");
 });
 
@@ -146,9 +150,23 @@ const notValid = () => {
   isValid.value = false;
 };
 
+// <주소로 장소 검색하기>
+const searchByAddress = (data) => {
+  // 주소로 좌표를 검색합니다
+  geocoder.addressSearch(data, function(result, status) {
+      // 정상적으로 검색이 완료됐으면 
+      if (status === kakao.maps.services.Status.OK) {
+          var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+          // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+          map.setCenter(coords);
+          // 마커 위치를 클릭한 위치로 옮깁니다
+          curMarker.setPosition(coords);
+      } 
+  })
+}
+
 // <타입별로 마커 검색하기>
 const searchByType = (data) => {
-  console.log(data.length);
   if (data.length == 2) {
     displayMarker("");
   } else if (data.length == 0) {
@@ -164,6 +182,18 @@ const searchByType = (data) => {
   margin: 0 auto;
   width: 60vw;
   height: 550px;
+}
+
+
+
+.type-btn {
+  width: 60vw;
+  margin: 0 auto;
+}
+
+.search-bar {
+  width: 60vw;
+  margin: 0 auto;
 }
 
 .flex-box {
@@ -191,26 +221,30 @@ const searchByType = (data) => {
     width: 100vw;
     height: 90vw;
   }
+  .search-bar {
+    width: 100vw;
+    margin: 0 auto;
+  }
+  .type-btn {
+    width: 100vw;
+    margin: 0 auto;
+  }
 }
 
 @media (max-width: 800px) {
   .markerDetail {
-    /* margin-top: 40px; */
     margin-right: 0;
   }
   .commentList {
-    /* margin-top: 40px; */
     margin-left: 0px;
   }
 }
 
 @media (max-width: 1062px) {
   .markerDetail {
-    /* margin-top: 40px; */
     margin-right: 0;
   }
   .commentList {
-    /* margin-top: 40px; */
     margin-left: 0px;
   }
 }

@@ -1,5 +1,5 @@
 ﻿<template>
-  <div class="mapbutton">
+  <div>
     <v-btn-toggle
       v-model="toggle_multiple"
       color="light-green lighten-2"
@@ -24,23 +24,7 @@ const selectType = () => {
 </script>
 
 <style scoped>
-.mapbutton {
-  margin-top: 30px;
-  margin-bottom: 30px;
-}
-
-.v-btn-group--density-default.v-btn-group {
-  position: relative;
-  left: 30%;
-}
-
-@media (max-width: 600px) {
-  .v-btn {
-    width: 80px;
-  }
-  .v-btn-group--density-default.v-btn-group {
-    position: relative;
-    left: 23vw;
-  }
+.v-btn-toggle {
+  margin: 10px 0 10px 40vw;
 }
 </style>
