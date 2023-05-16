@@ -35,7 +35,7 @@
           </v-card-text>
         </div>
 
-        <label for="donateAmount" style="margin-left: 3vw" ;
+        <label for="donateAmount" style="margin-left: 3vw"
           >기부할 금액 :
         </label>
         <v-text-field
