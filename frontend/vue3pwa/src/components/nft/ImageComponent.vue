@@ -17,7 +17,7 @@
           <v-hover v-slot:default="{ hover }">
             <v-img :src="imgA" :class="hover ? 'blur-image' : ''"></v-img>
           </v-hover>
-          <v-card-title v-if="hover[0] === 0" class="overlay"> </v-card-title>
+          <v-card-title v-if="hover[0] === 0" class="overlays"> </v-card-title>
         </v-card>
       </v-col>
 
@@ -33,7 +33,7 @@
           <v-hover v-slot:default="{ hover }">
             <v-img :src="imgB" :class="hover ? 'blur-image' : ''"></v-img>
           </v-hover>
-          <v-card-title v-if="hover[1] === 1" class="overlay"> </v-card-title>
+          <v-card-title v-if="hover[1] === 1" class="overlays"> </v-card-title>
         </v-card>
       </v-col>
     </v-row>
@@ -51,7 +51,7 @@
           <v-hover v-slot:default="{ hover }">
             <v-img :src="imgC" :class="hover ? 'blur-image' : ''"></v-img>
           </v-hover>
-          <v-card-title v-if="hover[2] === 2" class="overlay"> </v-card-title>
+          <v-card-title v-if="hover[2] === 2" class="overlays"> </v-card-title>
         </v-card>
       </v-col>
 
@@ -67,11 +67,20 @@
           <v-hover v-slot:default="{ hover }">
             <v-img :src="imgD" :class="hover ? 'blur-image' : ''"></v-img>
           </v-hover>
-          <v-card-title v-if="hover[3] === 3" class="overlay"> </v-card-title>
+          <v-card-title v-if="hover[3] === 3" class="overlays"> </v-card-title>
         </v-card>
       </v-col>
     </v-row>
   </v-container>
+
+  <v-overlay
+    activator="parent"
+    location-strategy="connected"
+    scroll-strategy="block"
+    v-if="showOverlay"
+    class="align-center"
+  >
+  </v-overlay>
 </template>
 <script>
 import axios from "axios";
@@ -295,6 +304,7 @@ export default {
       }
 
       try {
+        showOverlay.value = true;
         const metadataFile = createMetadata();
         CID = await client.put([metadataFile]);
         console.log("메타데이터 저장 완료 : ", CID);
@@ -345,6 +355,8 @@ export default {
         });
     };
 
+    const showOverlay = ref(false); // 오버레이 표시 여부를 관리하는 상태
+
     return {
       hover,
       elevation,
@@ -362,6 +374,7 @@ export default {
       check,
       checkAccount,
       accountDonation,
+      showOverlay,
     };
   },
 
@@ -473,7 +486,7 @@ img {
   filter: blur(3px);
 }
 
-.overlay {
+.overlays {
   position: absolute;
   top: 0;
   left: 0;
@@ -490,5 +503,10 @@ img {
 .elevation-hover {
   transition: transform 0.3s;
   transform: translateY(-5px);
+}
+
+.align-center {
+  position: fixed;
+  top: 50vh;
 }
 </style>

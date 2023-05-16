@@ -21,8 +21,8 @@ import HeaderComponentVue from "./components/common/HeaderComponent.vue";
 import { checkAccountConnection } from "@/web3";
 import { useAccountStore } from "@/stores/accountStore";
 import DonationAbi from "./abi/Donation.json";
-import { createWeb3Instance } from "@/web3";
-import { ref, onMounted, getCurrentInstance  } from 'vue';
+import { checkWeb3Instance } from "@/web3";
+import { ref, onMounted, getCurrentInstance } from "vue";
 
 export default {
   name: "App",
@@ -52,7 +52,7 @@ export default {
     };
 
     const showLog = async () => {
-      const web3 = await createWeb3Instance();
+      const web3 = await checkWeb3Instance();
 
       const Donation = new web3.eth.Contract(
         DonationAbi,
@@ -64,7 +64,9 @@ export default {
         .DonationReceived()
         .on("data", (event) => {
           // 이벤트가 변경되면 알림을 표시
-          showNotification("ASGASDGWERE45667878456345234544545767000계정에서 0.01ETH를 기부하셨습니다.");
+          showNotification(
+            "ASGASDGWERE45667878456345234544545767000계정에서 0.01ETH를 기부하셨습니다."
+          );
           eventData.value = event;
           console.log(event.value);
         })
@@ -77,11 +79,10 @@ export default {
 
     return {
       eventData,
-      showNotification
+      showNotification,
     };
   },
 };
-
 </script>
 
 <style>

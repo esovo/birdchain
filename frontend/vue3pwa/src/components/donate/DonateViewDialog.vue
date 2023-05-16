@@ -35,19 +35,29 @@
           </v-card-text>
         </div>
 
-        <label for="donateAmount" style="margin-left: 3vw" ;
+        <label for="donateAmount" style="margin-left: 3vw"
           >기부할 금액 :
         </label>
         <v-text-field
           type="number"
           id="donateAmount"
           v-model="dAmount"
+          :min="0.001"
           style="margin-left: 6vw; margin-right: 6vw"
         />
         <p style="margin-left: 3vw">입력된 금액 : {{ dAmount }}</p>
 
         <div class="dialog-donate-btn">
-          <v-btn @click="donating"> 기부하기 </v-btn>
+          <v-btn @click="donating">
+            기부하기
+            <v-overlay
+              activator="parent"
+              location-strategy="connected"
+              scroll-strategy="block"
+              class="align-center"
+            >
+            </v-overlay
+          ></v-btn>
         </div>
       </v-card>
     </v-dialog>
@@ -201,5 +211,10 @@ export default {
   margin-top: 3vw;
   margin-bottom: 3vw;
   justify-content: center;
+}
+
+.align-center {
+  position: fixed;
+  top: 50vh;
 }
 </style>
