@@ -136,5 +136,8 @@ a {
     justify-content: flex-end;
     width: 30px;
   }
+  .wallettext{
+   display: none;
+  }
 }
 </style>

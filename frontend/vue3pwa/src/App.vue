@@ -56,7 +56,7 @@ export default {
 
       const Donation = new web3.eth.Contract(
         DonationAbi,
-        "0x87F592f53148d387aa2f05717b424ad618585E22"
+        "0x1678A184F4DEd0e15dd589fD98b8a87194c2412d"
       );
 
       // 이벤트 감시
@@ -64,11 +64,15 @@ export default {
         .DonationReceived()
         .on("data", (event) => {
           // 이벤트가 변경되면 알림을 표시
+          var amount = web3.utils.fromWei(event.returnValues[1], "ether");
           showNotification(
-            "ASGASDGWERE45667878456345234544545767000계정에서 0.01ETH를 기부하셨습니다."
+            event.returnValues[0] +
+              "계정에서 " +
+              amount +
+              "ETH를 기부하셨습니다."
           );
           eventData.value = event;
-          console.log(event.value);
+          console.log(event);
         })
         .on("error", (error) => {
           console.error("이벤트 감시 중 오류 발생:", error);

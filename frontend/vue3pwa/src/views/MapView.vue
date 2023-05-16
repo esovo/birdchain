@@ -1,5 +1,6 @@
 ﻿<template>
-  <MarkerTypeButton @searchByType="searchByType"></MarkerTypeButton>
+  <MarkerTypeButton @searchByType="searchByType" class="type-btn"></MarkerTypeButton>
+  <MapSearchBar @searchByAddress="searchByAddress" @searchCurPosition="searchCurPosition" :validAddress="validAddress" class="search-bar"></MapSearchBar>
   <div>
     <div id="map" @click.once="movePin"></div>
     <MarkerRegist
@@ -29,22 +30,25 @@ import MarkerTypeButton from "@/components/map/MarkerTypeButton.vue";
 import MarkerRegist from "@/components/map/MarkerRegist.vue";
 import MakerDetail from "@/components/map/MarkerDetail.vue";
 import CommentList from "@/components/map/CommentList.vue";
+import MapSearchBar from "@/components/map/MapSearchBar.vue"
 import { ref, onMounted, reactive } from "vue";
 import { getMarkersByType } from "@/api/markers";
 const { kakao } = window;
 
-// <지도 생성하기>
+// <지도 & 핀 생성하기>
 var map = null;
-var curMarker = null;
 const initMap = () => {
   const container = document.getElementById("map");
   const options = {
     center: new kakao.maps.LatLng(36.354946759143, 127.29980994578),
     level: 5,
   };
-
   //지도 객체를 등록합니다.
   map = new kakao.maps.Map(container, options);
+};
+
+var curMarker = null;
+const makePin = () => {
   //마커 이미지의 이미지 주소입니다
   var imageSrc = "img/icons/pin.png";
   // 마커 이미지의 이미지 크기 입니다
@@ -57,10 +61,9 @@ const initMap = () => {
     position: map.getCenter(),
     image: markerImage,
   });
-
   // 지도에 마커를 표시합니다
   curMarker.setMap(map);
-};
+}
 
 // <마커 표시하기>
 const markers = ref([]);
@@ -100,6 +103,7 @@ const displayMarker = (marker_type) => {
 
 onMounted(() => {
   initMap();
+  makePin();
   displayMarker("");
 });
 
@@ -146,9 +150,49 @@ const notValid = () => {
   isValid.value = false;
 };
 
+// <주소로 위치 검색하기>
+const searchByAddress = (data) => {
+  // 주소로 좌표를 검색합니다
+  geocoder.addressSearch(data, function(result, status) {
+    // 정상적으로 검색이 완료됐으면 
+    if (status === kakao.maps.services.Status.OK) {
+      var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+      map.setCenter(coords);
+      curMarker.setPosition(coords);
+      validAddress.value = false;
+    } else {
+      validAddress.value = true;
+      var locPosition = new kakao.maps.LatLng(36.354946759143, 127.29980994578);
+      map.setCenter(locPosition);
+      curMarker.setPosition(locPosition);
+    }
+  })
+}
+
+// <현위치로 위치 검색하기>
+const validAddress = ref(false);
+const searchCurPosition = () => {
+  // HTML5의 geolocation으로 사용할 수 있는지 확인합니다
+	if (navigator.geolocation) {
+    // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var lat = position.coords.latitude, // 위도
+          lon = position.coords.longitude; // 경도
+      var locPosition = new kakao.maps.LatLng(lat, lon); // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+      map.setCenter(locPosition);
+      curMarker.setPosition(locPosition);
+      validAddress.value = false;
+    });
+  } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
+    validAddress.value = true;
+    var locPosition = new kakao.maps.LatLng(36.354946759143, 127.29980994578);
+    map.setCenter(locPosition);
+    curMarker.setPosition(locPosition);
+  }
+}
+
 // <타입별로 마커 검색하기>
 const searchByType = (data) => {
-  console.log(data.length);
   if (data.length == 2) {
     displayMarker("");
   } else if (data.length == 0) {
@@ -164,6 +208,18 @@ const searchByType = (data) => {
   margin: 0 auto;
   width: 60vw;
   height: 550px;
+}
+
+
+
+.type-btn {
+  width: 60vw;
+  margin: 0 auto;
+}
+
+.search-bar {
+  width: 60vw;
+  margin: 0 auto;
 }
 
 .flex-box {
@@ -191,26 +247,30 @@ const searchByType = (data) => {
     width: 100vw;
     height: 90vw;
   }
+  .search-bar {
+    width: 100vw;
+    margin: 0 auto;
+  }
+  .type-btn {
+    width: 100vw;
+    margin: 0 auto;
+  }
 }
 
 @media (max-width: 800px) {
   .markerDetail {
-    /* margin-top: 40px; */
     margin-right: 0;
   }
   .commentList {
-    /* margin-top: 40px; */
     margin-left: 0px;
   }
 }
 
 @media (max-width: 1062px) {
   .markerDetail {
-    /* margin-top: 40px; */
     margin-right: 0;
   }
   .commentList {
-    /* margin-top: 40px; */
     margin-left: 0px;
   }
 }

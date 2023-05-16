@@ -130,7 +130,7 @@ export default {
 
       const Donation = new web3.eth.Contract(
         DonationAbi,
-        "0x87F592f53148d387aa2f05717b424ad618585E22"
+        "0x1678A184F4DEd0e15dd589fD98b8a87194c2412d"
       );
       const donationAmount = web3.utils.toWei(
         dAmount.value.toString(),
@@ -187,7 +187,7 @@ export default {
 .donate-button {
   margin-top: 3vw;
   font-size: 1.5vw;
-  margin-bottom: 200px;
+  margin-bottom: 50px;
 }
 .donate-card {
   display: flex;

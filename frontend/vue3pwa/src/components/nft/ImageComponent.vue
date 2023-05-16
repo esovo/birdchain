@@ -320,7 +320,7 @@ export default {
       }
       const NFT = new web3.eth.Contract(
         NFTAbi,
-        "0xF669a0f33D183aDE26259E3266E6AC4304fa1905"
+        "0xc1159864630B7e366F3c77A8Bda7a959d187BD36"
       );
 
       console.log(CID);
