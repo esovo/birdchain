@@ -33,6 +33,7 @@ import SwiperCore, { Navigation } from "swiper/core";
 import { ref } from "vue";
 import { createWeb3Instance } from "@/web3";
 import DonationAbi from "../../abi/Donation.json";
+import { onMounted } from "vue";
 SwiperCore.use([Navigation]);
 export default {
   components: {
@@ -72,26 +73,22 @@ export default {
         prevEl: ".swiper-button-prev",
       },
     };
-    const totalValue = ref(0);
+    var totalValue = ref(0);
     const watchTotalValue = async () => {
       const web3 = await createWeb3Instance();
 
       const Donation = new web3.eth.Contract(
         DonationAbi,
-        "0x87F592f53148d387aa2f05717b424ad618585E22"
+        "0x87F592f53148d387aa2f05717b424ad618585E22",
       );
-
-      // 이벤트 감시
-      await Donation.events
-        .DonationReceived()
-        .on("data", (event) => {
-          // 이벤트가 변경되면 알림을 표시
-          console.log(event);
-        })
-        .on("error", (error) => {
-          console.error("이벤트 감시 중 오류 발생:", error);
-        });
+      await Donation.methods.getTotalContribution().call().then(function(value) {
+        const total = value;
+        totalValue = total;
+        console.log("값이 " + value)
+      });
     };
+
+    onMounted(watchTotalValue);
 
     return {
       swiperOptions,
