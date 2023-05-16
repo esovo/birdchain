@@ -64,7 +64,8 @@ export default {
         .DonationReceived()
         .on("data", (event) => {
           // 이벤트가 변경되면 알림을 표시
-          showNotification( event.returnValues[0] + "계정에서" + event.returnValues[1] +"ETH를 기부하셨습니다.");
+          var amount = web3.utils.fromWei(event.returnValues[1], 'ether');
+          showNotification( event.returnValues[0] + "계정에서 " + amount +"ETH를 기부하셨습니다.");
           eventData.value = event;
           console.log(event);
         })

@@ -22,12 +22,18 @@
       <div class="swiper-button-next"></div>
       <div class="swiper-button-prev"></div>
     </swiper>
+    <div>총 기부 금액</div>
+    <div class="total">{{ totalValue }}</div>
   </div>
 </template>
 
 <script>
 import { Swiper, SwiperSlide } from "swiper/vue";
 import SwiperCore, { Navigation } from "swiper/core";
+import { ref } from "vue";
+import { createWeb3Instance } from "@/web3";
+import DonationAbi from "../../abi/Donation.json";
+import { onMounted } from "vue";
 SwiperCore.use([Navigation]);
 export default {
   components: {
@@ -67,10 +73,28 @@ export default {
         prevEl: ".swiper-button-prev",
       },
     };
+    var totalValue = ref(0);
+    const watchTotalValue = async () => {
+      const web3 = await createWeb3Instance();
+
+      const Donation = new web3.eth.Contract(
+        DonationAbi,
+        "0x87F592f53148d387aa2f05717b424ad618585E22",
+      );
+      await Donation.methods.getTotalContribution().call().then(function(value) {
+        const total = value;
+        totalValue = total;
+        console.log("값이 " + value)
+      });
+    };
+
+    onMounted(watchTotalValue);
 
     return {
       swiperOptions,
       items,
+      totalValue,
+      watchTotalValue,
     };
   },
 };
