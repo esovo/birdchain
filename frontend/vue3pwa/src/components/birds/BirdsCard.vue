@@ -2,8 +2,8 @@
   <div class="flip-card" :class="{ 'show-overlay': showOverlay }">
     <div class="flip-card-inner" v-on:click="flipCard">
       <div class="flip-card-front">
-        <v-card class="" width="300px" style="cursor: pointer;">
-          <v-img :src="birdData.img" height="200px" cover></v-img>
+        <v-card class="" width="22vw" min-width="300px" style="cursor: pointer;">
+          <v-img :src="birdData.img" height="300px" cover></v-img>
           <v-card-title> {{ birdData.국명 }} </v-card-title>
           <v-card-subtitle style="font-style: italic">
             학명 : {{ birdData.학명 }}
