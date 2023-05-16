@@ -47,7 +47,7 @@ public class AvailableItemServiceImpl implements AvailableItemService {
 
     @Override
     public URL findAvailableItemImageUrl(String fileName) {
-        GeneratePresignedUrlRequest generatePresignedUrlRequest = new GeneratePresignedUrlRequest("birdchain", "NFTimages/" + fileName + ".png");
+        GeneratePresignedUrlRequest generatePresignedUrlRequest = new GeneratePresignedUrlRequest("birdchain", "NFTimages/" + fileName + ".png").withExpiration(null);
         URL fileUrl = amazonS3.generatePresignedUrl(generatePresignedUrlRequest);
         return fileUrl;
     }
