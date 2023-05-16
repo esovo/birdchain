@@ -22,12 +22,17 @@
       <div class="swiper-button-next"></div>
       <div class="swiper-button-prev"></div>
     </swiper>
+    <div>총 기부 금액</div>
+    <div class="total">{{ totalValue }}</div>
   </div>
 </template>
 
 <script>
 import { Swiper, SwiperSlide } from "swiper/vue";
 import SwiperCore, { Navigation } from "swiper/core";
+import { ref } from "vue";
+import { createWeb3Instance } from "@/web3";
+import DonationAbi from "../../abi/Donation.json";
 SwiperCore.use([Navigation]);
 export default {
   components: {
@@ -67,10 +72,32 @@ export default {
         prevEl: ".swiper-button-prev",
       },
     };
+    const totalValue = ref(0);
+    const watchTotalValue = async () => {
+      const web3 = await createWeb3Instance();
+
+      const Donation = new web3.eth.Contract(
+        DonationAbi,
+        "0x87F592f53148d387aa2f05717b424ad618585E22"
+      );
+
+      // 이벤트 감시
+      await Donation.events
+        .DonationReceived()
+        .on("data", (event) => {
+          // 이벤트가 변경되면 알림을 표시
+          console.log(event);
+        })
+        .on("error", (error) => {
+          console.error("이벤트 감시 중 오류 발생:", error);
+        });
+    };
 
     return {
       swiperOptions,
       items,
+      totalValue,
+      watchTotalValue,
     };
   },
 };
