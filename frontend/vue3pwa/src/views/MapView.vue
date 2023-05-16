@@ -1,6 +1,6 @@
 ﻿<template>
   <MarkerTypeButton @searchByType="searchByType" class="type-btn"></MarkerTypeButton>
-  <MapSearchBar @searchByAddress="searchByAddress" class="search-bar"></MapSearchBar>
+  <MapSearchBar @searchByAddress="searchByAddress" @searchCurPosition="searchCurPosition" :validAddress="validAddress" class="search-bar"></MapSearchBar>
   <div>
     <div id="map" @click.once="movePin"></div>
     <MarkerRegist
@@ -150,19 +150,45 @@ const notValid = () => {
   isValid.value = false;
 };
 
-// <주소로 장소 검색하기>
+// <주소로 위치 검색하기>
 const searchByAddress = (data) => {
   // 주소로 좌표를 검색합니다
   geocoder.addressSearch(data, function(result, status) {
-      // 정상적으로 검색이 완료됐으면 
-      if (status === kakao.maps.services.Status.OK) {
-          var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-          // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-          map.setCenter(coords);
-          // 마커 위치를 클릭한 위치로 옮깁니다
-          curMarker.setPosition(coords);
-      } 
+    // 정상적으로 검색이 완료됐으면 
+    if (status === kakao.maps.services.Status.OK) {
+      var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+      map.setCenter(coords);
+      curMarker.setPosition(coords);
+      validAddress.value = false;
+    } else {
+      validAddress.value = true;
+      var locPosition = new kakao.maps.LatLng(36.354946759143, 127.29980994578);
+      map.setCenter(locPosition);
+      curMarker.setPosition(locPosition);
+    }
   })
+}
+
+// <현위치로 위치 검색하기>
+const validAddress = ref(false);
+const searchCurPosition = () => {
+  // HTML5의 geolocation으로 사용할 수 있는지 확인합니다
+	if (navigator.geolocation) {
+    // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var lat = position.coords.latitude, // 위도
+          lon = position.coords.longitude; // 경도
+      var locPosition = new kakao.maps.LatLng(lat, lon); // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+      map.setCenter(locPosition);
+      curMarker.setPosition(locPosition);
+      validAddress.value = false;
+    });
+  } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
+    validAddress.value = true;
+    var locPosition = new kakao.maps.LatLng(36.354946759143, 127.29980994578);
+    map.setCenter(locPosition);
+    curMarker.setPosition(locPosition);
+  }
 }
 
 // <타입별로 마커 검색하기>
