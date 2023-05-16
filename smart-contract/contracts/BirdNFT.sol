@@ -11,7 +11,7 @@ contract BirdNFT is ERC721URIStorage {
     event EtherReceived(address sender, uint256 amount);
     event NFT(address sender, uint256 tokenId);
 
-    mapping(uint256 => string) private _imgURIs;
+    mapping(uint256 => string) private _metaDatas;
 
     constructor() ERC721("BirdNFT", "BNFT") {}
 
@@ -20,21 +20,21 @@ contract BirdNFT is ERC721URIStorage {
         _tokenIds.increment();
         uint256 newItemId = _tokenIds.current();
         _mint(msg.sender, newItemId);
-        _setTokenURI(newItemId, metaData);
-        _setImgURIs(newItemId, imgURI);
+        _setTokenURI(newItemId, imgURI);
+        _setMetaDatas(newItemId, metaData);
         //가스비 환불
         payable(msg.sender).transfer(calculateGasFee());
         emit NFT(msg.sender, newItemId);
         return newItemId;
     }
 
-    function _setImgURIs(uint256 newItemId, string memory metaData) internal {
-        _imgURIs[newItemId] = metaData;
+    function _setMetaDatas(uint256 newItemId, string memory metaData) internal {
+        _metaDatas[newItemId] = metaData;
     }
 
     function mataData(uint256 newItemId) public view returns (string memory) {
         require(_exists(newItemId), "BirdNFT: URI query for nonexistent token");
-        string memory uri = _imgURIs[newItemId];
+        string memory uri = _metaDatas[newItemId];
         return uri;
     }
 
@@ -63,7 +63,7 @@ contract BirdNFT is ERC721URIStorage {
 
       //Contract 자체 이더 조회
      function getContractBalance() public view returns (uint256) {
-        return address(this).balance / 1 ether;
+        return address(this).balance;
     }
 
     //콘트렉트 자체에 이더 송금하면 자동으로 발동하는 함수 여러가지를 처리할 수 있음

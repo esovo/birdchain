@@ -12,7 +12,7 @@ contract Donation is ERC20 {
     event EtherReceived(address sender, uint256 amount);
 
   constructor() ERC20("Donation", "DNFT") {
-    donationReceiver = payable(0x20BB5789f444e47a88c366f0bfE41EcB3c75BD4C);
+    donationReceiver = payable(0x67e446e36a8D217dAc5dd9790c6260c6d3C0B271);
   }
 
   //Contract 자체 이더 조회
@@ -20,7 +20,7 @@ contract Donation is ERC20 {
     return address(this).balance / 1 ether;
   }
 
-   function getTotalContribution() public view returns (uint total) {
+   function getTotalContribution() public view returns (uint256) {
       return totalContribution;
    }
 
@@ -42,7 +42,7 @@ contract Donation is ERC20 {
         //가스비 추측해서 기부금에서 제외시킴
         uint256 amount = msg.value - calculateGasFee();
         donationReceiver.transfer(amount);
-        totalContribution+=amount / 1 ether;
+        totalContribution+=amount;
         emit DonationReceived(msg.sender, amount);
     }
 
