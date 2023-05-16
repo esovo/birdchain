@@ -1,7 +1,9 @@
 <template lang="">
+  <div class="layout">
   <DonateViewSwiper></DonateViewSwiper>
   <DonateViewDialog></DonateViewDialog>
   <router-view />
+  </div>
 </template>
 
 <script>
@@ -16,4 +18,11 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%; 
+}
+</style>

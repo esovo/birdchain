@@ -23,7 +23,7 @@
       <div class="swiper-button-prev"></div>
     </swiper>
     <div>총 기부 금액</div>
-    <div class="total">{{ totalValue }}</div>
+    <div class="total">{{ totalValue }}ETH</div>
   </div>
 </template>
 
@@ -34,6 +34,7 @@ import { ref } from "vue";
 import { createWeb3Instance } from "@/web3";
 import DonationAbi from "../../abi/Donation.json";
 import { onMounted } from "vue";
+// import { useStore } from "@/stores/store";
 SwiperCore.use([Navigation]);
 export default {
   components: {
@@ -73,19 +74,33 @@ export default {
         prevEl: ".swiper-button-prev",
       },
     };
+
+    // const store = useStore();
+    // const initValue = computed(() => store.getters.getTotalValue);
     var totalValue = ref(0);
     const watchTotalValue = async () => {
       const web3 = await createWeb3Instance();
 
       const Donation = new web3.eth.Contract(
         DonationAbi,
-        "0x87F592f53148d387aa2f05717b424ad618585E22",
+        "0x1678A184F4DEd0e15dd589fD98b8a87194c2412d",
       );
       await Donation.methods.getTotalContribution().call().then(function(value) {
-        const total = value;
-        totalValue = total;
+        const total = web3.utils.fromWei(value, 'ether');
+        totalValue.value = total;
         console.log("값이 " + value)
       });
+
+      // 이벤트 감시
+      await Donation.events
+        .DonationReceived()
+        .on("data", () => {
+          // 이벤트가 변경되면 알림을 표시
+          watchTotalValue();
+        })
+        .on("error", (error) => {
+          console.error("이벤트 감시 중 오류 발생:", error);
+        });
     };
 
     onMounted(watchTotalValue);
