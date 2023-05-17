@@ -358,6 +358,7 @@ export default {
   margin-right: 15%;
   margin-left: 15%;
   margin-top: 10%;
+  margin-bottom: 5%;
 }
 
 #circle1 {
@@ -399,7 +400,7 @@ export default {
 
 .swiper {
   width: 100%;
-  padding-top: 50px;
+  padding-top: 25px;
   padding-bottom: 50px;
 }
 
