@@ -15,26 +15,26 @@
       >
         <img :src="img1" style="object-fit: cover" />
         <div class="textfield">
-          <div class="maintext">
+          <h1 class="maintext">
             멸종위기에 처한<br />
-            새들을 위해 기부하세요.
-          </div>
+            새들을 위해 기부하세요
+          </h1>
           <div class="subtext">
             새는 매우 중요한 생태계의 일원입니다.<br />
             새의 멸종은 식량 연쇄 반응과 함께 <br />
             다른 동물과 식물들도 영향을 받을 수 있습니다.
           </div>
-          <div class="donatebtn">
-            <v-btn size="x-large" @click="$router.push('/donate')">
+          <div >
+            <v-btn class="donatebtn" size="x-large" @click="$router.push('/donate')">
               기부하기
             </v-btn>
-            <v-btn
+            <!-- <v-btn
               color="blue-darken-4"
               size="x-large"
               @click="$router.push('/donate')"
             >
               보러가기
-            </v-btn>
+            </v-btn> -->
           </div>
         </div>
       </div>
@@ -47,10 +47,10 @@
         data-aos-once="true"
       >
         <div class="textfield2">
-          <div class="maintext2">
+          <h1 class="maintext2">
             새들은 자연의 아름다운<br />
-            선물입니다.
-          </div>
+            선물입니다
+          </h1>
           <div class="subtext2">
             새는 농업 및 식량 생산에 중요한 역할을 합니다.<br />
             새는 자연의 다양성을 표현하는 동물입니다.<br />
@@ -71,29 +71,28 @@
 
         <div class="textfield">
           <div class="maintext">
-            우리는 그들을 <br />소중히 보호해야 합니다.
+            우리는 그들을 <br />소중히 보호해야 합니다
           </div>
           <div class="subtext">
-            우리는 새의 멸종을 막기 위해 다양한 방법으로<br />
-            새를 보호할 수 있습니다.<br />
-            예를 들어, 새의 서식지를 보호하고, <br />유독 물질과 오염을
+            우리는 다양한 방법으로 새를 보호할 수 있습니다.<br />
+            예를 들어, 새의 서식지를 보호하고, <br/>유독 물질과 오염을
             줄이고,<br />
-            새를 위한 먹이와 물을 제공하는<br />
-            노력을 기울일 수 있습니다.
+            먹이와 물을 제공하는 노력을 기울일 수 있습니다.
           </div>
           <div class="goal">
             <div class="goaldetail">
               <div class="goaldetailtitle">우리의 목표</div>
               <div class="goaldetailtext">
-                멸종위기의 새들을 보호하고<br />
-                사람들의 관심을 얻는 것입니다.
+                멸종위기의 <br/>새들을 보호하고<br />
+                사람들의 관심을 <br/>얻는 것입니다.
               </div>
             </div>
             <div class="goaldetail">
               <div class="goaldetailtitle">우리의 도전</div>
               <div class="goaldetailtext">
-                기부한 사용자에게<br />
-                NFT를 배부합니다.
+                기부자에게<br />
+                NFT를 <br/>발급해줌으로써 <br/>
+                기부를 독려합니다.
               </div>
             </div>
           </div>
@@ -113,14 +112,14 @@
       </div>
     </div>
     <div class="nftdonator">
-      <div
+      <h1
         class="maintext3"
         data-aos="fade-left"
         data-aos-duration="1000"
         data-aos-once="true"
       >
         기부하고 NFT를 받아가세요
-      </div>
+    </h1>
       <swiper
         :effect="'coverflow'"
         :navigation="true"
@@ -177,8 +176,8 @@ export default {
   },
   data() {
     return {
-      img1: require("../assets/img/bird5.jpg"),
-      img2: require("../assets/img/bird3.jpg"),
+      img1: require("../assets/img/bird3.jpg"),
+      img2: require("../assets/img/bird5.jpg"),
       img3: require("../assets/img/bird4.jpg"),
       img4: require("../assets/img/bgbird1.png"),
       img5: require("../assets/img/bgbird4.png"),
@@ -250,48 +249,43 @@ export default {
 
 .textfield {
   display: flex;
+  justify-content: center;
   flex-direction: column;
   margin-left: 5vw;
 }
 
 .textfield2 {
   display: flex;
+  justify-content: center;
   flex-direction: column;
   margin-right: 5vw;
 }
 
 .mainComponent img {
   width: 30vw;
-  border-radius: 3%;
-  box-shadow: 10px 10px #333;
+  box-shadow: 0px 15px 35px -5px rgba(93, 127, 110, 0.32);
+  border-radius: 20px;
 }
 
 .maintext {
-  font: 700 3vw/1.1 Calibre-R, sans-serif;
-  /* font-family: "IBM Plex Sans";
-  font-style: normal;
   font-weight: 600;
-  font-size: 3vw; */
-  /* font-size: 64px; */
+  font-size: 3vw;
   text-align: right;
   text-transform: capitalize;
   color: #02100d;
 }
 
 .maintext2 {
-  font: 700 3vw/1.1 Calibre-R, sans-serif;
-  /* font-size: 64px; */
+  font-weight: 600;
+  font-size: 3vw;
   text-align: left;
   text-transform: capitalize;
   color: #02100d;
 }
 
 .maintext3 {
-  font-family: "IBM Plex Sans", sans-serif;
-  font-style: normal;
   font-weight: 600;
   font-size: 3vw;
-  /* font-size: 64px; */
   text-align: left;
   text-transform: capitalize;
   color: #02100d;
@@ -299,16 +293,14 @@ export default {
 
 .subtext {
   margin-top: 1rem;
-  font: 700 1.5vw/3vw Inter, sans-serif;
+  margin-bottom: 0.5rem;
+  font-weight: -50;
   word-wrap: break-word;
   color: rgb(var(--neutral700-rgb, 102, 102, 102));
   letter-spacing: -0.03em;
   overflow: hidden;
   text-overflow: ellipsis;
-  /* font-family: "IBM Plex Sans", sans-serif;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 1vw; */
+  font-size: 1.2vw;
 
   text-align: right;
   text-transform: capitalize;
@@ -317,12 +309,14 @@ export default {
 
 .subtext2 {
   margin-top: 1rem;
-  font: 700 1.5vw/3vw Inter, sans-serif;
+  font-weight: -50;
   word-wrap: break-word;
   color: rgb(var(--neutral700-rgb, 102, 102, 102));
   letter-spacing: -0.03em;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-size: 1.2vw;
+
   text-align: left;
   text-transform: capitalize;
   color: #444444;
@@ -331,29 +325,28 @@ export default {
 .goal {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   text-align: center;
 }
 
 .goaldetail {
   width: 15vw;
-  height: 100px;
+  height: fit-content;
+  margin : 5px;
   background-color: #f5f5f5;
   box-shadow: 1px 1px 1px 1px grey;
   border-radius: 5%;
-
 }
 
 .goaldetailtitle {
   color: #204c4c;
-  font-family: "Nunito";
   font-style: normal;
   font-weight: 700;
-  font-size: 1.5vw;
+  font-size: 2vw;
 }
 
 .goaldetailtext {
-  margin-top: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
   font-family: "IBM Plex Sans";
   font-style: normal;
   font-weight: 700;
@@ -424,10 +417,8 @@ export default {
 }
 
 .donatebtn {
-  display: flex;
   margin-top: 50px;
-  margin-bottom: 50px;
-  justify-content: space-around;
+  width: 100%;
 }
 
 /* .swiper-slide img {
@@ -446,14 +437,15 @@ export default {
     justify-content: space-between;
     margin-right: 5%;
     margin-left: 5%;
-    margin-top: 10%;
-    margin-bottom: 5%;
+    margin-top: 30%;
+    margin-bottom: 30%;
   }
 
   .textfield {
     display: flex;
     flex-direction: column;
     margin-left: 5vw;
+    margin-right: 2vw;
   }
 
   .textfield2 {
@@ -463,56 +455,46 @@ export default {
   }
 
   .mainComponent img {
-    width: 20vw;
+    width: 25vw;
     height: auto;
     object-fit: contain;
   }
 
+  .component2 .mainComponent img {
+    width: 150px;
+  }
+
   .maintext {
-    font: 700 5vw/1.1 Calibre-R, sans-serif;
-    /* font-family: "IBM Plex Sans";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 3vw; */
-    /* font-size: 64px; */
+    font-size: 5vw;
     text-align: right;
     text-transform: capitalize;
     color: #02100d;
   }
 
   .maintext2 {
-    font: 700 5vw/1.1 Calibre-R, sans-serif;
-    /* font-size: 64px; */
+    font-size: 5vw;
     text-align: left;
     text-transform: capitalize;
     color: #02100d;
   }
 
   .maintext3 {
-    font-family: "IBM Plex Sans", sans-serif;
-    font-style: normal;
-    font-weight: 600;
     font-size: 5vw;
-    /* font-size: 64px; */
     text-align: left;
     text-transform: capitalize;
     color: #02100d;
   }
 
   .subtext {
-    display: none;
-
+    /* display: none; */
     margin-top: 1rem;
-    font: 700 3vw/3vw Inter, sans-serif;
+    font-weight: -50;
     word-wrap: break-word;
     color: rgb(var(--neutral700-rgb, 102, 102, 102));
     letter-spacing: -0.03em;
     overflow: hidden;
     text-overflow: ellipsis;
-    /* font-family: "IBM Plex Sans", sans-serif;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 1vw; */
+    font-size: 1vw;
 
     text-align: right;
     text-transform: capitalize;
@@ -520,14 +502,16 @@ export default {
   }
 
   .subtext2 {
-    display: none;
+    /* display: none; */
     margin-top: 1rem;
-    font: 700 3vw/3vw Inter, sans-serif;
+    font-weight: -50;
     word-wrap: break-word;
     color: rgb(var(--neutral700-rgb, 102, 102, 102));
     letter-spacing: -0.03em;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-size: 1.4vw;
+
     text-align: left;
     text-transform: capitalize;
     color: #444444;
@@ -535,46 +519,41 @@ export default {
 
   .goal {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
     text-align: center;
-        border-radius: 12%;
-
+    border-radius: 12%;
   }
 
   .goaldetail {
-    width: 30vw;
-    height: 150px;
+    width: 27vw;
+    margin: 5px;
     background-color: #f5f5f5;
     border-radius: 12%;
-
   }
 
   .goaldetailtitle {
     color: #204c4c;
-    font-family: "Nunito";
-    font-style: normal;
-    font-weight: 700;
-    font-size: 5vw;
+    font-size: 3.5vw;
   }
 
   .goaldetailtext {
-  margin-top: 1rem;
-  font-family: "IBM Plex Sans";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 1vw;
-  text-align: center;
-  text-transform: capitalize;
-  color: #555555;
-}
+    margin-top: 1rem;
+    text-align: center;
+    text-transform: capitalize;
+    color: #555555;
+  }
 
   .nftdonator {
     display: flex;
-    flex-wrap: wrap;
     flex-direction: row;
-    justify-content: space-between;
+    margin-left: 5%;
+    margin-right: 5%;
   }
+
+  .swiper {
+  width: 100%;
+  padding-bottom: 50px;
+  padding-top: 0px;
+}
 
   .backcircle {
     display: none;

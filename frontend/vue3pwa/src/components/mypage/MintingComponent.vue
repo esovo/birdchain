@@ -19,7 +19,7 @@
             TXID
           </th>
           <th class="text-left">
-            멸종 위기 등급
+            IUCN
           </th>
         </tr>
       </thead>
@@ -32,7 +32,7 @@
           <td class="text-left">{{item.amount}}</td>
           <td class="text-left" id="txid">{{ item.txid }}</td>
           <td class="text-left">
-            {{item.icun}}
+            {{item.iucn}}
             <!-- <v-rating
               v-model="item.rating"
               bg-color="orange-lighten-1"

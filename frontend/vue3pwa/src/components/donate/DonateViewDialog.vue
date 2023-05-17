@@ -113,6 +113,12 @@ export default {
         balance.value = web3.utils.fromWei(weiBalance, "ether");
       }
     };
+
+    watch(dialog, () => {
+      console.log("다이얼로그 켜지고 꺼지고");
+      dAmount.value = 0;
+    });
+
     // 계정을 확인해서 기부 한 상태인지 아닌지에 따라서 분기처리
     const checkAccounts = async () => {
       console.log("기부 한 계정인지 확인하기");
@@ -140,12 +146,6 @@ export default {
         dAmount.value.toString(),
         "ether"
       );
-
-      watch(dialog, (newVal) => {
-        if (!newVal) {
-          dAmount.value = 0;
-        }
-      });
 
       await Donation.methods
         .donate()
