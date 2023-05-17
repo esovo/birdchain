@@ -1,24 +1,28 @@
 ﻿<template>
   <div class="map-top">
-    <img class="map-img" src="img/icons/bird-flying.gif"/>
-    <MarkerTypeButton @searchByType="searchByType" class="type-btn"></MarkerTypeButton>
+    <img class="map-img" src="img/icons/bird-flying.gif" />
+    <MarkerTypeButton
+      @searchByType="searchByType"
+      class="type-btn"></MarkerTypeButton>
   </div>
-  <MapSearchBar @searchByAddress="searchByAddress" @searchCurPosition="searchCurPosition" :validAddress="validAddress" class="search-bar"></MapSearchBar>
+  <MapSearchBar
+    @searchByAddress="searchByAddress"
+    @searchCurPosition="searchCurPosition"
+    :validAddress="validAddress"
+    class="search-bar"></MapSearchBar>
   <div>
     <div id="map" @click.once="movePin"></div>
     <div class="info-regist">
       <div>
-        지도 위를 클릭하여 <img src="img/icons/pin.png" class="info-img"/> 핀을 움직여보세요. 
+        지도 위를 클릭하여 <img src="img/icons/pin.png" class="info-img" /> 핀을
+        움직여보세요.
       </div>
-      <div>
-        아래에 게시물을 작성할 위치의 주소가 표시됩니다.
-      </div>
+      <div>아래에 게시물을 작성할 위치의 주소가 표시됩니다.</div>
     </div>
     <MarkerRegist
       :placeInfo="placeInfo"
       :map="map"
-      @reloadMarker="reloadMarker"
-    ></MarkerRegist>
+      @reloadMarker="reloadMarker"></MarkerRegist>
   </div>
   <div class="flex-box">
     <MakerDetail
@@ -26,13 +30,11 @@
       :marker_id="marker_id"
       @reloadMarker="reloadMarker"
       @notValid="notValid"
-      class="markerDetail"
-    ></MakerDetail>
+      class="markerDetail"></MakerDetail>
     <CommentList
       v-if="isValid"
       :marker_id="marker_id"
-      class="commentList"
-    ></CommentList>
+      class="commentList"></CommentList>
   </div>
 </template>
 
@@ -74,7 +76,7 @@ const makePin = () => {
   });
   // 지도에 마커를 표시합니다
   curMarker.setMap(map);
-}
+};
 
 // <마커 표시하기>
 const markers = ref([]);
@@ -95,7 +97,7 @@ const displayMarker = (marker_type) => {
   // axios 요청 보내서 DB 마커 가젹오기
   getMarkersByType(marker_type).then(({ data }) => {
     markerData.value = data.value;
-    
+
     // 전달받은 위도&경도로 마커 생성하고 지도에 표시하기
     if (markerData.value.length > 0) {
       markerData.value.forEach((m) => {
@@ -193,11 +195,11 @@ const notValid = () => {
 const validAddress = ref(false);
 const searchCurPosition = () => {
   // HTML5의 geolocation으로 사용할 수 있는지 확인합니다
-	if (navigator.geolocation) {
+  if (navigator.geolocation) {
     // GeoLocation을 이용해서 접속 위치를 얻어옵니다
-    navigator.geolocation.getCurrentPosition(function(position) {
+    navigator.geolocation.getCurrentPosition(function (position) {
       var lat = position.coords.latitude, // 위도
-          lng = position.coords.longitude; // 경도
+        lng = position.coords.longitude; // 경도
       var locPosition = new kakao.maps.LatLng(lat, lng); // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
       map.setCenter(locPosition);
       curMarker.setPosition(locPosition);
@@ -213,15 +215,16 @@ const searchCurPosition = () => {
           // 지번 주소
           placeInfo[3] = result[0].address.address_name;
         }
-      })
+      });
     });
-  } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
+  } else {
+    // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
     validAddress.value = true;
     var locPosition = new kakao.maps.LatLng(36.354946759143, 127.29980994578);
     map.setCenter(locPosition);
     curMarker.setPosition(locPosition);
   }
-}
+};
 
 // <키워드로 위치 검색하기>
 const searchByAddress = (keyword) => {
@@ -230,11 +233,11 @@ const searchByAddress = (keyword) => {
   // 키워드로 장소를 검색합니다
   ps.keywordSearch(keyword, placesSearchCB);
   // 키워드 검색 완료 시 호출되는 콜백함수 입니다
-  function placesSearchCB (data, status, pagination) {
+  function placesSearchCB(data, status, pagination) {
     if (status === kakao.maps.services.Status.OK) {
       pagination;
-      placeInfo[0] = data[0].y;   // 위도
-      placeInfo[1] = data[0].x;   // 경도
+      placeInfo[0] = data[0].y; // 위도
+      placeInfo[1] = data[0].x; // 경도
       var locPosition = new kakao.maps.LatLng(data[0].y, data[0].x);
       map.setCenter(locPosition);
       curMarker.setPosition(locPosition);
@@ -247,10 +250,10 @@ const searchByAddress = (keyword) => {
           // 지번 주소
           placeInfo[3] = result[0].address.address_name;
         }
-      })
-    } 
+      });
+    }
   }
-}
+};
 
 // <타입별로 마커 검색하기>
 const searchByType = (data) => {
@@ -273,8 +276,8 @@ const searchByType = (data) => {
 }
 
 .map-img {
-  width: 150px;
-  height: 150px;
+  width: 12vw;
+  height: 12vw;
 }
 
 #map {
@@ -326,16 +329,9 @@ const searchByType = (data) => {
     width: 100vw;
     margin: 0 auto;
   }
-  .type-btn {
-    width: 100vw;
-    margin: 0 auto;
-  }
   .map-top {
     width: 100vw;
   }
-}
-
-@media (max-width: 800px) {
   .markerDetail {
     margin-right: 0;
   }
