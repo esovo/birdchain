@@ -73,13 +73,13 @@
     </v-row>
   </v-container>
 
-  <v-overlay
-    activator="parent"
-    location-strategy="connected"
-    scroll-strategy="block"
-    v-if="showOverlay"
-    class="align-center"
-  >
+  <v-overlay v-model="loading">
+    <v-progress-circular
+      indeterminate
+      size="70"
+      width="7"
+      color="primary"
+    ></v-progress-circular>
   </v-overlay>
 </template>
 <script>
@@ -98,6 +98,9 @@ export default {
   setup() {
     const Dstore = donationStore();
     const donation_id = Dstore.donation_id;
+
+    const loading = ref(false);
+
     const itemName = [
       "Aquila chrysaetos",
       "Eurynorhynchus pygmeus",
@@ -280,6 +283,8 @@ export default {
     };
 
     const createNFT = async (imgURI) => {
+      loading.value = true;
+
       let CID;
       // console.log(itemName[parseInt((NFTNum.value - 1) / 5)]);
       // console.log(imgURI);
@@ -350,6 +355,8 @@ export default {
             .then(() => {
               console.log("item 등록 완료");
               selectNFT(account.value);
+              loading.value = false;
+
               router.push("/mypage");
             });
         });
@@ -375,6 +382,7 @@ export default {
       checkAccount,
       accountDonation,
       showOverlay,
+      loading,
     };
   },
 
@@ -505,8 +513,21 @@ img {
   transform: translateY(-5px);
 }
 
-.align-center {
+/* .align-center {
   position: fixed;
   top: 50vh;
+} */
+
+.v-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 </style>
