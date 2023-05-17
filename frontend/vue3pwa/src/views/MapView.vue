@@ -25,16 +25,24 @@
       @reloadMarker="reloadMarker"></MarkerRegist>
   </div>
   <div class="flex-box">
-    <MakerDetail
-      v-if="isValid"
-      :marker_id="marker_id"
-      @reloadMarker="reloadMarker"
-      @notValid="notValid"
-      class="markerDetail"></MakerDetail>
-    <CommentList
-      v-if="isValid"
-      :marker_id="marker_id"
-      class="commentList"></CommentList>
+    <div class="markerDetail">
+      <div class="info-title">
+        <img src="img/icons/post-detail.gif" style="width: 4vw; height: 4vw" />
+        <div class="info-post">게시글 상세보기</div>
+      </div>
+      <MakerDetail
+        v-if="isValid"
+        :marker_id="marker_id"
+        @reloadMarker="reloadMarker"
+        @notValid="notValid"></MakerDetail>
+    </div>
+    <div class="commentList">
+      <div class="info-title">
+        <img src="img/icons/post-detail.gif" style="width: 4vw; height: 4vw" />
+        <div class="info-post">댓글달기</div>
+      </div>
+      <CommentList v-if="isValid" :marker_id="marker_id"></CommentList>
+    </div>
   </div>
 </template>
 
@@ -298,25 +306,38 @@ const searchByType = (data) => {
   flex-wrap: wrap;
   background-color: #f7fbf3;
   padding: 50px 0;
+  margin-top: 10px;
 }
 
 .markerDetail {
-  margin-top: 40px;
   margin-right: 70px;
 }
 
 .commentList {
-  margin-top: 40px;
   margin-left: 70px;
 }
 
 .info-regist {
+  font-size: 1.5vw;
   margin-top: 10px;
 }
 
 .info-img {
   width: 2.5w;
   height: 2.5vw;
+}
+
+.info-post {
+  font-size: 1.5vw;
+  margin: auto 0;
+}
+
+.info-title {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  width: 450px;
 }
 
 @media (max-width: 800px) {
@@ -346,6 +367,12 @@ const searchByType = (data) => {
   }
   .commentList {
     margin-left: 0px;
+  }
+  .info-post {
+    font-size: 3vw;
+  }
+  .info-regist {
+    font-size: 3vw;
   }
 }
 </style>

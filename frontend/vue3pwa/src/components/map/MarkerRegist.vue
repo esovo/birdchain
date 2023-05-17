@@ -7,14 +7,17 @@
           <!-- <p>{{ props.placeInfo[2] }}</p> -->
           <!-- 지명 주소 -->
           <div class="select-address">
-            <div v-if="!props.placeInfo[3]" style="color:rgb(189, 189, 189); font-size:15px;">주소를 선택해주세요 :b</div>
+            <div
+              v-if="!props.placeInfo[3]"
+              style="color: rgb(189, 189, 189); font-size: 15px">
+              주소를 선택해주세요 :b
+            </div>
             <div v-if="props.placeInfo[3]">{{ props.placeInfo[3] }}</div>
           </div>
           <v-btn
             variant="tonal"
             color="light-green lighten-3"
             @click="showModal"
-            class="mt-2"
             >게시물 등록하기</v-btn
           >
         </div>
@@ -27,43 +30,43 @@
               <p class="required-input">*표시는 필수 입력 사항입니다.</p>
               <v-form @submit.prevent>
                 <v-text-field
-                label="*닉네임"
-                v-model="form.nickname"
-                :rules="[nickname_rule]" ></v-text-field>
+                  label="*닉네임"
+                  v-model="form.nickname"
+                  :rules="[nickname_rule]"></v-text-field>
                 <v-text-field
                   label="*비밀번호"
                   type="password"
                   v-model="form.password"
-                  :rules="[pw_rule]" ></v-text-field>
-                  <v-file-input
+                  :rules="[pw_rule]"></v-text-field>
+                <v-file-input
                   label="*이미지"
                   prepend-icon="mdi-camera"
                   v-model="form.image"
                   @change="previewImage"
                   @click:clear="hidePreview"
                   :rules="[img_rule]"></v-file-input>
-                  <v-img
+                <v-img
                   v-if="imageUrl"
                   :src="imageUrl"
                   alt="이미지 미리보기"
                   class="mb-6" />
-                  <v-select
+                <v-select
                   :items="types"
                   label="*유형"
                   v-model="form.type"
                   :rules="[type_rule]"></v-select>
-                  <v-text-field
+                <v-text-field
                   label="*위치"
                   v-model="form.location"
                   readonly
                   :rules="[location_rule]"></v-text-field>
-                  <v-divider></v-divider>
-                  <v-textarea
+                <v-divider></v-divider>
+                <v-textarea
                   label="*글 내용"
                   v-model="form.content"
                   rows="5"
                   :rules="[content_rule]"></v-textarea>
-                </v-form>
+              </v-form>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
@@ -112,64 +115,68 @@ const form = ref({
 // 유효성 검사
 const nickname_rule = (value) => {
   if (!value) {
-    return '닉네임은 필수 입력사항입니다.'
+    return "닉네임은 필수 입력사항입니다.";
   }
 
   if (!(value && value.length <= 15)) {
-    return '닉네임은 15자 이내로 입력할 수 있습니다.'
+    return "닉네임은 15자 이내로 입력할 수 있습니다.";
   }
 
-  const special = value.match(/[\\{\\}\\[\]\\/?.,;:|\\)*~`!^\-_+<>@\\#$%&\\\\=\\(\\'\\"]/g);
+  const special = value.match(
+    /[\\{\\}\\[\]\\/?.,;:|\\)*~`!^\-_+<>@\\#$%&\\\\=\\(\\'\\"]/g
+  );
   if (special) {
-    return '특수문자는 입력할 수 없습니다.'
+    return "특수문자는 입력할 수 없습니다.";
   }
   return true;
-}
+};
 
 const pw_rule = (value) => {
   if (!value) {
-    return '비밀번호는 필수 입력사항입니다.'
+    return "비밀번호는 필수 입력사항입니다.";
   }
   if (!(value && value.length <= 30)) {
-    return '비밀번호는 30자 이내로 입력할 수 있습니다.'
+    return "비밀번호는 30자 이내로 입력할 수 있습니다.";
   }
   return true;
-}
+};
 
 const img_rule = (value) => {
   if (value) {
-    const allowedExtensions = ['.jpg', '.jpeg', '.png', '.gif'];
-    const fileExtension = value[0].name.substr(value[0].name.lastIndexOf('.')).toLowerCase();
+    const allowedExtensions = [".jpg", ".jpeg", ".png", ".gif"];
+    const fileExtension = value[0].name
+      .substr(value[0].name.lastIndexOf("."))
+      .toLowerCase();
     console.log(fileExtension);
     if (allowedExtensions.includes(fileExtension)) {
       return true;
     } else {
-      return '올바른 이미지 파일을 선택해주세요.';
+      return "올바른 이미지 파일을 선택해주세요.";
     }
   } else {
-    return '이미지는 필수 입력사항입니다.';
+    return "이미지는 필수 입력사항입니다.";
   }
-}
+};
 
 const type_rule = (value) => {
-  if (value) return true
-  return '유형은 필수 선택사항입니다.'
-}
+  if (value) return true;
+  return "유형은 필수 선택사항입니다.";
+};
 
 const location_rule = (value) => {
-  if (value) return true
-  return '위치는 필수 선택사항입니다.'
-}
+  if (value) return true;
+  return "위치는 필수 선택사항입니다.";
+};
 
 const content_rule = (value) => {
   if (!value) {
-    return '내용은 필수 선택사항입니다.'
+    return "내용은 필수 선택사항입니다.";
   }
   if (!(value && value.length <= 255)) {
-    return '내용은 공백 포함 255자 이내로 입력할 수 있습니다.'
+    return "내용은 공백 포함 255자 이내로 입력할 수 있습니다.";
   }
-  return true
-}
+  return true;
+};
 
 // 등록창 띄우기
 const showModal = () => {
@@ -314,8 +321,13 @@ const submitForm = () => {
   flex-direction: column;
   align-items: center; /* 가로 정렬 */
   justify-content: center; /* 세로 정렬 */
+  font-size: 1vw;
 }
 
+.v-btn {
+  font-size: 1.2vw;
+  margin-top: 10px;
+}
 
 @media (min-width: 960px) {
   .v-container {
@@ -346,6 +358,15 @@ const submitForm = () => {
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+}
+
+@media (max-width: 1062px) {
+  .v-btn {
+    font-size: 3vw;
+  }
+  .select-address {
+    font-size: 2vw;
   }
 }
 </style>
