@@ -42,6 +42,8 @@
           type="number"
           id="donateAmount"
           v-model="dAmount"
+          :min="0.001"
+          step="0.001"
           style="margin-left: 6vw; margin-right: 6vw"
         />
         <p style="margin-left: 3vw">입력된 금액 : {{ dAmount }}</p>
@@ -51,10 +53,19 @@
         </div>
       </v-card>
     </v-dialog>
+
+    <v-overlay v-model="loading">
+      <v-progress-circular
+        indeterminate
+        size="70"
+        width="7"
+        color="primary"
+      ></v-progress-circular>
+    </v-overlay>
   </div>
 </template>
 <script>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { createWeb3Instance } from "@/web3";
 import DonationAbi from "../../abi/Donation.json";
 import router from "@/router";
@@ -68,7 +79,7 @@ export default {
   setup() {
     const dStore = donationStore();
     const wStore = walletStore();
-
+    const loading = ref(false);
     const setDonation_id = (value) => {
       dStore.setDoation_id(value);
     };
@@ -102,6 +113,12 @@ export default {
         balance.value = web3.utils.fromWei(weiBalance, "ether");
       }
     };
+
+    watch(dialog, () => {
+      console.log("다이얼로그 켜지고 꺼지고");
+      dAmount.value = 0;
+    });
+
     // 계정을 확인해서 기부 한 상태인지 아닌지에 따라서 분기처리
     const checkAccounts = async () => {
       console.log("기부 한 계정인지 확인하기");
@@ -116,6 +133,9 @@ export default {
       }
     };
     const donating = async () => {
+      console.log(loading.value);
+      loading.value = true;
+      console.log(loading.value);
       const web3 = await createWeb3Instance();
 
       const Donation = new web3.eth.Contract(
@@ -148,6 +168,7 @@ export default {
               setDonation_id(res.data.value);
               setwallet(account.value);
               accountStore.donate();
+              loading.value = false;
               router.push("/nft");
             });
         });
@@ -164,6 +185,7 @@ export default {
       setDonation_id,
       setwallet,
       donateBtn,
+      loading,
     };
   },
 
@@ -201,5 +223,23 @@ export default {
   margin-top: 3vw;
   margin-bottom: 3vw;
   justify-content: center;
+}
+
+/* .align-center {
+  position: fixed;
+  top: 50vh;
+} */
+
+.v-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 </style>

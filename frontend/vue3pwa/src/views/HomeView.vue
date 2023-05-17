@@ -434,8 +434,8 @@ export default {
     justify-content: space-between;
     margin-right: 5%;
     margin-left: 5%;
-    margin-top: 10%;
-    margin-bottom: 5%;
+    margin-top: 30%;
+    margin-bottom: 30%;
   }
 
   .textfield {
@@ -455,6 +455,10 @@ export default {
     width: 25vw;
     height: auto;
     object-fit: contain;
+  }
+
+  .component2 .mainComponent img {
+    width: 150px;
   }
 
   .maintext {

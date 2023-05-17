@@ -17,7 +17,7 @@
           <v-hover v-slot:default="{ hover }">
             <v-img :src="imgA" :class="hover ? 'blur-image' : ''"></v-img>
           </v-hover>
-          <v-card-title v-if="hover[0] === 0" class="overlay"> </v-card-title>
+          <v-card-title v-if="hover[0] === 0" class="overlays"> </v-card-title>
         </v-card>
       </v-col>
 
@@ -33,7 +33,7 @@
           <v-hover v-slot:default="{ hover }">
             <v-img :src="imgB" :class="hover ? 'blur-image' : ''"></v-img>
           </v-hover>
-          <v-card-title v-if="hover[1] === 1" class="overlay"> </v-card-title>
+          <v-card-title v-if="hover[1] === 1" class="overlays"> </v-card-title>
         </v-card>
       </v-col>
     </v-row>
@@ -51,7 +51,7 @@
           <v-hover v-slot:default="{ hover }">
             <v-img :src="imgC" :class="hover ? 'blur-image' : ''"></v-img>
           </v-hover>
-          <v-card-title v-if="hover[2] === 2" class="overlay"> </v-card-title>
+          <v-card-title v-if="hover[2] === 2" class="overlays"> </v-card-title>
         </v-card>
       </v-col>
 
@@ -67,11 +67,20 @@
           <v-hover v-slot:default="{ hover }">
             <v-img :src="imgD" :class="hover ? 'blur-image' : ''"></v-img>
           </v-hover>
-          <v-card-title v-if="hover[3] === 3" class="overlay"> </v-card-title>
+          <v-card-title v-if="hover[3] === 3" class="overlays"> </v-card-title>
         </v-card>
       </v-col>
     </v-row>
   </v-container>
+
+  <v-overlay v-model="loading">
+    <v-progress-circular
+      indeterminate
+      size="70"
+      width="7"
+      color="primary"
+    ></v-progress-circular>
+  </v-overlay>
 </template>
 <script>
 import axios from "axios";
@@ -89,6 +98,9 @@ export default {
   setup() {
     const Dstore = donationStore();
     const donation_id = Dstore.donation_id;
+
+    const loading = ref(false);
+
     const itemName = [
       "Aquila chrysaetos",
       "Eurynorhynchus pygmeus",
@@ -271,6 +283,8 @@ export default {
     };
 
     const createNFT = async (imgURI) => {
+      loading.value = true;
+
       let CID;
       // console.log(itemName[parseInt((NFTNum.value - 1) / 5)]);
       // console.log(imgURI);
@@ -295,6 +309,7 @@ export default {
       }
 
       try {
+        showOverlay.value = true;
         const metadataFile = createMetadata();
         CID = await client.put([metadataFile]);
         console.log("메타데이터 저장 완료 : ", CID);
@@ -340,10 +355,14 @@ export default {
             .then(() => {
               console.log("item 등록 완료");
               selectNFT(account.value);
+              loading.value = false;
+
               router.push("/mypage");
             });
         });
     };
+
+    const showOverlay = ref(false); // 오버레이 표시 여부를 관리하는 상태
 
     return {
       hover,
@@ -362,6 +381,8 @@ export default {
       check,
       checkAccount,
       accountDonation,
+      showOverlay,
+      loading,
     };
   },
 
@@ -473,7 +494,7 @@ img {
   filter: blur(3px);
 }
 
-.overlay {
+.overlays {
   position: absolute;
   top: 0;
   left: 0;
@@ -490,5 +511,23 @@ img {
 .elevation-hover {
   transition: transform 0.3s;
   transform: translateY(-5px);
+}
+
+/* .align-center {
+  position: fixed;
+  top: 50vh;
+} */
+
+.v-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 </style>

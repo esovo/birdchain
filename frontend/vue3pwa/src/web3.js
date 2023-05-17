@@ -29,8 +29,35 @@ export async function createWeb3Instance() {
   return web3;
 }
 
+export async function checkWeb3Instance() {
+  let web3;
+  const wStore = walletStore();
+
+  const setwallet = (value) => {
+    wStore.setwallet(value);
+  };
+
+  if (window.ethereum) {
+    web3 = new Web3(window.ethereum);
+    await window.ethereum.enable();
+  } else if (window.web3) {
+    web3 = new Web3(window.web3.currentProvider);
+  } else {
+    console.log("이더리움 설치 안되어 있습니다.");
+  }
+
+  try {
+    const accounts = await web3.eth.getAccounts();
+    setwallet(accounts[0]);
+  } catch (e) {
+    console.error("지갑을 찾을 수 없음", e);
+  }
+
+  return web3;
+}
+
 export async function checkAccountConnection() {
-  const web3 = await createWeb3Instance();
+  const web3 = await checkWeb3Instance();
 
   if (web3) {
     const accounts = await web3.eth.getAccounts();
