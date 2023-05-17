@@ -21,9 +21,9 @@
     <div class="headerLink">
       <router-link to="/game">게임</router-link>
     </div>
-    <div class="walletimg" @click="getAccount" style="cursor: pointer">
+    <!-- <div class="walletimg" @click="getAccount" style="cursor: pointer">
       <div class="wallettext">지갑 연동&nbsp;&nbsp;</div><img :src="walletUrl" />
-    </div>
+    </div> -->
   </div>
 </template>
 
