@@ -23,15 +23,3 @@ export const walletStore = defineStore({
     },
   },
 });
-
-export const totalContribution = defineStore({
-  id: "tStore",
-  state: () => ({
-    totalContributionValue: "",
-  }),
-  actions: {
-    setTotalContributeValue(value) {
-      this.totalContributionValue = value;
-    },
-  },
-});
