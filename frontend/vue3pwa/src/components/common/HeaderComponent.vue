@@ -21,9 +21,6 @@
     <h1 class="headerLink">
       <router-link to="/game">게임</router-link>
     </h1>
-    <div class="walletimg" @click="getAccount" style="cursor: pointer">
-      <h1 class="wallettext">지갑 연동&nbsp;&nbsp;</h1><img :src="walletUrl" />
-    </div>
   </div>
 </template>
 
