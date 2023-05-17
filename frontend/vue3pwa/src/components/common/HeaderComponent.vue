@@ -15,14 +15,15 @@
     <div class="headerLink">
       <router-link to="/post">정보 공유</router-link>
     </div>
-    <div class="headerLink" v-if="accountStore.account">
+    <div class="headerLink" v-if="accountStore.isConnected">
       <router-link to="/mypage">마이페이지</router-link>
     </div>
     <div class="headerLink">
       <router-link to="/game">게임</router-link>
     </div>
     <div class="walletimg" @click="getAccount" style="cursor: pointer">
-      <div class="wallettext">지갑 연동&nbsp;&nbsp;</div><img :src="walletUrl" />
+      <div class="wallettext">지갑 연동&nbsp;&nbsp;</div>
+      <img :src="walletUrl" />
     </div>
   </div>
 </template>
@@ -39,11 +40,13 @@ export default defineComponent({
     const walletUrl = ref(require("../../assets/img/wallet.png"));
     const accountStore = useAccountStore();
 
+    console.log(accountStore.account);
     const getAccount = async () => {
       const web3 = await createWeb3Instance();
       if (web3) {
         const accounts = await web3.eth.getAccounts();
         accountStore.setAccount(accounts[0]);
+        console.log(accountStore.account);
       }
     };
 
@@ -73,11 +76,11 @@ export default defineComponent({
 }
 a {
   text-decoration: none;
-  color: #473C33;
+  color: #473c33;
   font-weight: 700;
 }
 
-.wallettext{
+.wallettext {
   font-size: 18;
   color: #4e4e4e;
   /* font-family: 'Roboto'; */
@@ -99,8 +102,6 @@ a {
   height: 30px;
   margin-right: 20px;
 }
-
-
 
 .headerLink {
   display: flex;
@@ -129,15 +130,14 @@ a {
     flex-basis: 50%;
     margin-left: 4%;
     margin-top: 10px;
-    
   }
   .walletimg img {
     display: flex;
     justify-content: flex-end;
     width: 30px;
   }
-  .wallettext{
-   display: none;
+  .wallettext {
+    display: none;
   }
 }
 </style>
