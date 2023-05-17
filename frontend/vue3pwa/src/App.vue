@@ -34,15 +34,19 @@ export default {
 
   setup() {
     const eventData = ref(null);
-    const checkAccount = checkAccountConnection();
     const account = useAccountStore();
     const instance = getCurrentInstance();
 
-    if (checkAccount === false) {
-      console.log("계정이 연결되어 있지 않음");
-    } else {
-      account.setAccount(checkAccount);
-    }
+    const initialize = async () => {
+      const checkAccount = await checkAccountConnection();
+      console.log("이건 체크 어카운트", checkAccount);
+      if (checkAccount === false) {
+        console.log("계정이 연결되어 있지 않음");
+      } else {
+        console.log("계정 연결 되어 있슴");
+        account.setAccount(checkAccount);
+      }
+    };
 
     const showNotification = (message) => {
       console.log(message);
@@ -79,7 +83,10 @@ export default {
         });
     };
 
-    onMounted(showLog);
+    onMounted(async () => {
+      await initialize(); // 여기서 초기화 함수 호출
+      await showLog(); // showLog() 함수도 async로 변경됐으므로, 여기서 await 사용
+    });
 
     return {
       eventData,
@@ -91,7 +98,7 @@ export default {
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  /* font-family: 'The Jamsil 4 Medium'; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -108,6 +115,34 @@ export default {
   }
   #bottomnav {
     display: block;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+v-btn {
+  font-family: "Cafe24Ssurround";
+}
+div {
+  font-family: "GyeonggiTitleM";
+  font-weight: 100;
+}
+@media (max-width: 600px) {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  v-btn {
+    font-family: "Cafe24Ssurround";
+  }
+  div {
+    font-family: "GyeonggiTitleM";
   }
 }
 </style>

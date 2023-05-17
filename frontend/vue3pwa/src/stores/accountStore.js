@@ -20,5 +20,10 @@ export const useAccountStore = defineStore({
       // 기부가 완료되면 hasDonated 상태를 true로 설정
       this.hasDonated = true;
     },
+
+    async getAccountAsync() {
+      console.log(this.account);
+      return await this.account;
+    },
   },
 });

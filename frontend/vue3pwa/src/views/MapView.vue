@@ -69,6 +69,12 @@ const makePin = () => {
 const markers = ref([]);
 const markerData = ref([]);
 const marker_id = ref(1);
+//마커 이미지의 이미지 주소입니다
+const imgSrc = "img/icons/feather.png";
+// 마커 이미지의 이미지 크기 입니다
+const imgSize = new kakao.maps.Size(60, 50);
+// 마커 이미지를 생성합니다
+const markersImage = new kakao.maps.MarkerImage(imgSrc, imgSize);
 const displayMarker = (marker_type) => {
   // 기존에 있던 마커들 지우기
   if (markers.value.length > 0) {
@@ -78,7 +84,7 @@ const displayMarker = (marker_type) => {
   // axios 요청 보내서 DB 마커 가젹오기
   getMarkersByType(marker_type).then(({ data }) => {
     markerData.value = data.value;
-
+    
     // 전달받은 위도&경도로 마커 생성하고 지도에 표시하기
     if (markerData.value.length > 0) {
       markerData.value.forEach((m) => {
@@ -87,18 +93,38 @@ const displayMarker = (marker_type) => {
         const marker = new kakao.maps.Marker({
           map,
           position: markerPosition,
+          image: markersImage,
         });
 
         // 마커에 클릭이벤트를 등록합니다
         kakao.maps.event.addListener(marker, "click", function () {
           isValid.value = true;
           marker_id.value = m.id;
+          markerClickHandler(marker);
         });
         // 생성한 마커를 markers 배열에 추가하기
         markers.value.push(marker);
       });
     }
   });
+};
+// 이전에 선택한 마커의 참조 변수
+var previousMarker = null;
+
+// 클릭한 마커 상태 변경
+const markerClickHandler = (marker) => {
+  // 이전에 선택한 마커가 있으면 크기를 원래 크기로 돌리기
+  if (previousMarker) {
+    previousMarker.setImage(markersImage); // markersImage는 이전에 생성한 마커 이미지 객체입니다
+  }
+
+  // 선택한 마커의 이미지 크기를 변경하기
+  const clickImageSize = new kakao.maps.Size(100, 100); // 크기를 변경할 값으로 설정합니다
+  const clickMarkerImage = new kakao.maps.MarkerImage(imgSrc, clickImageSize);
+  marker.setImage(clickMarkerImage);
+
+  // 선택한 마커를 이전에 선택한 마커 변수에 저장하기
+  previousMarker = marker;
 };
 
 onMounted(() => {
@@ -110,7 +136,6 @@ onMounted(() => {
 // <클릭한 위치 위도, 경도, 법정동 주소 가져오기>
 const placeInfo = reactive([]);
 const movePin = () => {
-  // 지도에 클릭 이벤트를 등록합니다
   // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
   kakao.maps.event.addListener(map, "click", function (mouseEvent) {
     searchDetailAddrFromCoords(mouseEvent.latLng, function (result, status) {
@@ -123,6 +148,9 @@ const movePin = () => {
         placeInfo[0] = latlng.getLat();
         // 경도
         placeInfo[1] = latlng.getLng();
+        // console.log(placeInfo[0]);
+        // console.log(placeInfo[1]);
+
         // 도로명 주소
         result[0].road_address
           ? (placeInfo[2] = result[0].road_address.address_name)

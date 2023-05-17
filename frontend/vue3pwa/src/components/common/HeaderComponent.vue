@@ -6,31 +6,26 @@
       @click="this.$router.push({ name: 'main' })"
       style="cursor: pointer"
     />
-    <div class="headerLink">
+    <h1 class="headerLink">
       <router-link to="/birds">멸종 위기 조류</router-link>
-    </div>
-    <div class="headerLink">
+    </h1>
+    <h1 class="headerLink">
       <router-link to="/donate">기부하기</router-link>
-    </div>
-    <div class="headerLink">
+    </h1>
+    <h1 class="headerLink">
       <router-link to="/post">정보 공유</router-link>
-    </div>
-    <div class="headerLink" v-if="accountStore.isConnected">
+    </h1>
+    <h1 class="headerLink" v-if="accountStore.account">
       <router-link to="/mypage">마이페이지</router-link>
-    </div>
-    <div class="headerLink">
+    </h1>
+    <h1 class="headerLink">
       <router-link to="/game">게임</router-link>
-    </div>
-    <div class="walletimg" @click="getAccount" style="cursor: pointer">
-      <div class="wallettext">지갑 연동&nbsp;&nbsp;</div>
-      <img :src="walletUrl" />
-    </div>
+    </h1>
   </div>
 </template>
 
 <script>
 import { defineComponent, ref } from "vue";
-import { createWeb3Instance } from "@/web3";
 import { useAccountStore } from "@/stores/accountStore";
 
 export default defineComponent({
@@ -40,17 +35,12 @@ export default defineComponent({
     const walletUrl = ref(require("../../assets/img/wallet.png"));
     const accountStore = useAccountStore();
 
+    console.log("여기는 헤더");
     console.log(accountStore.account);
-    const getAccount = async () => {
-      const web3 = await createWeb3Instance();
-      if (web3) {
-        const accounts = await web3.eth.getAccounts();
-        accountStore.setAccount(accounts[0]);
-        console.log(accountStore.account);
-      }
-    };
-
-    return { LogoUrl, walletUrl, accountStore, getAccount };
+    console.log(accountStore.getAccountAsync());
+    console.log(accountStore.isConnected);
+    console.log("위에는 어카운트 스토어");
+    return { LogoUrl, walletUrl, accountStore };
   },
 });
 </script>
@@ -65,10 +55,6 @@ export default defineComponent({
   flex-direction: row;
   font-size: 18;
   color: #4e4e4e;
-  /* font-family: 'Roboto'; */
-  font-family: "IBM Plex Sans KR";
-  font-style: normal;
-  font-weight: 400;
   line-height: 27px;
   width: 100%;
   border-bottom: solid;
@@ -81,17 +67,15 @@ a {
 }
 
 .wallettext {
-  font-size: 18;
-  color: #4e4e4e;
-  /* font-family: 'Roboto'; */
-  font-family: "IBM Plex Sans KR";
-  font-style: normal;
-  font-weight: 700;
+  margin-top: 5px;
+  font-size: 1.5vw;
   line-height: 27px;
+  color: #4e4e4e;
 }
 
 .Logoimg {
   height: 100px;
+  margin-left: 2vw;
 }
 
 .walletimg {
@@ -108,10 +92,14 @@ a {
   flex-direction: row;
   margin-left: 4%;
   margin-top: 40px;
-  /* font-family: "IBM Plex Sans KR"; */
-
-  font-size: 18px;
+  font-size: 1.5vw;
   line-height: 27px;
+}
+
+@media (max-width: 1200px) {
+  .wallettext {
+    display: none;
+  }
 }
 
 @media (max-width: 600px) {
@@ -122,7 +110,8 @@ a {
     border-bottom: solid;
   }
   .Logoimg {
-    width: 80%;
+    width: 70%;
+    margin-left: 7vw;
   }
 
   .headerLink {

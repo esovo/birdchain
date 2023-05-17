@@ -44,6 +44,7 @@ export async function checkWeb3Instance() {
     web3 = new Web3(window.web3.currentProvider);
   } else {
     console.log("이더리움 설치 안되어 있습니다.");
+    return null;
   }
 
   try {
@@ -57,9 +58,11 @@ export async function checkWeb3Instance() {
 }
 
 export async function checkAccountConnection() {
+  console.log("여기는 checkAccountConnection");
   const web3 = await checkWeb3Instance();
-
-  if (web3) {
+  console.log(web3);
+  if (web3 !== null) {
+    console.log("계정을 받아온");
     const accounts = await web3.eth.getAccounts();
 
     if (accounts.length === 0) {
@@ -69,6 +72,9 @@ export async function checkAccountConnection() {
       console.log("MetaMask 계정이 연결되어 있습니다:", accounts[0]);
       return accounts[0];
     }
+  } else {
+    console.log("여기는 false를 반환");
+    return false;
   }
 }
 
