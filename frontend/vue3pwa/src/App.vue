@@ -18,10 +18,7 @@
 import BottomNavComponent from "./components/common/BottomNavComponent.vue";
 import FooterComponent from "./components/common/FooterComponent.vue";
 import HeaderComponentVue from "./components/common/HeaderComponent.vue";
-import { checkAccountConnection } from "@/web3";
-import { useAccountStore } from "@/stores/accountStore";
 import DonationAbi from "./abi/Donation.json";
-import { checkWeb3Instance } from "@/web3";
 import { ref, onMounted, getCurrentInstance } from "vue";
 
 export default {
@@ -31,18 +28,11 @@ export default {
     FooterComponent,
     BottomNavComponent,
   },
-
+  
   setup() {
+    const Web3 = require('web3');
     const eventData = ref(null);
-    const checkAccount = checkAccountConnection();
-    const account = useAccountStore();
     const instance = getCurrentInstance();
-
-    if (checkAccount === false) {
-      console.log("계정이 연결되어 있지 않음");
-    } else {
-      account.setAccount(checkAccount);
-    }
 
     const showNotification = (message) => {
       console.log(message);
@@ -52,16 +42,21 @@ export default {
     };
 
     const showLog = async () => {
-      const web3 = await checkWeb3Instance();
+
+      const web3 = new Web3(new Web3.providers.WebsocketProvider("wss://sepolia.infura.io/ws/v3/83705720b3404902961dbecaa2199676"));
+      console.log(web3.eth.Contract);
 
       const Donation = new web3.eth.Contract(
         DonationAbi,
         "0x1678A184F4DEd0e15dd589fD98b8a87194c2412d"
       );
 
+      console.log(Donation.events);
+
+      const eventName = 'DonationReceived';
+
       // 이벤트 감시
-      await Donation.events
-        .DonationReceived()
+      await Donation.events[eventName]()
         .on("data", (event) => {
           // 이벤트가 변경되면 알림을 표시
           var amount = web3.utils.fromWei(event.returnValues[1], "ether");
