@@ -13,9 +13,107 @@
       href="https://fonts.googleapis.com/css?family=Material+Icons"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/neodgm/neodgm-webfont@latest/neodgm/style.css">
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/gh/neodgm/neodgm-webfont@latest/neodgm/style.css"
+    />
 
     <title><%= htmlWebpackPlugin.options.title %></title>
+    <style>
+      /* @font-face {
+        font-family: "The Jamsil 1 Thin";
+        src: url("/src/assets/fonts/The\ Jamsil\ 1\ Thin.ttf")
+          format("truetype");
+      }
+      @font-face {
+        font-family: "The Jamsil 2 Light";
+        src: url("/src/assets/fonts/The\ Jamsil\ 2\ Light.ttf")
+          format("truetype");
+      }
+      @font-face {
+        font-family: "The Jamsil 3 Regular";
+        src: url("/src/assets/fonts/The\ Jamsil\ 3\ Regular.ttf")
+          format("truetype");
+      }
+      @font-face {
+        font-family: "The Jamsil 4 Medium";
+        src: url("/src/assets/fonts/The\ Jamsil\ 4\ Medium.ttf")
+          format("truetype");
+      }
+      @font-face {
+        font-family: "The Jamsil 5 Bold";
+        src: url("/src/assets/fonts/The\ Jamsil\ 5\ Bold.ttf")
+          format("truetype");
+      }
+      @font-face {
+        font-family: "The Jamsil 6 ExtraBold";
+        src: url("/src/assets/fonts/The\ Jamsil\ 6\ ExtraBold.ttf")
+          format("truetype");
+      } */
+      @font-face {
+        font-family: "TheJamsil5Bold";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2")
+          format("woff2");
+        font-weight: 700;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "KCC-Ganpan";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/KCC-Ganpan.woff2")
+          format("woff2");
+        font-weight: normal;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "LOTTERIACHAB";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/LOTTERIACHAB.woff2")
+          format("woff2");
+        font-weight: normal;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "KorailRoundGothicBold";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/KorailRoundGothicBold.woff2")
+          format("woff2");
+        font-weight: 700;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Cafe24Ssurround";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24Ssurround.woff")
+          format("woff");
+        font-weight: normal;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Cafe24SsurroundAir";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff")
+          format("woff");
+        font-weight: bold;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "GangwonEduSaeeum_OTFMediumA";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEduSaeeum_OTFMediumA.woff")
+          format("woff");
+        font-weight: normal;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Dovemayo_gothic";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.1/Dovemayo_gothic.woff2")
+          format("woff2");
+        font-weight: normal;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "GyeonggiTitleM";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GyeonggiTitleM.woff")
+          format("woff");
+        font-weight: normal;
+        font-style: normal;
+      }
+    </style>
     <script
       type="text/javascript"
       src="//dapi.kakao.com/v2/maps/sdk.js?appkey=<%=process.env.VUE_APP_KAKAOMAP_KEY %>&libraries=services,clusterer,drawing"

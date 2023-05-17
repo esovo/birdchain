@@ -91,7 +91,7 @@ export default {
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  /* font-family: 'The Jamsil 4 Medium'; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -110,4 +110,24 @@ export default {
     display: block;
   }
 }
+<<<<<<< HEAD
+
+h1, h2, h3, h4, h5, h6, v-btn {
+  font-family: 'Cafe24Ssurround';
+}
+div {
+  font-family: 'GyeonggiTitleM';
+  font-weight: 100;
+}
+@media (max-width: 600px) {
+  h1, h2, h3, h4, h5, h6, v-btn {
+  font-family: 'Cafe24Ssurround';
+}
+div {
+  font-family: 'GyeonggiTitleM';
+}
+}
 </style>
+=======
+</style>
+>>>>>>> cb98d88e98e15cd0bda30370da884dfea33134cf

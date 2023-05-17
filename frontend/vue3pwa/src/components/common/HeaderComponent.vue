@@ -6,19 +6,19 @@
       @click="this.$router.push({ name: 'main' })"
       style="cursor: pointer"
     />
-    <div class="headerLink">
+    <h1 class="headerLink">
       <router-link to="/birds">멸종 위기 조류</router-link>
-    </div>
-    <div class="headerLink">
+    </h1>
+    <h1 class="headerLink">
       <router-link to="/donate">기부하기</router-link>
-    </div>
-    <div class="headerLink">
+    </h1>
+    <h1 class="headerLink">
       <router-link to="/post">정보 공유</router-link>
-    </div>
-    <div class="headerLink" v-if="accountStore.account">
+    </h1>
+    <h1 class="headerLink" v-if="accountStore.account">
       <router-link to="/mypage">마이페이지</router-link>
-    </div>
-    <div class="headerLink">
+    </h1>
+    <h1 class="headerLink">
       <router-link to="/game">게임</router-link>
     </div>
     <!-- <div class="walletimg" @click="getAccount" style="cursor: pointer">
@@ -62,10 +62,6 @@ export default defineComponent({
   flex-direction: row;
   font-size: 18;
   color: #4e4e4e;
-  /* font-family: 'Roboto'; */
-  font-family: "IBM Plex Sans KR";
-  font-style: normal;
-  font-weight: 400;
   line-height: 27px;
   width: 100%;
   border-bottom: solid;
@@ -78,17 +74,15 @@ a {
 }
 
 .wallettext{
-  font-size: 18;
-  color: #4e4e4e;
-  /* font-family: 'Roboto'; */
-  font-family: "IBM Plex Sans KR";
-  font-style: normal;
-  font-weight: 700;
+  margin-top: 5px;
+  font-size: 1.5vw;
   line-height: 27px;
+  color: #4e4e4e;
 }
 
 .Logoimg {
   height: 100px;
+  margin-left: 2vw;
 }
 
 .walletimg {
@@ -101,15 +95,12 @@ a {
 }
 
 
-
 .headerLink {
   display: flex;
   flex-direction: row;
   margin-left: 4%;
   margin-top: 40px;
-  /* font-family: "IBM Plex Sans KR"; */
-
-  font-size: 18px;
+  font-size: 1.5vw;
   line-height: 27px;
 }
 
@@ -127,7 +118,8 @@ a {
     border-bottom: solid;
   }
   .Logoimg {
-    width: 80%;
+    width: 70%;
+    margin-left: 7vw;
   }
 
   .headerLink {
