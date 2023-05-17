@@ -97,7 +97,7 @@ a {
   flex-direction: row;
   margin-left: 4%;
   margin-top: 40px;
-  font-size: 1.5vw;
+  font-size: 1.2vw;
   line-height: 27px;
 }
 

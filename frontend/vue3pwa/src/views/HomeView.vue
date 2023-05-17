@@ -1,7 +1,6 @@
 <template>
   <div class="backcircle">
     <div id="circle3"></div>
-    <!-- <img :src="img4" id="bgbird"/> -->
     <img :src="img5" id="bgbird2" />
     <Flybird></Flybird>
   </div>
@@ -15,26 +14,30 @@
       >
         <img :src="img1" style="object-fit: cover" />
         <div class="textfield">
-          <h1 class="maintext">
-            멸종위기에 처한<br />
-            새들을 위해 기부하세요
-          </h1>
-          <div class="subtext">
-            새는 매우 중요한 생태계의 일원입니다.<br />
-            새의 멸종은 식량 연쇄 반응과 함께 <br />
-            다른 동물과 식물들도 영향을 받을 수 있습니다.
+          <div>
+            <h1 class="maintext">
+              멸종위기에 처한<br />
+              새들을 위해 기부하세요
+            </h1>
+            <div class="subtext">
+              기부금은 새 보호를 위해 힘쓰는 환경단체에 기부됩니다.<br/>
+              환경단체는 새들의 생태계와 서식지를 보호하고 위험 요소들을 제거합니다.<br/>
+              단순 기부만으로도 새들에게 안전한 서식지를 제공하고,<br/>
+              조류 보호 활동을 지원하여 새들의 생존을 도울 수 있습니다.<br/>
+            </div>
           </div>
-          <div >
-            <v-btn class="donatebtn" size="x-large" @click="$router.push('/donate')">
-              기부하기
-            </v-btn>
-            <!-- <v-btn
-              color="blue-darken-4"
+          <div>
+            <div class="subtext" style="color: darkslategray;">지금 바로 멸종위기 새를 구하기 위해 동참해주세요!</div>
+            <v-btn
+              class="donatebtn"
+              text
+              height="6vw"
               size="x-large"
               @click="$router.push('/donate')"
+              variant="outlined"
             >
-              보러가기
-            </v-btn> -->
+              기부하기
+            </v-btn>
           </div>
         </div>
       </div>
@@ -52,7 +55,10 @@
             선물입니다
           </h1>
           <div class="subtext2">
-            새는 농업 및 식량 생산에 중요한 역할을 합니다.<br />
+            새는 매우 중요한 생태계의 일원입니다.<br />
+            새의 멸종은 식량 연쇄 반응과 함께 <br />
+            다른 동물과 식물들도 영향을 받을 수 있습니다.<br />
+            또한, 새는 농업 및 식량 생산에 중요한 역할을 합니다.<br />
             새는 자연의 다양성을 표현하는 동물입니다.<br />
             새 보호는 우리의 삶과 건강에도 긍정적인 영향을 미칩니다.
           </div>
@@ -70,12 +76,10 @@
         <img :src="img3" style="object-fit: cover" />
 
         <div class="textfield">
-          <div class="maintext">
-            우리는 그들을 <br />소중히 보호해야 합니다
-          </div>
+          <div class="maintext">우리는 그들을 <br />소중히 보호해야 합니다</div>
           <div class="subtext">
             우리는 다양한 방법으로 새를 보호할 수 있습니다.<br />
-            예를 들어, 새의 서식지를 보호하고, <br/>유독 물질과 오염을
+            예를 들어, 새의 서식지를 보호하고, <br />유독 물질과 오염을
             줄이고,<br />
             먹이와 물을 제공하는 노력을 기울일 수 있습니다.
           </div>
@@ -83,31 +87,19 @@
             <div class="goaldetail">
               <div class="goaldetailtitle">우리의 목표</div>
               <div class="goaldetailtext">
-                멸종위기의 <br/>새들을 보호하고<br />
-                사람들의 관심을 <br/>얻는 것입니다.
+                멸종위기의 <br />새들을 보호하고<br />
+                사람들의 관심을 <br />얻는 것입니다.
               </div>
             </div>
             <div class="goaldetail">
               <div class="goaldetailtitle">우리의 도전</div>
               <div class="goaldetailtext">
                 기부자에게<br />
-                NFT를 <br/>발급해줌으로써 <br/>
+                NFT를 <br />발급해줌으로써 <br />
                 기부를 독려합니다.
               </div>
             </div>
           </div>
-          <div>Donations</div>
-          <v-progress-linear v-model="skill" color="blue-grey" height="25">
-            <template v-slot:default="{ value }">
-              <strong>{{ Math.ceil(value) }}%</strong>
-            </template>
-          </v-progress-linear>
-          <div>Medical Help</div>
-          <v-progress-linear v-model="skill" color="blue-grey" height="25">
-            <template v-slot:default="{ value }">
-              <strong>{{ Math.ceil(value) }}%</strong>
-            </template>
-          </v-progress-linear>
         </div>
       </div>
     </div>
@@ -119,7 +111,7 @@
         data-aos-once="true"
       >
         기부하고 NFT를 받아가세요
-    </h1>
+      </h1>
       <swiper
         :effect="'coverflow'"
         :navigation="true"
@@ -187,37 +179,37 @@ export default {
           id: "0",
           img: require("@/assets/img/NFT1_carousel.png"),
           owner: "이인호",
-          name: "",
+          name: "Cute Bird",
         },
         {
           id: "1",
           img: require("@/assets/img/NFT2_carousel.png"),
           owner: "김소진",
-          name: "",
+          name: "Happy Bird",
         },
         {
           id: "2",
           img: require("@/assets/img/NFT3_carousel.png"),
           owner: "조은서",
-          name: "",
+          name: "Yellow Bird",
         },
         {
           id: "3",
           img: require("@/assets/img/NFT4_carousel.png"),
           owner: "현승민",
-          name: "",
+          name: "Pixel Bird",
         },
         {
           id: "4",
           img: require("@/assets/img/NFT5_carousel.png"),
           owner: "강지수",
-          name: "",
+          name: "Small Bird",
         },
         {
           id: "5",
           img: require("@/assets/img/NFT6_carousel.png"),
           owner: "남기정",
-          name: "",
+          name: "Nyam Bird",
         },
       ],
     };
@@ -250,6 +242,7 @@ export default {
 .textfield {
   display: flex;
   justify-content: center;
+  justify-content: space-between;
   flex-direction: column;
   margin-left: 5vw;
 }
@@ -331,7 +324,7 @@ export default {
 .goaldetail {
   width: 15vw;
   height: fit-content;
-  margin : 5px;
+  margin: 5px;
   background-color: #f5f5f5;
   box-shadow: 1px 1px 1px 1px grey;
   border-radius: 5%;
@@ -419,6 +412,8 @@ export default {
 .donatebtn {
   margin-top: 50px;
   width: 100%;
+  height: 200px;
+  font-size: 1.5vw;
 }
 
 /* .swiper-slide img {
@@ -550,10 +545,10 @@ export default {
   }
 
   .swiper {
-  width: 100%;
-  padding-bottom: 50px;
-  padding-top: 0px;
-}
+    width: 100%;
+    padding-bottom: 50px;
+    padding-top: 0px;
+  }
 
   .backcircle {
     display: none;
