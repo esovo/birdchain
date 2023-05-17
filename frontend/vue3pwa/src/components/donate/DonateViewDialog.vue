@@ -54,6 +54,9 @@
       </v-card>
     </v-dialog>
 
+    <div>설정하신 금액에서 예상 가스비를 제외하고 기부가 됩니다.</div>
+    <div>설정하신 금액보다 적거나 많이 ETH가 소비될 수 있습니다.</div>
+
     <v-overlay v-model="loading">
       <v-progress-circular
         indeterminate
@@ -115,7 +118,6 @@ export default {
     };
 
     watch(dialog, () => {
-      console.log("다이얼로그 켜지고 꺼지고");
       dAmount.value = 0;
     });
 
