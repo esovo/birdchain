@@ -20,14 +20,18 @@
               새들을 위해 기부하세요
             </h1>
             <div class="subtext">
-              기부금은 새 보호를 위해 힘쓰는 환경단체에 기부됩니다.<br/>
-              환경단체는 새들의 생태계와 서식지를 보호하고 위험 요소들을 제거합니다.<br/>
-              단순 기부만으로도 새들에게 안전한 서식지를 제공하고,<br/>
-              조류 보호 활동을 지원하여 새들의 생존을 도울 수 있습니다.<br/>
+              기부금은 새 보호를 위해 힘쓰는 환경단체에 기부됩니다.<br />
+              환경단체는 새들의 생태계와 서식지를 보호하고 위험 요소들을
+              제거합니다.<br />
+              단순 기부만으로도 새들에게 안전한 서식지를 제공하고,<br />
+              조류 보호 활동을 지원하여 새들의 생존을 도울 수 있습니다.<br />
             </div>
           </div>
           <div>
-            <div class="subtext" style="color: darkslategray;">지금 바로 멸종위기 새를 구하기 위해 동참해주세요!</div>
+            <div class="subtext" style="color: darkslategray">
+              지금 바로 멸종위기 새를 구하기 위해 동참해주세요!
+            </div>
+            <div class="totalValue" style="color: darkslategray">총 기부 금액  {{ totalValue }}ETH</div>
             <v-btn
               class="donatebtn"
               text
@@ -149,6 +153,8 @@ import "swiper/css/navigation";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Flybird from "@/components/common/FlyBird.vue";
+import { onMounted, ref } from "vue";
+import DonationAbi from "../abi/Donation.json";
 
 export default {
   name: "HomeView",
@@ -162,8 +168,49 @@ export default {
     AOS.init();
   },
   setup() {
+    const Web3 = require("web3");
+    let totalValue = ref(0);
+
+    const getTotalContribution = async () => {
+      const web3 = new Web3(
+        new Web3.providers.WebsocketProvider(
+          "wss://sepolia.infura.io/ws/v3/83705720b3404902961dbecaa2199676"
+        )
+      );
+      console.log(web3.eth.Contract);
+
+      const Donation = new web3.eth.Contract(
+        DonationAbi,
+        "0x1678A184F4DEd0e15dd589fD98b8a87194c2412d"
+      );
+
+      await Donation.methods
+        .getTotalContribution()
+        .call()
+        .then(function (value) {
+          const total = web3.utils.fromWei(value, "ether");
+          totalValue.value = total;
+          console.log("값이 " + value);
+        });
+
+      // 이벤트 감시
+      await Donation.events
+        .DonationReceived()
+        .on("data", () => {
+          // 이벤트가 변경되면 알림을 표시
+          getTotalContribution();
+        })
+        .on("error", (error) => {
+          console.error("이벤트 감시 중 오류 발생:", error);
+        });
+    };
+
+    onMounted(getTotalContribution);
+
     return {
       modules: [EffectCoverflow, Pagination, Navigation],
+      totalValue,
+      getTotalContribution,
     };
   },
   data() {
@@ -296,6 +343,20 @@ export default {
   font-size: 1.2vw;
 
   text-align: right;
+  text-transform: capitalize;
+  color: #444444;
+}
+
+.totalValue {
+  margin-top: 1rem;
+  font-weight: -50;
+  word-wrap: break-word;
+  letter-spacing: -0.03em;
+  font-size: 1.8vw;
+  text-align: right;
+  /* border: 1px solid black; */
+  /* padding: 0.5rem; */
+
   text-transform: capitalize;
   color: #444444;
 }

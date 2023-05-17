@@ -79,7 +79,7 @@ export default {
 
     // const store = useStore();
     // const initValue = computed(() => store.getters.getTotalValue);
-    var totalValue = ref(0);
+    let totalValue = ref(0);
     const watchTotalValue = async () => {
       const web3 = await createWeb3Instance();
 
