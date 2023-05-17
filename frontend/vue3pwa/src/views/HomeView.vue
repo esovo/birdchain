@@ -1,7 +1,6 @@
 <template>
   <div class="backcircle">
     <div id="circle3"></div>
-    <!-- <img :src="img4" id="bgbird"/> -->
     <img :src="img5" id="bgbird2" />
     <Flybird></Flybird>
   </div>
@@ -35,16 +34,10 @@
               height="6vw"
               size="x-large"
               @click="$router.push('/donate')"
+              variant="outlined"
             >
               기부하기
             </v-btn>
-            <!-- <v-btn
-              color="blue-darken-4"
-              size="x-large"
-              @click="$router.push('/donate')"
-            >
-              보러가기
-            </v-btn> -->
           </div>
         </div>
       </div>
@@ -107,18 +100,6 @@
               </div>
             </div>
           </div>
-          <!-- <div>Donations</div>
-          <v-progress-linear v-model="skill" color="blue-grey" height="25">
-            <template v-slot:default="{ value }">
-              <strong>{{ Math.ceil(value) }}%</strong>
-            </template>
-          </v-progress-linear>
-          <div>Medical Help</div>
-          <v-progress-linear v-model="skill" color="blue-grey" height="25">
-            <template v-slot:default="{ value }">
-              <strong>{{ Math.ceil(value) }}%</strong>
-            </template>
-          </v-progress-linear> -->
         </div>
       </div>
     </div>
@@ -198,37 +179,37 @@ export default {
           id: "0",
           img: require("@/assets/img/NFT1_carousel.png"),
           owner: "이인호",
-          name: "",
+          name: "Cute Bird",
         },
         {
           id: "1",
           img: require("@/assets/img/NFT2_carousel.png"),
           owner: "김소진",
-          name: "",
+          name: "Happy Bird",
         },
         {
           id: "2",
           img: require("@/assets/img/NFT3_carousel.png"),
           owner: "조은서",
-          name: "",
+          name: "Yellow Bird",
         },
         {
           id: "3",
           img: require("@/assets/img/NFT4_carousel.png"),
           owner: "현승민",
-          name: "",
+          name: "Pixel Bird",
         },
         {
           id: "4",
           img: require("@/assets/img/NFT5_carousel.png"),
           owner: "강지수",
-          name: "",
+          name: "Small Bird",
         },
         {
           id: "5",
           img: require("@/assets/img/NFT6_carousel.png"),
           owner: "남기정",
-          name: "",
+          name: "Nyam Bird",
         },
       ],
     };
@@ -344,20 +325,21 @@ export default {
   width: 15vw;
   height: fit-content;
   margin: 5px;
-  background-color: #f5f5f5;
-  box-shadow: 1px 1px 1px 1px grey;
+  border: solid 1px black;
   border-radius: 5%;
+  /* background-color: #f5f5f5; */
+  /* box-shadow: 1px 1px 1px 1px grey; */
 }
 
 .goaldetailtitle {
   color: #204c4c;
   font-style: normal;
   font-weight: 700;
-  font-size: 2vw;
+  font-size: 1.7vw;
 }
 
 .goaldetailtext {
-  margin-top: 0.5rem;
+  margin-top: 0.25rem;
   margin-bottom: 0.5rem;
   font-family: "IBM Plex Sans";
   font-style: normal;
@@ -376,6 +358,7 @@ export default {
   margin-right: 15%;
   margin-left: 15%;
   margin-top: 10%;
+  margin-bottom: 5%;
 }
 
 #circle1 {
@@ -417,7 +400,7 @@ export default {
 
 .swiper {
   width: 100%;
-  padding-top: 50px;
+  padding-top: 25px;
   padding-bottom: 50px;
 }
 

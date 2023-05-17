@@ -26,7 +26,6 @@
 
 <script>
 import { defineComponent, ref } from "vue";
-import { createWeb3Instance } from "@/web3";
 import { useAccountStore } from "@/stores/accountStore";
 
 export default defineComponent({
@@ -36,15 +35,12 @@ export default defineComponent({
     const walletUrl = ref(require("../../assets/img/wallet.png"));
     const accountStore = useAccountStore();
 
-    const getAccount = async () => {
-      const web3 = await createWeb3Instance();
-      if (web3) {
-        const accounts = await web3.eth.getAccounts();
-        accountStore.setAccount(accounts[0]);
-      }
-    };
-
-    return { LogoUrl, walletUrl, accountStore, getAccount };
+    console.log("여기는 헤더");
+    console.log(accountStore.account);
+    console.log(accountStore.getAccountAsync());
+    console.log(accountStore.isConnected);
+    console.log("위에는 어카운트 스토어");
+    return { LogoUrl, walletUrl, accountStore };
   },
 });
 </script>
@@ -66,11 +62,11 @@ export default defineComponent({
 }
 a {
   text-decoration: none;
-  color: #473C33;
+  color: #473c33;
   font-weight: 700;
 }
 
-.wallettext{
+.wallettext {
   margin-top: 5px;
   font-size: 1.5vw;
   line-height: 27px;
@@ -91,19 +87,18 @@ a {
   margin-right: 20px;
 }
 
-
 .headerLink {
   display: flex;
   flex-direction: row;
   margin-left: 4%;
   margin-top: 40px;
-  font-size: 1.5vw;
+  font-size: 1.2vw;
   line-height: 27px;
 }
 
 @media (max-width: 1200px) {
-  .wallettext{
-   display: none;
+  .wallettext {
+    display: none;
   }
 }
 
@@ -124,15 +119,14 @@ a {
     flex-basis: 50%;
     margin-left: 4%;
     margin-top: 10px;
-    
   }
   .walletimg img {
     display: flex;
     justify-content: flex-end;
     width: 30px;
   }
-  .wallettext{
-   display: none;
+  .wallettext {
+    display: none;
   }
 }
 </style>

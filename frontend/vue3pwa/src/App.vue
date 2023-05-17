@@ -74,7 +74,9 @@ export default {
         });
     };
 
-    onMounted(showLog);
+    onMounted(async () => {
+      await showLog(); // showLog() 함수도 async로 변경됐으므로, 여기서 await 사용
+    });
 
     return {
       eventData,
@@ -106,19 +108,31 @@ export default {
   }
 }
 
-h1, h2, h3, h4, h5, h6, v-btn {
-  font-family: 'Cafe24Ssurround';
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+v-btn {
+  font-family: "Cafe24Ssurround";
 }
 div {
-  font-family: 'GyeonggiTitleM';
+  font-family: "GyeonggiTitleM";
   font-weight: 100;
 }
 @media (max-width: 600px) {
-  h1, h2, h3, h4, h5, h6, v-btn {
-  font-family: 'Cafe24Ssurround';
-}
-div {
-  font-family: 'GyeonggiTitleM';
-}
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  v-btn {
+    font-family: "Cafe24Ssurround";
+  }
+  div {
+    font-family: "GyeonggiTitleM";
+  }
 }
 </style>

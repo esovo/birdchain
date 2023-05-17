@@ -6,19 +6,22 @@
           <!-- 도로명 주소 -->
           <!-- <p>{{ props.placeInfo[2] }}</p> -->
           <!-- 지명 주소 -->
-          <p>{{ props.placeInfo[3] }}</p>
+          <div class="select-address">
+            <div v-if="!props.placeInfo[3]" style="color:rgb(189, 189, 189); font-size:15px;">주소를 선택해주세요 :b</div>
+            <div v-if="props.placeInfo[3]">{{ props.placeInfo[3] }}</div>
+          </div>
           <v-btn
             variant="tonal"
             color="light-green lighten-3"
             @click="showModal"
             class="mt-2"
-            >마커 등록하기</v-btn
+            >게시물 등록하기</v-btn
           >
         </div>
         <v-dialog v-model="modalVisible">
           <v-card>
             <v-card-title class="text-center">
-              <span class="headline">마커 등록</span>
+              <span class="headline">게시물 등록</span>
             </v-card-title>
             <v-card-text>
               <p class="required-input">*표시는 필수 입력 사항입니다.</p>
@@ -282,14 +285,13 @@ const submitForm = () => {
 
 <style scoped>
 .show-address {
-  /* border: 1px solid gray; */
   padding: 0px;
   width: 43vw;
   margin: 0 auto;
 }
 
 .v-application {
-  height: 0px;
+  height: 129px;
 }
 
 .required-input {
@@ -299,6 +301,21 @@ const submitForm = () => {
   margin-left: 5px;
   font-weight: bold;
 }
+
+.select-address {
+  border: 0.5px gray solid;
+  border-radius: 5px;
+  padding: 5px;
+  width: 27vw;
+  height: 55px;
+  margin: 10px auto 10px auto;
+  box-shadow: 5px 2px 7px gray;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 가로 정렬 */
+  justify-content: center; /* 세로 정렬 */
+}
+
 
 @media (min-width: 960px) {
   .v-container {

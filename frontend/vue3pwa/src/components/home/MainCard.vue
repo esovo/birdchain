@@ -2,7 +2,7 @@
   <div class="nft">
     <div class='main'>
       <img class='tokenImage' :src=product.img alt="NFT" />
-      <h2>기분좋은 오목눈이</h2>
+      <h2>{{ product.name }}</h2>
       <p class='description'>우리의 도전</p>
 
       <div class='creator'>
