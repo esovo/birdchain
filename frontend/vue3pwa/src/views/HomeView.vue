@@ -34,16 +34,10 @@
               height="6vw"
               size="x-large"
               @click="$router.push('/donate')"
+              variant="outlined"
             >
               기부하기
             </v-btn>
-            <!-- <v-btn
-              color="blue-darken-4"
-              size="x-large"
-              @click="$router.push('/donate')"
-            >
-              보러가기
-            </v-btn> -->
           </div>
         </div>
       </div>
