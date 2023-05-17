@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.net.URL;
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -47,7 +49,8 @@ public class AvailableItemServiceImpl implements AvailableItemService {
 
     @Override
     public URL findAvailableItemImageUrl(String fileName) {
-        GeneratePresignedUrlRequest generatePresignedUrlRequest = new GeneratePresignedUrlRequest("birdchain", "NFTimages/" + fileName + ".png").withExpiration(null);
+        Date expirationDate = new Date(System.currentTimeMillis() + (7 * 24 * 60 * 60 * 1000));
+        GeneratePresignedUrlRequest generatePresignedUrlRequest = new GeneratePresignedUrlRequest("birdchain", "NFTimages/" + fileName + ".png").withExpiration(expirationDate);
         URL fileUrl = amazonS3.generatePresignedUrl(generatePresignedUrlRequest);
         return fileUrl;
     }
