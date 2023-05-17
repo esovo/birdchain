@@ -72,7 +72,7 @@ const marker_id = ref(1);
 //마커 이미지의 이미지 주소입니다
 const imgSrc = "img/icons/feather.png";
 // 마커 이미지의 이미지 크기 입니다
-const imgSize = new kakao.maps.Size(60, 50);
+const imgSize = new kakao.maps.Size(60, 60);
 // 마커 이미지를 생성합니다
 const markersImage = new kakao.maps.MarkerImage(imgSrc, imgSize);
 const displayMarker = (marker_type) => {
