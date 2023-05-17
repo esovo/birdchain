@@ -325,20 +325,21 @@ export default {
   width: 15vw;
   height: fit-content;
   margin: 5px;
-  background-color: #f5f5f5;
-  box-shadow: 1px 1px 1px 1px grey;
+  border: solid 1px black;
   border-radius: 5%;
+  /* background-color: #f5f5f5; */
+  /* box-shadow: 1px 1px 1px 1px grey; */
 }
 
 .goaldetailtitle {
   color: #204c4c;
   font-style: normal;
   font-weight: 700;
-  font-size: 2vw;
+  font-size: 1.7vw;
 }
 
 .goaldetailtext {
-  margin-top: 0.5rem;
+  margin-top: 0.25rem;
   margin-bottom: 0.5rem;
   font-family: "IBM Plex Sans";
   font-style: normal;
