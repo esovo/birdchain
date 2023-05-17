@@ -113,6 +113,12 @@ a {
   line-height: 27px;
 }
 
+@media (max-width: 1200px) {
+  .wallettext{
+   display: none;
+  }
+}
+
 @media (max-width: 600px) {
   #navbar {
     flex-wrap: wrap;
