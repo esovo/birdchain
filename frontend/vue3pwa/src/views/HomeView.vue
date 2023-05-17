@@ -24,8 +24,8 @@
             새의 멸종은 식량 연쇄 반응과 함께 <br />
             다른 동물과 식물들도 영향을 받을 수 있습니다.
           </div>
-          <div class="donatebtn">
-            <v-btn size="x-large" @click="$router.push('/donate')">
+          <div >
+            <v-btn class="donatebtn" size="x-large" @click="$router.push('/donate')">
               기부하기
             </v-btn>
             <!-- <v-btn
@@ -71,7 +71,7 @@
 
         <div class="textfield">
           <div class="maintext">
-            우리는 그들을 <br />소중히 보호해야 합니다.
+            우리는 그들을 <br />소중히 보호해야 합니다
           </div>
           <div class="subtext">
             우리는 다양한 방법으로 새를 보호할 수 있습니다.<br />
