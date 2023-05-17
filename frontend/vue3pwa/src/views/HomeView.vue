@@ -1,7 +1,6 @@
 <template>
   <div class="backcircle">
     <div id="circle3"></div>
-    <!-- <img :src="img4" id="bgbird"/> -->
     <img :src="img5" id="bgbird2" />
     <Flybird></Flybird>
   </div>
@@ -107,18 +106,6 @@
               </div>
             </div>
           </div>
-          <!-- <div>Donations</div>
-          <v-progress-linear v-model="skill" color="blue-grey" height="25">
-            <template v-slot:default="{ value }">
-              <strong>{{ Math.ceil(value) }}%</strong>
-            </template>
-          </v-progress-linear>
-          <div>Medical Help</div>
-          <v-progress-linear v-model="skill" color="blue-grey" height="25">
-            <template v-slot:default="{ value }">
-              <strong>{{ Math.ceil(value) }}%</strong>
-            </template>
-          </v-progress-linear> -->
         </div>
       </div>
     </div>
@@ -198,37 +185,37 @@ export default {
           id: "0",
           img: require("@/assets/img/NFT1_carousel.png"),
           owner: "이인호",
-          name: "",
+          name: "Cute Bird",
         },
         {
           id: "1",
           img: require("@/assets/img/NFT2_carousel.png"),
           owner: "김소진",
-          name: "",
+          name: "Happy Bird",
         },
         {
           id: "2",
           img: require("@/assets/img/NFT3_carousel.png"),
           owner: "조은서",
-          name: "",
+          name: "Yellow Bird",
         },
         {
           id: "3",
           img: require("@/assets/img/NFT4_carousel.png"),
           owner: "현승민",
-          name: "",
+          name: "Pixel Bird",
         },
         {
           id: "4",
           img: require("@/assets/img/NFT5_carousel.png"),
           owner: "강지수",
-          name: "",
+          name: "Small Bird",
         },
         {
           id: "5",
           img: require("@/assets/img/NFT6_carousel.png"),
           owner: "남기정",
-          name: "",
+          name: "Nyam Bird",
         },
       ],
     };
