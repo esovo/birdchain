@@ -6,7 +6,10 @@
           <!-- 도로명 주소 -->
           <!-- <p>{{ props.placeInfo[2] }}</p> -->
           <!-- 지명 주소 -->
-          <p>{{ props.placeInfo[3] }}</p>
+          <div class="select-address">
+            <div v-if="!props.placeInfo[3]" style="color:rgb(189, 189, 189); font-size:15px;">주소를 선택해주세요 :b</div>
+            <div v-if="props.placeInfo[3]">{{ props.placeInfo[3] }}</div>
+          </div>
           <v-btn
             variant="tonal"
             color="light-green lighten-3"
@@ -282,14 +285,13 @@ const submitForm = () => {
 
 <style scoped>
 .show-address {
-  /* border: 1px solid gray; */
   padding: 0px;
   width: 43vw;
   margin: 0 auto;
 }
 
 .v-application {
-  height: 0px;
+  height: 129px;
 }
 
 .required-input {
@@ -299,6 +301,21 @@ const submitForm = () => {
   margin-left: 5px;
   font-weight: bold;
 }
+
+.select-address {
+  border: 0.5px gray solid;
+  border-radius: 5px;
+  padding: 5px;
+  width: 27vw;
+  height: 55px;
+  margin: 10px auto 10px auto;
+  box-shadow: 5px 2px 7px gray;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 가로 정렬 */
+  justify-content: center; /* 세로 정렬 */
+}
+
 
 @media (min-width: 960px) {
   .v-container {
