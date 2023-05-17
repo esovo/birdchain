@@ -110,7 +110,6 @@ export default {
     display: block;
   }
 }
-<<<<<<< HEAD
 
 h1, h2, h3, h4, h5, h6, v-btn {
   font-family: 'Cafe24Ssurround';
@@ -128,6 +127,3 @@ div {
 }
 }
 </style>
-=======
-</style>
->>>>>>> cb98d88e98e15cd0bda30370da884dfea33134cf
