@@ -15,13 +15,13 @@
             color="light-green lighten-3"
             @click="showModal"
             class="mt-2"
-            >마커 등록하기</v-btn
+            >게시물 등록하기</v-btn
           >
         </div>
         <v-dialog v-model="modalVisible">
           <v-card>
             <v-card-title class="text-center">
-              <span class="headline">마커 등록</span>
+              <span class="headline">게시물 등록</span>
             </v-card-title>
             <v-card-text>
               <p class="required-input">*표시는 필수 입력 사항입니다.</p>

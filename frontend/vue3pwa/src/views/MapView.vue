@@ -1,5 +1,8 @@
 ﻿<template>
-  <MarkerTypeButton @searchByType="searchByType" class="type-btn"></MarkerTypeButton>
+  <div class="map-top">
+    <img class="map-img" src="img/icons/bird-flying.gif"/>
+    <MarkerTypeButton @searchByType="searchByType" class="type-btn"></MarkerTypeButton>
+  </div>
   <MapSearchBar @searchByAddress="searchByAddress" @searchCurPosition="searchCurPosition" :validAddress="validAddress" class="search-bar"></MapSearchBar>
   <div>
     <div id="map" @click.once="movePin"></div>
@@ -262,17 +265,22 @@ const searchByType = (data) => {
 </script>
 
 <style scoped>
+.map-top {
+  display: flex;
+  justify-content: space-between;
+  width: 60vw;
+  margin: 0 auto;
+}
+
+.map-img {
+  width: 150px;
+  height: 150px;
+}
+
 #map {
   margin: 0 auto;
   width: 60vw;
   height: 550px;
-}
-
-
-
-.type-btn {
-  width: 60vw;
-  margin: 0 auto;
 }
 
 .search-bar {
@@ -321,6 +329,9 @@ const searchByType = (data) => {
   .type-btn {
     width: 100vw;
     margin: 0 auto;
+  }
+  .map-top {
+    width: 100vw;
   }
 }
 

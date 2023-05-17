@@ -24,7 +24,7 @@ const selectType = () => {
 </script>
 
 <style scoped>
-.v-btn-toggle {
-  margin: 10px 0 10px 40vw;
+div {
+  margin: auto 0;
 }
 </style>
