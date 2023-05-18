@@ -98,7 +98,7 @@ export default {
 .cardsection {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   flex-wrap: wrap;
   margin-right: 10vw;
   margin-left: 10vw;
