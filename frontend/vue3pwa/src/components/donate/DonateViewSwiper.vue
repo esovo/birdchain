@@ -147,6 +147,8 @@ export default {
 .donateswiper {
   margin-left: 5%;
   margin-right: 5%;
+  margin-bottom: 3%;
+  margin-top: 5%;
 }
 
 .donatetitle {
