@@ -293,7 +293,7 @@ const submitForm = () => {
 <style scoped>
 .show-address {
   padding: 0px;
-  width: 43vw;
+  width: 31vw;
   margin: 0 auto;
 }
 
