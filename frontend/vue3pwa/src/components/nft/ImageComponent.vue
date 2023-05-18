@@ -2,6 +2,7 @@
   <div style="margin-top: 30px; margin-bottom: 30px">
     <h1>기부가 완료되었습니다.</h1>
     <h1>4개의 그림 중 원하는 그림을 선택하세요!</h1>
+    <div>가스비를 예측하여 예측 가스비를 환불해드립니다.</div>
   </div>
   <v-container>
     <v-row>
