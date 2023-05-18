@@ -11,6 +11,7 @@
 <script>
 import axios from "axios";
 import { walletStore } from "@/stores/donationStore";
+import { createWeb3Instance } from "@/web3.js";
 
 import { ref } from "vue";
 
@@ -30,7 +31,8 @@ export default {
       nfturl: require("../../assets/img/nft1.png"),
     };
   },
-  mounted() {
+  async mounted() {
+    await createWeb3Instance();
     axios
       .get(`https://k8b104.p.ssafy.io/api/items?address=${this.address}`)
       .then((res) => {
