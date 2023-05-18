@@ -58,7 +58,6 @@ export async function checkWeb3Instance() {
 
 export async function checkAccountConnection() {
   const web3 = await checkWeb3Instance();
-  console.log(web3);
   if (web3 !== null) {
     const accounts = await web3.eth.getAccounts();
 
