@@ -27,9 +27,9 @@
     <img class="map-top-img" src="img/icons/bird-flying.gif" />
     <div class="map-top-text">
       유리벽 충돌과 관련된 야생조류의 희생을 신고해주세요. 건물 유리벽,
-      투명방음벽의 증가는 야생조류 개체군 몰락에 <br />
-      큰 영향을 미치고 있습니다. 주변에서 발생하는 야생조류 유리벽 충돌에 관한
-      정보를 모으는 데에 함께 동참해주세요.
+      투명방음벽의 증가는 야생조류 개체군 몰락에 큰 영향을 미치고 있습니다.
+      주변에서 발생하는 야생조류 유리벽 충돌에 관한 정보를 모으는 데에 함께
+      동참해주세요.
       <br />
       보호종 새를 발견했다면 해당 위치를 공유해주세요. 마커가 찍히는 횟수를
       늘리고, 해당 장소의 환경보호에 함께 해요!
@@ -317,7 +317,8 @@ const searchByType = (data) => {
 .map-bar {
   display: flex;
   justify-content: center;
-  margin-top: 40px;
+  margin: 40px auto 0 auto;
+  width: 60vw;
 }
 
 .search-bar {
@@ -375,8 +376,11 @@ const searchByType = (data) => {
     width: 100vw;
     height: 90vw;
   }
+  .map-bar {
+    width: 100vw;
+  }
   .search-bar {
-    width: 90vw;
+    width: 80vw;
   }
   .map-top {
     width: 100vw;

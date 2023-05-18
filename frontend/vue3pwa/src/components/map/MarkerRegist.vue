@@ -143,7 +143,7 @@ const pw_rule = (value) => {
 
 const img_rule = (value) => {
   if (value) {
-    const allowedExtensions = [".jpg", ".jpeg", ".png", ".gif"];
+    const allowedExtensions = [".jpg", ".jpeg", ".png", ".gif", ".jfif"];
     const fileExtension = value[0].name
       .substr(value[0].name.lastIndexOf("."))
       .toLowerCase();
