@@ -147,7 +147,6 @@ const img_rule = (value) => {
     const fileExtension = value[0].name
       .substr(value[0].name.lastIndexOf("."))
       .toLowerCase();
-    console.log(fileExtension);
     if (allowedExtensions.includes(fileExtension)) {
       return true;
     } else {
@@ -278,7 +277,6 @@ const submitForm = () => {
         backdrop: false,
       });
     } else {
-      console.log(data.status);
       closeModal();
       Swal.fire({
         position: "center",
@@ -293,7 +291,7 @@ const submitForm = () => {
 <style scoped>
 .show-address {
   padding: 0px;
-  width: 43vw;
+  width: 31vw;
   margin: 0 auto;
 }
 

@@ -34,7 +34,6 @@ import { ref } from "vue";
 // import { createWeb3Instance } from "@/web3";
 import DonationAbi from "../../abi/Donation.json";
 import { onMounted } from "vue";
-// import { useStore } from "@/stores/store";
 SwiperCore.use([Navigation]);
 export default {
   components: {

@@ -10,13 +10,12 @@ import * as directives from "vuetify/directives";
 import Vue3Swiper from "vue3-swiper";
 import "swiper/swiper-bundle.css";
 import "@mdi/font/css/materialdesignicons.css";
-import Toaster from '@meforma/vue-toaster';
+import Toaster from "@meforma/vue-toaster";
 
 // FontAwesome 관련 임포트
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-
 import { useStore } from "@/stores/store";
 
 const vuetify = createVuetify({
@@ -40,10 +39,10 @@ library.add(fas);
 app.component("font-awesome-icon", FontAwesomeIcon);
 //기부 알림
 app.use(Toaster, {
-  position: 'bottom-right',
+  position: "bottom-right",
 });
 // app.use(createPinia())
 app.use(vuetify).use(router).use(Vue3Swiper).use(pinia);
 /* eslint-disable */
 const userStore = useStore();
-app.mount('#app');
+app.mount("#app");

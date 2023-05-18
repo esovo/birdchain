@@ -2,7 +2,7 @@
   <div class="flip-card" :class="{ 'show-overlay': showOverlay }">
     <div class="flip-card-inner" v-on:click="flipCard">
       <div class="flip-card-front">
-        <v-card class="" width="22vw" min-width="300px" style="cursor: pointer;">
+        <v-card class="" width="22vw" min-width="300px" style="cursor: pointer">
           <v-img :src="birdData.img" height="300px" cover></v-img>
           <v-card-title> {{ birdData.국명 }} </v-card-title>
           <v-card-subtitle style="font-style: italic">
@@ -49,6 +49,7 @@
 
 <script>
 import "@/assets/json/bird.json";
+import { ref } from "vue";
 export default {
   name: "BirdsCard",
   props: {
@@ -57,21 +58,16 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      showOverlay: false,
+  setup() {
+    const showOverlay = ref(false);
+
+    const flipCard = async () => {
+      showOverlay.value = !showOverlay.value;
     };
-  },
-  methods: {
-    flipCard() {
-      this.showOverlay = !this.showOverlay;
-      if (!this.showOverlay) {
-        // 이미지가 나오게 하려면 아래와 같이 값을 변경합니다.
-        // this.birdData.img = '새 이미지 URL';
-        // this.birdData.국명 = '새 국명';
-        // this.birdData.학명 = '새 학명';
-      }
-    },
+    return {
+      showOverlay,
+      flipCard,
+    };
   },
 };
 </script>
@@ -87,9 +83,8 @@ $flip-card: rgba(0, 0, 0, 0.2);
   padding: 0;
 }
 
-
 .flip-card:hover {
-  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 .flip-card,
 .overlay {

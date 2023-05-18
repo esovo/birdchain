@@ -45,7 +45,7 @@
           <p><strong>유형</strong></p>
           <p>{{ detailData.type }}</p>
         </div>
-        <p v-if="modifyFlagMarker" class="required-item">선택입력사항</p>
+        <p v-if="modifyFlagMarker" class="required-item" style="margin-left: 75px;">선택입력사항</p>
         <div class="list-item">
           <p><strong>내용</strong></p>
           <p v-if="!modifyFlagMarker">
@@ -61,7 +61,7 @@
               class="modify-input-marker"></textarea>
           </form>
         </div>
-        <div v-if="modifyFlagMarker">
+        <div v-if="modifyFlagMarker" class="modify-input">
           <p class="required-item">선택입력사항</p>
           <v-form>
             <v-file-input
@@ -78,10 +78,10 @@
             올바른 이미지 파일을 선택해주세요.
           </p>
         </div>
-        <div v-if="deleteFlagMarker || modifyFlagMarker">
+        <div v-if="deleteFlagMarker || modifyFlagMarker" class="modify-input">
           <p class="required-item">*필수입력사항</p>
           <form @submit.prevent class="password-form">
-            <label class="password-label">
+            <label>
               <strong>비밀<br />번호</strong>
             </label>
             <input
@@ -283,7 +283,6 @@ const doModifyMarker = () => {
       }
     })
     .catch((error) => {
-      console.log(error);
       Swal.fire({
         position: "center",
         title: `"${error.response.data.message}"`,
@@ -401,15 +400,16 @@ const doDeleteMarker = () => {
 
 .password-form {
   display: flex;
+  margin-left: 7px;
 }
 
 .password-input-marker {
   font-size: medium;
   padding-left: 18px;
-  margin-left: 15px;
+  margin-left: 16px;
   background: rgb(230, 230, 230);
   border-radius: 5px;
-  width: 298px;
+  width: 295px;
   height: 40px;
 }
 
@@ -434,7 +434,11 @@ const doDeleteMarker = () => {
 
 .list-item {
   display: flex;
-  margin-top: 10px;
+  margin: 10px auto 0 auto;
+}
+
+.modify-input {
+  margin: 0 auto;
 }
 
 .list-item p:nth-child(1) {

@@ -1,9 +1,6 @@
 <template>
   <div id="nav">
     <HeaderComponentVue></HeaderComponentVue>
-    <!-- <router-link to="/">Home</router-link> -->
-    <!-- <router-link to="/about">About</router-link> -->
-
     <router-view />
   </div>
   <div id="footer">
@@ -131,11 +128,10 @@ h4,
 h5,
 h6,
 v-btn {
-  font-family: "Cafe24Ssurround";
+  font-family: "GmarketSansMedium";
 }
 div {
-  font-family: "GyeonggiTitleM";
-  font-weight: 100;
+  font-family: "GmarketSansMedium";
 }
 @media (max-width: 600px) {
   h1,
