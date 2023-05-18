@@ -102,7 +102,19 @@ export default {
     const accountStore = useAccountStore();
 
     const donateBtn = async () => {
-      dialog.value = true;
+      dialog.value = false;
+
+      const web3 = await createWeb3Instance();
+      const accounts = await web3.eth.getAccounts();
+      if (accounts.length == 0) {
+        alert("메타모스크 로그인을 해주세요.");
+        console.log("로그인 해주세요");
+      } else {
+        dialog.value = true;
+        await getAccount();
+        getCheckoutAccount();
+
+      }
     };
 
     const getAccount = async () => {
@@ -110,7 +122,7 @@ export default {
       const web3 = await createWeb3Instance();
       if (web3) {
         const accounts = await web3.eth.getAccounts();
-        console.log(accounts.value);
+        console.log(accounts);
         account.value = accounts[0];
         const weiBalance = await web3.eth.getBalance(account.value);
         balance.value = web3.utils.fromWei(weiBalance, "ether");
@@ -191,10 +203,10 @@ export default {
     };
   },
 
-  async beforeCreate() {
-    await this.getAccount();
-    this.checkAccounts();
-  },
+  // async beforeCreate() {
+  //   await this.getAccount();
+  //   this.checkAccounts();
+  // },
 };
 </script>
 <style scoped>

@@ -31,7 +31,7 @@
 import { Swiper, SwiperSlide } from "swiper/vue";
 import SwiperCore, { Navigation } from "swiper/core";
 import { ref } from "vue";
-import { createWeb3Instance } from "@/web3";
+// import { createWeb3Instance } from "@/web3";
 import DonationAbi from "../../abi/Donation.json";
 import { onMounted } from "vue";
 // import { useStore } from "@/stores/store";
@@ -75,41 +75,71 @@ export default {
       },
     };
 
-    // const store = useStore();
-    // const initValue = computed(() => store.getters.getTotalValue);
     var totalValue = ref(0);
+    const Web3 = require("web3");
+    const web3 = new Web3(
+      new Web3.providers.WebsocketProvider(
+        `wss://sepolia.infura.io/ws/v3/${process.env.VUE_APP_INFURA_API_KEY}`
+      )
+    );
+    console.log(process.env.INFURA_API_KEY);
+
+    const Donation = new web3.eth.Contract(
+      DonationAbi,
+      "0xF66a435190184e335cDD01B5eB2d11A023d6385a"
+    );
+
     const watchTotalValue = async () => {
-      const web3 = await createWeb3Instance();
+      await Donation.methods
+        .getTotalContribution()
+        .call()
+        .then(function (value) {
+          const total = web3.utils.fromWei(value, "ether");
+          totalValue.value = total;
+          console.log("값이 " + value);
+        });
+    };
+
+    const eventListener = async () => {
+      let web3;
+        web3 = new Web3(
+          new Web3.providers.WebsocketProvider(
+            `wss://sepolia.infura.io/ws/v3/${process.env.VUE_APP_INFURA_API_KEY}`
+          )
+        );
+      
+
+      console.log(web3.eth.Contract);
 
       const Donation = new web3.eth.Contract(
         DonationAbi,
-        "0xF66a435190184e335cDD01B5eB2d11A023d6385a",
+        "0xF66a435190184e335cDD01B5eB2d11A023d6385a"
       );
-      await Donation.methods.getTotalContribution().call().then(function(value) {
-        const total = web3.utils.fromWei(value, 'ether');
-        totalValue.value = total;
-        console.log("값이 " + value)
-      });
+
+      console.log(Donation.events);
+
+      watchTotalValue();
+
+      const eventName = "DonationReceived";
 
       // 이벤트 감시
-      await Donation.events
-        .DonationReceived()
+      await Donation.events[eventName]()
         .on("data", () => {
-          // 이벤트가 변경되면 알림을 표시
           watchTotalValue();
         })
         .on("error", (error) => {
           console.error("이벤트 감시 중 오류 발생:", error);
         });
-    };
+    }
 
-    onMounted(watchTotalValue);
+    onMounted(eventListener);
 
     return {
       swiperOptions,
       items,
       totalValue,
       watchTotalValue,
+      eventListener,
     };
   },
 };

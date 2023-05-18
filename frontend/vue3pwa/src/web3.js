@@ -15,7 +15,7 @@ export async function createWeb3Instance() {
   } else if (window.web3) {
     web3 = new Web3(window.web3.currentProvider);
   } else {
-    alert("이더리움 브라우저가 설치되지 않았습니다. MetaMask를 설치해주세요.");
+    alert("MetaMask를 설치하고 로그인한 후 네트워크를 Sepolia로 변경해주세요.");
     window.open("https://metamask.io/");
   }
 

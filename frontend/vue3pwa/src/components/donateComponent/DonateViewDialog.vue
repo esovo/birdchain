@@ -55,7 +55,6 @@ export default {
     return {
       dialog,
       account,
-      getAccount,
     };
   },
 };

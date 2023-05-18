@@ -54,7 +54,7 @@ export default {
       } else {
         web3 = new Web3(
           new Web3.providers.WebsocketProvider(
-            `wss://sepolia.infura.io/ws/v3/${process.env.INFURA_API_KEY}`
+            `wss://sepolia.infura.io/ws/v3/${process.env.VUE_APP_INFURA_API_KEY}`
           )
         );
         account.setAccount(false);
