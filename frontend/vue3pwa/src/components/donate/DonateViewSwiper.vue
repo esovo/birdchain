@@ -34,7 +34,6 @@ import { ref } from "vue";
 import { createWeb3Instance } from "@/web3";
 import DonationAbi from "../../abi/Donation.json";
 import { onMounted } from "vue";
-// import { useStore } from "@/stores/store";
 SwiperCore.use([Navigation]);
 export default {
   components: {
@@ -75,21 +74,22 @@ export default {
       },
     };
 
-    // const store = useStore();
-    // const initValue = computed(() => store.getters.getTotalValue);
     var totalValue = ref(0);
     const watchTotalValue = async () => {
       const web3 = await createWeb3Instance();
 
       const Donation = new web3.eth.Contract(
         DonationAbi,
-        "0xF66a435190184e335cDD01B5eB2d11A023d6385a",
+        "0xF66a435190184e335cDD01B5eB2d11A023d6385a"
       );
-      await Donation.methods.getTotalContribution().call().then(function(value) {
-        const total = web3.utils.fromWei(value, 'ether');
-        totalValue.value = total;
-        console.log("값이 " + value)
-      });
+      await Donation.methods
+        .getTotalContribution()
+        .call()
+        .then(function (value) {
+          const total = web3.utils.fromWei(value, "ether");
+          totalValue.value = total;
+          console.log("값이 " + value);
+        });
 
       // 이벤트 감시
       await Donation.events

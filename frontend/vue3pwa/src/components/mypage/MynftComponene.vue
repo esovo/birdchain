@@ -33,7 +33,6 @@ export default {
     axios
       .get(`https://k8b104.p.ssafy.io/api/items?address=${this.address}`)
       .then((res) => {
-        console.log(res.data.value);
         this.items = res.data.value;
       });
   },
