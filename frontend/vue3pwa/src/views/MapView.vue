@@ -181,8 +181,6 @@ const movePin = () => {
         placeInfo[0] = latlng.getLat();
         // 경도
         placeInfo[1] = latlng.getLng();
-        // console.log(placeInfo[0]);
-        // console.log(placeInfo[1]);
 
         // 도로명 주소
         result[0].road_address

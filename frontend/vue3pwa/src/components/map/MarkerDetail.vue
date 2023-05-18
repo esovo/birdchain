@@ -283,7 +283,6 @@ const doModifyMarker = () => {
       }
     })
     .catch((error) => {
-      console.log(error);
       Swal.fire({
         position: "center",
         title: `"${error.response.data.message}"`,
