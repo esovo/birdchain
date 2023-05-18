@@ -93,7 +93,7 @@ export default {
         width: this.app.width,
         height: this.app.height,
         interactive: true, // hz
-        buttonMode: true, // hz
+        buttonMode: true,
       });
 
       this.app.game.stage.on("click", () => {
@@ -361,14 +361,13 @@ export default {
 
       store.increment();
       const score = useStore();
-
       this.gameStart = !this.gameStart;
       this.gameFinish = true;
-
-      // main.setScore(this.scoreText.score)
-      // this.$store.dispatch('setScore', this.scoreText.score)
+      this.app.game.stage.removeChild(this.clue.spriteClue);
       score.$patch({ score: this.scoreText.score });
-      setTimeout(() => this.$router.push({ name: "gameover" }), 2000);
+      if(this.$route.name=="gameView"){
+        setTimeout(() => this.$router.push({ name: "gameover" }), 1000);
+      }
     },
     chekGame() {
       if (!this.gameStart) {
@@ -378,14 +377,16 @@ export default {
       }
     },
     listener() {
-      window.addEventListener("keydown", (e) => {
-        if (e.key === "ArrowUp" || e.code === "Space") {
-          this.chekGame();
-        }
-      });
-      window.addEventListener("touchend", () => {
-        this.chekGame();
-      });
+        window.addEventListener("keydown", (e) => {
+          if (e.key === "ArrowUp" || e.code === "Space") {
+            this.chekGame();
+          }
+        });
+        window.addEventListener("touchend", () => {
+          if(this.$route.name=="gameView"){
+            this.chekGame();
+          }
+        });
     },
     randomHeight() {
       return Math.round(Math.random() * (350 - 220) + 220);

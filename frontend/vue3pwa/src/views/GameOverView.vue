@@ -105,7 +105,9 @@ export default {
   },
   methods: {
     startGame() {
-      this.$router.push({ name: "gameView" });
+      if(this.$route.name=="gameover"){
+         this.$router.push({ name: "gameView" });
+        }
     },
     drawPixi() {
       let gameOverWrapper = document.querySelector(".game-over");
@@ -114,6 +116,7 @@ export default {
         transparent: true,
         width: this.app.width,
         height: this.app.height,
+        cursor : 'cursor'
       });
       gameOverWrapper.appendChild(this.app.game.view);
       this.addText();
@@ -230,8 +233,11 @@ export default {
           this.startGame();
         }
       });
+
       window.addEventListener("touchend", () => {
-        this.startGame();
+        if(this.$route.name=="gameover"){
+          this.startGame();
+        }
       });
     },
   },

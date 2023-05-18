@@ -12,7 +12,7 @@
           <v-icon>mdi-bird</v-icon>
           위기 조류
         </v-btn>
-        <v-btn style="padding: 10px;" @click="this.$router.push({ name: 'DonateView' })">
+        <v-btn style="padding: 10px;" @click="this.$router.push({ name: 'donateView' })">
           <v-icon>mdi-heart</v-icon>
           기부하기
         </v-btn>

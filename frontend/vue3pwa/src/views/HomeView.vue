@@ -177,7 +177,7 @@ export default {
           "wss://sepolia.infura.io/ws/v3/83705720b3404902961dbecaa2199676"
         )
       );
-      console.log(web3.eth.Contract);
+      // console.log(web3.eth.Contract);
 
       const Donation = new web3.eth.Contract(
         DonationAbi,
@@ -190,7 +190,7 @@ export default {
         .then(function (value) {
           const total = web3.utils.fromWei(value, "ether");
           totalValue.value = total;
-          console.log("값이 " + value);
+          // console.log("값이 " + value);
         });
 
       // 이벤트 감시
