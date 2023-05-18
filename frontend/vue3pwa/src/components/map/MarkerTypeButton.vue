@@ -6,7 +6,8 @@
       multiple
       variant="outlined"
       divided
-      @click="selectType">
+      @click="selectType"
+      style="height: 63px">
       <v-btn value="버드스트라이크"> 버드<br />스트라이크 </v-btn>
       <v-btn value="새발견"> 새발견 </v-btn>
     </v-btn-toggle>
@@ -23,8 +24,4 @@ const selectType = () => {
 };
 </script>
 
-<style scoped>
-div {
-  margin: auto 0;
-}
-</style>
+<style scoped></style>

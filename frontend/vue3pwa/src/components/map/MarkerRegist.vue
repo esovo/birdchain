@@ -18,7 +18,7 @@
             variant="tonal"
             color="light-green lighten-3"
             @click="showModal"
-            >게시물 등록하기</v-btn
+            >게시글 등록하기</v-btn
           >
         </div>
         <v-dialog v-model="modalVisible">
@@ -143,7 +143,7 @@ const pw_rule = (value) => {
 
 const img_rule = (value) => {
   if (value) {
-    const allowedExtensions = [".jpg", ".jpeg", ".png", ".gif"];
+    const allowedExtensions = [".jpg", ".jpeg", ".png", ".gif", ".jfif"];
     const fileExtension = value[0].name
       .substr(value[0].name.lastIndexOf("."))
       .toLowerCase();
