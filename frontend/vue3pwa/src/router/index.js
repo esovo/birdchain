@@ -8,7 +8,7 @@ import GameView from "@/views/GameView.vue";
 import GameOverView from "@/views/GameOverView.vue";
 import NftView from "@/views/NftView.vue";
 import MapView from "@/views/MapView.vue";
-import { createWeb3Instance, checkWeb3Instance } from "@/web3";
+import { createWeb3Instance } from "@/web3";
 import { getCheckoutAccount } from "@/api/checkAccount";
 import { useAccountStore } from "@/stores/accountStore";
 
