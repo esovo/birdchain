@@ -5,6 +5,9 @@
       @searchByType="searchByType"
       class="type-btn"></MarkerTypeButton>
   </div>
+  <div class="map-info-text">
+    버드스트라이크와 새발견
+  </div>
   <MapSearchBar
     @searchByAddress="searchByAddress"
     @searchCurPosition="searchCurPosition"
@@ -27,7 +30,7 @@
   <div class="flex-box">
     <div class="markerDetail">
       <div class="info-title">
-        <img src="img/icons/post-detail.gif" style="width: 4vw; height: 4vw" />
+        <img src="img/icons/free-icon-dove.png" class="info-post-img" />
         <div class="info-post">게시글 상세보기</div>
       </div>
       <MakerDetail
@@ -38,7 +41,7 @@
     </div>
     <div class="commentList">
       <div class="info-title">
-        <img src="img/icons/post-detail.gif" style="width: 4vw; height: 4vw" />
+        <img src="img/icons/free-icon-letter.png" class="info-post-img"/>
         <div class="info-post">댓글달기</div>
       </div>
       <CommentList v-if="isValid" :marker_id="marker_id"></CommentList>
@@ -327,11 +330,23 @@ const searchByType = (data) => {
   height: 2.5vw;
 }
 
+.map-info-text {
+  font-size: 1.5vw;
+  border:1px solid black;
+  width: 45vw;
+  margin: 0 auto;
+}
+
 .info-post {
   font-size: 1.5vw;
   margin: auto 0;
 }
 
+.info-post-img {
+  width: 4vw; 
+  height: 3.5vw;
+  margin-right: 10px;
+}
 .info-title {
   margin-top: 20px;
   margin-bottom: 20px;
@@ -372,6 +387,9 @@ const searchByType = (data) => {
     font-size: 3vw;
   }
   .info-regist {
+    font-size: 3vw;
+  }
+  .map-info-text {
     font-size: 3vw;
   }
 }
