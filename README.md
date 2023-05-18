@@ -76,17 +76,19 @@
 
 - **기부를 통해 NFT를 발급**
 
-NFT 토큰 발급을 통한 기부 독려
+- NFT 토큰 발급을 통한 기부 독려
+
 ![Untitled](images/image9.png)
 
-지갑 연동후 일정규모의 이더리움 기부
+- 지갑 연동후 일정규모의 이더리움 기부
 
 ![Untitled](images/image10.png)
 
-원하는 종류의 NFT 토큰 선택
+- 원하는 종류의 NFT 토큰 선택
+
 ![Untitled](images/image11.png)
 
-발급된 NFT 토큰 확인
+- 발급된 NFT 토큰 확인
 
 ![Untitled](images/image12.png)
 
@@ -94,7 +96,8 @@ NFT 토큰 발급을 통한 기부 독려
 - **멸종 위기 조류를 안내**
 
 
-멸종 위기 조류 데이터 확인
+- 멸종 위기 조류 데이터 확인
+
 ![Untitled](images/image13.png)
 
 ## 기대 효과
@@ -111,7 +114,7 @@ NFT 토큰 발급을 통한 기부 독려
 ![Untitled](images/image15.png)
 
 
-![Untitled](images/imgae16.png)
+![Untitled](images/image16.png)
 
 
 
