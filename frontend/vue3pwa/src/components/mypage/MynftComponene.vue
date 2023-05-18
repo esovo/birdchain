@@ -17,11 +17,8 @@ import { ref } from "vue";
 
 export default {
   setup() {
-    const wStore = walletStore();
-    const address = wStore.wallet;
     const items = ref([]);
     return {
-      address,
       items,
     };
   },
@@ -33,8 +30,10 @@ export default {
   },
   async mounted() {
     await createWeb3Instance();
+    const wStore = walletStore();
+    const address = wStore.wallet;
     axios
-      .get(`https://k8b104.p.ssafy.io/api/items?address=${this.address}`)
+      .get(`https://k8b104.p.ssafy.io/api/items?address=${address}`)
       .then((res) => {
         this.items = res.data.value;
       });

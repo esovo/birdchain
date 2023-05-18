@@ -37,14 +37,7 @@ import { walletStore } from "@/stores/donationStore";
 import { createWeb3Instance } from "@/web3.js";
 
 export default {
-  setup() {
-    const wStore = walletStore();
-    const address = wStore.wallet;
-
-    return {
-      address,
-    };
-  },
+  setup() {},
 
   name: "MintingComponent",
   data() {
@@ -55,10 +48,12 @@ export default {
   },
   async mounted() {
     await createWeb3Instance();
+    const wStore = walletStore();
+    const address = wStore.wallet;
+
     axios
-      .get(`https://k8b104.p.ssafy.io/api/items?address=${this.address}`)
+      .get(`https://k8b104.p.ssafy.io/api/items?address=${address}`)
       .then((res) => {
-        console.log(res);
         this.items = res.data.value;
       });
   },
