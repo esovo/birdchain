@@ -54,7 +54,7 @@ export default {
       } else {
         web3 = new Web3(
           new Web3.providers.WebsocketProvider(
-            "wss://sepolia.infura.io/ws/v3/83705720b3404902961dbecaa2199676"
+            `wss://sepolia.infura.io/ws/v3/${process.env.INFURA_API_KEY}`
           )
         );
         account.setAccount(false);
@@ -64,7 +64,7 @@ export default {
 
       const Donation = new web3.eth.Contract(
         DonationAbi,
-        "0x1678A184F4DEd0e15dd589fD98b8a87194c2412d"
+        "0xF66a435190184e335cDD01B5eB2d11A023d6385a"
       );
 
       console.log(Donation.events);
