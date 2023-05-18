@@ -16,8 +16,8 @@
     </div>
     <div class="map-intro-right">
       <div class="map-intro-text">
-        버드스트라이크와 보호종 새를 발견하면 정보를 공유해주세요.
-        유리벽 충돌과 관련된 야생조류의 희생에 대한 정보를 모으는 게시판입니다. 우리나라의 도시밀집도와 이에 따른 건물 유리벽의 증가, 투명방음벽의 증가는 야생조류 개체군 몰락에 큰 영향을 미치는 것으로 보고 되고 있습니다. 주변에서 발생하는 야생조류 유리벽 충돌에 관한 정보를 모으는 데에 함께 동참해주세요.
+        버드스트라이크와 보호종 새를 발견하면 정보를 공유하는 게시판입니다.
+        유리벽 충돌과 관련된 야생조류의 희생에 대한 정보를 공유해주세요. 우리나라의 도시밀집도와 이에 따른 건물 유리벽의 증가, 투명방음벽의 증가는 야생조류 개체군 몰락에 큰 영향을 미치는 것으로 보고 되고 있습니다. 주변에서 발생하는 야생조류 유리벽 충돌에 관한 정보를 모으는 데에 함께 동참해주세요.
         <br>
         보호종 새를 발견하면 해당 위치를 공유해주세요. 마커가 찍히는 횟수를 늘리고, 해당 장소의 환경보호에 함께 해요!
       </div>
@@ -181,8 +181,6 @@ const movePin = () => {
         placeInfo[0] = latlng.getLat();
         // 경도
         placeInfo[1] = latlng.getLng();
-        // console.log(placeInfo[0]);
-        // console.log(placeInfo[1]);
 
         // 도로명 주소
         result[0].road_address
@@ -304,8 +302,8 @@ const searchByType = (data) => {
   justify-content: center;
   margin: 0 auto;
   width: 80vw;
-
 }
+
 .map-intro-text {
   width: 26vw;
   margin: 0 auto 40px auto;
@@ -390,6 +388,19 @@ const searchByType = (data) => {
   }
   .commentList {
     margin-left: 0px;
+  }
+  .map-intro {
+    flex-wrap: wrap;
+    width: 100vw;
+  }
+  .map-intro-text {
+    width: 55vw;
+  }
+  .info-regist {
+    width: 55vw;
+  }
+  .map-intro-right {
+    margin-top: 10px;
   }
 }
 

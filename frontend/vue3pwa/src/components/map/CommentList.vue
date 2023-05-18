@@ -12,14 +12,17 @@
           <div class="confirm-items">
             <div
               class="icons"
-              v-if="!comment.deleteFlagComment && !comment.modifyFlagComment">
+              v-if="!comment.deleteFlagComment && !comment.modifyFlagComment"
+            >
               <font-awesome-icon
                 :icon="['fas', 'pen-to-square']"
-                @click="showModifyInputComment(comment)" />
+                @click="showModifyInputComment(comment)"
+              />
               <span> | </span>
               <font-awesome-icon
                 :icon="['fas', 'trash']"
-                @click="showInputForm(comment)" />
+                @click="showInputForm(comment)"
+              />
             </div>
             <div v-if="comment.modifyFlagComment" class="confirm-btns">
               <button @click="showModifyInputComment(comment)">취소</button>
@@ -39,7 +42,8 @@
         </div>
         <div
           v-if="comment.deleteFlagComment || comment.modifyFlagComment"
-          class="password-items">
+          class="password-items"
+        >
           <form @submit.prevent class="password-form">
             <label class="password-label">비밀번호</label>
             <input
@@ -47,7 +51,8 @@
               placeholder="비밀번호를 입력해주세요."
               v-model="comment.password"
               v-focus="comment.isFocused"
-              class="password-input-comment" />
+              class="password-input-comment"
+            />
           </form>
           <div v-if="comment.isAcceptable" class="warn-info">
             비밀번호를 잘못 입력했습니다. 다시 입력해주세요.
@@ -59,18 +64,21 @@
         <form
           @submit.prevent
           v-if="comment.modifyFlagComment"
-          class="modify-input-form">
+          class="modify-input-form"
+        >
           <textarea
             id="content"
             v-model="comment.modiContentComment"
-            class="modify-input-comment"></textarea>
+            class="modify-input-comment"
+          ></textarea>
         </form>
       </div>
     </div>
     <div class="comment-regist">
       <CommentRegist
         :marker_id="props.marker_id"
-        @reloadComment="reloadComment" />
+        @reloadComment="reloadComment"
+      />
     </div>
   </v-card>
 </template>

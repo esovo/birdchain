@@ -34,12 +34,6 @@ export default defineComponent({
     const LogoUrl = ref(require("../../assets/img/Logo.png"));
     const accountStore = useAccountStore();
 
-    console.log("여기는 헤더");
-    console.log(accountStore.account);
-    console.log(accountStore.getAccountAsync);
-    console.log(accountStore.isConnected);
-    console.log("위에는 어카운트 스토어");
-
     onMounted(async () => {
       // 기존에 있는 계정 정보 가져오기
       await accountStore.getAccountAsync();
@@ -50,10 +44,7 @@ export default defineComponent({
         window.ethereum.on("accountsChanged", async (accounts) => {
           if (accounts.length === 0) {
             accountStore.account = null;
-            // MetaMask is locked or the user has not connected any accounts
-            console.log("Please connect to MetaMask.");
           } else if (accounts[0] !== accountStore.account) {
-            // A web3 account is available, update accountStore
             accountStore.account = accounts[0];
           }
         });

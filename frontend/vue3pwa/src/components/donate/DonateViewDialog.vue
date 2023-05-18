@@ -106,7 +106,6 @@ export default {
     };
 
     const getAccount = async () => {
-      console.log("지갑 연동 실행");
       const web3 = await createWeb3Instance();
       if (web3) {
         const accounts = await web3.eth.getAccounts();
@@ -123,21 +122,14 @@ export default {
 
     // 계정을 확인해서 기부 한 상태인지 아닌지에 따라서 분기처리
     const checkAccounts = async () => {
-      console.log("기부 한 계정인지 확인하기");
-      console.log(account.value);
-      console.log("가나");
       const res = await getCheckoutAccount(account.value);
 
-      if (res.data.value === null) {
-        console.log("아직 기부 안함");
-      } else {
+      if (res.data.value !== null) {
         router.push("/nft");
       }
     };
     const donating = async () => {
-      console.log(loading.value);
       loading.value = true;
-      console.log(loading.value);
       const web3 = await createWeb3Instance();
 
       const Donation = new web3.eth.Contract(
@@ -156,8 +148,6 @@ export default {
           value: donationAmount,
         })
         .then((res) => {
-          console.log(account.value);
-          console.log("기부완료");
           axios
             .post(`https://k8b104.p.ssafy.io/api/donations`, {
               amount: dAmount.value,
@@ -166,7 +156,6 @@ export default {
             })
             .then((res) => {
               // 해당 유저가 기부 완료 상태임을 기록, 관리해야 함.
-              console.log(res.data.value);
               setDonation_id(res.data.value);
               setwallet(account.value);
               accountStore.donate();
@@ -226,11 +215,6 @@ export default {
   margin-bottom: 3vw;
   justify-content: center;
 }
-
-/* .align-center {
-  position: fixed;
-  top: 50vh;
-} */
 
 .v-overlay {
   position: fixed;
