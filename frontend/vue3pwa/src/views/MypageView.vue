@@ -1,7 +1,6 @@
 <template>
   <div class="mypage">
     <mynft-componenet></mynft-componenet>
-
     <minting-component></minting-component>
   </div>
 </template>
@@ -27,4 +26,9 @@ export default {
   },
 };
 </script>
-<style></style>
+<style>
+#nav{
+  background: #F4F4F4;
+  padding-bottom: 5vw;
+}
+</style>

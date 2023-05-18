@@ -42,6 +42,9 @@ export default {
 
 </script>
 <style>
+.footer {
+    margin-top: 50px;
+}
 .v-bottom-navigation__content {
   justify-content: space-around;
   padding-left: 40px;

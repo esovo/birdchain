@@ -42,11 +42,11 @@ export default {
 <style>
 .nftbox {
   padding-right: 5vw;
-  padding-left: 5vw;
+  padding-left: 3vw;
   padding-top: 2vw;
   padding-bottom: 5vw;
-  margin: 10vw 10vw 10vw 10vw;
-  /* background-color: grey; */
+  margin: 5vw 5vw 4vw 5vw;
+  background: white;
 }
 #mynfttext {
   font-family: "Inter";
@@ -56,7 +56,7 @@ export default {
   display: flex;
   text-align: left;
   color: #000000;
-  margin-bottom: 50px;
+  margin-bottom: 35px;
 }
 #mynft {
   display: flex;
@@ -64,6 +64,7 @@ export default {
 }
 .nfturl {
   width: 15vw;
-  margin-left: 20px;
+  margin-right: 20px;
+  border-radius: 10%;
 }
 </style>

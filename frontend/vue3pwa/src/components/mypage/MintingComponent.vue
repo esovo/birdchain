@@ -28,20 +28,13 @@
           v-for="item in items"
           :key="item.name"
         >
-          <td class="text-left" id="nftid"><img :src=item.imageUrl id="nftimg" /> <div>{{ item.name }}</div></td>
+          <td class="text-left" id="nftid">
+            <img :src=item.imageUrl id="nftimg" /> 
+            <div id="nftname">{{ item.name }}</div></td>
           <td class="text-left">{{item.amount}}</td>
           <td class="text-left" id="txid">{{ item.txid }}</td>
           <td class="text-left">
             {{item.iucn}}
-            <!-- <v-rating
-              v-model="item.rating"
-              bg-color="orange-lighten-1"
-              color="#FFA800"
-              size="small"
-              density="compact"
-              readonly
-            ></v-rating> -->
-            <!-- {{ item.rating }} -->
           </td>
         </tr>
       </tbody>
@@ -82,11 +75,11 @@ export default {
 <style>
 .mintingbox{
   padding-right: 5vw;
-  padding-left: 5vw;
+  padding-left: 3vw;
   padding-top: 2vw;
   padding-bottom: 5vw;
-  margin: 0vw 10vw 10vw 10vw;
-  /* background-color: grey; */
+  margin: 0 5vw 0vw 5vw;
+  background: white;
 }
 #txid{
   width: 20%;
@@ -99,8 +92,11 @@ export default {
 }
 #nftimg{
   margin-right: 10px;
- 
   width: 50px;
   height: 50px;
+}
+#nftname{
+  align-items: center;
+  display: flex;
 }
 </style>
