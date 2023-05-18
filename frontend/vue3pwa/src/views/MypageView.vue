@@ -8,11 +8,16 @@
 <script>
 import MintingComponent from "@/components/mypage/MintingComponent.vue";
 import MynftComponenet from "@/components/mypage/MynftComponene.vue";
+import { checkWeb3Instance } from "@/we3.js";
 export default {
   name: "MypageView",
   components: {
     MynftComponenet,
     MintingComponent,
+  },
+
+  beforeCreate() {
+    checkWeb3Instance();
   },
 };
 </script>

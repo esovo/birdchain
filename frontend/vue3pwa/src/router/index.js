@@ -41,10 +41,6 @@ const routes = [
     path: "/mypage",
     name: "mypage",
     component: MypageView,
-    beforeEnter: async (to, from, next) => {
-      checkWeb3Instance();
-      next();
-    },
   },
   {
     path: "/donate",
