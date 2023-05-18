@@ -142,7 +142,7 @@ export default {
 
       const Donation = new web3.eth.Contract(
         DonationAbi,
-        "0x1678A184F4DEd0e15dd589fD98b8a87194c2412d"
+        "0xF66a435190184e335cDD01B5eB2d11A023d6385a"
       );
       const donationAmount = web3.utils.toWei(
         dAmount.value.toString(),

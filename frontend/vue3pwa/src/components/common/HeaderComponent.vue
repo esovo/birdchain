@@ -25,22 +25,41 @@
 </template>
 
 <script>
-import { defineComponent, ref } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
 import { useAccountStore } from "@/stores/accountStore";
 
 export default defineComponent({
   name: "HeaderComponent",
   setup() {
     const LogoUrl = ref(require("../../assets/img/Logo.png"));
-    const walletUrl = ref(require("../../assets/img/wallet.png"));
     const accountStore = useAccountStore();
 
     console.log("여기는 헤더");
     console.log(accountStore.account);
-    console.log(accountStore.getAccountAsync());
+    console.log(accountStore.getAccountAsync);
     console.log(accountStore.isConnected);
     console.log("위에는 어카운트 스토어");
-    return { LogoUrl, walletUrl, accountStore };
+
+    onMounted(async () => {
+      // 기존에 있는 계정 정보 가져오기
+      await accountStore.getAccountAsync();
+
+      // MetaMask 혹은 다른 Ethereum 지갑이 window.ethereum 객체를 제공하는지 확인합니다.
+      if (window.ethereum) {
+        // 'accountsChanged' 이벤트를 감지하고, 계정 정보를 업데이트합니다.
+        window.ethereum.on("accountsChanged", async (accounts) => {
+          if (accounts.length === 0) {
+            accountStore.account = null;
+            // MetaMask is locked or the user has not connected any accounts
+            console.log("Please connect to MetaMask.");
+          } else if (accounts[0] !== accountStore.account) {
+            // A web3 account is available, update accountStore
+            accountStore.account = accounts[0];
+          }
+        });
+      }
+    });
+    return { LogoUrl, accountStore };
   },
 });
 </script>
@@ -92,7 +111,7 @@ a {
   flex-direction: row;
   margin-left: 4%;
   margin-top: 40px;
-  font-size: 1.2vw;
+  font-size: 1.5vw;
   line-height: 27px;
 }
 

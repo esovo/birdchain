@@ -1,13 +1,13 @@
 <template>
   <div class="donateswiper">
     <div class="donatetitle">
-      <h1>코인을 기부하고 NFT를 받아가세요.</h1>
+      <div>코인을 기부하고 NFT를 받아가세요.</div>
     </div>
-    <div class="donatesubtitle1">
-      <div>랜덤으로 4개의 이미지를 제공하고 하나를 선택할 수 있습니다.</div>
+    <div style="margin-top: 3vw">
+      <h3>랜덤으로 4개의 이미지를 제공하고 하나를 선택할 수 있습니다.</h3>
     </div>
-    <div class="donatesubtitle2">
-      <div>아래는 받아갈 수 있는 NFT의 예시입니다.</div>
+    <div style="margin-bottom: 2vw">
+      <h3>아래는 받아갈 수 있는 NFT의 예시입니다.</h3>
     </div>
     <swiper ref="swiperRef" v-bind="swiperOptions" class="swiper-container">
       <swiper-slide v-for="(item, i) in items" :key="i">
@@ -22,10 +22,8 @@
       <div class="swiper-button-next"></div>
       <div class="swiper-button-prev"></div>
     </swiper>
-    <div class="donatetotalcash">
-      <div>총 기부 금액</div>
-      <div class="total">{{ totalValue }}ETH</div>
-    </div>
+    <div>총 기부 금액</div>
+    <div class="total">{{ totalValue }}ETH</div>
   </div>
 </template>
 
@@ -79,13 +77,13 @@ export default {
 
     // const store = useStore();
     // const initValue = computed(() => store.getters.getTotalValue);
-    let totalValue = ref(0);
+    var totalValue = ref(0);
     const watchTotalValue = async () => {
       const web3 = await createWeb3Instance();
 
       const Donation = new web3.eth.Contract(
         DonationAbi,
-        "0x1678A184F4DEd0e15dd589fD98b8a87194c2412d",
+        "0xF66a435190184e335cDD01B5eB2d11A023d6385a",
       );
       await Donation.methods.getTotalContribution().call().then(function(value) {
         const total = web3.utils.fromWei(value, 'ether');
@@ -124,24 +122,8 @@ export default {
 
 .donatetitle {
   margin-top: 3vw;
-  font-size: 1.5vw;
+  font: 700 3vw/1.1 Calibre-R, sans-serif;
 }
-
-.donatesubtitle1 {
-  margin-top: 3vw;
-  font-size: 1.5vw;
-}
-
-.donatesubtitle2 {
-  margin-bottom: 2vw;
-  font-size: 1.5vw;
-}
-
-.donatetotalcash {
-  margin-top: 80px;
-  font-size: 1.5vw;
-}
-
 .swiper-slide img {
   width: 20vw;
   height: auto;
