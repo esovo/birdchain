@@ -18,7 +18,7 @@
             variant="tonal"
             color="light-green lighten-3"
             @click="showModal"
-            >게시물 등록하기</v-btn
+            >게시글 등록하기</v-btn
           >
         </div>
         <v-dialog v-model="modalVisible">
