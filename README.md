@@ -2,14 +2,14 @@
 
 ## **: 야생 조류를 위한 NFT 기부 프로젝트**
 
-![Untitled](images/001.png)
+![Untitled](images/image1.png)
 
 # ✔ Project Summary
 
 
 ### 개발 기간 : 2023.04/10 ~ 2023.05/19
 
-![Untitled](images/002.png)
+![Untitled](images/image2.png)
 
 ## Back-Ground
 
@@ -20,7 +20,7 @@
 또한 매년 800만 마리가 유리창 충돌, 버드스트라이크가 일어나며
 하루 2만마리의 새들이 죽음
 
-![Untitled](images/006.png)
+![Untitled](images/image3.png)
 
 ## 사용자 요구 분석
 
@@ -28,31 +28,33 @@
 - **유리창 충돌, 버드스트라이크를 기록**
 - **빈번한 사고발생지점에 대한 조치 필요성의 근거를 제공**
 
-![Untitled](images/009.png)
+![Untitled](images/image4.png)
 
-![Untitled](images/007.png)
 
 ## 서비스 설명
 
 - 멸종 위기종을 NFT화
-- 유리창 충돌, 버드스트라이크를 기록
+
+
 - 멸종 위기 조류를 안내
+![Untitled](images/image5.png)
+
+- 유리창 충돌, 버드스트라이크를 기록
+![Untitled](images/image6.png)
+
 - 기부를 통해 NFT를 발급
-![Untitled](images/010.png)
+![Untitled](images/image7.png)
 
 
 ---
 
 ## 설계 및 산출물
 
-- **ERD 및 Architecture**
-
-![Untitled](images/023.png)
 
 
-- **API 및 아케텍쳐**
+- **아키텍쳐**
 
-![Untitled](images/022.png)
+![Untitled](images/image8.png)
 
 
 
@@ -74,38 +76,57 @@
 
 - **기부를 통해 NFT를 발급**
 
-사용자의 웹캠을 통해 ai모델을 사용하여 사용자의 감정을 인식
+NFT 토큰 발급을 통한 기부 독려
+![Untitled](images/image9.png)
 
+지갑 연동후 일정규모의 이더리움 기부
+
+![Untitled](images/image10.png)
+
+원하는 종류의 NFT 토큰 선택
+![Untitled](images/image11.png)
+
+발급된 NFT 토큰 확인
+
+![Untitled](images/image12.png)
 
 
 - **멸종 위기 조류를 안내**
 
-**whisper Api**를 이용, 
-사용자의 음성을 인식하여 대본과 얼마나 일치하는지 비교,
-틀린부분을 체크하여 보여줌
 
-![Untitled](images/013.png)
+멸종 위기 조류 데이터 확인
+![Untitled](images/image13.png)
 
 ## 기대 효과
 
-- ai 분석을 통한 자신의 연기 분석
-- 발음 교정
-- 연기자를 향한 입문 난이도를 낮춤
+- 멸종 위기 조류에 대한 정보 확인
 
-![Untitled](images/010.png)
+![Untitled](images/image14.png)
 
 
 ---
 
 -  **게임**
 
-![Untitled](images/027.png)
+![Untitled](images/image15.png)
 
-- AI영상 분석 모델을 활용한 감정인식
 
-![Untitled](images/018.png)
+![Untitled](images/imgae16.png)
 
-![Untitled](images/019.png)
+
+
+## 사용 기술
+
+- **BlockChain**
+
+![Untitled](images/image17.png)
+
+![Untitled](images/image18.png)
+
+
+- **PWA**
+
+![Untitled](images/image19.png)
 
 
 
@@ -128,13 +149,15 @@
 
 | Node.js | 18.13.0 |
 | --- | --- |
-| Vue | 17.0.2 |
+| Vue | 3.2.13 |
 | VS Code | 1.75.1 |
-| Create-react-app | 5.0.1 |
-| React-router-dom | 6.2.0 |
+| Web3 | 1.9.0 |
+| Vue-router | 4.1.6 |
 | npm | 8.19.3 |
-| recoil | 0.7.7 |
-| CSS |  |
+| pinia | 2.0.35 |
+| vuetify | 3.1.14 |
+| pixi.js | 7.2.4 |
+
 
 
 
@@ -173,4 +196,4 @@
 - 강지수 (팀원) - Front-End
 - 남기정 (팀원) - BlockChain
 
-![Untitled](images/Untitled%2013.png)
+![Untitled](images/image20.png)
