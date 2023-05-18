@@ -19,24 +19,12 @@
           <td class="text-left">{{ item.amount }}</td>
           <td class="text-left" id="txid">{{ item.txid }}</td>
           <td class="text-left">
-            <div v-if="item.iucn === 'VU'">
-              취약
-            </div>
-            <div v-if="item.iucn === 'LC'">
-              관심대상
-            </div>
-            <div v-if="item.iucn === 'NT'">
-              준위협
-            </div>
-            <div v-if="item.iucn === 'EN'">
-              위기
-            </div>
-            <div v-if="item.iucn === 'CR'">
-              위급
-            </div>
-            <div v-if="item.iucn === 'RE'">
-              지역절멸
-            </div>
+            <div v-if="item.iucn === 'VU'">취약</div>
+            <div v-if="item.iucn === 'LC'">관심대상</div>
+            <div v-if="item.iucn === 'NT'">준위협</div>
+            <div v-if="item.iucn === 'EN'">위기</div>
+            <div v-if="item.iucn === 'CR'">위급</div>
+            <div v-if="item.iucn === 'RE'">지역절멸</div>
           </td>
         </tr>
       </tbody>
@@ -46,6 +34,7 @@
 <script>
 import axios from "axios";
 import { walletStore } from "@/stores/donationStore";
+import { checkWeb3Instance } from "@/web3.js";
 
 export default {
   setup() {
@@ -64,7 +53,8 @@ export default {
       img1: require("../../assets/img/image 14.png"),
     };
   },
-  mounted() {
+  async mounted() {
+    await checkWeb3Instance();
     axios
       .get(`https://k8b104.p.ssafy.io/api/items?address=${this.address}`)
       .then((res) => {
