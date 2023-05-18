@@ -20,6 +20,7 @@ import FooterComponent from "./components/common/FooterComponent.vue";
 import HeaderComponentVue from "./components/common/HeaderComponent.vue";
 import DonationAbi from "./abi/Donation.json";
 import { ref, onMounted, getCurrentInstance } from "vue";
+import { useAccountStore } from "@/stores/accountStore";
 
 export default {
   name: "App",
@@ -28,11 +29,12 @@ export default {
     FooterComponent,
     BottomNavComponent,
   },
-  
+
   setup() {
-    const Web3 = require('web3');
+    const Web3 = require("web3");
     const eventData = ref(null);
     const instance = getCurrentInstance();
+    const account = useAccountStore();
 
     const showNotification = (message) => {
       console.log(message);
@@ -42,8 +44,22 @@ export default {
     };
 
     const showLog = async () => {
+      let web3;
+      if (window.ethereum.isConnected() ) {
+        console.log("MetaMask is connected!");
+        web3 = new Web3(window.ethereum);
+        const accounts = await web3.eth.getAccounts();
+        if(accounts.length > 0)
+        account.setAccount(true);   
+      } else {
+        web3 = new Web3(
+          new Web3.providers.WebsocketProvider(
+            "wss://sepolia.infura.io/ws/v3/83705720b3404902961dbecaa2199676"
+          )
+        );
+        account.setAccount(false);
+      }
 
-      const web3 = new Web3(new Web3.providers.WebsocketProvider("wss://sepolia.infura.io/ws/v3/83705720b3404902961dbecaa2199676"));
       console.log(web3.eth.Contract);
 
       const Donation = new web3.eth.Contract(
@@ -53,7 +69,7 @@ export default {
 
       console.log(Donation.events);
 
-      const eventName = 'DonationReceived';
+      const eventName = "DonationReceived";
 
       // 이벤트 감시
       await Donation.events[eventName]()

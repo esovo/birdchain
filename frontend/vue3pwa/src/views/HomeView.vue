@@ -168,8 +168,8 @@ export default {
     AOS.init();
   },
   setup() {
-    const Web3 = require("web3");
     let totalValue = ref(0);
+    const Web3 = require("web3");
 
     const getTotalContribution = async () => {
       const web3 = new Web3(
