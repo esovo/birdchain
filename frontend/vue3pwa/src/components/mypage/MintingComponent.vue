@@ -19,7 +19,24 @@
           <td class="text-left">{{ item.amount }}</td>
           <td class="text-left" id="txid">{{ item.txid }}</td>
           <td class="text-left">
-            {{ item.iucn }}
+            <div v-if="item.iucn === 'VU'">
+              취약
+            </div>
+            <div v-if="item.iucn === 'LC'">
+              관심대상
+            </div>
+            <div v-if="item.iucn === 'NT'">
+              준위협
+            </div>
+            <div v-if="item.iucn === 'EN'">
+              위기
+            </div>
+            <div v-if="item.iucn === 'CR'">
+              위급
+            </div>
+            <div v-if="item.iucn === 'RE'">
+              지역절멸
+            </div>
           </td>
         </tr>
       </tbody>
