@@ -22,7 +22,7 @@ export default {
       items,
     };
   },
-  name: "MynftComponenet",
+  name: "MynftComponent",
   data() {
     return {
       nfturl: require("../../assets/img/nft1.png"),

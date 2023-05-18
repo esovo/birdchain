@@ -65,7 +65,7 @@ export default defineComponent({
   flex-direction: row;
   font-size: 18;
   color: #4e4e4e;
-  line-height: 27px;
+  /* line-height: 27px; */
   width: 100%;
   border-bottom: solid;
   background-color: white;
@@ -102,8 +102,9 @@ a {
   flex-direction: row;
   margin-left: 4%;
   margin-top: 40px;
-  font-size: 1.5vw;
+  font-size: 1.3vw;
   line-height: 27px;
+  font-family: GmarketSansMedium;
 }
 
 @media (max-width: 1200px) {
