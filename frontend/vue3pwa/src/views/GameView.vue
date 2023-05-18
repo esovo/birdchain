@@ -19,7 +19,6 @@ import charBirdImg3 from "@/assetgame/img/drags/flybird.png";
 import { useStore } from "@/stores/store";
 import { countStore } from "@/stores/birdCountStore";
 
-// console.log(main)
 export default {
   name: "GameView",
 
@@ -332,7 +331,6 @@ export default {
     // hitTop() {
     //   let birdBottom = this.bird.y + this.bird.animatedSpray.height;
     //   let fieldTop = this.ground.tilingSpriteGround.y
-    //   console.log(fieldTop)
 
     // },
     hitGround() {
@@ -340,8 +338,7 @@ export default {
       let groundTop = this.ground.tilingSpriteGround.y;
 
       if (birdBottom > groundTop) {
-        console.log(birdBottom);
-        console.log(groundTop);
+   
         this.finish();
       }
     },
