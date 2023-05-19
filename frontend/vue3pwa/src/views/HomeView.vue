@@ -550,7 +550,7 @@ export default {
     letter-spacing: -0.03em;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size: 1vw;
+    font-size: 2.4vw;
 
     text-align: right;
     text-transform: capitalize;
@@ -566,7 +566,7 @@ export default {
     letter-spacing: -0.03em;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size: 1.4vw;
+    font-size: 2.4vw;
 
     text-align: left;
     text-transform: capitalize;
@@ -596,6 +596,7 @@ export default {
     text-align: center;
     text-transform: capitalize;
     color: #555555;
+    font-size: 2.4vw;
   }
 
   .nftdonator {
@@ -613,6 +614,10 @@ export default {
 
   .backcircle {
     display: none;
+  }
+
+  .totalValue{
+    font-size: 4vw;
   }
 }
 </style>
