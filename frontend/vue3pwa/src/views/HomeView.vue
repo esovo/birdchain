@@ -516,9 +516,9 @@ export default {
     object-fit: contain;
   }
 
-  .component2 .mainComponent img {
+  /* .component2 .mainComponent img {
     width: 150px;
-  }
+  } */
 
   .maintext {
     font-size: 5vw;
