@@ -61,13 +61,13 @@
       <div class="loading">
         <v-progress-circular
           indeterminate
-          size="70"
-          width="7"
-          color="primary"
+          size="90"
+          width="9"
+          color="green-darken-4"
           align-items="center"
         ></v-progress-circular>
         <br />
-        <div style="background-color: rgb(204, 255, 204, 0.5); color: black">
+        <div style="background-color: rgb(000, 102, 051, 0.5); color: aliceblue">
           <div style="text-align: center">
             메타마스크가 자동으로 열리지 않았다면 메타마스크를 열어주세요.
           </div>

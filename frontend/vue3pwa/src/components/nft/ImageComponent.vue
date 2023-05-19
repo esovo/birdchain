@@ -75,25 +75,25 @@
   </v-container>
 
   <v-overlay v-model="loading" persistent="true">
-    <div class="loading">
-      <v-progress-circular
-        indeterminate
-        size="70"
-        width="7"
-        color="primary"
-        align-items="center"
-      ></v-progress-circular>
-      <br />
-      <div style="background-color: rgb(204, 255, 204, 0.5); color: black">
-        <div style="text-align: center">
-          메타마스크가 자동으로 열리지 않았다면 메타마스크를 열어주세요.
-        </div>
-        <div style="text-align: center">
-          블록체인에 블록을 생성하는데 시간이 걸립니다. 조금만 기다려주세요.
+      <div class="loading">
+        <v-progress-circular
+          indeterminate
+          size="90"
+          width="9"
+          color="green-darken-4"
+          align-items="center"
+        ></v-progress-circular>
+        <br />
+        <div style="background-color: rgb(000, 102, 051, 0.5); color: aliceblue">
+          <div style="text-align: center">
+            메타마스크가 자동으로 열리지 않았다면 메타마스크를 열어주세요.
+          </div>
+          <div style="text-align: center">
+            블록체인에 블록을 생성하는데 시간이 걸립니다. 조금만 기다려주세요.
+          </div>
         </div>
       </div>
-    </div>
-  </v-overlay>
+    </v-overlay>
 </template>
 <script>
 import axios from "axios";
