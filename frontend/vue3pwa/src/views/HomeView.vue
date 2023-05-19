@@ -63,7 +63,7 @@
             다른 동물과 식물들도 영향을 받을 수 있습니다.<br />
             또한, 새는 농업 및 식량 생산에 중요한 역할을 합니다.<br />
             새는 자연의 다양성을 표현하는 동물입니다.<br />
-            새 보호는 우리의 삶과 건강에도 긍정적인 영향을 미칩니다.
+            새 보호는 우리의 삶에도 긍정적인 영향을 미칩니다.
           </div>
         </div>
         <img :src="img2" style="object-fit: cover" />
@@ -528,7 +528,7 @@ export default {
   }
 
   .maintext2 {
-    font-size: 5vw;
+    font-size: 4.8vw;
     text-align: left;
     text-transform: capitalize;
     color: #02100d;
