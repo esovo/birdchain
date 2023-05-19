@@ -211,9 +211,8 @@ export default {
 </script>
 <style scoped>
 .donate-button {
-  margin-top: 3vw;
   font-size: 1.5vw;
-  margin-bottom: 50px;
+  margin-bottom: 2rem;
 }
 .donate-card {
   display: flex;

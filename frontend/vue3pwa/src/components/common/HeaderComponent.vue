@@ -89,7 +89,7 @@ export default defineComponent({
 .navBox {
   display: flex;
   align-items: center;
-  border-bottom: solid;
+  border-bottom: solid #646464;;
   background-color: white;
 }
 

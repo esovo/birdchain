@@ -1,6 +1,5 @@
 <template>
   <div class="footer">
-    <hr />
     <div class="footerTextLink">About US | Contact Us</div>
     <br />
     <div class="footerText">Bird Chain Project</div>
@@ -15,9 +14,9 @@ export default {
 </script>
 <style>
 .footer {
-  margin-left: 100px;
-  margin-right: 100px;
   margin-bottom: 50px;
+  border-top: solid #6f6f6f;
+  width: 100%;
 }
 .footerTextLink {
   margin-top: 20px;
