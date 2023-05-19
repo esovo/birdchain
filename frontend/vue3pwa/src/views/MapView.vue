@@ -412,10 +412,10 @@ const searchByType = (data) => {
     font-size: 3vw;
   }
   .info-regist {
-    font-size: 2vw;
+    font-size: 2.4vw;
   }
   .map-top-text {
-    font-size: 2vw;
+    font-size: 2.4vw;
   }
 }
 </style>
