@@ -46,9 +46,8 @@ export default {
     margin-top: 50px;
 }
 .v-bottom-navigation__content {
-  justify-content: space-around;
-  padding-left: 40px;
-  padding-right: 40px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .v-btn--stacked.v-btn--size-default{
