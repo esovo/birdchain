@@ -143,5 +143,19 @@ button[type="submit"]:hover {
   .form-row > p {
     font-size: 13px;
   }
+  .form-row > input {
+    margin-left: 5px;
+    height: 30px;
+    width: 250px;
+  }
+
+  .form-row > textarea {
+    margin-left: 5px;
+    height: 60px;
+    width: 250px;
+  }
+  button[type="submit"] {
+    height: 120x;
+  }
 }
 </style>
