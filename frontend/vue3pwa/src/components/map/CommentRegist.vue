@@ -1,29 +1,28 @@
 <template>
   <div>
     <form @submit.prevent="regist" class="regist-form">
-      <ul class="form-list">
-        <li class="form-row">
-          <label>아이디</label>
+      <div class="input-container">
+        <div class="form-row">
+          <p>아이디</p>
           <input
             type="text"
             v-model="form.nickname"
             placeholder="아이디를 입력해주세요." />
-        </li>
-        <li class="form-row">
-          <label>비밀번호</label>
+        </div>
+        <div class="form-row">
+          <p>비밀번호</p>
           <input
             type="password"
             v-model="form.password"
             placeholder="비밀번호를 입력해주세요." />
-        </li>
-        <li class="form-row">
-          <label>내용</label>
+        </div>
+        <div class="form-row">
+          <p>내용</p>
           <textarea
-            id="content"
             v-model="form.content"
             placeholder="내용을 입력해주세요."></textarea>
-        </li>
-      </ul>
+        </div>
+      </div>
       <button type="submit">등록</button>
     </form>
   </div>
@@ -83,41 +82,43 @@ const regist = () => {
 .regist-form {
   display: flex;
 }
-.form-list {
-  list-style-type: none;
-  border-radius: 3px;
+
+.input-container {
+  height: 185px;
+  margin-top: 10px;
 }
+
 .form-row {
   display: flex;
-  justify-content: space-between;
-  padding: 0.5em;
+  margin-top: 7px;
 }
-.form-row > label {
-  flex: 1;
-  width: 1px;
+
+.form-row > p {
+  width: 62px;
   text-align: start;
   margin-top: 5px;
 }
+
 .form-row > input {
   background: rgb(230, 230, 230);
-  flex: 3;
   padding: 7px;
+  margin-left: 5px;
   height: 40px;
-  width: 330px;
+  width: 280px;
 }
 
 .form-row > textarea {
   background: rgb(230, 230, 230);
-  flex: 3;
   padding: 7px;
+  margin-left: 5px;
   height: 80px;
-  width: 330px;
+  width: 280px;
 }
 
 button[type="submit"] {
-  height: 185px;
+  height: 175px;
   width: 50px;
-  margin-top: 10px;
+  margin-top: 15px;
   margin-bottom: 10px;
   margin-left: 10px;
   background-color: #6dcd01;
@@ -133,11 +134,14 @@ button[type="submit"]:hover {
 
 @media (max-width: 800px) {
   .regist-form {
-    border: 1px solid black;
     width: 350px;
   }
-  .form-list {
+  .input-container {
     width: 300px;
+  }
+
+  .form-row > p {
+    font-size: 13px;
   }
 }
 </style>

@@ -253,7 +253,7 @@ const doDeleteMarker = (comment) => {
         .catch((error) => {
           Swal.fire({
             position: "center",
-            title: `"${error.response.data.message}"`,
+            title: `${error.response.data.message}`,
             icon: "error",
           }).then(function () {
             comment.isAcceptable = true;
@@ -355,7 +355,7 @@ const onWheel = (event) => {
 }
 
 .warn-info {
-  width: 400px;
+  width: 390px;
   color: red;
   font-size: 10px;
   padding-top: 5px;
@@ -395,7 +395,7 @@ const onWheel = (event) => {
     width: 286px;
   }
   .warn-info {
-    width: 370px;
+    width: 325px;
   }
 }
 </style>

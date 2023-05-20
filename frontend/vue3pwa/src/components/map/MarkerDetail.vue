@@ -506,8 +506,7 @@ const doDeleteMarker = () => {
 
 @media (max-width: 800px) {
   .my-card-marker {
-    /* border: 1px solid black;
-    width: 380px; */
+    width: 380px;
   }
 }
 </style>
