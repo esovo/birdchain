@@ -152,7 +152,7 @@ button[type="submit"]:hover {
   .form-row > textarea {
     margin-left: 5px;
     height: 80px;
-    width: 280px;
+    width: 300px;
   }
 }
 </style>
