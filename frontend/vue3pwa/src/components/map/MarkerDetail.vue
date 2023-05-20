@@ -45,7 +45,12 @@
           <p><strong>유형</strong></p>
           <p>{{ detailData.type }}</p>
         </div>
-        <p v-if="modifyFlagMarker" class="required-item" style="margin-left: 75px;">선택입력사항</p>
+        <p
+          v-if="modifyFlagMarker"
+          class="required-item"
+          style="margin-left: 75px">
+          선택입력사항
+        </p>
         <div class="list-item">
           <p><strong>내용</strong></p>
           <p v-if="!modifyFlagMarker">
@@ -500,5 +505,12 @@ const doDeleteMarker = () => {
   text-align: left;
   margin-top: 10px;
   margin-left: 50px;
+}
+
+@media (max-width: 800px) {
+  .my-card-marker {
+    border: 1px solid black;
+    width: 380px;
+  }
 }
 </style>

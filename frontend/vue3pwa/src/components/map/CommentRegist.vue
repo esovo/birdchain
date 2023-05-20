@@ -130,4 +130,14 @@ button[type="submit"] {
 button[type="submit"]:hover {
   background-color: #64ba02;
 }
+
+@media (max-width: 800px) {
+  .regist-form {
+    border: 1px solid black;
+    width: 350px;
+  }
+  .form-list {
+    width: 300px;
+  }
+}
 </style>
