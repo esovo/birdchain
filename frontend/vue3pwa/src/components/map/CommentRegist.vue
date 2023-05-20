@@ -145,17 +145,14 @@ button[type="submit"]:hover {
   }
   .form-row > input {
     margin-left: 5px;
-    height: 30px;
+    height: 40px;
     width: 250px;
   }
 
   .form-row > textarea {
     margin-left: 5px;
-    height: 60px;
+    height: 80px;
     width: 250px;
-  }
-  button[type="submit"] {
-    height: 120x;
   }
 }
 </style>

@@ -362,7 +362,7 @@ const doDeleteMarker = () => {
         .catch((error) => {
           Swal.fire({
             position: "center",
-            title: `${error.response.data.message.value}`,
+            title: `${error.response.data.message}`,
             icon: "error",
           }).then(function () {
             isAcceptable.value = true;
