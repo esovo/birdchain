@@ -371,7 +371,7 @@ const searchByType = (data) => {
   margin-bottom: 20px;
   display: flex;
   justify-content: center;
-  width: 450px;
+  width: 400px;
 }
 
 @media (max-width: 800px) {
