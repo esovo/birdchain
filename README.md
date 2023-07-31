@@ -141,9 +141,9 @@
 
 | IntelliJ | ---|
 | --- | --- |
-| JDK | 11.0.13 |
-| SpringBoot | 2.7.8 |
-| dependency | 1.0.15 |
+| JDK | 17 |
+| SpringBoot | 3.0.6 |
+| dependency | 1.1.0 |
 | gradle | 7.6 |
 | jwt | 0.9.1 |
 | JPA |  |
